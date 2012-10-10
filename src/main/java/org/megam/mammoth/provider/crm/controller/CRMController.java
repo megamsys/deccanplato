@@ -39,7 +39,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @Controller
-@RequestMapping("/provider/crm/")
+@RequestMapping("/provider/crm")
 public class CRMController {
 
 	private Validator validator;
@@ -47,9 +47,8 @@ public class CRMController {
 
 	private final Logger logger = LoggerFactory.getLogger(CRMController.class);
 
-
 	@Autowired
-	public CRMController(Validator validator) {		
+	public CRMController(Validator validator) {
 		this.validator = validator;
 	}
 
@@ -57,7 +56,6 @@ public class CRMController {
 	public @ResponseBody
 	String getOAuth() {
 		logger.info(clz + "getOAuth GET start.");
-
 
 		String clientId = "3MVG9Y6d_Btp4xp51yG_eZBS13SJirRv1uk0ITwiM5eRcfsC1qg4UinY_FbU3G0niSsUyI0zkEFkhzO89.TmV";
 		String clientSecret = "6832915771039819665";
@@ -73,8 +71,6 @@ public class CRMController {
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(salesforce_oauth_url);
 
-
-
 		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 		nvps.add(new BasicNameValuePair("grant_type", grant_type));
 		nvps.add(new BasicNameValuePair("client_id", clientId));
@@ -87,7 +83,6 @@ public class CRMController {
 			e.printStackTrace();
 		}
 
-
 		String output = null;
 		try {
 			HttpResponse response = httpclient.execute(httpPost);
@@ -99,7 +94,7 @@ public class CRMController {
 		} catch (IOException e) {
 			e.printStackTrace();
 
-		}finally {
+		} finally {
 
 			httpPost.releaseConnection();
 		}
@@ -122,11 +117,10 @@ public class CRMController {
 
 		String salesforce_create_user_url = salesforceCRM.getInstance_url()
 
-				+ "/services/data/v25.0/sobjects/User/";
+		+ "/services/data/v25.0/sobjects/User/";
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(salesforce_create_user_url);
-
 
 		httpPost.addHeader("Authorization",
 				"OAuth " + salesforceCRM.getAccess_token());
@@ -145,14 +139,12 @@ public class CRMController {
 		userAttrMap.put("LanguageLocaleKey",
 				salesforceCRM.getLanguageLocaleKey());
 
-
 		ObjectMapper objmap = new ObjectMapper();
 
 		try {
 			httpPost.setEntity(new StringEntity(objmap
 
-					.writeValueAsString(userAttrMap), "application/json",
-					"UTF-8"));
+			.writeValueAsString(userAttrMap), "application/json", "UTF-8"));
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();
 			return e.toString();
@@ -181,12 +173,11 @@ public class CRMController {
 			httpPost.releaseConnection();
 		}
 
-
 		logger.info(clz + "CreateUser POST end." + output);
 		return output;
 	}
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET, consumes = "application/json")
+	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	String listuser(@RequestBody String access_stuff) {
 		logger.info(clz + "ListUser : GET start.");
@@ -253,11 +244,39 @@ public class CRMController {
 			e.printStackTrace();
 		}
 
-
 		return output;
 
 	}
 
+	@RequestMapping(value = "/ZoHo", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	String ZoHoauthentication() {
+
+		String username = "raja.pandiya@megam.co.in";
+		String password = "team4megam";
+		String OAuth_Url = "https://accounts.zoho.com/apiauthtoken/nb/create?";
+		logger.info("IN ZOHO OAUTH");
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(OAuth_Url);
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		nvps.add(new BasicNameValuePair("SCOPE", "ZohoCRM/crmapi"));
+		nvps.add(new BasicNameValuePair("EMAIL_ID", username));
+		nvps.add(new BasicNameValuePair("PASSWORD", password));
+		String output = null;
+
+		try {
+			HttpResponse response = httpclient.execute(httppost);
+			output = EntityUtils.toString(response.getEntity());
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.info("ZOHO OAUTH" + output);
+		return output;
+	}
 
 }
-
