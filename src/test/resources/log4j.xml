@@ -10,7 +10,11 @@
 	</appender>
 	
 	<!-- Application Loggers -->
+<<<<<<< HEAD
 	<logger name="org.megam.deccanplato">
+=======
+	<logger name="org.megam.mammoth">
+>>>>>>> pd/master
 		<level value="debug" />
 	</logger>
 	

@@ -59,7 +59,7 @@ public class SaleforceAdapterTest {
 		System.out.println("setUp ZOHO");
 		RestClient rc = new RestClient();
 		Resource resource = rc
-				.resource("http://localhost:8080/deccanplato/provider/crm/ZoHo");
+				.resource("http://localhost:8080/deccanplato/provider/crm/zoho");
 		String response = resource.accept("application/json").get(String.class);
 		System.out.println("Access =>" + response);
 	}
