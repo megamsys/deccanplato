@@ -98,7 +98,7 @@ public class CRMController {
 		return output;
 	}
 
-	@RequestMapping(value="provider/crm",method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value="provider/crm", method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody
 	String createUser(@RequestBody String access_stuff)
 			throws UnsupportedEncodingException {
@@ -212,7 +212,7 @@ public class CRMController {
 		return output;
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE, consumes = "application/json")
+	@RequestMapping(value="provider/crm/delete", method = RequestMethod.DELETE, consumes = "application/json")
 	public @ResponseBody
 	String deleteUser(@RequestBody String access_stuff) {
 
@@ -245,6 +245,39 @@ public class CRMController {
 		return output;
 
 	}
+	
+	@RequestMapping(value = "provider/crm/ZoHo", method = RequestMethod.GET, produces="application/json")
+	public @ResponseBody
+	String ZoHoauthentication() {
+
+		String username = "raja.pandiya@megam.co.in";
+		String password = "team4megam";
+		String OAuth_Url = "https://accounts.zoho.com/apiauthtoken/nb/create?";
+		logger.info("IN ZOHO OAUTH");
+		System.out.println("IN ZOHO OAUTH");
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(OAuth_Url);
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		nvps.add(new BasicNameValuePair("SCOPE", "ZohoCRM/crmapi"));
+		nvps.add(new BasicNameValuePair("EMAIL_ID", username));
+		nvps.add(new BasicNameValuePair("PASSWORD", password));
+		String output = null;
+
+		try {
+			HttpResponse response = httpclient.execute(httppost);
+			output = EntityUtils.toString(response.getEntity());
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.info("ZOHO OAUTH" + output);
+		return output;
+	}
+
 
 
 }

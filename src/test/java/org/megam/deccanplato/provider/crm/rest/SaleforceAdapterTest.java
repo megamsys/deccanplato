@@ -27,7 +27,7 @@ public class SaleforceAdapterTest {
 		System.out.println("Access =>" + access_stuff);
 	}
 
-	@Ignore
+	
 	@Test
 	public void testCreateUser() {
 		System.out.println("testCreateUser :" + access_stuff);
@@ -49,11 +49,18 @@ public class SaleforceAdapterTest {
 		SalesforceCRM salesforceCRM = gson.fromJson(access_stuff,
 				SalesforceCRM.class);
 		Resource resource = rc
-				.resource("http://localhost:8080/deccanplato/provider/crm/" + salesforceCRM.getAccess_token()
-						 );
-		String response = resource.accept("application/json")
-				.get(String.class);
+				.resource("http://localhost:8080/deccanplato/provider/crm/list");
+		String response = resource.accept("application/json").get(String.class);
 		System.out.println("testListUser :"+response);
 
+	}
+	@Test
+	public void ZoHoOAuth(){
+		System.out.println("setUp ZOHO");
+		RestClient rc = new RestClient();
+		Resource resource = rc
+				.resource("http://localhost:8080/deccanplato/provider/crm/ZoHo");
+		String response = resource.accept("application/json").get(String.class);
+		System.out.println("Access =>" + response);
 	}
 }
