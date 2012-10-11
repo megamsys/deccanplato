@@ -2,6 +2,8 @@ package org.megam.deccanplato.provider.crm.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,12 +16,15 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIUtils;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import org.megam.deccanplato.provider.crm.info.SalesforceCRM;
+import org.megam.deccanplato.provider.crm.info.ZoHoCRM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -212,7 +217,7 @@ public class CRMController {
 		return output;
 	}
 
-	@RequestMapping(value="provider/crm/delete", method = RequestMethod.DELETE, consumes = "application/json")
+	@RequestMapping(value="provider/crm", method = RequestMethod.DELETE, consumes = "application/json")
 	public @ResponseBody
 	String deleteUser(@RequestBody String access_stuff) {
 
@@ -247,10 +252,141 @@ public class CRMController {
 	}
 	
 
-	@RequestMapping(value = "provider/crm/zoho", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "provider/crm/zoho", method = RequestMethod.GET, produces="application/json")
 	public @ResponseBody
-	String zohoAccess() {
-		return "{test: no_data}";
+	String ZoHoauthentication() {
+        
+		logger.info("IN ZOHO OAUTH::::::::::::::::::::::::::");
+		String username = "raja.pandiya@megam.co.in";
+		String password = "team4megam";
+		String OAuth_Url = "https://accounts.zoho.com/apiauthtoken/nb/create?";
+		logger.info("IN ZOHO OAUTH::::::::::::::::::::::::::");
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(OAuth_Url);
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		nvps.add(new BasicNameValuePair("SCOPE", "ZohoCRM/crmapi"));
+		nvps.add(new BasicNameValuePair("EMAIL_ID", username));
+		nvps.add(new BasicNameValuePair("PASSWORD", password));
+		
+		
+		try {
+			httppost.setEntity(new UrlEncodedFormEntity(nvps));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String output = null;
+
+		try {
+			HttpResponse response = httpclient.execute(httppost);			
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			output = gson.toJson(new ZoHoCRM(EntityUtils.toString(response.getEntity())));
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.info("ZOHO OAUTH" + output);
+		return output;
+	}
+	@RequestMapping(value = "provider/crm/zoho", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody String getUsers(){
+		
+		String user_url="https://crm.zoho.com/crm/private/json/Users/getUsers?";     
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+				
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		nvps.add(new BasicNameValuePair("authtoken", "f8166bf9840f2996d619552978ba8e4e"));
+		nvps.add(new BasicNameValuePair("scope", "crmapi"));
+		nvps.add(new BasicNameValuePair("type", "AllUsers"));		
+		URI urli = null;
+		try {
+			urli = URIUtils.createURI("http", "www.crm.zoho.com", -1, "crm/private/json/Users/getUsers", URLEncodedUtils.format(nvps, "UTF-8"), null);
+		} catch (URISyntaxException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		HttpGet httpget = new HttpGet(urli);
+		String output="";
+		try {
+			HttpResponse response=httpclient.execute(httpget);
+			output = EntityUtils.toString(response.getEntity());
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return output;
+	}
+	
+	
+	
+	
+	
+	@RequestMapping(value="provider/crm/Account", method = RequestMethod.POST, consumes = "application/json")
+	public@ResponseBody String createSalesforceAccount(@RequestBody String data){
+		
+		logger.info(clz + "createAccount : POST start.\n" + data);
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		SalesforceCRM salesforceCRM = gson.fromJson(data,	SalesforceCRM.class);
+		logger.info(clz + "createAccount :" + salesforceCRM.toString());
+
+		String salesforce_create_user_url = salesforceCRM.getInstance_url()
+
+				+ "/services/data/v25.0/sobjects/Account/";
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httpPost = new HttpPost(salesforce_create_user_url);
+
+
+		httpPost.addHeader("Authorization",
+				"OAuth " + salesforceCRM.getAccess_token());
+
+		Map<String, Object> userAttrMap = new HashMap<String, Object>();
+		userAttrMap.put("Name", /*salesforceCRM.getUsername()*/"RAJA");		
+		ObjectMapper objmap = new ObjectMapper();
+
+		try {
+			httpPost.setEntity(new StringEntity(objmap
+
+					.writeValueAsString(userAttrMap), "application/json",
+					"UTF-8"));
+		} catch (JsonGenerationException e) {
+			e.printStackTrace();
+			return e.toString();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+			return e.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return e.toString();
+		}
+
+		String output = null;
+		try {
+			HttpResponse response = httpclient.execute(httpPost);
+			System.out.println(clz + "createAccount : POST : RESPONSE\n"
+					+ response);
+			output = EntityUtils.toString(response.getEntity());
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			return e.toString();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+			return e.toString();
+		} finally {
+			httpPost.releaseConnection();
+		}
+
+
+		logger.info(clz + "CreateAccount POST end." + output);
+		return output;
 	}
 
 }

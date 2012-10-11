@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.megam.deccanplato.provider.crm.info.SalesforceCRM;
+import org.megam.deccanplato.provider.crm.info.ZoHoCRM;
 
 import org.apache.wink.client.Resource;
 
@@ -16,6 +17,7 @@ import com.google.gson.GsonBuilder;
 public class SaleforceAdapterTest {
 
 	private static String access_stuff;
+	private static String zohotoken;
 
 	@BeforeClass
 	public static void setUp() {
@@ -58,9 +60,27 @@ public class SaleforceAdapterTest {
 	public void ZoHoOAuth(){
 		System.out.println("setUp ZOHO");
 		RestClient rc = new RestClient();
-		Resource resource = rc
-				.resource("http://localhost:8080/deccanplato/provider/crm/zoho");
-		String response = resource.accept("application/json").get(String.class);
+		Resource resource = rc.resource("http://localhost:8080/deccanplato/provider/crm/zoho");
+		zohotoken =(resource.accept("application/json").get(String.class));
+		System.out.println("Access =>" + zohotoken);
+	}
+	@Test
+	public void ZoHogetUser(){
+		System.out.println("setUp ZOHOGET");		
+		RestClient rc = new RestClient();
+		Resource resource = rc.resource("http://localhost:8080/deccanplato/provider/crm/zoho");
+		String response =resource.contentType("application/json").accept("application/json").post(String.class, zohotoken);
 		System.out.println("Access =>" + response);
+	}
+	@Test
+	public void SalesforceAccount(){
+		System.out.println("testCreateAccount :" + access_stuff);
+		RestClient rc = new RestClient();
+
+		Resource resource = rc
+				.resource("http://localhost:8080/deccanplato/provider/crm/Account");
+		String response = resource.contentType("application/json")
+				.accept("application/json").post(String.class, access_stuff);
+		System.out.println("testCreateAccount :" + response);
 	}
 }
