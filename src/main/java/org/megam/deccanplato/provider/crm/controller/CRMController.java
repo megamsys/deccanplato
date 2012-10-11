@@ -245,7 +245,12 @@ public class CRMController {
 		return output;
 
 	}
-
+	
+	@RequestMapping(value = "provider/crm/zoho", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	String zohoAccess() {
+		return "{test: no_data}";
+	}
 
 }
 
