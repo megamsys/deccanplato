@@ -29,4 +29,8 @@
 		<servlet-name>crm</servlet-name>
 		<url-pattern>/provider/crm/*</url-pattern>
 	</servlet-mapping>	
+	<servlet-mapping>
+		<servlet-name>crm</servlet-name>
+		<url-pattern>/provider/crm/Account/*</url-pattern>
+	</servlet-mapping>
 </web-app>
