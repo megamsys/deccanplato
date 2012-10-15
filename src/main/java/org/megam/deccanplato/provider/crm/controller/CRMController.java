@@ -24,6 +24,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import org.megam.deccanplato.provider.crm.info.SalesforceCRM;
+import org.megam.deccanplato.provider.crm.info.SalesforceCrmAccount;
 import org.megam.deccanplato.provider.crm.info.ZoHoCRM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,19 +48,16 @@ public class CRMController {
 
 	private final Logger logger = LoggerFactory.getLogger(CRMController.class);
 
-
 	public CRMController() {
 	}
 
-	@RequestMapping(value="provider/crm", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "provider/crm", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	String getOAuth() {
 		logger.info(clz + "getOAuth GET start.");
 
-
 		String clientId = "3MVG9Y6d_Btp4xp51yG_eZBS13SJirRv1uk0ITwiM5eRcfsC1qg4UinY_FbU3G0niSsUyI0zkEFkhzO89.TmV";
 		String clientSecret = "6832915771039819665";
-
 
 		String salesforce_oauth_url = "https://login.salesforce.com/services/oauth2/token";
 		/** For session ID instead of OAuth 2.0, use "grant_type", "password" **/
@@ -76,7 +74,7 @@ public class CRMController {
 		nvps.add(new BasicNameValuePair("client_secret", clientSecret));
 		nvps.add(new BasicNameValuePair("username", username));
 		nvps.add(new BasicNameValuePair("password", password));
-		
+
 		try {
 			httpPost.setEntity(new UrlEncodedFormEntity(nvps));
 		} catch (UnsupportedEncodingException e) {
@@ -94,7 +92,7 @@ public class CRMController {
 		} catch (IOException e) {
 			e.printStackTrace();
 
-		}finally {	
+		} finally {
 			httpPost.releaseConnection();
 		}
 
@@ -103,23 +101,22 @@ public class CRMController {
 		return output;
 	}
 
-	@RequestMapping(value="provider/crm", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "provider/crm", method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody
 	String createUser(@RequestBody String access_stuff)
 			throws UnsupportedEncodingException {
 
 		logger.info(clz + "createUser : POST start.\n" + access_stuff);
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		SalesforceCRM salesforceCRM = gson.fromJson(access_stuff,	SalesforceCRM.class);
+		SalesforceCRM salesforceCRM = gson.fromJson(access_stuff, SalesforceCRM.class);
 		logger.info(clz + "createUser :" + salesforceCRM.toString());
 
 		String salesforce_create_user_url = salesforceCRM.getInstance_url()
 
-				+ "/services/data/v25.0/sobjects/User/";
+		+ "/services/data/v25.0/sobjects/User/";
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(salesforce_create_user_url);
-
 
 		httpPost.addHeader("Authorization",
 				"OAuth " + salesforceCRM.getAccess_token());
@@ -138,14 +135,12 @@ public class CRMController {
 		userAttrMap.put("LanguageLocaleKey",
 				salesforceCRM.getLanguageLocaleKey());
 
-
 		ObjectMapper objmap = new ObjectMapper();
 
 		try {
 			httpPost.setEntity(new StringEntity(objmap
 
-					.writeValueAsString(userAttrMap), "application/json",
-					"UTF-8"));
+			.writeValueAsString(userAttrMap), "application/json", "UTF-8"));
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();
 			return e.toString();
@@ -174,7 +169,6 @@ public class CRMController {
 			httpPost.releaseConnection();
 		}
 
-
 		logger.info(clz + "CreateUser POST end." + output);
 		return output;
 	}
@@ -182,20 +176,21 @@ public class CRMController {
 	@RequestMapping(value = "provider/crm/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	String listuser() {
-		logger.info(clz + "ListUser : GET start.");		
+		logger.info(clz + "ListUser : GET start.");
 
-		/** To-do, when we build an adapter for the system, the access token/instance_url per request will be memcached 
+		/**
+		 * To-do, when we build an adapter for the system, the access
+		 * token/instance_url per request will be memcached
 		 * 
 		 */
-		String instance_url ="";
-		String access_token ="";
+		String instance_url = "";
+		String access_token = "";
 		String salesforceListSingeUserURL = instance_url
 				+ "/services/data/v25.0/query/?q=SELECT+Username+from+User";
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(salesforceListSingeUserURL);
-		httpGet.addHeader("Authorization",
-				"OAuth " + access_token);
+		httpGet.addHeader("Authorization", "OAuth " + access_token);
 
 		String output = null;
 		try {
@@ -217,7 +212,7 @@ public class CRMController {
 		return output;
 	}
 
-	@RequestMapping(value="provider/crm", method = RequestMethod.DELETE, consumes = "application/json")
+	@RequestMapping(value = "provider/crm", method = RequestMethod.DELETE, consumes = "application/json")
 	public @ResponseBody
 	String deleteUser(@RequestBody String access_stuff) {
 
@@ -246,16 +241,14 @@ public class CRMController {
 			e.printStackTrace();
 		}
 
-
 		return output;
 
 	}
-	
 
-	@RequestMapping(value = "provider/crm/zoho", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "provider/crm/zoho", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	String ZoHoauthentication() {
-        
+
 		logger.info("IN ZOHO OAUTH::::::::::::::::::::::::::");
 		String username = "raja.pandiya@megam.co.in";
 		String password = "team4megam";
@@ -268,8 +261,7 @@ public class CRMController {
 		nvps.add(new BasicNameValuePair("SCOPE", "ZohoCRM/crmapi"));
 		nvps.add(new BasicNameValuePair("EMAIL_ID", username));
 		nvps.add(new BasicNameValuePair("PASSWORD", password));
-		
-		
+
 		try {
 			httppost.setEntity(new UrlEncodedFormEntity(nvps));
 		} catch (UnsupportedEncodingException e1) {
@@ -279,9 +271,10 @@ public class CRMController {
 		String output = null;
 
 		try {
-			HttpResponse response = httpclient.execute(httppost);			
+			HttpResponse response = httpclient.execute(httppost);
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			output = gson.toJson(new ZoHoCRM(EntityUtils.toString(response.getEntity())));
+			output = gson.toJson(new ZoHoCRM(EntityUtils.toString(response
+					.getEntity())));
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -292,27 +285,32 @@ public class CRMController {
 		logger.info("ZOHO OAUTH" + output);
 		return output;
 	}
+
 	@RequestMapping(value = "provider/crm/zoho", method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody String getUsers(){
-		
-		String user_url="https://crm.zoho.com/crm/private/json/Users/getUsers?";     
+	public @ResponseBody
+	String getUsers() {
+
+		String user_url = "https://crm.zoho.com/crm/private/json/Users/getUsers?";
 		DefaultHttpClient httpclient = new DefaultHttpClient();
-				
+
 		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-		nvps.add(new BasicNameValuePair("authtoken", "f8166bf9840f2996d619552978ba8e4e"));
+		nvps.add(new BasicNameValuePair("authtoken",
+				"f8166bf9840f2996d619552978ba8e4e"));
 		nvps.add(new BasicNameValuePair("scope", "crmapi"));
-		nvps.add(new BasicNameValuePair("type", "AllUsers"));		
+		nvps.add(new BasicNameValuePair("type", "AllUsers"));
 		URI urli = null;
 		try {
-			urli = URIUtils.createURI("http", "www.crm.zoho.com", -1, "crm/private/json/Users/getUsers", URLEncodedUtils.format(nvps, "UTF-8"), null);
+			urli = URIUtils.createURI("http", "www.crm.zoho.com", -1,
+					"crm/private/json/Users/getUsers",
+					URLEncodedUtils.format(nvps, "UTF-8"), null);
 		} catch (URISyntaxException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 		HttpGet httpget = new HttpGet(urli);
-		String output="";
+		String output = "";
 		try {
-			HttpResponse response=httpclient.execute(httpget);
+			HttpResponse response = httpclient.execute(httpget);
 			output = EntityUtils.toString(response.getEntity());
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
@@ -323,39 +321,34 @@ public class CRMController {
 		}
 		return output;
 	}
-	
-	
-	
-	
-	
-	@RequestMapping(value="provider/crm/Account", method = RequestMethod.POST, consumes = "application/json")
-	public@ResponseBody String createSalesforceAccount(@RequestBody String data){
-		
+
+	@RequestMapping(value = "provider/crm/Account", method = RequestMethod.POST, consumes = "application/json")
+	public @ResponseBody
+	String createSalesforceAccount(@RequestBody String data) {
+
 		logger.info(clz + "createAccount : POST start.\n" + data);
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		SalesforceCRM salesforceCRM = gson.fromJson(data,	SalesforceCRM.class);
+		SalesforceCRM salesforceCRM = gson.fromJson(data, SalesforceCRM.class);
 		logger.info(clz + "createAccount :" + salesforceCRM.toString());
 
 		String salesforce_create_user_url = salesforceCRM.getInstance_url()
 
-				+ "/services/data/v25.0/sobjects/Account/";
+		+ "/services/data/v25.0/sobjects/Account/";
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(salesforce_create_user_url);
-
 
 		httpPost.addHeader("Authorization",
 				"OAuth " + salesforceCRM.getAccess_token());
 
 		Map<String, Object> userAttrMap = new HashMap<String, Object>();
-		userAttrMap.put("Name", /*salesforceCRM.getUsername()*/"RAJA");		
+		userAttrMap.put("Name", /* salesforceCRM.getUsername() */"RAJA");
 		ObjectMapper objmap = new ObjectMapper();
 
 		try {
 			httpPost.setEntity(new StringEntity(objmap
 
-					.writeValueAsString(userAttrMap), "application/json",
-					"UTF-8"));
+			.writeValueAsString(userAttrMap), "application/json", "UTF-8"));
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();
 			return e.toString();
@@ -384,10 +377,8 @@ public class CRMController {
 			httpPost.releaseConnection();
 		}
 
-
 		logger.info(clz + "CreateAccount POST end." + output);
 		return output;
 	}
 
 }
-
