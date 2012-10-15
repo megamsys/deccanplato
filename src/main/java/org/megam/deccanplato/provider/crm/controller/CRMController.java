@@ -23,9 +23,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import org.megam.deccanplato.provider.crm.info.SalesforceCRM;
-import org.megam.deccanplato.provider.crm.info.SalesforceCrmAccount;
-import org.megam.deccanplato.provider.crm.info.ZoHoCRM;
+import org.megam.deccanplato.provider.crm.info.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
