@@ -1,27 +1,30 @@
 package org.megam.deccanplato.provider.crm.info;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
-@JacksonXmlRootElement(localName = "Lead")
+
+
+@XmlRootElement(name = "Leads")
 public class ZohoLeads {
 
-	public FieldRows rows = new FieldRows();
+	private FieldRows rows;
 
-	private static String OWNER_ID = "OWNERID...";
+	private static String OWNER_ID = "OWNERID";
 
 	public ZohoLeads() {
+		rows =  new FieldRows(1);
 
 	}
 
 	public void setOwnerId(String value) {
 		rows.add(OWNER_ID, value);
+	}
+	
+	@XmlElement(name ="row")
+	public FieldRows getRows() {
+		return rows;
 	}
 
 }

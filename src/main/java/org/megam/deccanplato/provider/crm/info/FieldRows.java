@@ -2,21 +2,40 @@ package org.megam.deccanplato.provider.crm.info;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlList;
 
 
-@JacksonXmlRootElement(localName = "row")
 public class FieldRows {
 
-	@JacksonXmlProperty(isAttribute = true)
-	public int no = 0;
+	
+	private int no = 0;
+	
+	private List<MyFieldEntryType> fields = new ArrayList<MyFieldEntryType>();
+	
+	public FieldRows() {
+	}
 
-	@JacksonXmlProperty
-	public List<MyFieldEntryType> entry = new ArrayList<MyFieldEntryType>();
+	
+	public FieldRows(int tempNo) {
+		this.no = tempNo;
+	}
 
 	public void add(String key, String val) {
-		entry.add(new MyFieldEntryType());
+		fields.add(new MyFieldEntryType(key,val));
+	}	
+	
+	@XmlElement (name ="FL")
+	public List<MyFieldEntryType> getMyFieldEntryType() {
+		return fields;
 	}
+	
+	@XmlAttribute(name = "no")
+	public int getRowNumber() {
+		return no;
+	}
+	
 
 }
