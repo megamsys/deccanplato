@@ -20,6 +20,18 @@
 	<servlet-mapping>
 		<servlet-name>crm</servlet-name>
 		<url-pattern>/provider/crm/list/*</url-pattern>
+	</servlet-mapping>		
+	<servlet-mapping>
+		<servlet-name>crm</servlet-name>
+		<url-pattern>/provider/crm/*</url-pattern>
+	</servlet-mapping>	
+	<servlet-mapping>
+		<servlet-name>crm</servlet-name>
+		<url-pattern>/provider/crm/account/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>crm</servlet-name>
+		<url-pattern>/provider/crm/account/list/*</url-pattern>
 	</servlet-mapping>	
 	<servlet-mapping>
 		<servlet-name>crm</servlet-name>
@@ -27,10 +39,14 @@
 	</servlet-mapping>	
 	<servlet-mapping>
 		<servlet-name>crm</servlet-name>
-		<url-pattern>/provider/crm/*</url-pattern>
+		<url-pattern>/provider/crm/zoho/list/*</url-pattern>
 	</servlet-mapping>	
 	<servlet-mapping>
 		<servlet-name>crm</servlet-name>
-		<url-pattern>/provider/crm/Account/*</url-pattern>
-	</servlet-mapping>
+		<url-pattern>/provider/crm/zoho/account/*</url-pattern>
+	</servlet-mapping>	
+	<servlet-mapping>
+		<servlet-name>crm</servlet-name>
+		<url-pattern>/provider/crm/zoho/account/list/*</url-pattern>
+	</servlet-mapping>	
 </web-app>

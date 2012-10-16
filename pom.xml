@@ -129,7 +129,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
-			<!-- JSR 303 with Hibernate Validator -->
+		<!-- JSR 303 with Hibernate Validator -->
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
@@ -140,7 +140,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.1.0.Final</version>
 		</dependency>
-		
+
 		<!-- Amazon sdk -->
 		<dependency>
 			<groupId>com.amazonaws</groupId>
@@ -208,6 +208,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<groupId>org.apache.wink</groupId>
 			<artifactId>wink-client</artifactId>
 			<version>1.2.0-incubating</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.0.6</version>
 		</dependency>
 	</dependencies>
 	<repositories>
@@ -295,7 +300,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
-			<artifactId>exec-maven-plugin</artifactId>
+				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.2.1</version>
 				<configuration>
 					<mainClass>org.megam.deccanplato.Main</mainClass>

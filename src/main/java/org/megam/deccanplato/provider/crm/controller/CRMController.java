@@ -181,10 +181,10 @@ public class CRMController {
 		 * token/instance_url per request will be memcached
 		 * 
 		 */
-		String instance_url = "";
-		String access_token = "";
+		String instance_url = "https://ap1.salesforce.com";
+		String access_token = "00D90000000gFYH!AQoAQBXkWqnqoc6sh5sjQLCl0_AusCzzugyAPJ8l_uq1wICnmPH2zWFYWtsTekxKBY7jP.P.fQ.AgnyrGzh_Zd_AFlHuYsqc";
 		String salesforceListSingeUserURL = instance_url
-				+ "/services/data/v25.0/query/?q=SELECT+Username+from+User";
+				+ "/services/data/v25.0/query/?q=SELECT+Username+FROM+User";
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(salesforceListSingeUserURL);
@@ -242,7 +242,144 @@ public class CRMController {
 		return output;
 
 	}
+	
 
+	@RequestMapping(value = "provider/crm/account", method = RequestMethod.POST, consumes = "application/json")
+	public @ResponseBody
+	String createSalesforceAccount(@RequestBody String data) {
+
+		logger.info(clz + "createAccount : POST start.\n" + data);
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		SalesforceCRM salesforceCRM = gson.fromJson(data, SalesforceCRM.class);
+		SalesforceCrmAccount acc= gson.fromJson(data, SalesforceCrmAccount.class);
+		logger.info(clz + "createAccount :" + salesforceCRM.toString());
+
+		String salesforce_create_user_url = salesforceCRM.getInstance_url()
+
+		+ "/services/data/v25.0/sobjects/Account/";
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httpPost = new HttpPost(salesforce_create_user_url);
+
+		httpPost.addHeader("Authorization",
+				"OAuth " + salesforceCRM.getAccess_token());
+
+		Map<String, Object> userAttrMap = new HashMap<String, Object>();
+		userAttrMap.put("Name", acc.getName());
+		ObjectMapper objmap = new ObjectMapper();
+
+		try {
+			httpPost.setEntity(new StringEntity(objmap
+
+			.writeValueAsString(userAttrMap), "application/json", "UTF-8"));
+		} catch (JsonGenerationException e) {
+			e.printStackTrace();
+			return e.toString();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+			return e.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return e.toString();
+		}
+
+		String output = null;
+		try {
+			HttpResponse response = httpclient.execute(httpPost);
+			System.out.println(clz + "createAccount : POST : RESPONSE\n"
+					+ response);
+			output = EntityUtils.toString(response.getEntity());
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			return e.toString();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+			return e.toString();
+		} finally {
+			httpPost.releaseConnection();
+		}
+
+		logger.info(clz + "CreateAccount POST end." + output);
+		return output;
+	}
+
+	@RequestMapping(value = "provider/crm/account/list", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	String listAccount() {
+		logger.info(clz + "ListAccount : GET start.");
+
+		/**
+		 * To-do, when we build an adapter for the system, the access
+		 * token/instance_url per request will be memcached
+		 * 
+		 */
+		String instance_url = "https://ap1.salesforce.com";
+		String access_token = "00D90000000gFYH!AQoAQBXkWqnqoc6sh5sjQLCl0_AusCzzugyAPJ8l_uq1wICnmPH2zWFYWtsTekxKBY7jP.P.fQ.AgnyrGzh_Zd_AFlHuYsqc";
+		String salesforceListSingeUserURL = instance_url
+				+ "/services/data/v25.0/query/?q=SELECT+Name+FROM+Account";
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpGet httpGet = new HttpGet(salesforceListSingeUserURL);
+		httpGet.addHeader("Authorization", "OAuth " + access_token);
+
+		String output = null;
+		try {
+			HttpResponse response = httpclient.execute(httpGet);
+			System.out.println(clz + "listAccount : GET : RESPONSE\n" + response);
+			output = EntityUtils.toString(response.getEntity());
+
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			return e.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return e.toString();
+
+		} finally {
+			httpGet.releaseConnection();
+		}
+
+		return output;
+	}
+	
+	@RequestMapping(value = "provider/crm/account", method = RequestMethod.DELETE, produces = "application/json")
+	public @ResponseBody
+	String deleteAccount() {
+
+		logger.info(clz + "deleteUser : DELETE.");
+		/*Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		SalesforceCRM salesforceCRM = gson.fromJson(access_stuff,
+				SalesforceCRM.class);*/
+
+		//logger.info(clz + "deleteUser2 :" + salesforceCRM.toString());
+
+		String salesforceDeleteSingeUserURL = "https://ap1.salesforce.com"
+				+ "/services/data/v25.0/sobjects/Account/0019000000GHm47AAD";
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpDelete httpDelete = new HttpDelete(salesforceDeleteSingeUserURL);
+		httpDelete.addHeader("Authorization",
+				"OAuth " + "00D90000000gFYH!AQoAQBXkWqnqoc6sh5sjQLCl0_AusCzzugyAPJ8l_uq1wICnmPH2zWFYWtsTekxKBY7jP.P.fQ.AgnyrGzh_Zd_AFlHuYsqc");
+
+		String output = null;
+		try {
+			HttpResponse response = httpclient.execute(httpDelete);
+			output = EntityUtils.toString(response.getEntity());
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        System.out.println("DELETED USER3:"+output);
+		return output;
+
+	}
+	
+	
+	/*===============================ZOHO============================*/
+	
+	
 	@RequestMapping(value = "provider/crm/zoho", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	String ZoHoauthentication() {
@@ -319,28 +456,74 @@ public class CRMController {
 		}
 		return output;
 	}
-
-	@RequestMapping(value = "provider/crm/Account", method = RequestMethod.POST, consumes = "application/json")
+	
+	@RequestMapping(value = "provider/crm/zoho", method = RequestMethod.DELETE, produces = "application/json")
 	public @ResponseBody
-	String createSalesforceAccount(@RequestBody String data) {
+	String deletezohouser() {
+
+		logger.info(clz + "deleteUser : DELETE.");
+		/*Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		SalesforceCRM salesforceCRM = gson.fromJson(access_stuff,
+				SalesforceCRM.class);*/
+
+		//logger.info(clz + "deleteUser2 :" + salesforceCRM.toString());
+
+		//String zohoDeleteSingeUserURL = "https://crm.zoho.com/crm/private/json/Users/deleteRecords?";
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		//HttpDelete httpDelete = new HttpDelete(zohoDeleteSingeUserURL);
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		nvps.add(new BasicNameValuePair("authtoken",
+				"d838632f6e22d348aea38b48ab84a632"));
+		nvps.add(new BasicNameValuePair("scope", "crmapi"));
+		nvps.add(new BasicNameValuePair("id", "660777000000058005"));
+		/*httpDelete.addHeader("Authorization",
+				"OAuth " + "d838632f6e22d348aea38b48ab84a632");*/
+        
+		
+		
+		URI urli = null;
+		try {
+			urli = URIUtils.createURI("http", "www.crm.zoho.com", -1,
+					"crm/private/json/Users/deleteRecords",
+					URLEncodedUtils.format(nvps, "UTF-8"), null);
+		} catch (URISyntaxException e2) {
+			
+			e2.printStackTrace();
+		}
+		HttpDelete httpdel = new HttpDelete(urli);
+		
+		
+		String output = null;
+		try {
+			HttpResponse response = httpclient.execute(httpdel);
+			output = EntityUtils.toString(response.getEntity());
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        System.out.println("DELETED USER3:"+output);
+		return output;
+
+	}
+	
+	
+	@RequestMapping(value = "provider/crm/account", method = RequestMethod.POST, consumes = "application/json")
+	public @ResponseBody
+	String createZohoAccount(@RequestBody String data) {
 
 		logger.info(clz + "createAccount : POST start.\n" + data);
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		SalesforceCRM salesforceCRM = gson.fromJson(data, SalesforceCRM.class);
-		logger.info(clz + "createAccount :" + salesforceCRM.toString());
+		logger.info(clz + "createAccount :");
 
-		String salesforce_create_user_url = salesforceCRM.getInstance_url()
-
-		+ "/services/data/v25.0/sobjects/Account/";
+		String salesforce_create_user_url = "/services/data/v25.0/sobjects/Account/";
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(salesforce_create_user_url);
 
-		httpPost.addHeader("Authorization",
-				"OAuth " + salesforceCRM.getAccess_token());
-
+		
 		Map<String, Object> userAttrMap = new HashMap<String, Object>();
-		userAttrMap.put("Name", /* salesforceCRM.getUsername() */"RAJA");
+		userAttrMap.put("Name", "");
 		ObjectMapper objmap = new ObjectMapper();
 
 		try {
@@ -378,5 +561,6 @@ public class CRMController {
 		logger.info(clz + "CreateAccount POST end." + output);
 		return output;
 	}
-
+	
+	
 }
