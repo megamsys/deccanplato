@@ -9,7 +9,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
-@JacksonXmlRootElement("Lead")
+@JacksonXmlRootElement(localName = "Lead")
 public class ZohoLeads {
 
 	public FieldRows rows = new FieldRows();
