@@ -167,11 +167,6 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.0.6</version>
 		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-xml</artifactId>
-			<version>2.0.6</version>
-		</dependency>
 
 		<!--- Google Api -->
 		<dependency>
@@ -199,12 +194,8 @@
 			<artifactId>gdata-base-1.0</artifactId>
 			<version>1.41.5</version>
 		</dependency>
-		<dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.dataformat</groupId>
-				<artifactId>jackson-dataformat-xml</artifactId>
-				<version>2.0.6</version>
-			</dependency>
+
+		<dependency>			
 			<groupId>com.google.gdata</groupId>
 			<artifactId>gdata-appsforyourdomain-1.0</artifactId>
 			<version>1.41.3</version>

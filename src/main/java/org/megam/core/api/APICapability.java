@@ -1,4 +1,4 @@
-package org.megam.deccanplato.core.api;
+package org.megam.core.api;
 
 import java.util.List;
 

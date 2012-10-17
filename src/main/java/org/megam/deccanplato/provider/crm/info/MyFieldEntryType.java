@@ -1,21 +1,33 @@
 package org.megam.deccanplato.provider.crm.info;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlValue;
 
-@JacksonXmlRootElement(localName ="fl")
 public class MyFieldEntryType {
 
-	@JacksonXmlProperty(isAttribute = true)
-	public String val;
 
-	@JacksonXmlText
-	public String value;
-
-	public MyFieldEntryType(String val, String value){
-		this.val=val;
-		this.value=value;
+	private String attr;
+	private String value;
+	
+	public MyFieldEntryType () {
+		
 	}
+	
+	public MyFieldEntryType (String attr, String val) {
+		this.attr = attr;
+		value = val;
+	}
+	
+	@XmlAttribute(name = "val")
+	public String getAttribute() {
+		return attr;
+	}
+	@XmlValue
+	public String getValue() {
+		return value;
+	}
+	
+	
+
 
 }

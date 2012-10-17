@@ -7,12 +7,9 @@ import org.apache.wink.client.RestClient;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.megam.deccanplato.provider.crm.info.ZohoLeads;
-
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 public class ZoHoAdapterTest {
 	
@@ -49,23 +46,6 @@ public class ZoHoAdapterTest {
 	}*/
    @Test
    public void testXMLGeneration(){
-	   ZohoLeads zl = new ZohoLeads();
-	   zl.setLEAD_OWNER("OWNER");
-	   zl.setOwnerId("14");
-	   ObjectMapper obm= new XmlMapper();
-	   
-	   try {
-		String xml=obm.writeValueAsString(zl);
-		System.out.println(xml);
-	} catch (JsonGenerationException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (JsonMappingException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	  
    }
 }
