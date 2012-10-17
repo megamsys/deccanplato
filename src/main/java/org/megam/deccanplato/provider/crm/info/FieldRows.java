@@ -12,11 +12,13 @@ public class FieldRows {
 	@JacksonXmlProperty(isAttribute = true)
 	public int no = 0;
 
-	@JacksonXmlProperty
-	public List<MyFieldEntryType> entry = new ArrayList<MyFieldEntryType>();
+	
+	public List<MyFieldEntryType> FL = new ArrayList<MyFieldEntryType>();
 
 	public void add(String key, String val) {
-		entry.add(new MyFieldEntryType());
+		FL.add(new MyFieldEntryType(key, val));
 	}
-
+    public FieldRows(int i){
+    	this.no=i;
+    }
 }

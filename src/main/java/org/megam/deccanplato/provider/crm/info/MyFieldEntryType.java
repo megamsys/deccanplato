@@ -13,4 +13,9 @@ public class MyFieldEntryType {
 	@JacksonXmlText
 	public String value;
 
+	public MyFieldEntryType(String val, String value){
+		this.val=val;
+		this.value=value;
+	}
+
 }

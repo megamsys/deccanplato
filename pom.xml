@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.megam.deccanplato</groupId>
 	<artifactId>deccanplato</artifactId>
@@ -199,11 +199,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<artifactId>gdata-base-1.0</artifactId>
 			<version>1.41.5</version>
 		</dependency>
-		<dependency><dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-xml</artifactId>
-			<version>2.0.6</version>
-		</dependency>
+		<dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.dataformat</groupId>
+				<artifactId>jackson-dataformat-xml</artifactId>
+				<version>2.0.6</version>
+			</dependency>
 			<groupId>com.google.gdata</groupId>
 			<artifactId>gdata-appsforyourdomain-1.0</artifactId>
 			<version>1.41.3</version>
@@ -218,7 +219,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<artifactId>wink-client</artifactId>
 			<version>1.2.0-incubating</version>
 		</dependency>
-		
+
 	</dependencies>
 	<repositories>
 		<repository>
