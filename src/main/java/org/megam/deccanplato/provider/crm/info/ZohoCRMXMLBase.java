@@ -14,7 +14,7 @@ public class ZohoCRMXMLBase {
 	private List<FieldRows> rows = new ArrayList<FieldRows>();
 	
 	@XmlTransient
-	private int counter = 0;
+	private int counter = 1;
 	
 	@XmlTransient
 	private FieldRows currentRow;
