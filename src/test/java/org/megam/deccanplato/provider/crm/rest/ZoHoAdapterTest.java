@@ -1,30 +1,13 @@
 package org.megam.deccanplato.provider.crm.rest;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Vector;
-
 import javax.xml.bind.JAXBException;
 
 import org.apache.wink.client.Resource;
 import org.apache.wink.client.RestClient;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.megam.deccanplato.provider.crm.info.ZohoCRMAccounts;
 import org.megam.deccanplato.provider.crm.info.ZohoCRMLeeds;
-
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.megam.deccanplato.provider.crm.info.Person;
 
 public class ZoHoAdapterTest {
 	
@@ -162,26 +145,4 @@ public class ZoHoAdapterTest {
 			System.out.println("Access =>" + response);
 			
 	   }
-	@Ignore
-	@Test
-	public void sampletest(){
-		Map<String, Person> map=new HashMap<>();
-		map.put("1", new Person("TA"));
-		map.put("2", new Person("RP"));
-		for(Map.Entry<String, Person> entry:map.entrySet()){
-			System.out.println(entry.getKey()+";"+entry.getValue());
-		}
-		Person pe=new Person("THOMAS");
-		System.out.printf("%s = %-10s%n",pe.getName(),"ALRIN");
-		do_somthing(pe);
-	}
-	public <Y extends Object> void do_somthing(Y obj){
-		List<Y> list=new ArrayList<Y>();
-		list.add(obj);
-		for(Y obj1:list){
-			System.out.println(obj1);
-		}
-		
-	}
-	
 }

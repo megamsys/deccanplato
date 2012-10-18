@@ -27,4 +27,22 @@ public class SugarCreateUser {
 		name_value_list.add(U2);
 	}
 
+	private class User {
+		private String name;
+		private String value;
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public String getValue() {
+			return value;
+		}
+		public void setValue(String value) {
+			this.value = value;
+		}
+
+
+	}
 }
