@@ -33,6 +33,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.amazonaws.util.json.JSONException;
+import com.amazonaws.util.json.JSONObject;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,6 +46,7 @@ public class CRMController {
 
 	private static final String clz = "CRMController:";
 
+	
 	private final Logger logger = LoggerFactory.getLogger(CRMController.class);
 
 	public CRMController() {
@@ -377,8 +380,11 @@ public class CRMController {
 	}
 	
 	
-	/*===============================ZOHO============================*/
 	
+	
+	/*****************************************************************/
+	/*===============================ZOHO============================*/
+	/*****************************************************************/	
 	
 	@RequestMapping(value = "provider/crm/zoho", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
@@ -468,35 +474,26 @@ public class CRMController {
 
 		//logger.info(clz + "deleteUser2 :" + salesforceCRM.toString());
 
-		//String zohoDeleteSingeUserURL = "https://crm.zoho.com/crm/private/json/Users/deleteRecords?";
+		String zohoDeleteSingeUserURL = "https://crm.zoho.com/crm/private/json/Users/deleteRecords?";
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();
-		//HttpDelete httpDelete = new HttpDelete(zohoDeleteSingeUserURL);
+		HttpPost httppost = new HttpPost(zohoDeleteSingeUserURL);
 		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-		nvps.add(new BasicNameValuePair("authtoken",
-				"d838632f6e22d348aea38b48ab84a632"));
+		nvps.add(new BasicNameValuePair("authtoken", "01b08320a84ba27efa0132dd3bc16edf"));
 		nvps.add(new BasicNameValuePair("scope", "crmapi"));
 		nvps.add(new BasicNameValuePair("id", "660777000000058005"));
-		/*httpDelete.addHeader("Authorization",
-				"OAuth " + "d838632f6e22d348aea38b48ab84a632");*/
-        
 		
-		
-		URI urli = null;
 		try {
-			urli = URIUtils.createURI("http", "www.crm.zoho.com", -1,
-					"crm/private/json/Users/deleteRecords",
-					URLEncodedUtils.format(nvps, "UTF-8"), null);
-		} catch (URISyntaxException e2) {
-			
-			e2.printStackTrace();
+			httppost.setEntity(new UrlEncodedFormEntity(nvps));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		HttpDelete httpdel = new HttpDelete(urli);
 		
 		
 		String output = null;
 		try {
-			HttpResponse response = httpclient.execute(httpdel);
+			HttpResponse response = httpclient.execute(httppost);
 			output = EntityUtils.toString(response.getEntity());
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -509,58 +506,297 @@ public class CRMController {
 	}
 	
 	
-	@RequestMapping(value = "provider/crm/account", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "provider/crm/zoho/leads", method = RequestMethod.POST)
 	public @ResponseBody
-	String createZohoAccount(@RequestBody String data) {
+	String createZohoLeads(@RequestBody String data) {
 
-		logger.info(clz + "createAccount : POST start.\n" + data);
-		logger.info(clz + "createAccount :");
+		logger.info(clz + "createLEAD : POST start.\n" + data);
+		logger.info(clz + "createLEAD :");
 
-		String salesforce_create_user_url = "/services/data/v25.0/sobjects/Account/";
+		String zoho_create_user_url = "https://crm.zoho.com/crm/private/xml/Leads/insertRecords";
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost(salesforce_create_user_url);
-
-		
-		Map<String, Object> userAttrMap = new HashMap<String, Object>();
-		userAttrMap.put("Name", "");
-		ObjectMapper objmap = new ObjectMapper();
+		HttpPost httppost = new HttpPost(zoho_create_user_url);
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		nvps.add(new BasicNameValuePair("authtoken",
+				"d838632f6e22d348aea38b48ab84a632"));
+		nvps.add(new BasicNameValuePair("scope", "crmapi"));
+		nvps.add(new BasicNameValuePair("xmlData", data));
 
 		try {
-			httpPost.setEntity(new StringEntity(objmap
-
-			.writeValueAsString(userAttrMap), "application/json", "UTF-8"));
-		} catch (JsonGenerationException e) {
-			e.printStackTrace();
-			return e.toString();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-			return e.toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return e.toString();
+			httppost.setEntity(new UrlEncodedFormEntity(nvps));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-
+		
+		
 		String output = null;
 		try {
-			HttpResponse response = httpclient.execute(httpPost);
-			System.out.println(clz + "createAccount : POST : RESPONSE\n"
-					+ response);
+			HttpResponse response = httpclient.execute(httppost);
+			logger.info(""+response.getStatusLine()+"/n"+response.toString());
 			output = EntityUtils.toString(response.getEntity());
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
-			return e.toString();
 		} catch (IOException e) {
-
 			e.printStackTrace();
-			return e.toString();
-		} finally {
-			httpPost.releaseConnection();
 		}
+        
 
-		logger.info(clz + "CreateAccount POST end." + output);
+		logger.info(clz + "CreateLEADS POST end." + output);
 		return output;
 	}
 	
 	
+	@RequestMapping(value = "provider/crm/zoho/list", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	String ZohoLeadList() {
+
+		logger.info("IN ZOHO List::::::::::::::::::::::::::");
+		
+		String OAuth_Url = "https://crm.zoho.com/crm/private/json/Leads/getMyRecords?";
+		logger.info("IN ZOHO List::::::::::::::::::::::::::");
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(OAuth_Url);
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		//nvps.add(new BasicNameValuePair("newFormat", "1"));
+		nvps.add(new BasicNameValuePair("authtoken", "d838632f6e22d348aea38b48ab84a632"));
+		nvps.add(new BasicNameValuePair("scope", "crmapi"));
+
+		try {
+			httppost.setEntity(new UrlEncodedFormEntity(nvps));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String output = null;
+
+		try {
+			HttpResponse response = httpclient.execute(httppost);
+			output=EntityUtils.toString(response
+					.getEntity());
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.info("ZOHO List" + output);
+		return output;
+	}
+	
+	@RequestMapping(value = "provider/crm/zoho/accounts", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	String ZohoAccountList() {
+
+		logger.info("IN ZOHO List::::::::::::::::::::::::::");
+		
+		String OAuth_Url = "https://crm.zoho.com/crm/private/json/Accounts/getRecords?";
+		logger.info("IN ZOHO List::::::::::::::::::::::::::");
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(OAuth_Url);
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		//nvps.add(new BasicNameValuePair("newFormat", "1"));
+		nvps.add(new BasicNameValuePair("authtoken", "d838632f6e22d348aea38b48ab84a632"));
+		nvps.add(new BasicNameValuePair("scope", "crmapi"));
+
+		try {
+			httppost.setEntity(new UrlEncodedFormEntity(nvps));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String output = null;
+
+		try {
+			HttpResponse response = httpclient.execute(httppost);
+			output=EntityUtils.toString(response
+					.getEntity());
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.info("ZOHO List" + output);
+		return output;
+	}
+	
+	@RequestMapping(value = "provider/crm/zoho/leads", method = RequestMethod.DELETE)
+	public @ResponseBody
+	String ZohoLeadtDelete() {
+
+		logger.info("IN ZOHO Delete Lead::::::::::::::::::::::::::");
+		
+		String OAuth_Url = "https://crm.zoho.com/crm/private/json/Accounts/deleteRecords?";
+		logger.info("IN ZOHO Lead Delete::::::::::::::::::::::::::");
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(OAuth_Url);
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		
+		nvps.add(new BasicNameValuePair("authtoken", "01b08320a84ba27efa0132dd3bc16edf"));
+		nvps.add(new BasicNameValuePair("scope", "crmapi"));
+		nvps.add(new BasicNameValuePair("id", "660777000000059005"));
+        try {
+			httppost.setEntity(new UrlEncodedFormEntity(nvps));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		String output = null;
+
+		try {
+			HttpResponse response = httpclient.execute(httppost);
+			output=EntityUtils.toString(response.getEntity());
+			
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.info("ZOHO Delete Leat" + output);
+		return output;
+	}
+	
+	@RequestMapping(value = "provider/crm/zoho/accounts", method = RequestMethod.POST)
+	public @ResponseBody
+	String createZohoAccount(@RequestBody String data) {
+
+		logger.info(clz + "createLEAD : POST start.\n" + data);
+		logger.info(clz + "createLEAD :");
+
+		String zoho_create_user_url = "https://crm.zoho.com/crm/private/xml/Accounts/insertRecords";
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(zoho_create_user_url);
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		nvps.add(new BasicNameValuePair("authtoken",
+				"d838632f6e22d348aea38b48ab84a632"));
+		nvps.add(new BasicNameValuePair("scope", "crmapi"));
+		nvps.add(new BasicNameValuePair("xmlData", data));
+
+		try {
+			httppost.setEntity(new UrlEncodedFormEntity(nvps));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		String output = null;
+		try {
+			HttpResponse response = httpclient.execute(httppost);
+			logger.info(""+response.getStatusLine()+"/n"+response.toString());
+			output = EntityUtils.toString(response.getEntity());
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+
+		logger.info(clz + "CreateLEADS POST end." + output);
+		return output;
+	}
+	
+	/**************************************/
+	/*============SugarCRM================*/
+	/**************************************/
+	
+	
+	@RequestMapping(value="provider/crm/sugar",method=RequestMethod.GET)
+	public @ResponseBody String loginSugar(){
+		
+		SugarUser su=new SugarUser();
+		Gson gson=new Gson();
+		String json=gson.toJson(su);
+		
+		
+		logger.info("JSON DATA"+json);
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost("http://localhost/sugarcrm/service/v4/rest.php");
+		
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		
+		nvps.add(new BasicNameValuePair("method", "login"));
+		nvps.add(new BasicNameValuePair("input_type", "JSON"));
+		nvps.add(new BasicNameValuePair("response_type", "JSON"));
+		nvps.add(new BasicNameValuePair("rest_data", json));
+		
+	    try {
+			httppost.setEntity(new UrlEncodedFormEntity(nvps));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}   
+	   String Sessionid;
+	    String respBody = null;
+	    try{
+	         JSONObject Json=null;
+	        HttpResponse response= httpclient.execute(httppost);
+	         respBody = EntityUtils.toString(response.getEntity());
+	         logger.info("RESPONSE BODY"+respBody);
+	         try {
+				Json=new JSONObject(respBody);
+				Sessionid=Json.getString("id");
+				logger.info("SESSION ID:::::"+Sessionid);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	       }catch(IOException e){
+	    	   e.printStackTrace();
+	       }
+	    logger.info("RESPONSE BODY"+respBody);
+		return respBody;
+	}
+	
+	@RequestMapping(value="provider/crm/sugar",method=RequestMethod.POST)
+	public @ResponseBody String createSugarUser(@RequestBody String session){
+		
+		SugarCreateUser scu=new SugarCreateUser();
+		Gson gson=new GsonBuilder().setPrettyPrinting().create();
+		String json=gson.toJson(scu);
+		
+		
+		logger.info("JSON DATA CREATE SUGAR"+json);
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost("http://localhost/sugarcrm/service/v4/rest.php");
+		
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		
+		nvps.add(new BasicNameValuePair("method", "set_entry"));
+		nvps.add(new BasicNameValuePair("input_type", "JSON"));
+		nvps.add(new BasicNameValuePair("response_type", "JSON"));
+		nvps.add(new BasicNameValuePair("rest_data", json));
+		
+	    try {
+			httppost.setEntity(new UrlEncodedFormEntity(nvps));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}   
+	   
+	    String respBody = null;
+	    try{
+	         
+	        HttpResponse response= httpclient.execute(httppost);
+	        logger.info("RESPONSE"+response);
+	         respBody = EntityUtils.toString(response.getEntity());
+	         logger.info("RESPONSE SUGAR CREATE BODY"+respBody);
+	         
+	       }catch(IOException e){
+	    	   e.printStackTrace();
+	       }
+	    logger.info("RESPONSE BODY"+respBody);
+		return respBody;
+	}
 }
