@@ -35,6 +35,10 @@
 	</servlet-mapping>	
 	<servlet-mapping>
 		<servlet-name>crm</servlet-name>
+		<url-pattern>/provider/crm/leads/*</url-pattern>
+	</servlet-mapping>	
+	<servlet-mapping>
+		<servlet-name>crm</servlet-name>
 		<url-pattern>/provider/crm/zoho/*</url-pattern>
 	</servlet-mapping>	
 	<servlet-mapping>
@@ -60,6 +64,22 @@
 	<servlet-mapping>
 		<servlet-name>crm</servlet-name>
 		<url-pattern>/provider/crm/sugar/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>crm</servlet-name>
+		<url-pattern>/provider/crm/sugar/list/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>crm</servlet-name>
+		<url-pattern>/provider/crm/sugar/accounts/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>crm</servlet-name>
+		<url-pattern>/provider/crm/sugar/relation/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>crm</servlet-name>
+		<url-pattern>/provider/crm/sugar/leads/*</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

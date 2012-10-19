@@ -16,6 +16,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
@@ -374,12 +375,140 @@ public class CRMController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        System.out.println("DELETED USER3:"+output);
+        System.out.println("DELETED ACCOUNT END3:"+output);
 		return output;
 
 	}
+	@RequestMapping(value = "provider/crm/leads", method = RequestMethod.POST, consumes = "application/json")
+	public @ResponseBody
+	String createSalesforceLead(@RequestBody String data) {
+
+		logger.info(clz + "createLead : POST start.\n" + data);
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		SalesforceCRM salesforceCRM = gson.fromJson(data, SalesforceCRM.class);
+		SalesforceCRMLead lead= gson.fromJson(data, SalesforceCRMLead.class);
+		logger.info(clz + "createLead :" + salesforceCRM.toString());
+
+		String salesforce_create_user_url = salesforceCRM.getInstance_url()+ "/services/data/v25.0/sobjects/Lead/";
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httpPost = new HttpPost(salesforce_create_user_url);
+
+		httpPost.addHeader("Authorization",
+				"OAuth " + salesforceCRM.getAccess_token());
+
+		Map<String, Object> userAttrMap = new HashMap<String, Object>();
+		userAttrMap.put("Lastname","Raja");
+		userAttrMap.put("Company", "Megam");
+		ObjectMapper objmap = new ObjectMapper();
+
+		try {
+			httpPost.setEntity(new StringEntity(objmap
+
+			.writeValueAsString(userAttrMap), "application/json", "UTF-8"));
+		} catch (JsonGenerationException e) {
+			e.printStackTrace();
+			return e.toString();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+			return e.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return e.toString();
+		}
+
+		String output = null;
+		try {
+			HttpResponse response = httpclient.execute(httpPost);
+			System.out.println(clz + "createLead : POST : RESPONSE\n"
+					+ response);
+			output = EntityUtils.toString(response.getEntity());
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			return e.toString();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+			return e.toString();
+		} finally {
+			httpPost.releaseConnection();
+		}
+
+		logger.info(clz + "CreateLead POST end." + output);
+		return output;
+	}
+
+	@RequestMapping(value = "provider/crm/leads", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	String listSalesforceLead() {
+		logger.info(clz + "ListLead : GET start.");
+
+		/**
+		 * To-do, when we build an adapter for the system, the access
+		 * token/instance_url per request will be memcached
+		 * 
+		 */
+		String instance_url = "https://ap1.salesforce.com";
+		String access_token = "00D90000000gFYH!AQoAQPUmWc4yy_G056_qZWqaFYCZ2XLnUXmKy2VjytQFjQR3UqhCCJju1keqQm_tYb_FS4nIeS.AyBdn2NMz9JKNugLwxcp6";
+		String salesforceListSingeUserURL = instance_url
+				+ "/services/data/v25.0/query/?q=SELECT+Name+FROM+Lead";
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpGet httpget = new HttpGet(salesforceListSingeUserURL);
+		httpget.addHeader("Authorization", "OAuth " + access_token);
+
+		String output = null;
+		try {
+			HttpResponse response = httpclient.execute(httpget);
+			System.out.println(clz + "listLead : GET : RESPONSE\n" + response);
+			output = EntityUtils.toString(response.getEntity());
+
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			return e.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return e.toString();
+
+		} finally {
+			httpget.releaseConnection();
+		}
+
+		return output;
+	}
 	
-	
+	@RequestMapping(value = "provider/crm/leads", method = RequestMethod.DELETE, produces = "application/json")
+	public @ResponseBody
+	String deleteSalesforceLead() {
+
+		logger.info(clz + "deleteUser : DELETE.");
+		/*Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		SalesforceCRM salesforceCRM = gson.fromJson(access_stuff,
+				SalesforceCRM.class);*/
+
+		//logger.info(clz + "deleteUser2 :" + salesforceCRM.toString());
+
+		String salesforceDeleteSingeUserURL = "https://ap1.salesforce.com"
+				+ "/services/data/v25.0/sobjects/Lead/00Q9000000AMNogEAH";
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpDelete httpdelete = new HttpDelete(salesforceDeleteSingeUserURL);
+		httpdelete.addHeader("Authorization",
+				"OAuth " + "00D90000000gFYH!AQoAQPUmWc4yy_G056_qZWqaFYCZ2XLnUXmKy2VjytQFjQR3UqhCCJju1keqQm_tYb_FS4nIeS.AyBdn2NMz9JKNugLwxcp6");
+
+		String output = null;
+		try {
+			HttpResponse response = httpclient.execute(httpdelete);
+			output = EntityUtils.toString(response.getEntity());
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        System.out.println("DELETED Lead END3:"+output);
+		return output;
+
+	}
 	
 	
 	/*****************************************************************/
@@ -797,6 +926,354 @@ public class CRMController {
 	    	   e.printStackTrace();
 	       }
 	    logger.info("RESPONSE BODY"+respBody);
+		return respBody;
+	}
+	
+	@RequestMapping(value="provider/crm/sugar/list",method=RequestMethod.GET)
+	public @ResponseBody String listSugarUser(){
+		
+		SugaruserList scu=new SugaruserList();
+		Gson gson=new GsonBuilder().setPrettyPrinting().create();
+		String json=gson.toJson(scu);
+		
+		
+		logger.info("JSON DATA List SUGAR"+json);
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		//HttpGet httpget = new HttpGet("http://localhost/sugarcrm/service/v4/rest.php");
+		
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		
+		nvps.add(new BasicNameValuePair("method", "get_entry_list"));
+		nvps.add(new BasicNameValuePair("input_type", "JSON"));
+		nvps.add(new BasicNameValuePair("response_type", "JSON"));
+		nvps.add(new BasicNameValuePair("rest_data", json));
+		logger.info("BEFORE EXECUTION IN LIST");
+	   
+		URI urli = null;
+		try {
+			urli = URIUtils.createURI("http", "localhost", -1,
+					"sugarcrm/service/v4/rest.php",
+					URLEncodedUtils.format(nvps, "UTF-8"), null);
+		} catch (URISyntaxException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		HttpGet httpget = new HttpGet(urli);
+	   
+	    String respBody = null;
+	    try{
+	         
+	        HttpResponse response= httpclient.execute(httpget);
+	        logger.info("RESPONSE"+response);
+	         respBody = EntityUtils.toString(response.getEntity());
+	         logger.info("RESPONSE SUGAR List BODY"+respBody);
+	         
+	       }catch(IOException e){
+	    	   e.printStackTrace();
+	       }
+	    logger.info("RESPONSE BODY LIST END"+respBody);
+		return respBody;
+	}
+	
+	@RequestMapping(value="provider/crm/sugar/accounts",method=RequestMethod.POST)
+	public @ResponseBody String createSugarAccounts(@RequestBody String session){
+		
+		SugarAccountCreate scu=new SugarAccountCreate();
+		Gson gson=new GsonBuilder().setPrettyPrinting().create();
+		String json=gson.toJson(scu);
+		
+		
+		logger.info("JSON DATA CREATE SUGAR"+json);
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost("http://localhost/sugarcrm/service/v4/rest.php");
+		
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		
+		nvps.add(new BasicNameValuePair("method", "set_entry"));
+		nvps.add(new BasicNameValuePair("input_type", "JSON"));
+		nvps.add(new BasicNameValuePair("response_type", "JSON"));
+		nvps.add(new BasicNameValuePair("rest_data", json));
+		
+	    try {
+			httppost.setEntity(new UrlEncodedFormEntity(nvps));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}   
+	   
+	    String respBody = null;
+	    try{
+	         
+	        HttpResponse response= httpclient.execute(httppost);
+	        logger.info("RESPONSE"+response);
+	         respBody = EntityUtils.toString(response.getEntity());
+	         logger.info("RESPONSE SUGAR CREATE BODY"+respBody);
+	         
+	       }catch(IOException e){
+	    	   e.printStackTrace();
+	       }
+	    logger.info("RESPONSE BODY"+respBody);
+		return respBody;
+	}
+	
+	@RequestMapping(value="provider/crm/sugar/accounts",method=RequestMethod.GET)
+	public @ResponseBody String listSugarAccounts(){
+		
+		SugaruserList scu=new SugaruserList();
+		Gson gson=new GsonBuilder().setPrettyPrinting().create();
+		String json=gson.toJson(scu);
+		
+		
+		logger.info("JSON DATA List SUGAR"+json);
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		//HttpGet httpget = new HttpGet("http://localhost/sugarcrm/service/v4/rest.php");
+		
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		
+		nvps.add(new BasicNameValuePair("method", "get_entry_list"));
+		nvps.add(new BasicNameValuePair("input_type", "JSON"));
+		nvps.add(new BasicNameValuePair("response_type", "JSON"));
+		nvps.add(new BasicNameValuePair("rest_data", json));
+		logger.info("BEFORE EXECUTION IN LIST");
+	   
+		URI urli = null;
+		try {
+			urli = URIUtils.createURI("http", "localhost", -1,
+					"sugarcrm/service/v4/rest.php",
+					URLEncodedUtils.format(nvps, "UTF-8"), null);
+		} catch (URISyntaxException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		HttpGet httpget = new HttpGet(urli);
+	   
+	    String respBody = null;
+	    try{
+	         
+	        HttpResponse response= httpclient.execute(httpget);
+	        logger.info("RESPONSE"+response);
+	         respBody = EntityUtils.toString(response.getEntity());
+	         logger.info("RESPONSE SUGAR List BODY"+respBody);
+	         
+	       }catch(IOException e){
+	    	   e.printStackTrace();
+	       }
+	    logger.info("RESPONSE BODY LIST END"+respBody);
+		return respBody;
+	}
+	
+	@RequestMapping(value="provider/crm/sugar/relation",method=RequestMethod.GET)
+	public @ResponseBody String listSugarRelation(){
+		
+		Sugarrelation scu=new Sugarrelation();
+		Gson gson=new GsonBuilder().setPrettyPrinting().create();
+		String json=gson.toJson(scu);
+		
+		
+		logger.info("JSON DATA List SUGAR"+json);
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		//HttpGet httpget = new HttpGet("http://localhost/sugarcrm/service/v4/rest.php");
+		
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		
+		nvps.add(new BasicNameValuePair("method", "get_entry_list"));
+		nvps.add(new BasicNameValuePair("input_type", "JSON"));
+		nvps.add(new BasicNameValuePair("response_type", "JSON"));
+		nvps.add(new BasicNameValuePair("rest_data", json));
+		logger.info("BEFORE EXECUTION IN LIST");
+	   
+		URI urli = null;
+		try {
+			urli = URIUtils.createURI("http", "localhost", -1,
+					"sugarcrm/service/v4/rest.php",
+					URLEncodedUtils.format(nvps, "UTF-8"), null);
+		} catch (URISyntaxException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		HttpGet httpget = new HttpGet(urli);
+	   
+	    String respBody = null;
+	    try{
+	         
+	        HttpResponse response= httpclient.execute(httpget);
+	        logger.info("RESPONSE"+response);
+	         respBody = EntityUtils.toString(response.getEntity());
+	         logger.info("RESPONSE SUGAR List BODY"+respBody);
+	         
+	       }catch(IOException e){
+	    	   e.printStackTrace();
+	       }
+	    logger.info("RESPONSE BODY LIST END"+respBody);
+		return respBody;
+	}
+	
+	@RequestMapping(value="provider/crm/sugar/accounts",method=RequestMethod.PUT)
+	public @ResponseBody String updateSugarAccounts(@RequestBody String session){
+		
+		SugarAccountUpdate scu=new SugarAccountUpdate();
+		Gson gson=new GsonBuilder().setPrettyPrinting().create();
+		String json=gson.toJson(scu);
+		
+		
+		logger.info("JSON DATA UPDATE SUGAR"+json);
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost("http://localhost/sugarcrm/service/v4/rest.php");
+		
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		
+		nvps.add(new BasicNameValuePair("method", "set_entry"));
+		nvps.add(new BasicNameValuePair("input_type", "JSON"));
+		nvps.add(new BasicNameValuePair("response_type", "JSON"));
+		nvps.add(new BasicNameValuePair("rest_data", json));
+		
+	    try {
+			httppost.setEntity(new UrlEncodedFormEntity(nvps));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}   
+	   
+	    String respBody = null;
+	    try{
+	         
+	        HttpResponse response= httpclient.execute(httppost);
+	        logger.info("RESPONSE"+response);
+	         respBody = EntityUtils.toString(response.getEntity());
+	         logger.info("RESPONSE SUGAR UPDATE BODY"+respBody);
+	         
+	       }catch(IOException e){
+	    	   e.printStackTrace();
+	       }
+	    logger.info("RESPONSE BODY"+respBody);
+		return respBody;
+	}
+	
+	@RequestMapping(value="provider/crm/sugar/leads",method=RequestMethod.POST)
+	public @ResponseBody String CreateSugarLeads(@RequestBody String session){
+		
+		SugarLeadCreate scu=new SugarLeadCreate();
+		Gson gson=new GsonBuilder().setPrettyPrinting().create();
+		String json=gson.toJson(scu);
+		
+		
+		logger.info("JSON DATA Create SUGAR LEAD"+json);
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost("http://localhost/sugarcrm/service/v4/rest.php");
+		
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		
+		nvps.add(new BasicNameValuePair("method", "set_entry"));
+		nvps.add(new BasicNameValuePair("input_type", "JSON"));
+		nvps.add(new BasicNameValuePair("response_type", "JSON"));
+		nvps.add(new BasicNameValuePair("rest_data", json));
+		
+	    try {
+			httppost.setEntity(new UrlEncodedFormEntity(nvps));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}   
+	   
+	    String respBody = null;
+	    try{
+	         
+	        HttpResponse response= httpclient.execute(httppost);
+	        logger.info("RESPONSE"+response);
+	         respBody = EntityUtils.toString(response.getEntity());
+	         logger.info("RESPONSE SUGAR Create Lead BODY"+respBody);
+	         
+	       }catch(IOException e){
+	    	   e.printStackTrace();
+	       }
+	    logger.info("RESPONSE BODY"+respBody);
+		return respBody;
+	}
+	
+	@RequestMapping(value="provider/crm/sugar/leads",method=RequestMethod.GET)
+	public @ResponseBody String listSugarLeads(){
+		
+		SugaruserList scu=new SugaruserList();
+		Gson gson=new GsonBuilder().setPrettyPrinting().create();
+		String json=gson.toJson(scu);
+		
+		
+		logger.info("JSON DATA List Lead SUGAR"+json);
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		//HttpGet httpget = new HttpGet("http://localhost/sugarcrm/service/v4/rest.php");
+		
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		
+		nvps.add(new BasicNameValuePair("method", "get_entry_list"));
+		nvps.add(new BasicNameValuePair("input_type", "JSON"));
+		nvps.add(new BasicNameValuePair("response_type", "JSON"));
+		nvps.add(new BasicNameValuePair("rest_data", json));
+		logger.info("BEFORE EXECUTION IN LIST");
+	   
+		URI urli = null;
+		try {
+			urli = URIUtils.createURI("http", "localhost", -1,
+					"sugarcrm/service/v4/rest.php",
+					URLEncodedUtils.format(nvps, "UTF-8"), null);
+		} catch (URISyntaxException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		HttpGet httpget = new HttpGet(urli);
+	   
+	    String respBody = null;
+	    try{
+	         
+	        HttpResponse response= httpclient.execute(httpget);
+	        logger.info("RESPONSE"+response);
+	         respBody = EntityUtils.toString(response.getEntity());
+	         logger.info("RESPONSE SUGAR List Lead BODY"+respBody);
+	         
+	       }catch(IOException e){
+	    	   e.printStackTrace();
+	       }
+	    logger.info("RESPONSE BODY LIST Lead END"+respBody);
+		return respBody;
+	}
+	
+	@RequestMapping(value="provider/crm/sugar/leads",method=RequestMethod.PUT)
+	public @ResponseBody String updateSugarLeads(@RequestBody String session){
+		
+		SugarleadUpdate scu=new SugarleadUpdate();
+		Gson gson=new GsonBuilder().setPrettyPrinting().create();
+		String json=gson.toJson(scu);
+		
+		
+		logger.info("JSON DATA Leads UPDATE SUGAR"+json);
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost("http://localhost/sugarcrm/service/v4/rest.php");
+		
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		
+		nvps.add(new BasicNameValuePair("method", "set_entry"));
+		nvps.add(new BasicNameValuePair("input_type", "JSON"));
+		nvps.add(new BasicNameValuePair("response_type", "JSON"));
+		nvps.add(new BasicNameValuePair("rest_data", json));
+		
+	    try {
+			httppost.setEntity(new UrlEncodedFormEntity(nvps));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}   
+	   
+	    String respBody = null;
+	    try{
+	         
+	        HttpResponse response= httpclient.execute(httppost);
+	        logger.info("RESPONSE"+response);
+	         respBody = EntityUtils.toString(response.getEntity());
+	         logger.info("RESPONSE SUGAR Leads UPDATE BODY"+respBody);
+	         
+	       }catch(IOException e){
+	    	   e.printStackTrace();
+	       }
+	    logger.info("RESPONSE Leads BODY End"+respBody);
 		return respBody;
 	}
 }
