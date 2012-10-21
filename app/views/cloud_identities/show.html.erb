@@ -1,0 +1,35 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'Cloud Identity') %>
+
+<% if @user.organization %>
+<div class="span9 alert alert-success">
+	Well done !. You are almost there. Next step is to create a cloud identity for realm
+	<span class="label label-info"><%= @user.organization.account_name %></span>
+</div>
+
+<%= render @user.organization %>
+
+<% if @user.organization.cloud_identity %>
+
+<%= form_for @user.organization.cloud_identity, :html => { :multipart => true } do |f| %>
+<%= f.label :url %>
+<%= f.text_field :url, placeholder: "URL"  %>
+<%= f.submit nil, :class => 'btn btn-large btn-primary' %>
+<% end %> <!-- Form End -->
+
+<h4>Cloud Identity</h4>
+<%= link_to @user.organization.cloud_identity.url %>
+<%= link_to "Delete Identity", @user.organization.cloud_identity, method: :delete,
+data: { confirm: "You sure?" } %>
+<% else %> <!-- user organization cloud_identity -->
+<p></p>
+<div class="span6">
+	<%= link_to "Create Identity", new_cloud_identity_path, :class => "btn btn-large btn-primary", :id => "jq_createidty" %>
+</div>
+
+<% end %> <!-- user organization cloud_identity -->
+
+<% end %> <!-- if user organization -->
+<% end %>
+
+<%= render :template => customizations_show_path %>

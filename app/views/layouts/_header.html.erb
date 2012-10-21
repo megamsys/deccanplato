@@ -1,0 +1,48 @@
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<a href="http://blog.megam.co" > <%= image_tag "logo-megam160x43.png", :alt => "Megam" %></a>
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"> </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span> </a>
+			<div class="nav-collapse pull-right">
+				<ul class="nav">
+					<li>
+						<a href="/">Home</a>
+					</li>
+					<li>
+						<%= link_to "Get started", page_path("get_started") %>
+					</li>
+					<li>
+						<%= link_to "Documentation", page_path("doc") %>
+					</li>
+					<% if signed_in? %>
+					<li>
+					<li>
+						<%= link_to current_user do %>
+						<i class="icon-home"></i> My dash
+						<% end %>
+					</li>
+					<li>
+						<div class="btn-group">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user"></i><%= current_user.first_name %> <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<%= link_to "Profile", edit_user_path(current_user) %>
+								<%= link_to "Sign out", signout_path, method: "delete" %>
+							</ul>
+						</div>
+					</li>
+					<% else %>
+					<li>
+						<%= link_to "Dashboard", current_user %>
+					</li>
+					<li>
+						<%= link_to "Sign in", signin_path %>
+					</li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+		<hr>
+		</hr>
+	</div>
+</div>
+
