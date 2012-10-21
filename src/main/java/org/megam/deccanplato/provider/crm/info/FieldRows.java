@@ -18,7 +18,6 @@ public class FieldRows {
 	public FieldRows() {
 	}
 
-	
 	public FieldRows(int tempNo) {
 		this.no = tempNo;
 	}
@@ -37,5 +36,6 @@ public class FieldRows {
 		return no;
 	}
 	
+
 
 }

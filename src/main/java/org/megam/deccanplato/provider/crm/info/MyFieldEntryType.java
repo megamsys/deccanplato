@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlValue;
 
 public class MyFieldEntryType {
 
+
 	private String attr;
 	private String value;
 	
@@ -27,5 +28,6 @@ public class MyFieldEntryType {
 	}
 	
 	
+
 
 }

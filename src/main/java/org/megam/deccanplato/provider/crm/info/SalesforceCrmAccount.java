@@ -10,8 +10,6 @@ public class SalesforceCrmAccount {
 
 	public void setName(String name) {
 		Name = name;
-	}
-	
-	
+	}	
 
 }

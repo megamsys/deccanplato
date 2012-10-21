@@ -14,7 +14,7 @@ public class SaleforceAdapterTest {
 
 	private static String access_stuff;
 	
-    @Ignore
+    
 	@BeforeClass
 	public static void setUp() {
 		System.out.println("setUp");
@@ -25,7 +25,7 @@ public class SaleforceAdapterTest {
 		System.out.println("Access =>" + access_stuff);
 	}
 
-	@Ignore
+	/*@Ignore
 	@Test
 	public void testCreateUser() {
 		System.out.println("testCreateUser :" + access_stuff);
@@ -41,7 +41,7 @@ public class SaleforceAdapterTest {
     @Ignore   
 	@Test
 	public void testListUser() {
-		System.out.println("testListUser :"/*+ access_stuff*/);
+		System.out.println("testListUser :"+ access_stuff);
 		RestClient rc = new RestClient();
 		Gson gson = new GsonBuilder().create();
 		SalesforceCRM salesforceCRM = gson.fromJson(access_stuff,
@@ -67,7 +67,7 @@ public class SaleforceAdapterTest {
 	
 	@Test
 	public void testListAccount() {
-		System.out.println("testListAccount :"/*+ access_stuff*/);
+		System.out.println("testListAccount :"+ access_stuff);
 		RestClient rc = new RestClient();
 		Gson gson = new GsonBuilder().create();
 		SalesforceCRM salesforceCRM = gson.fromJson(access_stuff,
@@ -78,6 +78,7 @@ public class SaleforceAdapterTest {
 		System.out.println("testListAccount :"+response);
 
 	}
+	@Ignore
 	@Test
 	public void Accountdelete(){
 		System.out.println("testDeleteAccount :" + access_stuff);
@@ -88,6 +89,42 @@ public class SaleforceAdapterTest {
 		String response = resource.contentType("application/json")
 				.accept("application/json").delete(String.class);
 		System.out.println("testCreateAccount :" + response);
+	}*/
+	@Ignore
+	@Test
+	public void SalesforceLead(){
+		System.out.println("testCreateLead :" + access_stuff);
+		RestClient rc = new RestClient();
+
+		Resource resource = rc
+				.resource("http://localhost:8080/deccanplato/provider/crm/leads");
+		String response = resource.contentType("application/json")
+				.accept("application/json").post(String.class, access_stuff);
+		System.out.println("testCreateAccount :" + response);
 	}
 	
+	@Test
+	public void testListLead() {
+		System.out.println("testListLead :"+ access_stuff);
+		RestClient rc = new RestClient();
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		SalesforceCRM salesforceCRM = gson.fromJson(access_stuff,
+				SalesforceCRM.class);
+		Resource resource = rc
+				.resource("http://localhost:8080/deccanplato/provider/crm/leads");
+		String response = resource.accept("application/json").get(String.class);
+		System.out.println("testListLead :"+response);
+
+	}
+	@Test
+	public void Leaddelete(){
+		System.out.println("testDeleteLead :");
+		RestClient rc = new RestClient();
+
+		Resource resource = rc
+				.resource("http://localhost:8080/deccanplato/provider/crm/leads");
+		String response = resource.contentType("application/json")
+				.accept("application/json").delete(String.class);
+		System.out.println("testdeleteLead :" + response);
+	}
 }
