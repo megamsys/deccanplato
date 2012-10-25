@@ -15,7 +15,7 @@ public class BoxAdapter extends AbstractProviderAdapter {
 
 	public void configure() {
 		/* using the user#create key */
-		activity = registry.getBusinessActivity(cloud_app, business_function);
+		//activity = registry.getBusinessActivity(cloud_app, business_function);
 	}
 
 	public boolean build() {

@@ -34,6 +34,14 @@ public class Provider {
 	public AdapterAccess getAdapterAccess() {
 		return access;
 	}
+	
+	public void setAdapterAccess(AdapterAccess acces){
+		 this.access=acces;
+	}
+	
+	public void setAdapter(ProviderAdapter adapter){
+		 this.adapter=adapter;
+	}
 
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();

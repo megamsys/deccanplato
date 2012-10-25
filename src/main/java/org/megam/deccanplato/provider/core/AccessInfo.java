@@ -8,24 +8,23 @@ import org.megam.core.api.secure.AccessToken;
 
 public class AccessInfo implements DataMap {
 
-	private Map<String, String> accessMap = new HashMap<String, String>();
+	private Map<String, String> access = new HashMap<String, String>();
 	private AccessToken token;
 
-	public AccessInfo(String jsonAccess) {
-		parse(jsonAccess);
+	public AccessInfo() {
+		
 	}
 
+
 	public Map<String, String> map() {
-		return accessMap;
+		return access;
 	}
 
 	public AccessToken token() {
 		return token;
 	}
 
-	private void parse(String jsonAccess) {
-
-	}
+	
 
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();

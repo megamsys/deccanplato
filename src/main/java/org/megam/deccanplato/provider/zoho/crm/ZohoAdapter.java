@@ -1,15 +1,19 @@
-package org.megam.deccanplato.provider.sugarcrm;
+package org.megam.deccanplato.provider.zoho.crm;
 
 import java.util.Map;
 
 import org.megam.deccanplato.provider.AbstractProviderAdapter;
 import org.megam.deccanplato.provider.BusinessActivity;
 
-public class SugarCRMAdapter extends AbstractProviderAdapter {
+public class ZohoAdapter extends AbstractProviderAdapter{
 
-	private BusinessActivity activity;
-
-	public SugarCRMAdapter(Map<String, String> tempArgs) {
+private BusinessActivity activity;
+	
+	public  ZohoAdapter() {
+		super();
+	}
+	
+	public ZohoAdapter(Map<String, String> tempArgs) {
 		super(tempArgs);
 	}
 
@@ -20,12 +24,13 @@ public class SugarCRMAdapter extends AbstractProviderAdapter {
 
 	public boolean build() {
 		/** get the handle responsible for the call and stick stuff into it **/
-		activity.setArguments(args);
+		//activity.setArguments(args);
 		return true;
 	}
 	
 	public Map<String,String> handle() {
-		return activity.run();
+		//return activity.run();
+		return null;
 	}
 	 
 }

@@ -6,20 +6,17 @@ import java.util.Map;
 
 public class OutputInfo implements DataMap {
 	
-private Map<String,String> outputMap = new HashMap<String,String> ();
+private Map<String,String> output = new HashMap<String,String> ();
 	
-	public OutputInfo(String jsonOutputString) {
-		parse(jsonOutputString);
-	}
-	
-	public Map<String,String> map() {
-		return outputMap;
-	}
-	
-	
-	private void parse(String jsonOutputString) {
+	public OutputInfo() {
 		
 	}
+	
+
+	public Map<String,String> map() {
+		return output;
+	}	
+	
 	
 	public boolean isDefault() {
 		return true;

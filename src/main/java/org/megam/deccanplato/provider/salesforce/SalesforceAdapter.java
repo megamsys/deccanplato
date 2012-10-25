@@ -9,14 +9,19 @@ public class SalesforceAdapter<T extends Object> extends
 		AbstractProviderAdapter<T> {
 
 	private BusinessActivity activity;
-
+	
+	public SalesforceAdapter(){
+		super();
+	}
+	
 	public SalesforceAdapter(Map<String, String> tempArgs) {
 		super(tempArgs);
 	}
 
 	/* using the user#create key */
 	public void configure() {
-		activity = registry.getBusinessActivity(cloud_app, business_function);
+		/* using the user#create key */
+		//activity = registry.getBusinessActivity(cloud_app, business_function);
 	}
 
 	/** get the handle responsible for the call and stick stuff into it **/

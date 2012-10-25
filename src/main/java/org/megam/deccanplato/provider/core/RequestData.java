@@ -2,28 +2,32 @@ package org.megam.deccanplato.provider.core;
 
 import java.util.Formatter;
 
+import com.google.gson.annotations.SerializedName;
+
 
 
 public class RequestData {
 	
-	private AccessInfo access;
-	private GeneralInfo general;
-	private OutputInfo output;
+	private AccessInfo system;
+	private GeneralInfo provider;
+	
+	private OutputInfo execution;
 
 	
-	public RequestData() {		
+	public RequestData() {
+		System.out.println("In REQUESTDATA CONSTRUCTOR");
 	}
 	
 	public AccessInfo getAccess() {
-		return access;
+		return system;
 	}
 	
 	public GeneralInfo getGeneral() {
-		return general;
+		return provider;
 	}
 	
 	public OutputInfo getOutput() {
-		return output;
+		return execution;
 	}
 	
 	public String toString() {

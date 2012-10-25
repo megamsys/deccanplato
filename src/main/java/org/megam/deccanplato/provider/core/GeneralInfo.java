@@ -6,21 +6,19 @@ import java.util.Map;
 
 public class GeneralInfo implements DataMap {
 
-	private Map<String, String> generalMap = new HashMap<String, String>();
+	private Map<String, String> business_activity = new HashMap<String, String>();
 	
 	private static final String PROVIDER = "PROVIDER";
 
-	public GeneralInfo(String jsonAccess) {
-		parse(jsonAccess);
+	public GeneralInfo() {
+		
 	}
+
 
 	public Map<String, String> map() {
-		return generalMap;
+		return business_activity;
 	}
-
-	private void parse(String jsonAccess) {
-
-	}
+	
 
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
