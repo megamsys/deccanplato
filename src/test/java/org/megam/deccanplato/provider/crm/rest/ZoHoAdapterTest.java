@@ -6,8 +6,8 @@ import org.apache.wink.client.Resource;
 import org.apache.wink.client.RestClient;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.megam.deccanplato.provider.crm.info.ZohoCRMAccounts;
-import org.megam.deccanplato.provider.crm.info.ZohoCRMLeeds;
+import org.megam.deccanplato.provider.zoho.crm.info.Accounts;
+import org.megam.deccanplato.provider.zoho.crm.info.Leads;
 
 public class ZoHoAdapterTest {
 	
@@ -45,7 +45,7 @@ public class ZoHoAdapterTest {
 	@Ignore
    @Test
    public void testLeadsXMLGeneration(){
-	   ZohoCRMLeeds leads = new ZohoCRMLeeds();
+	   Leads leads = new Leads();
 	   String input = "";
 		//leads.setOwnerId("660777000000053001");
 		leads.setAnualRevenue("1000");
@@ -120,7 +120,7 @@ public class ZoHoAdapterTest {
 	@Ignore
 	@Test
 	   public void testAccountsXMLGeneration(){
-		   ZohoCRMAccounts zacc=new ZohoCRMAccounts();
+		   Accounts zacc=new Accounts();
 		   String input = "";
 			 zacc.setAccount_Name("Billing");
 			 zacc.setAnual_Revenue("1000000");

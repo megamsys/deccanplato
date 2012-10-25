@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
-import org.megam.deccanplato.provider.crm.info.SalesforceCRMLead;
+import org.megam.deccanplato.provider.salesforce.info.SalesforceCRMLead;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -4,14 +4,14 @@ import javax.xml.bind.JAXBException;
 
 import org.junit.Test;
 import org.megam.core.util.XMLUtils;
-import org.megam.deccanplato.provider.crm.info.ZohoCRMLeeds;
-import org.megam.deccanplato.provider.crm.info.ZohoCRMXMLBase;
+import org.megam.deccanplato.provider.zoho.crm.info.Leads;
+import org.megam.deccanplato.provider.zoho.crm.info.XMLBase;
 
 public class TempUnitTest {
 
 	@Test
 	public void testJacksonXMLGeneration() throws JAXBException {
-		ZohoCRMLeeds leads = new ZohoCRMLeeds();
+		Leads leads = new Leads();
 		leads.setOwnerId("helloowner");
 		leads.setAnualRevenue("1000");
 		leads.setCity("MEXICO");
