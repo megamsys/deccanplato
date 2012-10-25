@@ -18,7 +18,7 @@ public interface CloudOperation {
 	public boolean canProceed();
 
 
-	public void handle();
+	public <T extends Object> CloudOperationOutput<T> handle();
 	
 
 	

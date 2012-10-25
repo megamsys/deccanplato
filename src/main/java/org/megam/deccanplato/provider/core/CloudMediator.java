@@ -3,7 +3,7 @@ package org.megam.deccanplato.provider.core;
 public interface CloudMediator {
 	
 	
-	public SendBackResponse handleRequest();
+	public<T extends Object> SendBackResponse<T> handleRequest();
 
 	public void registerCloudBridgeListener(
 			CloudBridgeMediationListener listener);

@@ -1,9 +1,9 @@
 package org.megam.deccanplato.provider.core;
 
 public class OutputOperation extends AbstractCloudOperation {
-	
+
 	private OutputInfo info;
-	
+
 	public OutputOperation(OutputInfo tempInfo, CloudMediator tempParent) {
 		super(tempParent);
 		this.info = tempInfo;
@@ -13,30 +13,27 @@ public class OutputOperation extends AbstractCloudOperation {
 	public boolean isFitToRun() {
 		return false;
 	}
-	
 
 	@Override
 	public void preOperation() {
-		
+
 	}
 
-	
-	
 	@Override
-	public void handle() {
-		
+	public <T> CloudOperationOutput<T> handle() {
+		if (!info.isDefault()) {
+		}
+		return null;
 	}
-	
 
 	@Override
 	public boolean canProceed() {
 		return false;
 	}
 
-	
 	@Override
 	public void postOperation() {
-		
+
 	}
 
 }

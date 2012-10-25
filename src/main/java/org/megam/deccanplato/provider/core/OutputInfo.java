@@ -12,7 +12,7 @@ private Map<String,String> outputMap = new HashMap<String,String> ();
 		parse(jsonOutputString);
 	}
 	
-	public Map<String,String> asMap() {
+	public Map<String,String> map() {
 		return outputMap;
 	}
 	
@@ -21,10 +21,14 @@ private Map<String,String> outputMap = new HashMap<String,String> ();
 		
 	}
 	
+	public boolean isDefault() {
+		return true;
+	}
+	
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
-		for (Map.Entry<String, String> entry : asMap().entrySet()) {
+		for (Map.Entry<String, String> entry : map().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
 		}
 		formatter.close();

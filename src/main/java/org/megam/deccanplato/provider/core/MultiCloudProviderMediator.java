@@ -13,8 +13,9 @@ public class MultiCloudProviderMediator extends AbstractCloudProviderMediator {
 	public void addRequestMediator(CloudMediator mediator) {
 		orderedMultiMedSet.add(mediator);
 	}
-
-	public SendBackResponse handleRequest() {
+	
+	@Override
+	public <T> SendBackResponse<T> handleRequest() {
 		MultiResponseData resp = new MultiResponseData();
 		for (CloudMediator singleMediator : orderedMultiMedSet) {
 			resp.add(singleMediator.handleRequest());

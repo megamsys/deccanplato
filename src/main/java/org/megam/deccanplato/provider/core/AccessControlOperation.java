@@ -25,7 +25,7 @@ public class AccessControlOperation extends  AbstractCloudOperation {
 		validator = new SecurityValidator();
 	}
 
-	public void handle() {
+	public <T> CloudOperationOutput<T> handle() {
 		if (isFitToRun()) {
 			preOperation();
 
@@ -39,6 +39,7 @@ public class AccessControlOperation extends  AbstractCloudOperation {
 			}
 			postOperation();
 		}
+		return null;
 	}
 
 	public void postOperation() {

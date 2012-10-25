@@ -1,13 +1,24 @@
 package org.megam.deccanplato.provider.core;
 
-public class ResponseDataBuilder  {
+import java.util.Set;
+
+public class ResponseDataBuilder<T extends Object>  {
 	
-	public ResponseDataBuilder() {
-		
+	private ResponseData<T> resp;
+	
+	public ResponseDataBuilder(Set<CloudOperationOutput<T>> tempOpsSet) {
+		resp = new ResponseData<T>();
+		for(CloudOperationOutput<T> op : tempOpsSet) {
+			resp.put(op.name(), op.get());
+		}
+			
 	}
 
 	public ResponseData getResponseData() {
-		// TODO Auto-generated method stub
+		return resp;
+	}
+	
+	public String toJson() {
 		return null;
 	}
 

@@ -1,8 +1,8 @@
 package org.megam.deccanplato.provider;
 
-public interface ProviderAdapter {
+public interface ProviderAdapter<T extends Object> {
 	
-	public void handle(String input);
+	public T handle();
 	
 	public boolean build();
 	

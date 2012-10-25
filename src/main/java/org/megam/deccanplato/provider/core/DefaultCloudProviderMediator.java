@@ -1,7 +1,9 @@
 package org.megam.deccanplato.provider.core;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Set;
 
 import org.megam.deccanplato.provider.ProviderOperation;
 
@@ -19,25 +21,30 @@ public class DefaultCloudProviderMediator extends AbstractCloudProviderMediator 
 	protected void addOperation(CloudOperation ops) {
 		orderedOps.add(ops);
 	}
-
-	public SendBackResponse handleRequest() {
+	
+	@Override
+	public <T> SendBackResponse<T> handleRequest() {
 		boolean shouldProceed = true;
+		Set<CloudOperationOutput<T>> opsOutSet = new HashSet<>();
 		for (Iterator<CloudOperation> iter = orderedOps.iterator(); (iter
 				.hasNext() && shouldProceed);) {
 			CloudOperation singleOps = iter.next();
-			singleOps.handle();
+			CloudOperationOutput<T> opsOut = singleOps.handle();
+			opsOutSet.add(opsOut);
 			shouldProceed = singleOps.canProceed();
 		}
 		/**
 		 * grab all the responses from the RequestMediaOperation and stick stuff
 		 * into the response data builder
 		 ***/
-		ResponseData respData = (new ResponseDataBuilder()).getResponseData();
+		ResponseData<T> respData = (new ResponseDataBuilder(opsOutSet)).getResponseData();
 		return respData;
 	}
 
 	public void setSaveableToUse() {
 
 	}
+
+	
 
 }

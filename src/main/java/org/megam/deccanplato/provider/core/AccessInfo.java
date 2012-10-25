@@ -15,7 +15,7 @@ public class AccessInfo implements DataMap {
 		parse(jsonAccess);
 	}
 
-	public Map<String, String> asMap() {
+	public Map<String, String> map() {
 		return accessMap;
 	}
 
@@ -30,7 +30,7 @@ public class AccessInfo implements DataMap {
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
-		for (Map.Entry<String, String> entry : asMap().entrySet()) {
+		for (Map.Entry<String, String> entry : map().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
 		}
 		formatter.close();
