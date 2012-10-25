@@ -30,6 +30,49 @@ public class ZoHoAdapterTest {
 		String response =resource.contentType("application/json").accept("application/json").post(String.class, zohotoken);
 		System.out.println("Access =>" + response);
 	}*/
+	
+	 @Test
+	   public void testLeadsXMLGeneration(){
+		   Leads leads = new Leads();
+		   String input = "";
+			//leads.setOwnerId("660777000000053001");
+			leads.setAnualRevenue("1000");
+			leads.setCity("MEXICO");
+			leads.setCompany("MAX");
+			leads.setCountry("DETH VALLY");
+			leads.setDescription("account dscription");
+			leads.setDesignation("Developer");
+			leads.setEmail("raja.pandiya@google.co.in");
+			leads.setEmailOptOut("String");
+			leads.setFax("ofx4586465859699");
+			leads.setFirstname("Ricky");
+			leads.setIndustry("IT");
+			leads.setLastname("Ponting");
+			//leads.setLeadOwner("raja.pandiya");
+			leads.setLeadSource("Source");
+			leads.setLeadStatus("ACTIVE");
+			leads.setMobile("95895746325");
+			leads.setNoOfEmployees("10");
+			leads.setPhone("012-2548963");
+			leads.setSalutation("Salutation");
+			leads.setSkypeId("4256gtrm");
+			leads.setStreet("Mount vally street");
+			leads.setWebsite("megam.co");
+			leads.setZipCode("4589632");
+			try {
+				  input=leads.toXMLString();
+				  System.out.println(leads.toXMLString());
+			} catch (JAXBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("setUp ZOHOLEAD");		
+			RestClient rc = new RestClient();
+			Resource resource = rc.resource("http://localhost:8080/deccanplato/provider/crm/zoho/leads");
+			String response =resource.contentType("text/plain").accept("text/plain").post(String.class, input);
+			System.out.println("Access =>" + response);
+			
+	   }
 	@Ignore
 	@Test
 	public void Usertestdelete(){
@@ -43,48 +86,7 @@ public class ZoHoAdapterTest {
 		System.out.println("testCreateAccount :" + response);
 	}
 	@Ignore
-   @Test
-   public void testLeadsXMLGeneration(){
-	   Leads leads = new Leads();
-	   String input = "";
-		//leads.setOwnerId("660777000000053001");
-		leads.setAnualRevenue("1000");
-		leads.setCity("MEXICO");
-		leads.setCompany("MAX");
-		leads.setCountry("DETH VALLY");
-		leads.setDescription("account dscription");
-		leads.setDesignation("Developer");
-		leads.setEmail("raja.pandiya@google.co.in");
-		leads.setEmailOptOut("String");
-		leads.setFax("ofx4586465859699");
-		leads.setFirstname("Ricky");
-		leads.setIndustry("IT");
-		leads.setLastname("Ponting");
-		//leads.setLeadOwner("raja.pandiya");
-		leads.setLeadSource("Source");
-		leads.setLeadStatus("ACTIVE");
-		leads.setMobile("95895746325");
-		leads.setNoOfEmployees("10");
-		leads.setPhone("012-2548963");
-		leads.setSalutation("Salutation");
-		leads.setSkypeId("4256gtrm");
-		leads.setStreet("Mount vally street");
-		leads.setWebsite("megam.co");
-		leads.setZipCode("4589632");
-		try {
-			  input=leads.toXMLString();
-			  System.out.println(leads.toXMLString());
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("setUp ZOHOLEAD");		
-		RestClient rc = new RestClient();
-		Resource resource = rc.resource("http://localhost:8080/deccanplato/provider/crm/zoho/leads");
-		String response =resource.contentType("text/plain").accept("text/plain").post(String.class, input);
-		System.out.println("Access =>" + response);
-		
-   }
+  
 	/*@Test
 	public void ZohoTestListLead(){
 		System.out.println("setUp ZOHO LEAD List");

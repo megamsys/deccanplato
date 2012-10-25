@@ -8,7 +8,11 @@ import org.megam.deccanplato.provider.BusinessActivity;
 public class SugarCRMAdapter extends AbstractProviderAdapter {
 
 	private BusinessActivity activity;
-
+	
+	public SugarCRMAdapter() {
+		super();
+	}
+	
 	public SugarCRMAdapter(Map<String, String> tempArgs) {
 		super(tempArgs);
 	}

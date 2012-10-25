@@ -8,7 +8,11 @@ import org.megam.deccanplato.provider.BusinessActivity;
 public class XeroAdapter extends AbstractProviderAdapter {
 
 	private BusinessActivity activity;
-
+	
+	public XeroAdapter() {
+		super();
+	}
+	
 	public XeroAdapter(Map<String, String> tempArgs) {
 		super(tempArgs);
 	}

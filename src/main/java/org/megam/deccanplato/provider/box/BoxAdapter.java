@@ -8,6 +8,10 @@ import org.megam.deccanplato.provider.BusinessActivity;
 public class BoxAdapter extends AbstractProviderAdapter {
 
 	private BusinessActivity activity;
+	
+	public BoxAdapter() {
+		super();
+	}
 
 	public BoxAdapter(Map<String, String> tempArgs) {
 		super(tempArgs);

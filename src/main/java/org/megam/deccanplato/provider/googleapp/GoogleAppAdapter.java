@@ -8,7 +8,11 @@ import org.megam.deccanplato.provider.BusinessActivity;
 public class GoogleAppAdapter extends AbstractProviderAdapter {
 
 	private BusinessActivity activity;
-
+	
+	public GoogleAppAdapter() {
+		super();
+	}
+	
 	public GoogleAppAdapter(Map<String, String> tempArgs) {
 		super(tempArgs);
 	}

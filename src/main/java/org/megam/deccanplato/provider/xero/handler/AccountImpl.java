@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.megam.deccanplato.provider.BusinessActivity;
 
-public class UserImpl implements BusinessActivity {
+public class AccountImpl implements BusinessActivity {
 
 	@Override
 	public void setArguments(Map<String, String> args) {

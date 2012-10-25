@@ -9,53 +9,56 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
 http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd">
 
+	<bean id="providerAdapter" abstract="true"
+	class="org.megam.deccanplato.provider.ProviderAdapter" />
+	
 	<bean id="salesforce" class="org.megam.deccanplato.provider.Provider">
 		<property name="name" value="salesforce" />
 		<property name="description" value="Saleforce.com CRM Adapter." />
 		<property name="adapter">
-			<bean class ="org.megam.deccanplato.provider.salesforce.SalesforceAdapter" />
+			<bean class ="org.megam.deccanplato.provider.salesforce.SalesforceAdapter" parent="providerAdapter"/>
 		</property>
 	</bean>
 	<bean id="zoho" class="org.megam.deccanplato.provider.Provider">
 		<property name="name" value="zohocrm" />
 		<property name="description" value="Zoho CRM." />
 		<property name="adapter">
-			<bean class ="org.megam.deccanplato.provider.zoho.crm.ZohoAdapter" />
+			<bean class ="org.megam.deccanplato.provider.zoho.crm.ZohoAdapter" parent="providerAdapter" />
 		</property>
 	</bean>
 	<bean id="sugarcrm" class="org.megam.deccanplato.provider.Provider">
 		<property name="name" value="sugarcrm" />
 		<property name="description" value="Sugar CRM." />
 		<property name="adapter">
-			<bean class ="org.megam.deccanplato.provider.sugarcrm.SugarCRMAdapter" />
+			<bean class ="org.megam.deccanplato.provider.sugarcrm.SugarCRMAdapter" parent="providerAdapter" />
 		</property>
 	</bean>
 	<bean id="googleapp" class="org.megam.deccanplato.provider.Provider">
 		<property name="name" value="googleapp" />
 		<property name="description" value="Google App collaboration." />
 		<property name="adapter">
-			<bean class ="org.megam.deccanplato.provider.googleapp.GoogleAppAdapter" />
+			<bean class ="org.megam.deccanplato.provider.googleapp.GoogleAppAdapter" parent="providerAdapter" />
 		</property>
 	</bean>
 	<bean id="xero" class="org.megam.deccanplato.provider.Provider">
 		<property name="name" value="xero" />
 		<property name="description" value="Xero Accounting." />
 		<property name="adapter">
-			<bean class ="org.megam.deccanplato.provider.xero.XeroAdapter" />
+			<bean class ="org.megam.deccanplato.provider.xero.XeroAdapter"  parent="providerAdapter"/>
 		</property>
-	</bean>
+	</bean> 
 	<bean id="box" class="org.megam.deccanplato.provider.Provider">
 		<property name="name" value="box" />
 		<property name="description" value="Box.com cloud storage." />
 		<property name="adapter">
-			<bean class="org.megam.deccanplato.provider.box.BoxAdapter" />
+			<bean class="org.megam.deccanplato.provider.box.BoxAdapter" parent="providerAdapter" />
 		</property>
 	</bean>
 	<bean id="dropbox" class="org.megam.deccanplato.provider.Provider">
 		<property name="name" value="dropbox" />
 		<property name="description" value="Dropbox cloud storage" />
 		<property name="adapter">
-			<bean class ="org.megam.deccanplato.provider.dropbox.DropboxAdapter" />
+			<bean class ="org.megam.deccanplato.provider.dropbox.DropboxAdapter" parent="providerAdapter" />
 		</property>
 	</bean>
 </beans>

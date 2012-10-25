@@ -8,6 +8,10 @@ import org.megam.deccanplato.provider.BusinessActivity;
 public class DropboxAdapter extends AbstractProviderAdapter {
 
 	private BusinessActivity activity;
+	
+	public DropboxAdapter() {
+		super();
+	}
 
 	public DropboxAdapter(Map<String, String> tempArgs) {
 		super(tempArgs);

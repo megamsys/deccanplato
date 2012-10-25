@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractProviderAdapter<T extends Object> implements ProviderAdapter<T> {
 		
-	@Autowired
+	//@Autowired
 	//public ProviderRegistry registry;
 	
 	protected Map<String,String> args;

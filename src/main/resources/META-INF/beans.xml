@@ -11,7 +11,40 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 
 	<import resource="classpath:/META-INF/providers.xml" />
 
-	<bean id="providerRegistry" class="org.megam.deccanplato.provider.ProviderRegistry">
+	<!--AWS Property Configurer
+	<bean id="awsPropertyConfigurer"
+	class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="locations">
+	<list>
+	<value>classpath:aws.properties</value>
+	</list>
+	</property>
+	</bean>
+
+	Use a Compute Cloud
+	<bean id="computeCloud" class="org.megam.mammoth.cloud.compute.DefaultComputeCloud" scope="singleton">
+	<property name="computeCloudSource" ref="computeCloudSource" />
+	</bean>
+
+	Wire a base cloud compute source
+	<bean id="baseCloudSource" abstract="true"
+	class="org.megam.mammoth.cloud.compute.info.ComputeCloudSource">
+	<property name="region" value="${ccls.region}"/>
+	<property name="secretkey" value="${ccls.secretkey}"/>
+	<property name="accesskey" value="${ccls.accesskey}"/>
+	<property name="computeEngineClassName" value="${ccls.computeEngineClassName}"/>
+	</bean>
+
+	Wire a cloud compute source - AMAZON EC2. stupid to inherit. cleanup later
+	<bean id="computeCloudSource" parent="baseCloudSource"
+	class="org.megam.mammoth.cloud.compute.info.BasicCloudComputeSource">
+	<property name="instanceType" value="${ccls.instance_type}"/>
+	<property name="imageId" value="${ccls.image_id}"/>
+	<property name="instanceId" value="${ccls.instance_id}"/>
+	</bean>
+
+	-->
+	<bean id="providerRegistry" class="org.megam.deccanplato.provider.ProviderRegistry" factory-method="newInstance" >
 		<property name="providersMap">
 			<map>
 				<entry key="salesforce" value-ref="salesforce" />
@@ -34,8 +67,8 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 				</entry>
 				<entry key="zoho">
 					<set>
-						<bean class="org.megam.deccanplato.provider.zoho.handler.AccountImpl"/>
-						<bean class="org.megam.deccanplato.provider.zoho.handler.LeadsImpl"/>
+						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.AccountImpl"/>
+						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.LeadsImpl"/>
 					</set>
 				</entry>
 				<entry key="sugarcrm">
@@ -47,13 +80,10 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 				<entry key="googleapp">
 					<set>
 						<bean class="org.megam.deccanplato.provider.googleapp.handler.UserImpl"/>
-						<bean class="org.megam.deccanplato.provider.googleapp.handler.AccountImpl"/>
-						<bean class="org.megam.deccanplato.provider.googleapp.handler.ContactImpl"/>
 					</set>
 				</entry>
 				<entry key="xero">
 					<set>
-						<bean class="org.megam.deccanplato.provider.xero.handler.UserImpl"/>
 						<bean class="org.megam.deccanplato.provider.xero.handler.AccountImpl"/>
 					</set>
 				</entry>

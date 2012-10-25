@@ -21,7 +21,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class RequestDataBuilderTest {
 
-	//@Test
+	// @Test
 	public void jsontoTest() {
 		String str = "";
 		String str1 = null;
@@ -42,21 +42,25 @@ public class RequestDataBuilderTest {
 		}
 
 		System.out.println("Value" + str);
-		RequestDataBuilder RDB=new RequestDataBuilder(str);		
-		
-	}
-	
-	@Test
-	public void providerRegistryTest(){
-		
-		GenericApplicationContext ctx = new GenericApplicationContext();
-		 XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(ctx);
-		 xmlReader.loadBeanDefinitions(new ClassPathResource("applicationContext.xml"));
-		 //PropertiesBeanDefinitionReader propReader = new PropertiesBeanDefinitionReader(ctx);
-		// propReader.loadBeanDefinitions(new ClassPathResource("otherBeans.properties"));
-		 ctx.refresh();
+		RequestDataBuilder RDB = new RequestDataBuilder(str);
 
-		 ProviderRegistry myBean = (ProviderRegistry) ctx.getBean("providerRegistry");
-		 System.out.println("Provider Registry"+myBean.toString());
+	}
+
+	@Test
+	public void providerRegistryTest() {
+
+		GenericApplicationContext ctx = new GenericApplicationContext();
+		XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(ctx);
+		xmlReader.loadBeanDefinitions(new ClassPathResource(
+				"applicationContext.xml"));
+		// PropertiesBeanDefinitionReader propReader = new
+		// PropertiesBeanDefinitionReader(ctx);
+		// propReader.loadBeanDefinitions(new
+		// ClassPathResource("otherBeans.properties"));
+		ctx.refresh();
+
+		ProviderRegistry myBean = (ProviderRegistry) ctx
+				.getBean("providerRegistry");
+		System.out.println("Provider Registry" + myBean.toString());
 	}
 }
