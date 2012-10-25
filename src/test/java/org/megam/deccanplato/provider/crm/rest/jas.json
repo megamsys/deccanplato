@@ -1,32 +1,17 @@
 {
-  "jstest": {
+  "system": {
     "access": {
-      "A1": "Value1",
-      "A2": "Value2",
-      "A3": "Value3",
-      "A4": "Value4",
-      "A5": "Value5"
+      "1": "value1"
     }
   },
-  "Debug": "on",
-  "chained": "true",
-  "c": {
-    "mapc": {
-      "C1": "Value1",
-      "C2": "Value2",
-      "C3": "Value3",
-      "C4": "Value4",
-      "C5": "Value5"
+  "provider": {
+    "business_activity": {
+      "1": "value1"
     }
   },
-  "d": {
-    "mapd": {
-      "D1": "Value1",
-      "D2": "Value2",
-      "D3": "Value3",
-      "D4": "Value4",
-      "D5": "Value5"
+  "execution": {
+    "output": {
+      "1": "value1"
     }
   }
 }
-

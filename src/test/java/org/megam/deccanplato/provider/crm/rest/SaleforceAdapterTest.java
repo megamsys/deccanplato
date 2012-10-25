@@ -4,7 +4,7 @@ import org.apache.wink.client.RestClient;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.megam.deccanplato.provider.crm.info.SalesforceCRM;
+import org.megam.deccanplato.provider.salesforce.info.SalesforceCRM;
 import org.apache.wink.client.Resource;
 
 import com.google.gson.Gson;

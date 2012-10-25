@@ -58,7 +58,7 @@ public class JsonTest {
 		}.getType();
 		Map<String, String> lead = gson.fromJson(str, Map);
 		System.out.println("MAPVALUE:" + lead);
-		System.out.println("MAPVALUE:" + lead.get("api_token"));
+		//System.out.println("MAPVALUE:" + lead.get("api_token"));
 
 	}
 	public String toString(){

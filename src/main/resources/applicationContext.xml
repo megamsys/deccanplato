@@ -14,6 +14,8 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 http://www.salesforce.com/schema/springsecurity http://www.salesforce.com/schema/springsecurity/force-springsecurity-1.3.xsd
 http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
+	<import resource="classpath:/META-INF/beans.xml" />
+
 	<!-- DispatcherServlet Context: defines this servlet's request-processing
 	infrastructure -->
 	<context:annotation-config />
@@ -23,5 +25,5 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving
 	up static resources in the ${webappRoot}/resources directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-
+	
 </beans>
