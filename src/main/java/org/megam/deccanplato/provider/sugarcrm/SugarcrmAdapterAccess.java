@@ -12,7 +12,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package org.megam.deccanplato.provider.salesforce;
+package org.megam.deccanplato.provider.sugarcrm;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
 import com.google.gson.Gson;
 
-public class SalesforceAdapterAccess implements AdapterAccess {
+public class SugarcrmAdapterAccess implements AdapterAccess {
 	
 	private boolean success = false;
 	private static final String SALESFORCE_OAUTH2_URL = "https://login.salesforce.com/services/oauth2/token";
