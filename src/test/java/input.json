@@ -1,0 +1,25 @@
+{
+	"system": {
+		"access": {
+			"project_id": "979878798zddafdasfaaa",
+			"api_token": "xyzedasdfasdfeadfadf",
+			"access_email": "jdoe@foo.com",
+			"access_org_id": "1",
+			"access_account_name":"tempo"
+		}
+	},
+	"provider": {
+		"access": {
+			"consumer_secret": "998080980980980",
+			"consumer_key": "99080980980980"
+		},
+		"business_activity": {
+			"locale": "US"
+		}
+	},
+	"execution": {
+		"output": {
+			"location": "Default"
+		}
+	}
+}

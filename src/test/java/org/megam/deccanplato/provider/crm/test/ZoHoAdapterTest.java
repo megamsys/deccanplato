@@ -1,4 +1,4 @@
-package org.megam.deccanplato.provider.crm.rest;
+package org.megam.deccanplato.provider.crm.test;
 
 import javax.xml.bind.JAXBException;
 

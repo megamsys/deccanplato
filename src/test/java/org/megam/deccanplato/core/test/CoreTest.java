@@ -1,6 +1,7 @@
-package org.megam.deccanplato.provider.crm.rest;
+package org.megam.deccanplato.core.test;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -19,46 +20,36 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-public class RequestDataBuilderTest {
-
-	// @Test
-	public void jsontoTest() {
-		String str = "";
-		String str1 = null;
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(
-					new FileReader(
-							"/home/pandiyaraja/code/megam/development/deccanplato/src/test/java/org/megam/deccanplato/provider/crm/rest/jas.json"));
-
-			while ((str1 = br.readLine()) != null) {
-				str += str1;
-
-			}
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		System.out.println("Value" + str);
-		RequestDataBuilder RDB = new RequestDataBuilder(str);
-
-	}
+public class CoreTest {
 
 	@Test
-	public void providerRegistryTest() {
+	public void testRequestDataBuilder() throws IOException {
+		BufferedReader br = null;
+		String inputJsonPath = new File(".").getCanonicalPath()
+				+ java.io.File.separator + "src" + java.io.File.separator
+				+ "test" + java.io.File.separator + "java"
+				+ java.io.File.separator;
 
+		br = new BufferedReader(new FileReader(inputJsonPath + "input.json"));
+
+		StringBuilder strb = new StringBuilder();
+		String currentLine = "";
+
+		while ((currentLine = br.readLine()) != null) {
+			strb.append(currentLine);
+		}
+		//
+		RequestDataBuilder rdb = new RequestDataBuilder(strb.toString());
+		System.out.println(rdb.data().toString());
+	}
+
+	// @Test
+	public void testLoadProviderRegistry() {
 		GenericApplicationContext ctx = new GenericApplicationContext();
 		XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(ctx);
 		xmlReader.loadBeanDefinitions(new ClassPathResource(
 				"applicationContext.xml"));
-		// PropertiesBeanDefinitionReader propReader = new
-		// PropertiesBeanDefinitionReader(ctx);
-		// propReader.loadBeanDefinitions(new
-		// ClassPathResource("otherBeans.properties"));
 		ctx.refresh();
-
 		ProviderRegistry myBean = (ProviderRegistry) ctx
 				.getBean("providerRegistry");
 		System.out.println("Provider Registry" + myBean.toString());

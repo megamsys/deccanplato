@@ -6,7 +6,7 @@ import org.megam.deccanplato.provider.core.AbstractCloudOperation;
 import org.megam.deccanplato.provider.core.AdapterAccess;
 import org.megam.deccanplato.provider.core.CloudMediator;
 import org.megam.deccanplato.provider.core.CloudOperationOutput;
-import org.megam.deccanplato.provider.core.GeneralInfo;
+import org.megam.deccanplato.provider.core.ProviderInfo;
 import org.megam.deccanplato.provider.event.BridgeMediationEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,12 +15,12 @@ public class ProviderOperation extends AbstractCloudOperation {
 	@Autowired
 	private ProviderRegistry registry;
 
-	private GeneralInfo info;
+	private ProviderInfo info;
 	private Provider prov;
 
 	private boolean isFitToRun = false;
 
-	public ProviderOperation(GeneralInfo tempInfo, CloudMediator tempParent) {
+	public ProviderOperation(ProviderInfo tempInfo, CloudMediator tempParent) {
 		super(tempParent);
 		this.info = tempInfo;
 	}

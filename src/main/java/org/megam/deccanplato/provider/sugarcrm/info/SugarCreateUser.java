@@ -3,7 +3,7 @@ package org.megam.deccanplato.provider.sugarcrm.info;
 import java.util.ArrayList;
 
 import org.megam.deccanplato.provider.crm.controller.CRMController;
-import org.megam.deccanplato.provider.crm.rest.SugarAdapterTest;
+import org.megam.deccanplato.provider.crm.test.SugarAdapterTest;
 
 public class SugarCreateUser {
 	

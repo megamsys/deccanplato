@@ -9,20 +9,18 @@ import com.google.gson.annotations.SerializedName;
 public class RequestData {
 	
 	private AccessInfo system;
-	private GeneralInfo provider;
-	
+	private ProviderInfo provider;	
 	private OutputInfo execution;
 
 	
 	public RequestData() {
-		System.out.println("In REQUESTDATA CONSTRUCTOR");
 	}
 	
 	public AccessInfo getAccess() {
 		return system;
 	}
 	
-	public GeneralInfo getGeneral() {
+	public ProviderInfo getGeneral() {
 		return provider;
 	}
 	
@@ -36,6 +34,7 @@ public class RequestData {
 		formatter.format("%s%n", getAccess().toString());
 		formatter.format("%s%n", getGeneral().toString());
 		formatter.format("%s%n", getOutput().toString());
+		formatter.close();
 		return strbd.toString();
 	}
 	

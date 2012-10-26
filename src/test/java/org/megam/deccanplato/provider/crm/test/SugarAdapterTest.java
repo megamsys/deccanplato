@@ -1,4 +1,4 @@
-package org.megam.deccanplato.provider.crm.rest;
+package org.megam.deccanplato.provider.crm.test;
 
 import org.apache.wink.client.Resource;
 import org.apache.wink.client.RestClient;

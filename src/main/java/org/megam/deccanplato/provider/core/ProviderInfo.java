@@ -4,22 +4,30 @@ import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GeneralInfo implements DataMap {
+public class ProviderInfo implements DataMap {
 
 	private Map<String, String> business_activity = new HashMap<String, String>();
+	private Map<String, String> access = new HashMap<String, String>();
+
 	
 	private static final String PROVIDER = "PROVIDER";
 
-	public GeneralInfo() {
-		
+
+	public ProviderInfo() {		
 	}
 
 
 	public Map<String, String> map() {
+		if(!business_activity.keySet().containsAll(access.keySet())) {
+			business_activity.putAll(access);
+		}
 		return business_activity;
 	}
 	
-
+	public String getProviderName() {
+		return map().get(PROVIDER);
+	}
+	
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
@@ -30,8 +38,6 @@ public class GeneralInfo implements DataMap {
 		return strbd.toString();
 	}
 
-	public String getProviderName() {
-		return map().get(PROVIDER);
-	}
+	
 
 }
