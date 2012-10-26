@@ -7,6 +7,9 @@ IDP_INSTALL_PATH=
 IDP_GIT_COMMIT_MASTER=
 IDP_GIT_MASTER=master
 IDP_GIT_ORIGIN=origin
+JAVA_SRC_DIR=$PWD/src/main/java
+JAVA_OUT_DIR=$PWD/out
+LICENSE_FILE_NAME=License
 #--------------------------------------------------------------------------
 #initialize the environment variables.
 #IDP_INSTALL_PATH => the rails application installation directory.
@@ -49,7 +52,10 @@ case $item in
         --[hH][eE][lL][pP])
             help
             ;;
-('/?')
+	--[lL][uU][dD])
+	licenseupd
+	;;
+	('/?')
             help
             ;;
             --[mM][yY])
@@ -92,15 +98,52 @@ done
 #--------------------------------------------------------------------------
 help(){
     echo "Usage : d.sh [Options]"
-    echo "--help : prints the help message."
+    echo "--help   : prints the help message."
     echo "--verify : does a git status."
-    echo "--my : does a add, commit and push of my master."
-    echo "--omy : does a add, commit and push to origin."
-    echo "--upd : does a fetch from origing and merge to my master."
+    echo "--lud    : does a insert of License file into your code."
+    echo "--my     : does a add, commit and push of my master."
+    echo "--omy    : does a add, commit and push to origin."
+    echo "--upd    : does a fetch from origing and merge to my master."
     echo "--finish : does a push of anothers users master to origin"
     echo " (committer only)"
-    echo "--clean : cleans up the temp files."
+    echo "--clean  : cleans up the temp files."
     
+exitScript 0
+}
+#
+#
+#--------------------------------------------------------------------------
+#Updates the license text in all the source code.
+#--------------------------------------------------------------------------
+licenseupd(){
+if [ ! -f $LICENSE_FILE_NAME ]
+then
+    echo $LICENSE_FILE_NAME does not exists.
+    exitScript 0
+fi
+echo "========================================================="
+printf "%-20s=>\t%s\n" Updating [$LICENSE_FILE_NAME]
+echo "========================================================="
+echo -n "Do you want to insert [$LICENSE_FILE_NAME] text into your code [y/n]? "
+read -n 1 licenseupd
+echo
+if [[ $licenseupd =~ ^[Yy]$ ]]
+then
+echo "========================================================="
+
+cd $JAVA_SRC_DIR
+
+if [ -d $JAVA_OUT_DIR ]
+then
+rm -r $JAVA_OUT_DIR
+fi
+
+mkdir $JAVA_OUT_DIR
+
+for i in `find -type d | sed 's/\.//' | grep -v "^$"`; do mkdir $JAVA_OUT_DIR$i; done
+for i in `find -name "*.java"`; do cat $IDP_INSTALL_PATH/$LICENSE_FILE_NAME $i > $JAVA_OUT_DIR/$i ; done
+fi
+   
 exitScript 0
 }
 #--------------------------------------------------------------------------
