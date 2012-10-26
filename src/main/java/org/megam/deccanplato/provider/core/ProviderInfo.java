@@ -10,10 +10,11 @@ public class ProviderInfo implements DataMap {
 	private Map<String, String> access = new HashMap<String, String>();
 
 	
-	private static final String PROVIDER = "PROVIDER";
+	private static final String PROVIDER = "provider";
 
 
-	public ProviderInfo() {		
+	public ProviderInfo() {	
+		
 	}
 
 
