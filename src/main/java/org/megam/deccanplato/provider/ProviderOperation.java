@@ -6,6 +6,7 @@ import org.megam.deccanplato.provider.core.AbstractCloudOperation;
 import org.megam.deccanplato.provider.core.AdapterAccess;
 import org.megam.deccanplato.provider.core.CloudMediator;
 import org.megam.deccanplato.provider.core.CloudOperationOutput;
+import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.ProviderInfo;
 import org.megam.deccanplato.provider.event.BridgeMediationEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class ProviderOperation extends AbstractCloudOperation {
 	public void preOperation() {
 		prov = registry.getAdapter(info.getProviderName());
 		AdapterAccess accessSource = prov.getAdapterAccess();
+		DataMap accessedMap = accessSource.authenticate(info);
 		isFitToRun = accessSource.isSuccessful();
 	}
 

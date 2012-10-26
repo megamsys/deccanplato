@@ -3,6 +3,7 @@ package org.megam.deccanplato.provider.salesforce;
 import java.util.Map;
 
 import org.megam.deccanplato.provider.core.AdapterAccess;
+import org.megam.deccanplato.provider.core.DataMap;
 
 public class SalesforceAdapterAccess implements AdapterAccess {
 
@@ -12,8 +13,7 @@ public class SalesforceAdapterAccess implements AdapterAccess {
 	}
 
 	@Override
-	public Map<String, String> authenticate() {
-		// TODO Auto-generated method stub
+	public DataMap authenticate(DataMap accessMap) {
 		return null;
 	}
 

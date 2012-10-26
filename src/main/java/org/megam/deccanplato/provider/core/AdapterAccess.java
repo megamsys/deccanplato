@@ -6,6 +6,6 @@ public interface AdapterAccess {
 	
 	public boolean isSuccessful();
 	
-	public Map<String, String> authenticate();
+	public DataMap authenticate(DataMap accessMap);
 	
 }
