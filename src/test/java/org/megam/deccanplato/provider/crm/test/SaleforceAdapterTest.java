@@ -57,7 +57,9 @@ public class SaleforceAdapterTest {
 		
 		SalesforceAdapterAccess saa=new SalesforceAdapterAccess();
 		DataMap dmap=saa.authenticate(reqData.getGeneral());
-		System.out.println("DMAP"+dmap);
+		System.out.println(dmap.map().get("instance_url"));
+		System.out.println(dmap.map().get("access_token"));
+		//System.out.println("DMAP"+dmap.toString());
 	}
    
 	

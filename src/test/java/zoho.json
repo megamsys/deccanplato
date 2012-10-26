@@ -8,10 +8,10 @@
 	"access_account_name":"MegamSyste"}},
  "provider":{
    "access":{
-	"consumer_key":"3MVG9Y6d_Btp4xp4gO.riQJ_rIDhucQ_Np5sC8zY_25MtT9uAihTmD05P2OElchJ2zQdnUAwBjb4dBxebqRIi",
-	"consumer_secret":"8641346148066653472",
-	"access_username":"Alrin",
-	"access_password":"password",
+	"EMAIL_ID":"raja.pandiya@megam.co.in",
+	"PASSWORD":"team4megam",
+	"access_username":"pontiyaraja@gmail.com",
+	"access_password":"team4megamE1mlHRMlL7deN0zCN4oDAZlJq",
 	"provider":"Salesforce",
 	"category":"CRM",
 	"description":"My first Connector Project",

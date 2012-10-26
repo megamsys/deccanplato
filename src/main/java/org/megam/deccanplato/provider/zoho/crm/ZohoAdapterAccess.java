@@ -12,7 +12,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package org.megam.deccanplato.provider.salesforce;
+package org.megam.deccanplato.provider.zoho.crm;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,10 +33,10 @@ import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
 import com.google.gson.Gson;
 
-public class SalesforceAdapterAccess implements AdapterAccess {
+public class ZohoAdapterAccess implements AdapterAccess {
 	
 	private boolean success = false;
-	private static final String SALESFORCE_OAUTH2_URL = "https://login.salesforce.com/services/oauth2/token";
+	private static final String ZOHO_OAUTH2_URL = "https://accounts.zoho.com/apiauthtoken/nb/create?";
     
 	@Override
 	public boolean isSuccessful() {
@@ -48,13 +48,12 @@ public class SalesforceAdapterAccess implements AdapterAccess {
 		Map<String,T> accessMap = access.map();
 		
 		List<NameValuePair> list=new ArrayList<NameValuePair>();
-		list.add(new BasicNameValuePair("grant_type", "password"));
-        list.add(new BasicNameValuePair("client_id", (String) accessMap.get("consumer_key")));
-        list.add(new BasicNameValuePair("client_secret", (String) accessMap.get("consumer_secret")));
-        list.add(new BasicNameValuePair("username", (String) accessMap.get("access_username")));
-        list.add(new BasicNameValuePair("password", (String) accessMap.get("access_password")));
+		list.add(new BasicNameValuePair("SCOPE", "ZohoCRM/crmapi"));
+        list.add(new BasicNameValuePair("EMAIL_ID", (String) accessMap.get("EMAIL_ID")));
+        list.add(new BasicNameValuePair("PASSWORD", (String) accessMap.get("PASSWORD")));
         
-        TransportTools tools=new TransportTools(SALESFORCE_OAUTH2_URL, list);
+        
+        TransportTools tools=new TransportTools(ZOHO_OAUTH2_URL, list);
         String responseBody = null;
         
         TransportResponse response = null;
@@ -77,16 +76,14 @@ public class SalesforceAdapterAccess implements AdapterAccess {
 	@Override
 	public <T> DataMap<T> parsOutput(String response, DataMap<T> map) {
 		
-		JSONObject json;
+		AccessParser ap = null;
 		try {
-			    json=new JSONObject(response); 
-			    map.map().put("access_token", (T) json.get("access_token"));
-			    map.map().put("instance_url", (T) json.get("instance_url"));
-			} catch (JSONException e) {
+			   ap=new AccessParser(response);
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+			map.map().put("OAuth_token", (T) ap.getAuthtoken());	
 		return map;
 	}
 	

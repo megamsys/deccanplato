@@ -28,26 +28,26 @@ import org.apache.http.util.EntityUtils;
  */
 public class TransportResponse {
 	
-	private StatusLine status;
-	private HttpEntity entity;
-	private Locale locale;
+	private String status;
+	private String entity;
+	private String  locale;
 	
-	public TransportResponse(StatusLine tempStatus, HttpEntity tempEntity, Locale tempLocale) {
-		this.status = tempStatus;
-		this.entity = tempEntity;
-		this.locale = tempLocale;
+	public TransportResponse(StatusLine tempStatus, HttpEntity tempEntity, Locale tempLocale)  throws ParseException, IOException  {
+		entity = EntityUtils.toString(tempEntity);
+		status = tempStatus.toString();
+		locale=tempLocale.getDisplayCountry() + ":" + tempLocale.getDisplayLanguage();
 	}
 	
-	public String entityToString() throws ParseException, IOException {
-		return EntityUtils.toString(entity);
+	public String entityToString() {
+		return entity;
 	}
 	
 	public String statusLineToString() {
-		return status.toString();
+		return status;
 	}
 	
 	public String localeToString() {
-		return locale.getDisplayCountry() + ":" + locale.getDisplayLanguage();
+		return locale;
 	}
 
 }

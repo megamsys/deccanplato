@@ -1,17 +1,63 @@
 package org.megam.deccanplato.provider.crm.test;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 import javax.xml.bind.JAXBException;
 
 import org.apache.wink.client.Resource;
 import org.apache.wink.client.RestClient;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.megam.deccanplato.provider.core.DataMap;
+import org.megam.deccanplato.provider.core.RequestData;
+import org.megam.deccanplato.provider.core.RequestDataBuilder;
+import org.megam.deccanplato.provider.salesforce.SalesforceAdapterAccess;
+import org.megam.deccanplato.provider.zoho.crm.ZohoAdapterAccess;
 import org.megam.deccanplato.provider.zoho.crm.info.Accounts;
 import org.megam.deccanplato.provider.zoho.crm.info.Leads;
 
 public class ZoHoAdapterTest {
 	
-	private static String zohotoken;
+	private static RequestData reqData;
+	
+	@BeforeClass
+	public static void setUp() throws IOException {
+		System.out.println("setUp ZOHO");
+		System.out.println("setUp");
+		BufferedReader br = null;
+		String inputJsonPath = new File(".").getCanonicalPath()
+				+ java.io.File.separator + "src" + java.io.File.separator
+				+ "test" + java.io.File.separator + "java"
+				+ java.io.File.separator;
+
+		br = new BufferedReader(new FileReader(inputJsonPath + "zoho.json"));
+
+		StringBuilder strb = new StringBuilder();
+		String currentLine = "";
+
+		while ((currentLine = br.readLine()) != null) {
+			strb.append(currentLine);
+		}
+		//
+		RequestDataBuilder rdb = new RequestDataBuilder(strb.toString());
+		reqData=rdb.data();
+		System.out.println(rdb.data().toString());	    	
+		
+	}
+	 @Test
+		public void testZohoAdapterAccess(){
+			
+			ZohoAdapterAccess zaa=new ZohoAdapterAccess();
+			DataMap dmap=zaa.authenticate(reqData.getGeneral());
+			System.out.println(dmap.map().get("OAuth_token"));
+			//System.out.println(dmap.map().get("access_token"));
+			//System.out.println("DMAP"+dmap.toString());
+		}
+	 
 	/*@Ignore
 	@BeforeClass
 	public static void setUp(){
@@ -20,9 +66,9 @@ public class ZoHoAdapterTest {
 		Resource resource = rc.resource("http://localhost:8080/deccanplato/provider/crm/zoho");
 		zohotoken =(resource.accept("application/json").get(String.class));
 		System.out.println("Access =>" + zohotoken);
-	}
+	}*/
 	
-	@Test
+	/*@Test
 	public void ZoHogetUser(){
 		System.out.println("setUp ZOHOGET");		
 		RestClient rc = new RestClient();
@@ -31,7 +77,7 @@ public class ZoHoAdapterTest {
 		System.out.println("Access =>" + response);
 	}*/
 	
-	 @Test
+	/* @Test
 	   public void testLeadsXMLGeneration(){
 		   Leads leads = new Leads();
 		   String input = "";
@@ -95,7 +141,7 @@ public class ZoHoAdapterTest {
 		zohotoken =(resource.accept("application/json").get(String.class));
 		System.out.println("Access =>" + zohotoken);
 	}*/
-	@Test
+	/*@Test
 	public void ZohoTestListAccount(){
 		System.out.println("setUp ZOHO Account List");
 		RestClient rc = new RestClient();
@@ -119,7 +165,7 @@ public class ZoHoAdapterTest {
 		zohotoken =(resource.accept("application/json").delete(String.class));
 		System.out.println("Access =>" + zohotoken);
 	}*/
-	@Ignore
+	/*@Ignore
 	@Test
 	   public void testAccountsXMLGeneration(){
 		   Accounts zacc=new Accounts();
@@ -146,5 +192,5 @@ public class ZoHoAdapterTest {
 			String response =resource.contentType("text/plain").accept("text/plain").post(String.class, input);
 			System.out.println("Access =>" + response);
 			
-	   }
+	   }*/
 }

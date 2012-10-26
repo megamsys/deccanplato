@@ -14,6 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package org.megam.deccanplato.provider.core;
 
+import org.megam.deccanplato.http.TransportResponse;
+
 
 public interface AdapterAccess {
 	
@@ -21,4 +23,5 @@ public interface AdapterAccess {
 	
 	public <T extends Object> DataMap<T> authenticate(DataMap<T> accessMap);
 	
+	public <T extends Object> DataMap<T> parsOutput(String response, DataMap<T> map);
 }
