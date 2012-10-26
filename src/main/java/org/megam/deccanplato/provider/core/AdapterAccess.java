@@ -14,12 +14,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package org.megam.deccanplato.provider.core;
 
-import java.util.Map;
 
 public interface AdapterAccess {
 	
 	public boolean isSuccessful();
 	
-	public DataMap authenticate(DataMap accessMap);
+	public <T extends Object> DataMap<T> authenticate(DataMap<T> accessMap);
 	
 }
