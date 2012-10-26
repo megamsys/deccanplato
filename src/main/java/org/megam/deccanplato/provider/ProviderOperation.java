@@ -75,8 +75,7 @@ public class ProviderOperation extends AbstractCloudOperation {
 	}
 
 	public <B extends BridgeMediationEvent> void bridgeEvent(B evt) {
-		/** 
-		 ***/
+		
 		Map<String, String> authMap = (Map<String, String>) evt.get();
 
 	}

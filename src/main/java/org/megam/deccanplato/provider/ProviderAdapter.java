@@ -14,6 +14,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package org.megam.deccanplato.provider;
 
+/**
+ * This interface acts as an adapter for a provider. Any new provider shall implement this interface.
+ * Every cloud adapter will have its own implementation. 
+ * 
+ * @author ram
+ *
+ * @param <T>
+ */
 public interface ProviderAdapter<T extends Object> {
 	
 	public T handle();

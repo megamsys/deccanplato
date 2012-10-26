@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.megam.deccanplato.provider.AbstractProviderAdapter;
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.ProviderRegistry;
 
 public class SalesforceAdapter<T extends Object> extends
 		AbstractProviderAdapter<T> {
@@ -27,15 +28,10 @@ public class SalesforceAdapter<T extends Object> extends
 	public SalesforceAdapter(){
 		super();
 	}
-	
-	public SalesforceAdapter(Map<String, String> tempArgs) {
-		super(tempArgs);
-	}
-
+		
 	/* using the user#create key */
 	public void configure() {
-		/* using the user#create key */
-		//activity = registry.getBusinessActivity(cloud_app, business_function);
+		activity = ProviderRegistry.instance().getBusinessActivity(cloud_app, business_function);
 	}
 
 	/** get the handle responsible for the call and stick stuff into it **/
