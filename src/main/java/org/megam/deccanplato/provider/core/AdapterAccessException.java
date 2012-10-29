@@ -18,7 +18,7 @@ package org.megam.deccanplato.provider.core;
  * @author ram
  * 
  */
-public class AdapterAccessException extends ProviderException  {
+public class AdapterAccessException extends CloudOperationException  {
 
 	public AdapterAccessException(String tempMessage, Exception ex) {
 		super(tempMessage, ex);
