@@ -11,14 +11,14 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 package org.megam.deccanplato.provider;
 
 import java.util.Map;
 
 import org.megam.deccanplato.provider.core.AbstractCloudOperation;
-import org.megam.deccanplato.provider.core.AdapterAccess;
 import org.megam.deccanplato.provider.core.CloudMediator;
+import org.megam.deccanplato.provider.core.CloudOperationException;
 import org.megam.deccanplato.provider.core.CloudOperationOutput;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.ProviderInfo;
@@ -33,26 +33,27 @@ public class ProviderOperation extends AbstractCloudOperation {
 	private ProviderInfo info;
 	private Provider prov;
 
-	private boolean isFitToRun = false;
-
 	public ProviderOperation(ProviderInfo tempInfo, CloudMediator tempParent) {
 		super(tempParent);
 		this.info = tempInfo;
 	}
 
 	public boolean isFitToRun() {
-		return isFitToRun;
+		if (prov != null && prov.getAdapterAccess() != null) {
+			return prov.getAdapterAccess().isSuccessful();
+		}
+
+		return false;
 	}
 
-	public void preOperation() {
+	public void preOperation() throws CloudOperationException {
 		prov = registry.getAdapter(info.getProviderName());
-		AdapterAccess accessSource = prov.getAdapterAccess();
-		DataMap accessedMap = accessSource.authenticate(info);
-		isFitToRun = accessSource.isSuccessful();
+		DataMap accessedMap = prov.getAdapterAccess().authenticate(info);
+		prov.getAdapter().setDataMap(accessedMap);
 	}
 
 	@Override
-	public <T extends Object> CloudOperationOutput<T> handle() {
+	public <T extends Object> CloudOperationOutput<T> handle() throws CloudOperationException {
 		preOperation();
 		CloudOperationOutput<T> pityOut = null;
 		if (isFitToRun()) {
@@ -66,7 +67,6 @@ public class ProviderOperation extends AbstractCloudOperation {
 
 	@Override
 	public void postOperation() {
-
 	}
 
 	@Override
@@ -75,7 +75,6 @@ public class ProviderOperation extends AbstractCloudOperation {
 	}
 
 	public <B extends BridgeMediationEvent> void bridgeEvent(B evt) {
-		
 		Map<String, String> authMap = (Map<String, String>) evt.get();
 
 	}

@@ -28,6 +28,10 @@ public class ResponseData<T extends Object> implements SendBackResponse<T> {
 	public Map<String, T> map() {
 		return responseMap;
 	}
+	
+	public String name() {
+		return "response-datamap" ;			
+	}
 
 	
 	public String toString() {

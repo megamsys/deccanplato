@@ -14,34 +14,15 @@
  **/
 package org.megam.deccanplato.provider.core;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author ram
- * @param <T>
- * 
+ *
  */
-public class DefaultDataMap<T> implements DataMap<T> {
-
-	private Map<String, T> defaultMap;
-
-	public DefaultDataMap() {
-		defaultMap = new HashMap<String, T>();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.megam.deccanplato.provider.core.DataMap#map()
-	 */
-	@Override
-	public Map<String, T> map() {
-		return defaultMap;
-	}
+public class CloudMediatorException extends DeccanPlatoException {
 	
-	public String name() {
-		return "default-datamap";
+	public CloudMediatorException(String tempMessage, Exception tempEx) {
+		super(tempMessage, tempEx);
 	}
 
 }

@@ -22,8 +22,7 @@ public class OutputInfo implements DataMap {
 	
 private Map<String,String> output = new HashMap<String,String> ();
 	
-	public OutputInfo() {
-		
+	public OutputInfo() {		
 	}
 	
 
@@ -34,6 +33,11 @@ private Map<String,String> output = new HashMap<String,String> ();
 	
 	public boolean isDefault() {
 		return true;
+	}
+	
+	public String name() {
+		return "output-datamap" ;
+			
 	}
 	
 	public String toString() {

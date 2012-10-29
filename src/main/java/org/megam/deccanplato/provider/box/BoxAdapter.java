@@ -18,6 +18,8 @@ import java.util.Map;
 
 import org.megam.deccanplato.provider.AbstractProviderAdapter;
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.core.DataMap;
+import org.megam.deccanplato.provider.core.MultiDataMap;
 
 public class BoxAdapter extends AbstractProviderAdapter {
 
@@ -44,6 +46,24 @@ public class BoxAdapter extends AbstractProviderAdapter {
 	
 	public Map<String,String> handle() {
 		return activity.run();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.deccanplato.provider.core.MultiDataMap)
+	 */
+	@Override
+	public void setDataMap(MultiDataMap multiMap) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.deccanplato.provider.core.DataMap)
+	 */
+	@Override
+	public void setDataMap(DataMap multiMap) {
+		// TODO Auto-generated method stub
+		
 	}
 	 
 }

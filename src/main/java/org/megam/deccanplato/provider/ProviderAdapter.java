@@ -14,6 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package org.megam.deccanplato.provider;
 
+import org.megam.deccanplato.provider.core.DataMap;
+
 /**
  * This interface acts as an adapter for a provider. Any new provider shall implement this interface.
  * Every cloud adapter will have its own implementation. 
@@ -27,6 +29,8 @@ public interface ProviderAdapter<T extends Object> {
 	public T handle();
 	
 	public boolean build();
+	
+	public void setDataMap(DataMap multiMap);
 	
 
 }

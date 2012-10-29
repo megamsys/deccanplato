@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.megam.deccanplato.provider.AbstractProviderAdapter;
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.core.MultiDataMap;
 
 public class SugarCRMAdapter extends AbstractProviderAdapter {
 
@@ -44,6 +45,15 @@ public class SugarCRMAdapter extends AbstractProviderAdapter {
 	
 	public Map<String,String> handle() {
 		return activity.run();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.deccanplato.provider.core.MultiDataMap)
+	 */
+	@Override
+	public void setDataMap(MultiDataMap multiMap) {
+		// TODO Auto-generated method stub
+		
 	}
 	 
 }

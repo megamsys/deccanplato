@@ -19,15 +19,17 @@ import java.util.Map;
 
 /**
  * @author ram
- * @param <T>
  * 
  */
-public class DefaultDataMap<T> implements DataMap<T> {
+public class MultiDataMap<T extends Object> implements DataMap<T> {
 
-	private Map<String, T> defaultMap;
+	private Map<String, DataMap<T>> multiMap = new HashMap<String, DataMap<T>>();
 
-	public DefaultDataMap() {
-		defaultMap = new HashMap<String, T>();
+	public MultiDataMap() {
+	}
+
+	public void addDataMap(DataMap singleDataMap) {
+		multiMap.put(singleDataMap.name(), singleDataMap);
 	}
 
 	/*
@@ -37,11 +39,17 @@ public class DefaultDataMap<T> implements DataMap<T> {
 	 */
 	@Override
 	public Map<String, T> map() {
-		return defaultMap;
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.megam.deccanplato.provider.core.DataMap#name()
+	 */
+	@Override
+	public String name() {
+		return "multi-datamap";
 	}
 	
-	public String name() {
-		return "default-datamap";
-	}
+
 
 }

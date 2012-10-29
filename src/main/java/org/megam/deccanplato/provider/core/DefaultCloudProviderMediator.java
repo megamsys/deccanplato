@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 package org.megam.deccanplato.provider.core;
 
 import java.util.HashSet;
@@ -26,8 +26,8 @@ public class DefaultCloudProviderMediator extends AbstractCloudProviderMediator 
 	private LinkedList<CloudOperation> orderedOps = new LinkedList<>();
 
 	public DefaultCloudProviderMediator(RequestData reqData) {
-		addOperation(new AccessControlOperation(reqData.getAccess()
-				.token(), this));
+		addOperation(new AccessControlOperation(reqData.getAccess().token(),
+				this));
 		addOperation(new ProviderOperation(reqData.getGeneral(), this));
 		addOperation(new OutputOperation(reqData.getOutput(), this));
 	}
@@ -35,30 +35,34 @@ public class DefaultCloudProviderMediator extends AbstractCloudProviderMediator 
 	protected void addOperation(CloudOperation ops) {
 		orderedOps.add(ops);
 	}
-	
+
 	@Override
-	public <T> SendBackResponse<T> handleRequest() {
+	public <T> SendBackResponse<T> handleRequest()
+			throws CloudMediatorException {
 		boolean shouldProceed = true;
 		Set<CloudOperationOutput<T>> opsOutSet = new HashSet<>();
-		for (Iterator<CloudOperation> iter = orderedOps.iterator(); (iter
-				.hasNext() && shouldProceed);) {
-			CloudOperation singleOps = iter.next();
-			CloudOperationOutput<T> opsOut = singleOps.handle();
-			opsOutSet.add(opsOut);
-			shouldProceed = singleOps.canProceed();
+		try {
+			for (Iterator<CloudOperation> iter = orderedOps.iterator(); (iter
+					.hasNext() && shouldProceed);) {
+				CloudOperation singleOps = iter.next();
+				CloudOperationOutput<T> opsOut = singleOps.handle();
+				opsOutSet.add(opsOut);
+				shouldProceed = singleOps.canProceed();
+			}
+		} catch (CloudOperationException coe) {
+			throw new CloudMediatorException("An error occurred while executing a cloud operation", coe);
 		}
 		/**
 		 * grab all the responses from the RequestMediaOperation and stick stuff
 		 * into the response data builder
 		 ***/
-		ResponseData<T> respData = (new ResponseDataBuilder(opsOutSet)).getResponseData();
+		ResponseData<T> respData = (new ResponseDataBuilder(opsOutSet))
+				.getResponseData();
 		return respData;
 	}
 
 	public void setSaveableToUse() {
 
 	}
-
-	
 
 }

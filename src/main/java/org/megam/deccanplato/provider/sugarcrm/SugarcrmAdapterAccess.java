@@ -26,12 +26,12 @@ import org.megam.deccanplato.http.TransportMachinery;
 import org.megam.deccanplato.http.TransportResponse;
 import org.megam.deccanplato.http.TransportTools;
 import org.megam.deccanplato.provider.core.AdapterAccess;
+import org.megam.deccanplato.provider.core.AdapterAccessException;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.DefaultDataMap;
 
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
-import com.google.gson.Gson;
 
 public class SugarcrmAdapterAccess implements AdapterAccess {
 	
@@ -44,7 +44,7 @@ public class SugarcrmAdapterAccess implements AdapterAccess {
 	}
 
 	@Override
-	public<T extends Object> DataMap<T> authenticate(DataMap<T> access) {
+	public<T extends Object> DataMap<T> authenticate(DataMap<T> access) throws AdapterAccessException {
 		Map<String,T> accessMap = access.map();
 		
 		List<NameValuePair> list=new ArrayList<NameValuePair>();
@@ -74,7 +74,6 @@ public class SugarcrmAdapterAccess implements AdapterAccess {
         return respMap;
 	}
 
-	@Override
 	public <T> DataMap<T> parsOutput(String response, DataMap<T> map) {
 		
 		JSONObject json;

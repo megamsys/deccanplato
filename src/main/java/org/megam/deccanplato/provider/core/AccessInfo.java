@@ -38,6 +38,10 @@ public class AccessInfo implements DataMap {
 		return token;
 	}
 
+	public String name() {
+		return "access-datamap" ;
+			
+	}
 	
 
 	public String toString() {
