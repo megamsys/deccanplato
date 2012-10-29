@@ -28,6 +28,7 @@ import org.megam.deccanplato.http.TransportTools;
 import org.megam.deccanplato.provider.core.AdapterAccess;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.DefaultDataMap;
+import org.megam.deccanplato.provider.sugarcrm.info.SugarUser;
 
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
@@ -36,7 +37,7 @@ import com.google.gson.Gson;
 public class SugarcrmAdapterAccess implements AdapterAccess {
 	
 	private boolean success = false;
-	private static final String SALESFORCE_OAUTH2_URL = "https://login.salesforce.com/services/oauth2/token";
+	private static final String SUGARCRM_SESSION_URL = "http://localhost/sugarcrm/service/v4/rest.php";
     
 	@Override
 	public boolean isSuccessful() {
@@ -47,14 +48,17 @@ public class SugarcrmAdapterAccess implements AdapterAccess {
 	public<T extends Object> DataMap<T> authenticate(DataMap<T> access) {
 		Map<String,T> accessMap = access.map();
 		
+		SugarUser su=new SugarUser();
+		Gson gson=new Gson();
+		String json=gson.toJson(su);
+		
 		List<NameValuePair> list=new ArrayList<NameValuePair>();
-		list.add(new BasicNameValuePair("grant_type", "password"));
-        list.add(new BasicNameValuePair("client_id", (String) accessMap.get("consumer_key")));
-        list.add(new BasicNameValuePair("client_secret", (String) accessMap.get("consumer_secret")));
-        list.add(new BasicNameValuePair("username", (String) accessMap.get("access_username")));
-        list.add(new BasicNameValuePair("password", (String) accessMap.get("access_password")));
-        
-        TransportTools tools=new TransportTools(SALESFORCE_OAUTH2_URL, list);
+		list.add(new BasicNameValuePair("method", "login"));
+        list.add(new BasicNameValuePair("input_type", "JSON"));
+        list.add(new BasicNameValuePair("response_type", "JSON"));
+        list.add(new BasicNameValuePair("rest_data", json));
+                
+        TransportTools tools=new TransportTools(SUGARCRM_SESSION_URL, list);
         String responseBody = null;
         
         TransportResponse response = null;
@@ -80,8 +84,7 @@ public class SugarcrmAdapterAccess implements AdapterAccess {
 		JSONObject json;
 		try {
 			    json=new JSONObject(response); 
-			    map.map().put("access_token", (T) json.get("access_token"));
-			    map.map().put("instance_url", (T) json.get("instance_url"));
+			    map.map().put("id", (T) json.get("id"));			    
 			} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
