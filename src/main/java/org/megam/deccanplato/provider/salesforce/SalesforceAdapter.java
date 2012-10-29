@@ -18,6 +18,8 @@ import java.util.Map;
 
 import org.megam.deccanplato.provider.AbstractProviderAdapter;
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.ProviderRegistry;
+import org.megam.deccanplato.provider.core.MultiDataMap;
 
 public class SalesforceAdapter<T extends Object> extends
 		AbstractProviderAdapter<T> {
@@ -27,15 +29,10 @@ public class SalesforceAdapter<T extends Object> extends
 	public SalesforceAdapter(){
 		super();
 	}
-	
-	public SalesforceAdapter(Map<String, String> tempArgs) {
-		super(tempArgs);
-	}
-
+		
 	/* using the user#create key */
 	public void configure() {
-		/* using the user#create key */
-		//activity = registry.getBusinessActivity(cloud_app, business_function);
+		activity = ProviderRegistry.instance().getBusinessActivity(cloud_app, business_function);
 	}
 
 	/** get the handle responsible for the call and stick stuff into it **/
@@ -46,6 +43,15 @@ public class SalesforceAdapter<T extends Object> extends
 
 	public T handle() {
 		return (T) activity.run();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.deccanplato.provider.core.MultiDataMap)
+	 */
+	@Override
+	public void setDataMap(MultiDataMap multiMap) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

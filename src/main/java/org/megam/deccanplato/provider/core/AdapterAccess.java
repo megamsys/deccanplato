@@ -11,17 +11,14 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 package org.megam.deccanplato.provider.core;
 
-import org.megam.deccanplato.http.TransportResponse;
-
-
 public interface AdapterAccess {
-	
+
 	public boolean isSuccessful();
-	
-	public <T extends Object> DataMap<T> authenticate(DataMap<T> accessMap);
-	
-	public <T extends Object> DataMap<T> parsOutput(String response, DataMap<T> map);
+
+	public <T extends Object> DataMap<T> authenticate(DataMap<T> accessMap)
+			throws AdapterAccessException;
+
 }

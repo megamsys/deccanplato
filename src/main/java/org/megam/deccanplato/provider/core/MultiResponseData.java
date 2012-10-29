@@ -28,10 +28,14 @@ public class MultiResponseData implements SendBackResponse {
 
 	}
 
-
 	@Override
 	public Map map() {
 		return null;
+	}
+	
+	public String name() {
+		return "multiresponse-datamap" ;
+			
 	}
 
 }

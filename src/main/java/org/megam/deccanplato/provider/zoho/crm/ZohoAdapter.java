@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.megam.deccanplato.provider.AbstractProviderAdapter;
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.core.MultiDataMap;
 
 public class ZohoAdapter extends AbstractProviderAdapter{
 
@@ -45,6 +46,15 @@ private BusinessActivity activity;
 	public Map<String,String> handle() {
 		//return activity.run();
 		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.deccanplato.provider.core.MultiDataMap)
+	 */
+	@Override
+	public void setDataMap(MultiDataMap multiMap) {
+		// TODO Auto-generated method stub
+		
 	}
 	 
 }

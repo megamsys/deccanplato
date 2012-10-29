@@ -18,6 +18,8 @@ import java.util.Map;
 
 public interface DataMap<T extends Object> {
 	
+	public String name();
+	
 	public Map<String,T> map();
 
 }
