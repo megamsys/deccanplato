@@ -29,7 +29,7 @@ public class MultiCloudProviderMediator extends AbstractCloudProviderMediator {
 	}
 	
 	@Override
-	public <T> SendBackResponse<T> handleRequest() {
+	public <T> SendBackResponse<T> handleRequest() throws CloudMediatorException {
 		MultiResponseData resp = new MultiResponseData();
 		for (CloudMediator singleMediator : orderedMultiMedSet) {
 			resp.add(singleMediator.handleRequest());
