@@ -10,6 +10,7 @@ import org.apache.wink.client.RestClient;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.megam.deccanplato.provider.core.AdapterAccessException;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.RequestData;
 import org.megam.deccanplato.provider.core.RequestDataBuilder;
@@ -35,7 +36,7 @@ public class SugarAdapterTest {
 				+ "test" + java.io.File.separator + "java"
 				+ java.io.File.separator;
 
-		br = new BufferedReader(new FileReader(inputJsonPath + "zoho.json"));
+		br = new BufferedReader(new FileReader(inputJsonPath + "sugarcrm.json"));
 
 		StringBuilder strb = new StringBuilder();
 		String currentLine = "";
@@ -50,7 +51,7 @@ public class SugarAdapterTest {
 		
 	}
 	 @Test
-		public void testZohoAdapterAccess(){
+		public void testZohoAdapterAccess() throws AdapterAccessException{
 			
 			SugarcrmAdapterAccess zaa=new SugarcrmAdapterAccess();
 			DataMap dmap=zaa.authenticate(reqData.getGeneral());

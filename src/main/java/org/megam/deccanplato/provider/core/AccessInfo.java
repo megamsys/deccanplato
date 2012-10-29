@@ -22,11 +22,13 @@ import org.megam.core.api.secure.AccessToken;
 
 public class AccessInfo implements DataMap {
 
+	private static final String API_TOKEN="api_token";
+	private static final String ACCESS_EMAIL="access_email";
 	private Map<String, String> access = new HashMap<String, String>();
 	private AccessToken token;
 
 	public AccessInfo() {
-		
+		token=new AccessToken();
 	}
 
 
@@ -35,6 +37,8 @@ public class AccessInfo implements DataMap {
 	}
 
 	public AccessToken token() {
+		token.setToken(access.get(API_TOKEN));
+		token.setEmail(access.get(ACCESS_EMAIL));
 		return token;
 	}
 

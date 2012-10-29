@@ -52,7 +52,7 @@ public class BoxAdapter extends AbstractProviderAdapter {
 	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.deccanplato.provider.core.MultiDataMap)
 	 */
 	@Override
-	public void setDataMap(MultiDataMap multiMap) {
+	public void setDataMap(DataMap multiMap) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -60,10 +60,6 @@ public class BoxAdapter extends AbstractProviderAdapter {
 	/* (non-Javadoc)
 	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.deccanplato.provider.core.DataMap)
 	 */
-	@Override
-	public void setDataMap(DataMap multiMap) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	 
 }

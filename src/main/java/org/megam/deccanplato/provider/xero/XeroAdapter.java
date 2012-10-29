@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.megam.deccanplato.provider.AbstractProviderAdapter;
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.MultiDataMap;
 
 public class XeroAdapter extends AbstractProviderAdapter {
@@ -51,7 +52,7 @@ public class XeroAdapter extends AbstractProviderAdapter {
 	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.deccanplato.provider.core.MultiDataMap)
 	 */
 	@Override
-	public void setDataMap(MultiDataMap multiMap) {
+	public void setDataMap(DataMap multiMap) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -17,18 +17,20 @@ package org.megam.deccanplato.provider.sugarcrm.info;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.megam.deccanplato.provider.core.DataMap;
+
 public class SugarUser {
 	
 	     Map<String, String> user_auth=new HashMap<String, String>();
 	     private String application_name="sugar";
 	     private String[]  name_value_list = new String[0];
 	     
-	     public SugarUser(){
+	     public <T> SugarUser(DataMap<T> dmap){
 	    	
 	    	 
-	    	 user_auth.put("user_name", "admin");
-	    	 user_auth.put("password", "3ec4036a9c2e75778a63011ca1d47079");
-	    	 user_auth.put("version", "1");  
+	    	 user_auth.put("user_name", (String) dmap.map().get("access_username"));
+	    	 user_auth.put("password", (String) dmap.map().get("access_password"));
+	    	 user_auth.put("version", "1");
 	    	 
 	    	 
 	    	 

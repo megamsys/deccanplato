@@ -38,6 +38,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.salesforce.info.SalesforceCRM;
 import org.megam.deccanplato.provider.salesforce.info.SalesforceCRMLead;
 import org.megam.deccanplato.provider.salesforce.info.SalesforceCrmAccount;
@@ -869,7 +870,8 @@ public class CRMController {
 	@RequestMapping(value="provider/crm/sugar",method=RequestMethod.GET)
 	public @ResponseBody String loginSugar(){
 		
-		SugarUser su=new SugarUser();
+		DataMap<Object> map = null;
+		SugarUser su=new SugarUser(map);
 		Gson gson=new Gson();
 		String json=gson.toJson(su);
 		

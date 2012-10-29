@@ -16,7 +16,7 @@ package org.megam.core.api.secure;
 
 public class AccessToken {
 	
-	private double token;
+	private String token;
 	private String email;
 	
 	public String getEmail() {
@@ -27,11 +27,12 @@ public class AccessToken {
 		this.email  = tempEmail;
 	}
 	
-	public double getToken() {
+	public String getToken() {
+		System.out.println(token);
 		return token;
 	}
 	
-	public void setToken(double token) {
+	public void setToken(String token) {
 		this.token  = token;
 	}
 

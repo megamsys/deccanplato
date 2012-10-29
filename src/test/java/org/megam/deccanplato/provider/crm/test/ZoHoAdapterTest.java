@@ -12,6 +12,7 @@ import org.apache.wink.client.RestClient;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.megam.deccanplato.provider.core.AdapterAccessException;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.RequestData;
 import org.megam.deccanplato.provider.core.RequestDataBuilder;
@@ -49,7 +50,7 @@ public class ZoHoAdapterTest {
 		
 	}
 	 @Test
-		public void testZohoAdapterAccess(){
+		public void testZohoAdapterAccess() throws AdapterAccessException{
 			
 			ZohoAdapterAccess zaa=new ZohoAdapterAccess();
 			DataMap dmap=zaa.authenticate(reqData.getGeneral());

@@ -11,7 +11,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.megam.deccanplato.core.test.CoreTest;
 import org.megam.deccanplato.provider.core.AccessInfo;
+import org.megam.deccanplato.provider.core.AdapterAccessException;
+import org.megam.deccanplato.provider.core.CloudMediatorException;
 import org.megam.deccanplato.provider.core.DataMap;
+import org.megam.deccanplato.provider.core.DefaultCloudProviderMediator;
 import org.megam.deccanplato.provider.core.ProviderInfo;
 import org.megam.deccanplato.provider.core.RequestData;
 import org.megam.deccanplato.provider.core.RequestDataBuilder;
@@ -25,7 +28,7 @@ import com.google.gson.GsonBuilder;
 public class SaleforceAdapterTest {
 
 	private static RequestData reqData;
-	
+	RequestDataBuilder rdb;
 	
     
 	@BeforeClass
@@ -37,7 +40,7 @@ public class SaleforceAdapterTest {
 				+ "test" + java.io.File.separator + "java"
 				+ java.io.File.separator;
 
-		br = new BufferedReader(new FileReader(inputJsonPath + "inputjson1.json"));
+		br = new BufferedReader(new FileReader(inputJsonPath + "salesforce.json"));
 
 		StringBuilder strb = new StringBuilder();
 		String currentLine = "";
@@ -53,7 +56,7 @@ public class SaleforceAdapterTest {
 	    	
 	}
     @Test
-	public void testSalesforceAdapterAccess(){
+	public void testSalesforceAdapterAccess() throws AdapterAccessException{
 		
 		SalesforceAdapterAccess saa=new SalesforceAdapterAccess();
 		DataMap dmap=saa.authenticate(reqData.getGeneral());
@@ -61,7 +64,12 @@ public class SaleforceAdapterTest {
 		System.out.println(dmap.map().get("access_token"));
 		//System.out.println("DMAP"+dmap.toString());
 	}
-   
+    @Test
+   public void testCreateUser() throws CloudMediatorException{
+    	
+	   DefaultCloudProviderMediator dcm=new DefaultCloudProviderMediator(reqData);
+	   System.out.println(""+dcm.handleRequest());
+   }
 	
 	/*@Ignore
 	@Test

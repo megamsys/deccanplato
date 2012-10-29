@@ -11,23 +11,20 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 package org.megam.deccanplato.provider;
-
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 
-
 public class ProviderRegistry {
 
 	private static ProviderRegistry registry;
 	// * inject the name of the providers classes using a bean.
 	private static Map<String, Provider> providersMap = new HashMap<>();
-	
-	
+
 	// * inject the name of the providers classes using a bean.
 	private static Map<String, Set<BusinessActivity>> bizActivityMap = new HashMap<>();
 
@@ -40,11 +37,11 @@ public class ProviderRegistry {
 		}
 		return registry;
 	}
-	
+
 	public static ProviderRegistry instance() {
 		return registry;
 	}
-	
+
 	public Map<String, Provider> getProvidersMap() {
 		return providersMap;
 	}

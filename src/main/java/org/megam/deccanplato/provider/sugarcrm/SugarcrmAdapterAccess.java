@@ -49,7 +49,7 @@ public class SugarcrmAdapterAccess implements AdapterAccess {
 	public<T extends Object> DataMap<T> authenticate(DataMap<T> access) throws AdapterAccessException {
 		Map<String,T> accessMap = access.map();
 		
-		SugarUser su=new SugarUser();
+		SugarUser su=new SugarUser(access);
 		Gson gson=new Gson();
 		String json=gson.toJson(su);
 		
