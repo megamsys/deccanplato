@@ -33,6 +33,7 @@ import org.megam.deccanplato.provider.sugarcrm.info.SugarUser;
 
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
+import com.google.gson.Gson;
 
 public class SugarcrmAdapterAccess implements AdapterAccess {
 	
