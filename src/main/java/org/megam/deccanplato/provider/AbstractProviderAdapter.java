@@ -17,7 +17,9 @@ package org.megam.deccanplato.provider;
 import java.util.Formatter;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.megam.deccanplato.provider.core.DataMap;
+
+import static org.megam.deccanplato.provider.core.ProviderInfo.*;
 
 /**
  * An abstract implementation of the Provider adapter. Contains more methods to
@@ -42,28 +44,28 @@ public abstract class AbstractProviderAdapter<T extends Object> implements
 	protected String cloud_app;
 
 	/** A string representing the business function, eg: user#create etc. */
-	protected String business_function;
+	protected String biz_function;
+	
+	
 
 	/**
 	 * A null constructor as required by our spring framework to load the beans.
-	 * The down-side of this approach is that, the arguments map will be null. An
-	 * explicit setter is required to set the arguments map. failing to do so,
-	 * will result in the adapter to fail.
+	 * The down-side of this approach is that, the arguments map will be null.  
+	 * A constructor with the arguments map is the right way to run the adapter.
+	 * Apparently when spring loads this bean, we wouldn't be having an
+	 * arguments map. This is because the arguments map is passed as a request of
+	 * parsing the input Json. Failing to set the arguments prior to any business activity run will result
+	 * in the adapter to fail.
 	 */
 	public AbstractProviderAdapter() {
-
 	}
 
 	/**
-	 * A constructor with the arguments map is the right way to run the adapter.
-	 * Apparently when spring loads this bean, we wouldn't be having a
-	 * arguments map. This is because the arguments map is passed as a request
-	 * using Json. failing to do so, will result in the adapter to fail.
+	 * An abstract method which allows the implementing adapter classes to configure its implementation as it desires.
+	 * This is called by setDataMap.
+	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.
+	 * deccanplato.provider.core.MultiDataMap)
 	 */
-	public AbstractProviderAdapter(Map<String, String> tempArgs) {
-		setConfiguration(tempArgs);
-	}
-
 	public abstract void configure();
 	
 	/** An explicit setter to set the configuration of this bean (or) provider. This is not a good way,
@@ -72,8 +74,24 @@ public abstract class AbstractProviderAdapter<T extends Object> implements
 	 */
 	public void setConfiguration(Map<String, String> tempArgs) {
 		this.args = tempArgs;
+		cloud_app = args.get(PROVIDER);
+		biz_function  = args.get(BIZ_FUNCTION);
 		configure();		
 	}
+	
+	/*
+	 * Explicity set the mutated data map after any operation. For instance the initial JSON map will not have any
+	 * authentication ticket as required by the cloud application. A separate cloudoperation provides that, hence after
+	 * the accesss stuff, a multidatamap with the ticket value, initial json input values will be set via this method.
+	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.
+	 * deccanplato.provider.core.MultiDataMap)
+	 */
+	@Override
+	public void setDataMap(DataMap multiMap) {
+		setConfiguration(multiMap.map());
+		build();
+	}
+
 	
 	/**
 	 * Returns the string representation of <K,V> inside the map.

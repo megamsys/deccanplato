@@ -29,9 +29,7 @@ private BusinessActivity activity;
 		super();
 	}
 	
-	public ZohoAdapter(Map<String, String> tempArgs) {
-		super(tempArgs);
-	}
+	
 
 	public void configure() {
 		/* using the user#create key */

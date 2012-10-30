@@ -33,6 +33,7 @@ public class DefaultCloudProviderMediator extends AbstractCloudProviderMediator 
 		addOperation(new ProviderOperation(reqData.getGeneral(), this));
 		addOperation(new OutputOperation(reqData.getOutput(), this));
 		System.out.println(reqData.getAccess().token());
+		
 	}
 
 	protected void addOperation(CloudOperation ops) {

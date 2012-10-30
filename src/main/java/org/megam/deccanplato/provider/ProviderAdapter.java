@@ -26,10 +26,22 @@ import org.megam.deccanplato.provider.core.DataMap;
  */
 public interface ProviderAdapter<T extends Object> {
 	
+	/*
+	 * This method handles the provider request and returns an output as it perceives.
+	 */
 	public T handle();
 	
+	/*
+	 * This method builds the required arguments, and any other as required for the adapter to handle the business function. 
+	 * Not much is implemented now, but in future the validity of the arguments prior to the run shall be done.
+	 */
 	public boolean build();
 	
+	/*
+	 * Explicity set the mutated data map after any operation. For instance the initial JSON map will not have any
+	 * authentication ticket as required by the cloud application. A separate cloudoperation provides that, hence after
+	 * the accesss stuff, a multidatamap with the ticket value, initial json input values will be set via this method.
+	 */
 	public void setDataMap(DataMap multiMap);
 	
 

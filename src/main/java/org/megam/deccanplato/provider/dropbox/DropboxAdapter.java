@@ -29,9 +29,7 @@ public class DropboxAdapter extends AbstractProviderAdapter {
 		super();
 	}
 
-	public DropboxAdapter(Map<String, String> tempArgs) {
-		super(tempArgs);
-	}
+	
 
 	public void configure() {
 		/* using the user#create key */

@@ -35,7 +35,7 @@ import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
 import com.google.gson.Gson;
 
-public class SugarcrmAdapterAccess implements AdapterAccess {
+public class SugarCRMAdapterAccess implements AdapterAccess {
 	
 	private boolean success = false;
 	private static final String SUGARCRM_SESSION_URL = "http://localhost/sugarcrm/service/v4/rest.php";
