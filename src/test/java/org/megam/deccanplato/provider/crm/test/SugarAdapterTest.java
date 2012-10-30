@@ -14,7 +14,7 @@ import org.megam.deccanplato.provider.core.AdapterAccessException;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.RequestData;
 import org.megam.deccanplato.provider.core.RequestDataBuilder;
-import org.megam.deccanplato.provider.sugarcrm.SugarcrmAdapterAccess;
+import org.megam.deccanplato.provider.sugarcrm.SugarCRMAdapterAccess;
 import org.megam.deccanplato.provider.zoho.crm.ZohoAdapterAccess;
 
 import com.amazonaws.util.json.JSONException;
@@ -53,7 +53,7 @@ public class SugarAdapterTest {
 	 @Test
 		public void testZohoAdapterAccess() throws AdapterAccessException{
 			
-			SugarcrmAdapterAccess zaa=new SugarcrmAdapterAccess();
+			SugarCRMAdapterAccess zaa=new SugarCRMAdapterAccess();
 			DataMap dmap=zaa.authenticate(reqData.getGeneral());
 			System.out.println(dmap.map().get("id"));
 			//System.out.println(dmap.map().get("access_token"));

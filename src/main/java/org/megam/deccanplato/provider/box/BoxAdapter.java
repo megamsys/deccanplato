@@ -29,9 +29,7 @@ public class BoxAdapter extends AbstractProviderAdapter {
 		super();
 	}
 
-	public BoxAdapter(Map<String, String> tempArgs) {
-		super(tempArgs);
-	}
+	
 
 	public void configure() {
 		/* using the user#create key */
@@ -48,18 +46,7 @@ public class BoxAdapter extends AbstractProviderAdapter {
 		return activity.run();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.deccanplato.provider.core.MultiDataMap)
-	 */
-	@Override
-	public void setDataMap(DataMap multiMap) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.deccanplato.provider.core.DataMap)
-	 */
+	
 	
 	 
 }

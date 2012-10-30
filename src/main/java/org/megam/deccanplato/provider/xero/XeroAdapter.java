@@ -29,9 +29,7 @@ public class XeroAdapter extends AbstractProviderAdapter {
 		super();
 	}
 	
-	public XeroAdapter(Map<String, String> tempArgs) {
-		super(tempArgs);
-	}
+	
 
 	public void configure() {
 		/* using the user#create key */
