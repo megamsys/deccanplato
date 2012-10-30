@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.megam.deccanplato.core.test.CoreTest;
+import org.megam.deccanplato.provider.ProviderRegistry;
 import org.megam.deccanplato.provider.core.AccessInfo;
 import org.megam.deccanplato.provider.core.AdapterAccessException;
 import org.megam.deccanplato.provider.core.CloudMediatorException;
@@ -20,6 +21,9 @@ import org.megam.deccanplato.provider.core.RequestData;
 import org.megam.deccanplato.provider.core.RequestDataBuilder;
 import org.megam.deccanplato.provider.salesforce.SalesforceAdapterAccess;
 import org.megam.deccanplato.provider.salesforce.info.SalesforceCRM;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 import org.apache.wink.client.Resource;
 import org.apache.wink.common.internal.model.admin.Registry;
 
@@ -53,7 +57,15 @@ public class SaleforceAdapterTest {
 		RequestDataBuilder rdb = new RequestDataBuilder(strb.toString());
 		reqData=rdb.data();
 		System.out.println(rdb.data().toString());
-	    	
+	    
+		GenericApplicationContext ctx = new GenericApplicationContext();
+		XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(ctx);
+		xmlReader.loadBeanDefinitions(new ClassPathResource(
+				"applicationContext.xml"));
+		ctx.refresh();
+		ProviderRegistry myBean = (ProviderRegistry) ctx
+				.getBean("providerRegistry");
+		System.out.println("Provider Registry" + myBean.toString());
 	    	
 	}
     @Test
