@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 package org.megam.deccanplato.provider.salesforce;
 
 import java.util.Map;
@@ -22,18 +22,24 @@ import org.megam.deccanplato.provider.ProviderRegistry;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.MultiDataMap;
 
+/**
+ * @author ram
+ *
+ * @param <T>
+ */
 public class SalesforceAdapter<T extends Object> extends
 		AbstractProviderAdapter<T> {
 
 	private BusinessActivity activity;
-	
-	public SalesforceAdapter(){
+
+	public SalesforceAdapter() {
 		super();
 	}
-		
+
 	/* using the user#create key */
 	public void configure() {
-		activity = ProviderRegistry.instance().getBusinessActivity(cloud_app, business_function);
+		activity = ProviderRegistry.instance().getBusinessActivity(cloud_app,
+				biz_function);
 	}
 
 	/** get the handle responsible for the call and stick stuff into it **/
@@ -46,13 +52,5 @@ public class SalesforceAdapter<T extends Object> extends
 		return (T) activity.run();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.deccanplato.provider.core.MultiDataMap)
-	 */
-	@Override
-	public void setDataMap(DataMap multiMap) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 }

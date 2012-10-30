@@ -44,7 +44,7 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 	</bean>
 
 	-->
-	<bean id="providerRegistry" class="org.megam.deccanplato.provider.ProviderRegistry" factory-method="newInstance" >
+	<bean id="registry" class="org.megam.deccanplato.provider.ProviderRegistry" factory-method="newInstance" >
 		<property name="providersMap">
 			<map>
 				<entry key="salesforce" value-ref="salesforce" />

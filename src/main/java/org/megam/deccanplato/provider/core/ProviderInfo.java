@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 package org.megam.deccanplato.provider.core;
 
 import java.util.Formatter;
@@ -23,30 +23,27 @@ public class ProviderInfo implements DataMap {
 	private Map<String, String> business_activity = new HashMap<String, String>();
 	private Map<String, String> access = new HashMap<String, String>();
 
-	
-	private static final String PROVIDER = "provider";
+	public static final String PROVIDER = "provider";
+	public static final String BIZ_FUNCTION = "biz_function";
 
-
-	public ProviderInfo() {			
+	public ProviderInfo() {
 	}
 
-
 	public Map<String, String> map() {
-		if(!business_activity.keySet().containsAll(access.keySet())) {
+		if (!business_activity.keySet().containsAll(access.keySet())) {
 			business_activity.putAll(access);
 		}
 		return business_activity;
 	}
-	
+
 	public String name() {
 		return "provider-datamap";
 	}
 
-	
 	public String getProviderName() {
 		return map().get(PROVIDER);
 	}
-	
+
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
@@ -56,7 +53,5 @@ public class ProviderInfo implements DataMap {
 		formatter.close();
 		return strbd.toString();
 	}
-
-	
 
 }

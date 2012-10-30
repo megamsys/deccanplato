@@ -16,11 +16,25 @@ package org.megam.deccanplato.provider.core;
 
 import org.megam.deccanplato.provider.event.BridgeMediationEvent;
 
+/**
+ * 
+ * 
+ * @author ram
+ *
+ */
 public abstract class AbstractCloudOperation implements
 		CloudOperation, CloudBridgeMediationListener {
 
+	/**
+	 * 
+	 */
 	private CloudMediator parent;
 	
+	/**
+	 * 
+	 * @author ram
+	 *
+	 */
 	public enum Status {
         STARTED,
 		RUNNING,
@@ -29,15 +43,26 @@ public abstract class AbstractCloudOperation implements
         SUCCESSFUL
     }
 	
+	/**
+	 * 
+	 * @param tempParent
+	 */
 	public AbstractCloudOperation(CloudMediator tempParent) {
 		this.parent = tempParent;
 		parent.registerCloudBridgeListener(this);
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public CloudMediator getParent() {
 		return parent;
 	}
 	
+	/**
+	 * 
+	 */
 	public <B extends BridgeMediationEvent> void bridgeEvent(B evt) {
 		/** 
 		 ***/ 
