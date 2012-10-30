@@ -34,7 +34,7 @@ public class ProviderInfo implements DataMap {
 	public Map<String, String> map() {
 		if(!business_activity.keySet().containsAll(access.keySet())) {
 			business_activity.putAll(access);
-		}
+		}		
 		return business_activity;
 	}
 	

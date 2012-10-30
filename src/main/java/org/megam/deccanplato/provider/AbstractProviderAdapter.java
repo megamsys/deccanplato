@@ -81,6 +81,7 @@ public abstract class AbstractProviderAdapter<T extends Object> implements
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
+		if(args!=null)
 		for (Map.Entry<String, String> oneArg : args.entrySet()) {
 			formatter.format("%10s = %s%n", oneArg.getKey(), oneArg.getValue());
 		}

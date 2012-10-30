@@ -14,14 +14,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.megam.deccanplato.provider;
 
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 
-public class ProviderRegistry {
+import org.springframework.beans.factory.annotation.Autowired;
 
-	private static ProviderRegistry registry;
+public class ProviderRegistry {
+    
+	public static ProviderRegistry registry;
 	// * inject the name of the providers classes using a bean.
 	private static Map<String, Provider> providersMap = new HashMap<>();
 
@@ -77,5 +80,16 @@ public class ProviderRegistry {
 		}
 		return null;
 	}
-
+	/*public String toString() {
+		StringBuilder strbd = new StringBuilder();
+		final Formatter formatter = new Formatter(strbd);
+		for (Map.Entry<String, Provider> entry : providersMap.entrySet()) {
+			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
+		}
+		for (Map.Entry<String, Set<BusinessActivity>> entry1 : bizActivityMap.entrySet()) {
+			formatter.format("%10s = %s%n", entry1.getKey(), entry1.getValue());
+		}
+		formatter.close();
+		return strbd.toString();
+}*/
 }

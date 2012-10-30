@@ -25,6 +25,8 @@ import org.megam.deccanplato.provider.core.MultiDataMap;
 import org.megam.deccanplato.provider.core.ProviderInfo;
 import org.megam.deccanplato.provider.event.BridgeMediationEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * A cloud operation class with performs specific tasks as appropriate for a provider. Some of the activities
@@ -61,7 +63,15 @@ public class ProviderOperation extends AbstractCloudOperation {
 	}
 
 	public <V extends Object> void preOperation() throws CloudOperationException {
+		System.out.println("REGISTRY IN PROVIDER OPERATION::::::::::::"+registry);
+		if(registry==null) {
+			System.out.println("REGISTER :>>>>>:"+registry.instance());
+			registry=ProviderRegistry.instance();
+			System.out.println("REGISTER :>>>>>:"+registry.toString());
+		}
+		System.out.println("REGISTER :>>>>>:"+registry.toString());
 		prov = registry.getAdapter(info.getProviderName());
+		System.out.println("PROVIDER :>>>>>:"+info.getProviderName());
 		DataMap<V> authMap = prov.getAdapterAccess().authenticate(info);
 		MultiDataMap<V> multiMap = new MultiDataMap(false, info,authMap);
 		prov.getAdapter().setDataMap(multiMap);

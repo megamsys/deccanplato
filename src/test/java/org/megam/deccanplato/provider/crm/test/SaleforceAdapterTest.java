@@ -62,13 +62,13 @@ public class SaleforceAdapterTest {
 		XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(ctx);
 		xmlReader.loadBeanDefinitions(new ClassPathResource(
 				"applicationContext.xml"));
-		ctx.refresh();
-		ProviderRegistry myBean = (ProviderRegistry) ctx
-				.getBean("providerRegistry");
-		System.out.println("Provider Registry" + myBean.toString());
-	    	
+		ctx.refresh();		
+		ProviderRegistry registry = (ProviderRegistry) ctx
+				.getBean("registry");
+		System.out.println("Provider Registry" + registry.toString());
+		//System.out.println("Provider Registry" + registry.getAdapter("salesforce"));	
 	}
-    @Test
+    //@Test
 	public void testSalesforceAdapterAccess() throws AdapterAccessException{
 		
 		SalesforceAdapterAccess saa=new SalesforceAdapterAccess();
@@ -79,8 +79,7 @@ public class SaleforceAdapterTest {
 	}
     @Test
    public void testCreateUser() throws CloudMediatorException{
-    	Registry reg=new Registry();
-	   DefaultCloudProviderMediator dcm=new DefaultCloudProviderMediator(reqData);
+       DefaultCloudProviderMediator dcm=new DefaultCloudProviderMediator(reqData);
 	   System.out.println("Final Result"+dcm.handleRequest());
    }
 	
