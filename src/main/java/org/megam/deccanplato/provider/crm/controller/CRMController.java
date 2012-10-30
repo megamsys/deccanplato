@@ -131,8 +131,7 @@ public class CRMController {
 
 	@RequestMapping(value = "provider/crm", method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody
-	String createUser(@RequestBody String access_stuff)
-			throws UnsupportedEncodingException {
+	String createUser(@RequestBody String access_stuff){
 
 		logger.info(clz + "createUser : POST start.\n" + access_stuff);
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();

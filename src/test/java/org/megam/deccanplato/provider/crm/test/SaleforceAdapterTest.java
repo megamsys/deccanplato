@@ -21,6 +21,7 @@ import org.megam.deccanplato.provider.core.RequestDataBuilder;
 import org.megam.deccanplato.provider.salesforce.SalesforceAdapterAccess;
 import org.megam.deccanplato.provider.salesforce.info.SalesforceCRM;
 import org.apache.wink.client.Resource;
+import org.apache.wink.common.internal.model.admin.Registry;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -66,9 +67,9 @@ public class SaleforceAdapterTest {
 	}
     @Test
    public void testCreateUser() throws CloudMediatorException{
-    	
+    	Registry reg=new Registry();
 	   DefaultCloudProviderMediator dcm=new DefaultCloudProviderMediator(reqData);
-	   System.out.println(""+dcm.handleRequest());
+	   System.out.println("Final Result"+dcm.handleRequest());
    }
 	
 	/*@Ignore

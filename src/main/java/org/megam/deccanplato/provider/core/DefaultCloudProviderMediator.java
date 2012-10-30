@@ -49,11 +49,11 @@ public class DefaultCloudProviderMediator extends AbstractCloudProviderMediator 
 			for (Iterator<CloudOperation> iter = orderedOps.iterator(); (iter
 					.hasNext() && shouldProceed);) {
 				CloudOperation singleOps = iter.next();
-				System.out.println(singleOps);
+				System.out.println("SINGLEOPS>>>>>>>>>>>>>>"+singleOps);
 				CloudOperationOutput<T> opsOut = singleOps.handle();
 				opsOutSet.add(opsOut);
 				shouldProceed = singleOps.canProceed();
-				System.out.println(shouldProceed);
+				System.out.println("SHOULDPROCEED>>>>>>>>>>>>>>>>"+shouldProceed);
 			}
 		} catch (CloudOperationException coe) {
 			throw new CloudMediatorException("An error occurred while executing a cloud operation", coe);
@@ -64,7 +64,7 @@ public class DefaultCloudProviderMediator extends AbstractCloudProviderMediator 
 		 ***/
 		ResponseData<T> respData = (new ResponseDataBuilder(opsOutSet))
 				.getResponseData();
-		System.out.println(respData);
+		System.out.println("RESPONSE DATA"+respData);
 		return respData;
 	}
 

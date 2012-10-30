@@ -22,7 +22,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class CoreTest {
 
-	@Test
+	//@Test
 	public void testRequestDataBuilder() throws IOException {
 		BufferedReader br = null;
 		String inputJsonPath = new File(".").getCanonicalPath()
@@ -43,7 +43,7 @@ public class CoreTest {
 		System.out.println(rdb.data().toString());
 	}
 
-	// @Test
+	@Test
 	public void testLoadProviderRegistry() {
 		GenericApplicationContext ctx = new GenericApplicationContext();
 		XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(ctx);
