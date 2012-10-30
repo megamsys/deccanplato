@@ -17,11 +17,12 @@ package org.megam.deccanplato.provider.dropbox.handler;
 import java.util.Map;
 
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 
 public class FileImpl implements BusinessActivity {
 
 	@Override
-	public void setArguments(Map<String, String> args) {
+	public void setArguments(BusinessActivityInfo tempBizInfo, Map<String, String> tempArgs) {
 		// TODO Auto-generated method stub
 		
 	}

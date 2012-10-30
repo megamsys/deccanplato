@@ -16,9 +16,11 @@ package org.megam.deccanplato.provider;
 
 import java.util.Map;
 
+import org.megam.deccanplato.provider.core.BusinessActivityInfo;
+
 public interface BusinessActivity {
 
-	void setArguments(Map<String, String> args);
+	void setArguments(BusinessActivityInfo tempBizInfo, Map<String, String> tempArgs);
 
 	Map<String, String> run();
 

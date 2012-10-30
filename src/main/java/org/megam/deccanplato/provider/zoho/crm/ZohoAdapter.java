@@ -38,7 +38,7 @@ private BusinessActivity activity;
 
 	public boolean build() {
 		/** get the handle responsible for the call and stick stuff into it **/
-		//activity.setArguments(args);
+		activity.setArguments(bizInfo,args);
 		return true;
 	}
 	
