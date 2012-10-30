@@ -16,9 +16,6 @@ package org.megam.deccanplato.provider.sugarcrm.info;
 
 import java.util.ArrayList;
 
-import org.megam.deccanplato.provider.crm.controller.CRMController;
-import org.megam.deccanplato.provider.crm.test.SugarAdapterTest;
-
 public class SugarCreateUser {
 	
 	private String session="tnogfd5sgv263jrcb1bg6vcfl4";

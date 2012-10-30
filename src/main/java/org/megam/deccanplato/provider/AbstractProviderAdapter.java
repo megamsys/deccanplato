@@ -46,7 +46,7 @@ public abstract class AbstractProviderAdapter<T extends Object> implements
 
 	/**
 	 * A null constructor as required by our spring framework to load the beans.
-	 * The downside of this approach is that, the arguments map will be null. An
+	 * The down-side of this approach is that, the arguments map will be null. An
 	 * explicit setter is required to set the arguments map. failing to do so,
 	 * will result in the adapter to fail.
 	 */
@@ -56,7 +56,7 @@ public abstract class AbstractProviderAdapter<T extends Object> implements
 
 	/**
 	 * A constructor with the arguments map is the right way to run the adapter.
-	 * Apparently when spring loades this bean, we wouldn't be having a
+	 * Apparently when spring loads this bean, we wouldn't be having a
 	 * arguments map. This is because the arguments map is passed as a request
 	 * using Json. failing to do so, will result in the adapter to fail.
 	 */
@@ -72,9 +72,12 @@ public abstract class AbstractProviderAdapter<T extends Object> implements
 	 */
 	public void setConfiguration(Map<String, String> tempArgs) {
 		this.args = tempArgs;
-		configure();
+		configure();		
 	}
-
+	
+	/**
+	 * Returns the string representation of <K,V> inside the map.
+	 */
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
