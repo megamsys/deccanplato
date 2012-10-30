@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.megam.deccanplato.provider.ProviderRegistry;
 import org.megam.deccanplato.provider.core.RequestDataBuilder;
@@ -21,7 +22,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 public class CoreTest {
-
+	
+	@Ignore
 	@Test
 	public void testRequestDataBuilder() throws IOException {
 		BufferedReader br = null;
@@ -43,7 +45,7 @@ public class CoreTest {
 		System.out.println(rdb.data().toString());
 	}
 
-	// @Test
+	@Test
 	public void testLoadProviderRegistry() {
 		GenericApplicationContext ctx = new GenericApplicationContext();
 		XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(ctx);

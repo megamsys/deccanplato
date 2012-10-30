@@ -23,7 +23,7 @@ public interface CloudOperation {
 	public boolean isFitToRun();	
 	
 	
-	public void preOperation() throws CloudOperationException;
+	public <V extends Object> void preOperation() throws CloudOperationException;
 	
 	
 	public void postOperation();

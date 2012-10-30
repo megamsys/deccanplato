@@ -534,7 +534,7 @@ public class CRM extends AdapterHelper {
 	}
 	
 	
-	@RequestMapping(value = "provider/crm/account", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "provider/crm/zoho/account", method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody
 	String createZohoAccount(@RequestBody String data) {
 

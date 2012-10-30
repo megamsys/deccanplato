@@ -26,6 +26,14 @@ import org.megam.deccanplato.provider.core.ProviderInfo;
 import org.megam.deccanplato.provider.event.BridgeMediationEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * A cloud operation class with performs specific tasks as appropriate for a provider. Some of the activities
+ * performed are setting up the correct provider, provider adapter, provider adapter access.
+ * When the operation is run, the pre-operation runs the adapter access. The output is captured in a 
+ * cloudoperationoutput and passed back to the mediator.
+ * @author ram
+ *
+ */
 public class ProviderOperation extends AbstractCloudOperation {
 
 	@Autowired
@@ -34,6 +42,11 @@ public class ProviderOperation extends AbstractCloudOperation {
 	private ProviderInfo info;
 	private Provider prov;
 
+	/**
+	 * 
+	 * @param tempInfo
+	 * @param tempParent
+	 */
 	public ProviderOperation(ProviderInfo tempInfo, CloudMediator tempParent) {
 		super(tempParent);
 		this.info = tempInfo;
@@ -47,13 +60,16 @@ public class ProviderOperation extends AbstractCloudOperation {
 		return false;
 	}
 
-	public void preOperation() throws CloudOperationException {
+	public <V extends Object> void preOperation() throws CloudOperationException {
 		prov = registry.getAdapter(info.getProviderName());
-		DataMap authMap = prov.getAdapterAccess().authenticate(info);
-		MultiDataMap multiMap = new MultiDataMap(false, (DataMap)info,authMap);
+		DataMap<V> authMap = prov.getAdapterAccess().authenticate(info);
+		MultiDataMap<V> multiMap = new MultiDataMap(false, info,authMap);
 		prov.getAdapter().setDataMap(multiMap);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.megam.deccanplato.provider.core.CloudOperation#handle()
+	 */
 	@Override
 	public <T extends Object> CloudOperationOutput<T> handle() throws CloudOperationException {
 		preOperation();
