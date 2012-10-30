@@ -11,30 +11,64 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 package org.megam.deccanplato.provider.salesforce.handler;
 
 import java.util.Map;
 
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 
 public class UserImpl implements BusinessActivity {
 
+	private Map<String, String> args;
+	private BusinessActivityInfo bizInfo;
+
 	@Override
-	public void setArguments(Map<String, String> args) {
-		// TODO Auto-generated method stub
-		
+	public String name() {
+		return bizInfo.getName();
+	}
+
+	@Override
+	public void setArguments(BusinessActivityInfo tempBizInfo, Map<String, String> tempArgs) {
+		this.args = tempArgs;
+		this.bizInfo = tempBizInfo;
 	}
 
 	@Override
 	public Map<String, String> run() {
-		// TODO Auto-generated method stub
+		// TODO Write code using TransportMachinery/TransportTools by sending the correct content.
+		switch(bizInfo.getActivity()) {
+		case CREATE : 
+			create();
+			break;
+		case INSERT :
+			insert();
+			break;
+		case UPDATE : 
+			delete();
+			break;
+		case DELETE :
+			delete();
+			break;
+			default : break;
+		}
 		return null;
 	}
 
-	@Override
-	public String name() {
-		return "user";
+	private void create() {
+
 	}
 
+	private void insert() {
+
+	}
+
+	private void delete() {
+
+	}
+
+	public void update() {
+
+	}
 }

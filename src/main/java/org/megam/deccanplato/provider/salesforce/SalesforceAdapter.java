@@ -38,13 +38,13 @@ public class SalesforceAdapter<T extends Object> extends
 
 	/* using the user#create key */
 	public void configure() {
-		activity = ProviderRegistry.instance().getBusinessActivity(cloud_app,
-				biz_function);
+		activity = ProviderRegistry.instance().getBusinessActivity(bizInfo.getName(),
+				bizInfo.getActivity());
 	}
 
 	/** get the handle responsible for the call and stick stuff into it **/
 	public boolean build() {
-		activity.setArguments(args);
+		activity.setArguments(bizInfo,args);
 		return true;
 	}
 

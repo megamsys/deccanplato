@@ -17,12 +17,12 @@ package org.megam.deccanplato.provider.zoho.crm.handler;
 import java.util.Map;
 
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 
 public class LeadsImpl implements BusinessActivity {
 
 	@Override
-	public void setArguments(Map<String, String> args) {
-		// TODO Auto-generated method stub
+	public void setArguments(BusinessActivityInfo tempBizInfo, Map<String, String> tempArgs) {
 		
 	}
 
