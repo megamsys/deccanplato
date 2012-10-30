@@ -18,7 +18,7 @@ import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProviderInfo extends MultiDataMap {
+public class ProviderInfo implements DataMap {
 
 	private Map<String, String> business_activity = new HashMap<String, String>();
 	private Map<String, String> access = new HashMap<String, String>();
@@ -37,6 +37,11 @@ public class ProviderInfo extends MultiDataMap {
 		}
 		return business_activity;
 	}
+	
+	public String name() {
+		return "provider-datamap";
+	}
+
 	
 	public String getProviderName() {
 		return map().get(PROVIDER);

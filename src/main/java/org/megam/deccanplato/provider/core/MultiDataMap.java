@@ -25,10 +25,19 @@ public class MultiDataMap<T extends Object> implements DataMap<T> {
 
 	private Map<String, DataMap<T>> multiMap = new HashMap<String, DataMap<T>>();
 
-	public MultiDataMap() {
+	
+	/**
+	 * @param map
+	 * @param authMap
+	 * @param b
+	 */
+	public MultiDataMap(boolean b,DataMap<T>... dataMaps) {
+		for(DataMap<T> singleDataMap : dataMaps) {
+			addDataMap(singleDataMap);
+		}
 	}
 
-	public void addDataMap(DataMap singleDataMap) {
+	public void addDataMap(DataMap<T> singleDataMap) {
 		multiMap.put(singleDataMap.name(), singleDataMap);
 	}
 
