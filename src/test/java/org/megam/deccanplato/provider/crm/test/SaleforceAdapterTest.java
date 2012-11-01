@@ -68,7 +68,7 @@ public class SaleforceAdapterTest {
 		System.out.println("Provider Registry" + registry.toString());
 		//System.out.println("Provider Registry" + registry.getAdapter("salesforce"));	
 	}
-    @Test
+   // @Test
 	public void testSalesforceAdapterAccess() throws AdapterAccessException{
 		
 		SalesforceAdapterAccess saa=new SalesforceAdapterAccess();

@@ -88,6 +88,7 @@ public class SalesforceAdapterAccess implements AdapterAccess {
 			json = new JSONObject(response);
 			respMap.map().put(ACCESS_TOKEN, (T) json.get(ACCESS_TOKEN));
 			respMap.map().put(INSTANCE_URL, (T) json.get(INSTANCE_URL));
+			success=true;
 		} catch (JSONException e) {
 			throw new AdapterAccessException("Failed to parse JSON received from the post operation.", e);
 		}

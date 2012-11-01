@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package org.megam.deccanplato.provider;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.megam.deccanplato.provider.core.AbstractCloudOperation;
 import org.megam.deccanplato.provider.core.CloudMediator;
@@ -73,6 +74,10 @@ public class ProviderOperation extends AbstractCloudOperation {
 		prov = registry.getAdapter(info.getProviderName());
 		System.out.println("PROVIDER :>>>>>:"+registry.getAdapter(info.getProviderName()));
 		DataMap<V> authMap = prov.getAccess().authenticate(info);
+		for (Entry<String, V> entry : authMap.map().entrySet()) {
+			System.out.println("KEY:"+entry.getKey()+":"+"Value"+":"+entry.getValue());
+		}
+		System.out.println("Provider OPERATION AUTHMAP"+authMap.toString());
 		MultiDataMap<V> multiMap = new MultiDataMap(false, info,authMap);
 		prov.getAdapter().setDataMap(multiMap);
 	}
