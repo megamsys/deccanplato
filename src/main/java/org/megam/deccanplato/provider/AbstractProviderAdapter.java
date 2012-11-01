@@ -78,6 +78,8 @@ public abstract class AbstractProviderAdapter<T extends Object> implements
 	 * @param tempArgs
 	 */
 	public void setConfiguration(Map<String, String> tempArgs) {
+		for (Map.Entry<String, String> entry : tempArgs.entrySet())
+		System.out.println("ARGS:"+entry.getKey()+""+entry.getValue());
 		this.args = tempArgs;
 		bizInfo = new BusinessActivityInfo(args.get(PROVIDER),
 				args.get(BIZ_FUNCTION));

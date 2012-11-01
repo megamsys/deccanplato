@@ -14,7 +14,7 @@
 			"consumer_secret": "2416933755273187085",
 			"access_username": "pontiyaraja@gmail.com",
 			"access_password": "team4megamE1mlHRMlL7deN0zCN4oDAZlJq",
-			"provider": "Salesforce",
+			"provider": "salesforce",
 			"category": "CRM",
 			"description": "My first Connector Project",
 			"user_email": "alrin@megam.com",

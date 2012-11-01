@@ -68,7 +68,7 @@ public class SaleforceAdapterTest {
 		System.out.println("Provider Registry" + registry.toString());
 		//System.out.println("Provider Registry" + registry.getAdapter("salesforce"));	
 	}
-    //@Test
+    @Test
 	public void testSalesforceAdapterAccess() throws AdapterAccessException{
 		
 		SalesforceAdapterAccess saa=new SalesforceAdapterAccess();
@@ -80,7 +80,7 @@ public class SaleforceAdapterTest {
     @Test
    public void testCreateUser() throws CloudMediatorException{
        DefaultCloudProviderMediator dcm=new DefaultCloudProviderMediator(reqData);
-	   System.out.println("Final Result"+dcm.handleRequest());
+       System.out.println("Final Result"+dcm.handleRequest());
    }
 	
 	/*@Ignore

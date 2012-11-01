@@ -24,8 +24,10 @@ public class BusinessActivityInfo {
 
 	private String name;
 	private String activity;
-
+	private BusinessActivityNameSpliter bans;
+	
 	public BusinessActivityInfo(String tempName, String tempActivity) {
+		bans=new BusinessActivityNameSpliter(tempActivity);
 		this.name = tempName;
 		this.activity = tempActivity;
 	}
@@ -37,6 +39,13 @@ public class BusinessActivityInfo {
 	public String getActivity() {
 		return activity;
 	}
+	public String getActivityName() {
+		return bans.getActivityName();
+	}
+	public String getActivityFunction() {
+		System.out.println("BUSINESS ACTIVITY FUNCTION"+bans.getActivityFunction());
+		return bans.getActivityFunction();
+	}
 
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
@@ -44,6 +53,24 @@ public class BusinessActivityInfo {
 		formatter.format("%10s = %s%n", getName(), getActivity());
 		formatter.close();
 		return strbd.toString();
+	}
+	
+	private class BusinessActivityNameSpliter{
+		private String name;
+		private String function;
+		String a[]=new String[2];
+		
+		BusinessActivityNameSpliter(String activityname){
+			
+			a=activityname.split("#");
+			
+		}
+		private String getActivityName() {
+			return name=a[0];
+		}
+		private String getActivityFunction() {
+			return function=a[1];
+		}
 	}
 
 }

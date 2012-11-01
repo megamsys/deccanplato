@@ -42,6 +42,9 @@ public class SalesforceAdapterAccess implements AdapterAccess {
 	private static final String ACCESS_TOKEN = "access_token";
 	private static final String INSTANCE_URL = "instance_url";
 
+	public SalesforceAdapterAccess() {
+		super();
+	}
 	@Override
 	public boolean isSuccessful() {
 		return success;

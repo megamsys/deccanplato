@@ -20,25 +20,32 @@ import org.megam.deccanplato.provider.BusinessActivity;
 import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 
 public class UserImpl implements BusinessActivity {
-
+    
+	private static final String CREATE="create";
+	private static final String INSERT="insert";
+	private static final String UPDATE="update";
+	private static final String DELETE="delete";
 	private Map<String, String> args;
 	private BusinessActivityInfo bizInfo;
 
 	@Override
 	public String name() {
-		return bizInfo.getName();
+		System.out.println("USER IMPL :NAME"+bizInfo);
+		return "user";
 	}
 
 	@Override
 	public void setArguments(BusinessActivityInfo tempBizInfo, Map<String, String> tempArgs) {
+		
 		this.args = tempArgs;
 		this.bizInfo = tempBizInfo;
+		System.out.println("USER IMPL :SET ARGUMENTS"+bizInfo);
 	}
 
 	@Override
 	public Map<String, String> run() {
 		// TODO Write code using TransportMachinery/TransportTools by sending the correct content.
-		switch(bizInfo.getActivity()) {
+		switch(bizInfo.getActivityFunction()) {
 		case CREATE : 
 			create();
 			break;
@@ -57,7 +64,7 @@ public class UserImpl implements BusinessActivity {
 	}
 
 	private void create() {
-
+        System.out.println("IN CREATE USER METHOD");
 	}
 
 	private void insert() {

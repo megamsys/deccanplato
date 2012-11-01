@@ -11,6 +11,7 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 
 	<bean id="providerAdapter" abstract="true"
 	class="org.megam.deccanplato.provider.ProviderAdapter" />
+	<bean id="adapterAccess" abstract="true" class="org.megam.deccanplato.provider.core.AdapterAccess"/>
 	
 	<bean id="salesforce" class="org.megam.deccanplato.provider.Provider">
 		<property name="name" value="salesforce" />
@@ -18,6 +19,9 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 		<property name="adapter">
 			<bean class ="org.megam.deccanplato.provider.salesforce.SalesforceAdapter" parent="providerAdapter"/>
 		</property>
+		<property name="access"> 
+			<bean class="org.megam.deccanplato.provider.salesforce.SalesforceAdapterAccess" parent="adapterAccess"/>
+	    </property>
 	</bean>
 	<bean id="zoho" class="org.megam.deccanplato.provider.Provider">
 		<property name="name" value="zohocrm" />

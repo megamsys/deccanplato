@@ -55,8 +55,8 @@ public class ProviderOperation extends AbstractCloudOperation {
 	}
 
 	public boolean isFitToRun() {
-		if (prov != null && prov.getAdapterAccess() != null) {
-			return prov.getAdapterAccess().isSuccessful();
+		if (prov != null && prov.getAccess() != null) {
+			return prov.getAccess().isSuccessful();
 		}
 
 		return false;
@@ -71,8 +71,8 @@ public class ProviderOperation extends AbstractCloudOperation {
 		}
 		System.out.println("REGISTER :>>>>>:"+registry.toString());
 		prov = registry.getAdapter(info.getProviderName());
-		System.out.println("PROVIDER :>>>>>:"+info.getProviderName());
-		DataMap<V> authMap = prov.getAdapterAccess().authenticate(info);
+		System.out.println("PROVIDER :>>>>>:"+registry.getAdapter(info.getProviderName()));
+		DataMap<V> authMap = prov.getAccess().authenticate(info);
 		MultiDataMap<V> multiMap = new MultiDataMap(false, info,authMap);
 		prov.getAdapter().setDataMap(multiMap);
 	}

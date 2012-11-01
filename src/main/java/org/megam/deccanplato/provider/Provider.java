@@ -45,12 +45,12 @@ public class Provider {
 		return adapter;
 	}
 
-	public AdapterAccess getAdapterAccess() {
+	public AdapterAccess getAccess() {
 		return access;
 	}
 	
-	public void setAdapterAccess(AdapterAccess acces){
-		 this.access=acces;
+	public void setAccess(AdapterAccess tempacces){
+		 this.access=tempacces;
 	}
 	
 	public void setAdapter(ProviderAdapter adapter){
@@ -65,7 +65,7 @@ public class Provider {
 		formatter.format("%12s = %s%n", "name", getName());
 		formatter.format("%12s = %s%n", "description", getDescription());
 		formatter.format("%12s = %s%n", "adapter", getAdapter());
-		formatter.format("%12s = %s%n", "adap_access", getAdapterAccess());
+		formatter.format("%12s = %s%n", "adap_access", getAccess());
 		formatter.format("%s%n",
 				"*----------------------------------------------*");
 		formatter.close();

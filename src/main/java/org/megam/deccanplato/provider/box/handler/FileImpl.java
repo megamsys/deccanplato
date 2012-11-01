@@ -17,14 +17,9 @@ package org.megam.deccanplato.provider.box.handler;
 import java.util.Map;
 
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 
 public class FileImpl implements BusinessActivity {
-
-	@Override
-	public void setArguments(Map<String, String> args) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public Map<String, String> run() {
@@ -35,6 +30,16 @@ public class FileImpl implements BusinessActivity {
 	@Override
 	public String name() {
 		return "user";
+	}
+
+	/* (non-Javadoc)
+	 * @see org.megam.deccanplato.provider.BusinessActivity#setArguments(org.megam.deccanplato.provider.core.BusinessActivityInfo, java.util.Map)
+	 */
+	@Override
+	public void setArguments(BusinessActivityInfo tempBizInfo,
+			Map<String, String> tempArgs) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

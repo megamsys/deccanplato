@@ -38,12 +38,16 @@ public class SalesforceAdapter<T extends Object> extends
 
 	/* using the user#create key */
 	public void configure() {
+		System.out.println("BUSINESS INFO"+bizInfo.toString());
 		activity = ProviderRegistry.instance().getBusinessActivity(bizInfo.getName(),
-				bizInfo.getActivity());
+				bizInfo.getActivityName());
+		
+		System.out.println("BUSINESS INFO"+activity);
 	}
 
 	/** get the handle responsible for the call and stick stuff into it **/
 	public boolean build() {
+		System.out.println("SALESFORCE ADAPTER BUILD");
 		activity.setArguments(bizInfo,args);
 		return true;
 	}

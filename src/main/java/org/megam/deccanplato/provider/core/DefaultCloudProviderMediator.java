@@ -27,8 +27,7 @@ public class DefaultCloudProviderMediator extends AbstractCloudProviderMediator 
 
 	public DefaultCloudProviderMediator(RequestData reqData) {
 		//System.out.println(reqData);
-		addOperation(new AccessControlOperation(reqData.getAccess().token(),
-				this));
+		addOperation(new AccessControlOperation(reqData.getAccess().token(), this));
 		System.out.println("Access Controller Token"+reqData.getAccess().token());
 		addOperation(new ProviderOperation(reqData.getGeneral(), this));
 		addOperation(new OutputOperation(reqData.getOutput(), this));
@@ -49,6 +48,7 @@ public class DefaultCloudProviderMediator extends AbstractCloudProviderMediator 
 		try {
 			for (Iterator<CloudOperation> iter = orderedOps.iterator(); (iter
 					.hasNext() && shouldProceed);) {
+				System.out.println("DFPM OrderedOps:"+iter.next());
 				CloudOperation singleOps = iter.next();
 				System.out.println("SINGLEOPS>>>>>>>>>>>>>>"+singleOps);
 				CloudOperationOutput<T> opsOut = singleOps.handle();

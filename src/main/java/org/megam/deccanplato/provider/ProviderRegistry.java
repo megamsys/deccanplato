@@ -72,15 +72,17 @@ public class ProviderRegistry {
 
 	public BusinessActivity getBusinessActivity(String providerName,
 			String activityName) {
+		System.out.println("PROVIDER AND ACTIVITY"+providerName+""+activityName);
 		Set<BusinessActivity> activitySet = bizActivityMap.get(providerName);
 		for (BusinessActivity searchedActivity : activitySet) {
+			System.out.println("ProviderRegistry"+searchedActivity.name()+":::"+activityName);
 			if (searchedActivity.name().equalsIgnoreCase(activityName)) {
-				return searchedActivity;
+				   return searchedActivity;
 			}
 		}
 		return null;
 	}
-	/*public String toString() {
+	public void Data() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
 		for (Map.Entry<String, Provider> entry : providersMap.entrySet()) {
@@ -90,6 +92,6 @@ public class ProviderRegistry {
 			formatter.format("%10s = %s%n", entry1.getKey(), entry1.getValue());
 		}
 		formatter.close();
-		return strbd.toString();
-}*/
+		
+}
 }

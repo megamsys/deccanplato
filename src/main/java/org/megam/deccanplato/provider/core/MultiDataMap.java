@@ -48,7 +48,17 @@ public class MultiDataMap<T extends Object> implements DataMap<T> {
 	 */
 	@Override
 	public Map<String, T> map() {
-		return null;
+		Map<String, T> newmap=new HashMap<String, T>();
+		
+		for(Map.Entry<String, DataMap<T>> entry : multiMap.entrySet()) {
+			
+			newmap.putAll(entry.getValue().map());
+			
+		}
+		System.out.println("MULTIMAP"+newmap.toString());
+		
+		
+		return newmap;
 	}
 
 	/* (non-Javadoc)

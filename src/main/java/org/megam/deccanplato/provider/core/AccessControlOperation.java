@@ -25,7 +25,7 @@ public class AccessControlOperation extends  AbstractCloudOperation {
 	
 	public AccessControlOperation(AccessToken tempToken, CloudMediator tempParent) {
 		super(tempParent);
-		System.out.println(tempToken);
+		System.out.println("ACCESS CONTROL OPERATION::::"+tempParent.toString());
 		getParent().registerCloudBridgeListener(this);
 		this.token=tempToken;
 	}
