@@ -21,7 +21,7 @@
 			"org_name": "Megam Systems"
 		},
 		"business_activity": {
-			"biz_function": "user#create",
+			"biz_function": "user#list",
 			"user_name":"raja.pandiya@hotmail.com",
             "first_name":"Pontiya",
 	        "alias":"vaalu",

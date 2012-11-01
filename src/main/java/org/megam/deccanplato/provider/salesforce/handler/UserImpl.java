@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package org.megam.deccanplato.provider.salesforce.handler;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +37,7 @@ import org.megam.deccanplato.provider.core.DefaultDataMap;
 public class UserImpl implements BusinessActivity {
     
 	private static final String CREATE="create";
-	private static final String INSERT="insert";
+	private static final String LIST="list";
 	private static final String UPDATE="update";
 	private static final String DELETE="delete";
 	
@@ -65,8 +66,8 @@ public class UserImpl implements BusinessActivity {
 		case CREATE : 
 			create();
 			break;
-		case INSERT :
-			insert();
+		case LIST :
+			list();
 			break;
 		case UPDATE : 
 			delete();
@@ -126,7 +127,38 @@ Locale locale=new Locale(args.get("language"),args.get("locale"));
         return respMap;
 	}
 
-	private void insert() {
+	private Map<String, String> list() {
+		
+		final String SALESFORCE_LIST_USER_URL = args.get("instance_url")
+				+ "/services/data/v25.0/query/?q=SELECT+Username+FROM+User";
+		 Map<String,String> header=new HashMap<String,String>();
+	        header.put("Authorization", "OAuth "+args.get("access_token"));
+	        
+	        TransportTools tst=new TransportTools(SALESFORCE_LIST_USER_URL, null, header);
+	        String responseBody = null;
+	        
+	        TransportResponse response = null;
+	       
+					try {
+						response=TransportMachinery.get(tst);
+					} catch (ClientProtocolException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				 catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				responseBody=response.entityToString();
+			
+	      
+	        Map<String, String> respMap = new HashMap<>();
+	        
+	        System.out.println("RESPONSE BPDY"+responseBody);
+	        return respMap;
 
 	}
 
