@@ -16,13 +16,15 @@
 package org.megam.deccanplato.provider.box;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.StringReader;
+import java.net.URISyntaxException;
 import java.util.Map;
 
-import org.apache.http.NameValuePair;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.message.BasicNameValuePair;
 import org.megam.deccanplato.http.TransportMachinery;
 import org.megam.deccanplato.http.TransportResponse;
 import org.megam.deccanplato.http.TransportTools;
@@ -30,77 +32,123 @@ import org.megam.deccanplato.provider.core.AdapterAccess;
 import org.megam.deccanplato.provider.core.AdapterAccessException;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.DefaultDataMap;
-import org.megam.deccanplato.provider.core.ProviderInfo;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
 
 /**
  * @author alrin
- *
+ * 
  */
-public class BoxAdapterAccess {
 
-	public class SalesforceAdapterAccess implements AdapterAccess {
+public class BoxAdapterAccess implements AdapterAccess {
 
-		private boolean success = false;
+	private boolean success = false;
 
-		private static final String SALESFORCE_OAUTH2_URL = "https://login.salesforce.com/services/oauth2/token";
-		private static final String ACCESS_TOKEN = "access_token";
-		private static final String INSTANCE_URL = "instance_url";
+	private static String BOX_OAUTH2_URL = "https://www.box.com/api/1.0/rest?action=get_ticket&api_key=";
+	private String Ticket;
 
-		public SalesforceAdapterAccess() {
-			super();
-		}
-		@Override
-		public boolean isSuccessful() {
-			return success;
-		}
+	public BoxAdapterAccess() {
+		super();
+	}
 
-		@Override
-		public <T extends Object> DataMap<T> authenticate(DataMap<T> access) throws AdapterAccessException {
-			Map<String, T> accessMap = access.map();
+	@Override
+	public boolean isSuccessful() {
+		return success;
+	}
 
-			List<NameValuePair> list = new ArrayList<NameValuePair>();
-			list.add(new BasicNameValuePair("grant_type", "password"));
-			list.add(new BasicNameValuePair("client_id", (String) accessMap
-					.get("consumer_key")));
-			list.add(new BasicNameValuePair("client_secret", (String) accessMap
-					.get("consumer_secret")));
-			list.add(new BasicNameValuePair("username", (String) accessMap
-					.get("access_username")));
-			list.add(new BasicNameValuePair("password", (String) accessMap
-					.get("access_password")));
+	@Override
+	public <T extends Object> DataMap<T> authenticate(DataMap<T> access)
+			throws AdapterAccessException {
 
-			TransportTools tools = new TransportTools(SALESFORCE_OAUTH2_URL, list);
-			String responseBody = null;
+		Map<String, T> accessMap = access.map();
+		System.out.println("Access MAP " + accessMap.toString());
+		BOX_OAUTH2_URL = BOX_OAUTH2_URL + accessMap.get("api_key");
+		TransportTools tools = new TransportTools(BOX_OAUTH2_URL, null);
+		String responseBody = null;
 
-			TransportResponse response = null;
+		TransportResponse response = null;
+		try {
 			try {
-				response = TransportMachinery.post(tools);
-				responseBody = response.entityToString();
-			} catch (ClientProtocolException ce) {
-				throw new AdapterAccessException("An error occurred during post operation.", ce);
-			} catch (IOException ioe) {
-				throw new AdapterAccessException("An error occurred during post operation.", ioe);
+				response = TransportMachinery.get(tools);
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			responseBody = response.entityToString();
+		} catch (ClientProtocolException ce) {
+			throw new AdapterAccessException(
+					"An error occurred during post operation.", ce);
+		} catch (IOException ioe) {
+			throw new AdapterAccessException(
+					"An error occurred during post operation.", ioe);
+		}
+		System.out.println("Response Body" + responseBody + "Response End");
+		DocumentBuilder db = null;
+		try {
+			db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		InputSource is = new InputSource();
+		is.setCharacterStream(new StringReader(responseBody));
+
+		Document doc = null;
+		try {
+			doc = (Document) db.parse(is);
+		} catch (SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		NodeList nodes = ((Node) doc).getChildNodes();
+		for (int i = 0; i < nodes.getLength(); i++) {
+			Node element = nodes.item(i);
+			NodeList child = element.getChildNodes();
+			for (int j = 0; j < child.getLength(); j++) {
+				Node ele = child.item(j);
+				if (ele.getNodeName().equals("ticket")) {
+					Ticket = ele.getTextContent();
+					System.out.println("Ticket " + Ticket);
+				}
+
 			}
 
-			return parseOutput(responseBody);
 		}
+		BoxAuthToken((String) accessMap.get("api_key"),Ticket);
+		return null;
+	}
+	
+	public void BoxAuthToken(String api, String tick) throws AdapterAccessException {
+		String url = "https://www.box.com/api/1.0/rest?action=get_auth_token&api_key="+api+"&ticket="+tick;
+		
+		TransportTools tools = new TransportTools(url, null);
+		String responseBody = null;
 
-		public <T> DataMap<T> parseOutput(String response) throws AdapterAccessException {
-			DataMap<T> respMap = new DefaultDataMap<T>();
-			JSONObject json;
+		TransportResponse response = null;
+		try {
 			try {
-				json = new JSONObject(response);
-				respMap.map().put(ACCESS_TOKEN, (T) json.get(ACCESS_TOKEN));
-				respMap.map().put(INSTANCE_URL, (T) json.get(INSTANCE_URL));
-				success=true;
-			} catch (JSONException e) {
-				throw new AdapterAccessException("Failed to parse JSON received from the post operation.", e);
+				response = TransportMachinery.get(tools);
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-
-			return respMap;
+			responseBody = response.entityToString();
+		} catch (ClientProtocolException ce) {
+			throw new AdapterAccessException(
+					"An error occurred during post operation.", ce);
+		} catch (IOException ioe) {
+			throw new AdapterAccessException(
+					"An error occurred during post operation.", ioe);
 		}
+		System.out.println("Response Body II" + responseBody + "Response II End");
+		
+	}
 
 }

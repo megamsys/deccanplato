@@ -58,7 +58,6 @@ public class BoxAdapterTest {
 		while ((currentLine = br.readLine()) != null) {
 			strb.append(currentLine);
 		}
-		//
 		RequestDataBuilder rdb = new RequestDataBuilder(strb.toString());
 		reqData=rdb.data();
 		System.out.println(rdb.data().toString());
@@ -74,13 +73,14 @@ public class BoxAdapterTest {
 		//System.out.println("Provider Registry" + registry.getAdapter("box"));	
 	}
 	 @Test
-		public void testSalesforceAdapterAccess() throws AdapterAccessException{
+		public void testBoxAdapterAccess() throws AdapterAccessException{
 			
 			BoxAdapterAccess baa=new BoxAdapterAccess();
-			DataMap dmap=baa.authenticate(reqData.getGeneral());
-			System.out.println(dmap.map().get("instance_url"));
-			System.out.println(dmap.map().get("access_token"));
-			//System.out.println("DMAP"+dmap.toString());
+			DataMap dmap=baa.authenticate(reqData.getOutput());
+			//System.out.println(dmap.map().get("instance_url"));
+			System.out.println(dmap.map().get("location"));
+			System.out.println(dmap.map().get("api_key"));
+			System.out.println("DMAP"+dmap.toString());
 		}
 
 }
