@@ -15,8 +15,25 @@
  **/
 package org.megam.deccanplato.provider.box;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.message.BasicNameValuePair;
+import org.megam.deccanplato.http.TransportMachinery;
+import org.megam.deccanplato.http.TransportResponse;
+import org.megam.deccanplato.http.TransportTools;
+import org.megam.deccanplato.provider.core.AdapterAccess;
+import org.megam.deccanplato.provider.core.AdapterAccessException;
 import org.megam.deccanplato.provider.core.DataMap;
+import org.megam.deccanplato.provider.core.DefaultDataMap;
 import org.megam.deccanplato.provider.core.ProviderInfo;
+
+import com.amazonaws.util.json.JSONException;
+import com.amazonaws.util.json.JSONObject;
 
 /**
  * @author alrin
@@ -24,13 +41,66 @@ import org.megam.deccanplato.provider.core.ProviderInfo;
  */
 public class BoxAdapterAccess {
 
-	/**
-	 * @param general
-	 * @return
-	 */
-	public DataMap authenticate(ProviderInfo general) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public class SalesforceAdapterAccess implements AdapterAccess {
+
+		private boolean success = false;
+
+		private static final String SALESFORCE_OAUTH2_URL = "https://login.salesforce.com/services/oauth2/token";
+		private static final String ACCESS_TOKEN = "access_token";
+		private static final String INSTANCE_URL = "instance_url";
+
+		public SalesforceAdapterAccess() {
+			super();
+		}
+		@Override
+		public boolean isSuccessful() {
+			return success;
+		}
+
+		@Override
+		public <T extends Object> DataMap<T> authenticate(DataMap<T> access) throws AdapterAccessException {
+			Map<String, T> accessMap = access.map();
+
+			List<NameValuePair> list = new ArrayList<NameValuePair>();
+			list.add(new BasicNameValuePair("grant_type", "password"));
+			list.add(new BasicNameValuePair("client_id", (String) accessMap
+					.get("consumer_key")));
+			list.add(new BasicNameValuePair("client_secret", (String) accessMap
+					.get("consumer_secret")));
+			list.add(new BasicNameValuePair("username", (String) accessMap
+					.get("access_username")));
+			list.add(new BasicNameValuePair("password", (String) accessMap
+					.get("access_password")));
+
+			TransportTools tools = new TransportTools(SALESFORCE_OAUTH2_URL, list);
+			String responseBody = null;
+
+			TransportResponse response = null;
+			try {
+				response = TransportMachinery.post(tools);
+				responseBody = response.entityToString();
+			} catch (ClientProtocolException ce) {
+				throw new AdapterAccessException("An error occurred during post operation.", ce);
+			} catch (IOException ioe) {
+				throw new AdapterAccessException("An error occurred during post operation.", ioe);
+			}
+
+			return parseOutput(responseBody);
+		}
+
+		public <T> DataMap<T> parseOutput(String response) throws AdapterAccessException {
+			DataMap<T> respMap = new DefaultDataMap<T>();
+			JSONObject json;
+			try {
+				json = new JSONObject(response);
+				respMap.map().put(ACCESS_TOKEN, (T) json.get(ACCESS_TOKEN));
+				respMap.map().put(INSTANCE_URL, (T) json.get(INSTANCE_URL));
+				success=true;
+			} catch (JSONException e) {
+				throw new AdapterAccessException("Failed to parse JSON received from the post operation.", e);
+			}
+
+			return respMap;
+		}
 
 }
