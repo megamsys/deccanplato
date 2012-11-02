@@ -26,6 +26,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 public class TransportMachinery {
@@ -42,8 +43,12 @@ public class TransportMachinery {
 			}
 		}
 		
-		if (nuts.pairs() != null) {
+		if (nuts.pairs() != null && (nuts.contentType() ==null)) {
 			httppost.setEntity(new UrlEncodedFormEntity(nuts.pairs()));
+		}
+		
+		if (nuts.contentType() !=null) {
+			httppost.setEntity(new StringEntity(nuts.contentString(),nuts.contentType()));
 		}
 
 		TransportResponse transportResp = null;
