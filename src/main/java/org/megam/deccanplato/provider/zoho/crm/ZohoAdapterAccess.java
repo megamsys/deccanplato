@@ -52,10 +52,10 @@ public class ZohoAdapterAccess implements AdapterAccess {
 		Map<String, T> accessMap = access.map();
 
 		List<NameValuePair> list = new ArrayList<NameValuePair>();
-		list.add(new BasicNameValuePair(SCOPE, "ZohoCRM/crmapi"));
-		list.add(new BasicNameValuePair(EMAIL_ID, (String) accessMap
+		list.add(new BasicNameValuePair("SCOPE", "ZohoCRM/crmapi"));
+		list.add(new BasicNameValuePair("EMAIL_ID", (String) accessMap
 				.get(EMAIL_ID)));
-		list.add(new BasicNameValuePair(PASSWORD, (String) accessMap
+		list.add(new BasicNameValuePair("PASSWORD", (String) accessMap
 				.get(PASSWORD)));
 
 		TransportTools tools = new TransportTools(ZOHO_AUTH_URL, list);
@@ -70,7 +70,7 @@ public class ZohoAdapterAccess implements AdapterAccess {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+         System.out.println("RESPONSE BODY"+responseBody);
 		return parseOutput(responseBody);
 	}
 
@@ -80,10 +80,12 @@ public class ZohoAdapterAccess implements AdapterAccess {
 		try {
 			AccessParser ap = new AccessParser(response);
 			respMap.map().put("OAuth_token", (T) ap.getAuthtoken());
+			success=true;
 		} catch (IOException e) {
 			throw new AdapterAccessException(
 					"Failed to parse JSON received from the post operation.", e);
 		}
+		
 		return respMap;
 	}
 

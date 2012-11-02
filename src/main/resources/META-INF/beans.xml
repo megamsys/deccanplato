@@ -65,8 +65,9 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 						<bean class="org.megam.deccanplato.provider.salesforce.handler.LeadsImpl"/>
 					</set>
 				</entry>
-				<entry key="zoho">
+				<entry key="zohocrm">
 					<set>
+						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.UserImpl"/>
 						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.AccountImpl"/>
 						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.LeadsImpl"/>
 					</set>

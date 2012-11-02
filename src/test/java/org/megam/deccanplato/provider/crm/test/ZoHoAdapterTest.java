@@ -12,14 +12,20 @@ import org.apache.wink.client.RestClient;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.megam.deccanplato.provider.ProviderRegistry;
 import org.megam.deccanplato.provider.core.AdapterAccessException;
+import org.megam.deccanplato.provider.core.CloudMediatorException;
 import org.megam.deccanplato.provider.core.DataMap;
+import org.megam.deccanplato.provider.core.DefaultCloudProviderMediator;
 import org.megam.deccanplato.provider.core.RequestData;
 import org.megam.deccanplato.provider.core.RequestDataBuilder;
 import org.megam.deccanplato.provider.salesforce.SalesforceAdapterAccess;
 import org.megam.deccanplato.provider.zoho.crm.ZohoAdapterAccess;
 import org.megam.deccanplato.provider.zoho.crm.info.Accounts;
 import org.megam.deccanplato.provider.zoho.crm.info.Leads;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 
 public class ZoHoAdapterTest {
 	
@@ -47,18 +53,29 @@ public class ZoHoAdapterTest {
 		RequestDataBuilder rdb = new RequestDataBuilder(strb.toString());
 		reqData=rdb.data();
 		System.out.println(rdb.data().toString());	    	
-		
+		GenericApplicationContext ctx = new GenericApplicationContext();
+		XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(ctx);
+		xmlReader.loadBeanDefinitions(new ClassPathResource(
+				"applicationContext.xml"));
+		ctx.refresh();		
+		ProviderRegistry registry = (ProviderRegistry) ctx
+				.getBean("registry");
+		System.out.println("Provider Registry" + registry.toString());
 	}
 	 @Test
-		public void testZohoAdapterAccess() throws AdapterAccessException{
-			
+	 public void testZohoAdapterAccess() throws AdapterAccessException{
+			System.out.println("ZOHOADAPTERACCESS");
 			ZohoAdapterAccess zaa=new ZohoAdapterAccess();
 			DataMap dmap=zaa.authenticate(reqData.getGeneral());
 			System.out.println(dmap.map().get("OAuth_token"));
 			//System.out.println(dmap.map().get("access_token"));
 			//System.out.println("DMAP"+dmap.toString());
 		}
-	 
+	 @Test
+	   public void testCreateUser() throws CloudMediatorException{
+	       DefaultCloudProviderMediator dcm=new DefaultCloudProviderMediator(reqData);
+	       System.out.println("Final Result"+dcm.handleRequest());
+	   }
 	/*@Ignore
 	@BeforeClass
 	public static void setUp(){

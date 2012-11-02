@@ -11,7 +11,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 package org.megam.deccanplato.http;
 
 import java.net.MalformedURLException;
@@ -21,28 +21,32 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.entity.ContentType;
 
 public class TransportTools {
 
 	private String urlString = null;
 	private List<NameValuePair> pairs = null;
-	private Map<String,String> headers = null;
+	private Map<String, String> headers = null;
 	private boolean query = false;
 	private String encoding = null;
-	
+	private ContentType contentType =null;
+	private String contentString =null;
+
 	public TransportTools(String urlstr, List<NameValuePair> pair) {
 		this(urlstr, pair, null);
 	}
-	
+
 	public TransportTools(String urlstr, List<NameValuePair> pair,
-			Map<String,String> header) {
+			Map<String, String> header) {
 		this(urlstr, pair, header, false, null);
 
 	}
 
 	public TransportTools(String tempUrlString, List<NameValuePair> tempPair,
-			Map<String,String> tempHeader,boolean tempQuery, String tempEncoding) {
-		
+			Map<String, String> tempHeader, boolean tempQuery,
+			String tempEncoding) {
+
 		this.urlString = tempUrlString;
 		this.pairs = tempPair;
 		this.headers = tempHeader;
@@ -62,16 +66,32 @@ public class TransportTools {
 		return pairs;
 	}
 
-	public Map<String,String> headers() {
+	public Map<String, String> headers() {
 		return headers;
 	}
-	
+
 	public boolean isQuery() {
 		return query;
 	}
-	
+
 	public String encoding() {
 		return encoding;
+	}
+
+	public void setContentType(ContentType tempContentType, String tempContentString) {
+		this.contentType = tempContentType;
+		this.contentString = tempContentString;
+	}
+
+	public ContentType contentType() {
+		return contentType;
+	}
+
+	/**
+	 * @return
+	 */
+	public String contentString() {
+		return contentString;
 	}
 
 	public String toString() {
@@ -84,9 +104,12 @@ public class TransportTools {
 		formatter.format("%12s = %s%n", "headers", headers());
 		formatter.format("%12s = %s%n", "query", isQuery());
 		formatter.format("%12s = %s%n", "encoding", encoding());
+		formatter.format("%12s = %s%n", "contenttype", contentType());
+		formatter.format("%12s = %s%n", "contentstring", contentString());
 		formatter.format("%s%n",
 				"*----------------------------------------------*");
 		formatter.close();
 		return strbd.toString();
 	}
+
 }

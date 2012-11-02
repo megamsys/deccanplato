@@ -14,28 +14,190 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package org.megam.deccanplato.provider.salesforce.handler;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.entity.ContentType;
+import org.megam.deccanplato.http.TransportMachinery;
+import org.megam.deccanplato.http.TransportResponse;
+import org.megam.deccanplato.http.TransportTools;
 import org.megam.deccanplato.provider.BusinessActivity;
 import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 
-public class LeadsImpl implements BusinessActivity {
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+public class LeadsImpl implements BusinessActivity {
+     
+	private static final String CREATE="create";
+	private static final String LIST="list";
+	private static final String UPDATE="update";
+	private static final String DELETE="delete";
+	private static final String LASTNAME="last_name";
+	private static final String COMPANY="company";
+	private static final String ACCESSTOKEN="access_token";
+	private static final String INSTANCEURL="instance_url";
+	private static final String ID="id";
+	
+	private Map<String, String> args;
+	private BusinessActivityInfo bizInfo;
+	
 	@Override
 	public void setArguments(BusinessActivityInfo tempBizInfo, Map<String, String> tempArgs) {
-		// TODO Auto-generated method stub
+		
+		this.args = tempArgs;
+		this.bizInfo = tempBizInfo;
 		
 	}
 
 	@Override
 	public Map<String, String> run() {
+		
+		System.out.println("USER IMPLEMENTATION METHOD RUN METHOD");
+		switch (bizInfo.getActivityFunction()) {
+		case CREATE:
+			create();
+			break;
+		case LIST:
+			list();
+			break;
+		case UPDATE:
+			update();
+			break;
+		case DELETE:
+			delete();
+			break;
+		default:
+			break;
+		}
+		return null;
+		
+	}
+
+	/**
+	 * 
+	 */
+	private Map<String, String> create() {
+		
+		final String SALESFORCE_CREATE_LEAD_URL = args.get(INSTANCEURL)+"/services/data/v25.0/sobjects/Lead/";
+		
+		Map<String,String> header=new HashMap<String,String>();
+        header.put("Authorization", "OAuth "+args.get(ACCESSTOKEN));
+        System.out.println("ACCESS TOKEN:"+args.get("access_token"));
+        					
+
+				
+        Map<String, Object> userAttrMap = new HashMap<String, Object>();
+        userAttrMap.put("Company", args.get(COMPANY));
+        userAttrMap.put("LastName", args.get(LASTNAME));
+                
+        TransportTools tst=new TransportTools(SALESFORCE_CREATE_LEAD_URL, null, header);
+        Gson obj = new GsonBuilder().setPrettyPrinting().create();
+        tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(userAttrMap));
+        System.out.println(tst.toString());
+        String responseBody = null;
+        
+        TransportResponse response = null;
+        try {
+			response=TransportMachinery.post(tst);
+			responseBody=response.entityToString();	
+		
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		Map<String, String> respMap = new HashMap<>();
+
+		System.out.println("RESPONSE BPDY" + responseBody);
+		return respMap;
+		
+	}
+
+	/**
+	 * 
+	 */
+	private Map<String, String> list() {
+		
+		final String SALESFORCE_LIST_LEAD_URL = args.get(INSTANCEURL)
+				+ "/services/data/v25.0/query/?q=SELECT+LastName,Id+FROM+Lead";
+		Map<String, String> header = new HashMap<String, String>();
+		header.put("Authorization", "OAuth " + args.get(ACCESSTOKEN));
+
+		TransportTools tst = new TransportTools(SALESFORCE_LIST_LEAD_URL, null,
+				header);
+		String responseBody = null;
+
+		TransportResponse response = null;
+
+		try {
+			response = TransportMachinery.get(tst);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		responseBody = response.entityToString();
+
+		Map<String, String> respMap = new HashMap<>();
+
+		System.out.println("RESPONSE BPDY" + responseBody);
+		return respMap;
+	}
+
+	/**
+	 * 
+	 */
+	private Map<String, String> update() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * 
+	 */
+	private Map<String, String> delete() {
+		
+		final String SALESFORCE_DELETE_LEAD_URL = args.get(INSTANCEURL)
+				+ "/services/data/v25.0/sobjects/Lead/"+args.get(ID);
+		Map<String, String> header = new HashMap<String, String>();
+		header.put("Authorization", "OAuth " + args.get(ACCESSTOKEN));
+
+		TransportTools tst = new TransportTools(SALESFORCE_DELETE_LEAD_URL, null,
+				header);
+		String responseBody = null;
+
+		TransportResponse response = null;
+
+		try {
+			response = TransportMachinery.delete(tst);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		responseBody = response.entityToString();
+
+		Map<String, String> respMap = new HashMap<>();
+
+		System.out.println("RESPONSE BPDY" + responseBody);
+		return respMap;
+	}
+
 	@Override
 	public String name() {
-		return "user";
+		return "lead";
 	}
 
 }

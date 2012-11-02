@@ -18,10 +18,11 @@ import java.util.Map;
 
 import org.megam.deccanplato.provider.AbstractProviderAdapter;
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.ProviderRegistry;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.MultiDataMap;
 
-public class ZohoAdapter extends AbstractProviderAdapter{
+public class ZohoAdapter<T extends Object> extends AbstractProviderAdapter<T>{
 
 private BusinessActivity activity;
 	
@@ -34,26 +35,22 @@ private BusinessActivity activity;
 	public void configure() {
 		/* using the user#create key */
 		//activity = registry.getBusinessActivity(cloud_app, business_function);
+		System.out.println("BUSINESS INFO"+bizInfo.toString());
+		activity = ProviderRegistry.instance().getBusinessActivity(bizInfo.getName(),
+				bizInfo.getActivityName());
 	}
 
 	public boolean build() {
 		/** get the handle responsible for the call and stick stuff into it **/
+		System.out.println("BUILD"+activity);
+		System.out.println(bizInfo);
 		activity.setArguments(bizInfo,args);
 		return true;
 	}
 	
-	public Map<String,String> handle() {
-		//return activity.run();
-		return null;
+	public T handle() {
+		System.out.println("RUN METHOD");
+		return (T) activity.run();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.deccanplato.provider.core.MultiDataMap)
-	 */
-	@Override
-	public void setDataMap(DataMap multiMap) {
-		// TODO Auto-generated method stub
-		
-	}
-	 
 }

@@ -77,6 +77,7 @@ public class ProviderRegistry {
 		for (BusinessActivity searchedActivity : activitySet) {
 			System.out.println("ProviderRegistry"+searchedActivity.name()+":::"+activityName);
 			if (searchedActivity.name().equalsIgnoreCase(activityName)) {
+				
 				   return searchedActivity;
 			}
 		}
