@@ -15,23 +15,54 @@
  **/
 package org.megam.deccanplato.provider.crm.test;
 
-import java.util.Date;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.SimpleTimeZone;
-import java.util.TimeZone;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.junit.Test;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 /**
+ * This is a temporary class to test timezon, Gson/Jackson toJson. This will get nuked eventually.
  * @author pandiyaraja
- *
+ * 
  */
 public class TimezoneTest {
-    @Test
+	//@Test
 	public void timeTest() {
-		Locale locale=new Locale("en","US");
-		String time=locale.toString();
-		System.out.println("Time"+time);
-		System.out.println("TimeZONE"+SimpleTimeZone.getTimeZone(time));
+		Locale locale = new Locale("en", "US");
+		String time = locale.toString();
+		System.out.println("Time" + time);
+		System.out.println("TimeZONE" + SimpleTimeZone.getTimeZone(time));
+	}
+
+	@Test
+	public void timeObjMapper() throws JsonGenerationException, JsonMappingException, IOException {
+		ObjectMapper obj = new ObjectMapper();
+		List<NameValuePair> userAttrList = new ArrayList<NameValuePair>();
+		userAttrList.add(new BasicNameValuePair("Username", "john"));
+		userAttrList.add(new BasicNameValuePair("FirstName", "first"));
+		System.out.println(obj.writeValueAsString(userAttrList));
+		System.out.println("----------");
+
+	}
+	
+	@Test
+	public void timeUsingGsonMap()  {
+		Gson obj = new GsonBuilder().setPrettyPrinting().create();
+		List<NameValuePair> userAttrList = new ArrayList<NameValuePair>();
+		userAttrList.add(new BasicNameValuePair("Username", "john"));
+		userAttrList.add(new BasicNameValuePair("FirstName", "first"));
+		System.out.println(obj.toJson(userAttrList));
+
 	}
 }

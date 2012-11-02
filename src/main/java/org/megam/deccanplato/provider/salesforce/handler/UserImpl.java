@@ -35,130 +35,136 @@ import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.DefaultDataMap;
 
 public class UserImpl implements BusinessActivity {
-    
-	private static final String CREATE="create";
-	private static final String LIST="list";
-	private static final String UPDATE="update";
-	private static final String DELETE="delete";
-	
+
+	private static final String CREATE = "create";
+	private static final String LIST = "list";
+	private static final String UPDATE = "update";
+	private static final String DELETE = "delete";
+
 	private Map<String, String> args;
 	private BusinessActivityInfo bizInfo;
-	
-    
+
 	@Override
 	public String name() {
-		System.out.println("USER IMPL :NAME"+bizInfo);
+		System.out.println("USER IMPL :NAME" + bizInfo);
 		return "user";
 	}
 
 	@Override
-	public void setArguments(BusinessActivityInfo tempBizInfo, Map<String, String> tempArgs) {
+	public void setArguments(BusinessActivityInfo tempBizInfo,
+			Map<String, String> tempArgs) {
 		this.args = tempArgs;
 		this.bizInfo = tempBizInfo;
-		System.out.println("USER IMPL :SET ARGUMENTS"+tempArgs);
+		System.out.println("USER IMPL :SET ARGUMENTS" + tempArgs);
 	}
 
 	@Override
 	public Map<String, String> run() {
 		System.out.println("USER IMPLEMENTATION METHOD RUN METHOD");
-		// TODO Write code using TransportMachinery/TransportTools by sending the correct content.
-		switch(bizInfo.getActivityFunction()) {
-		case CREATE : 
+		switch (bizInfo.getActivityFunction()) {
+		case CREATE:
 			create();
 			break;
-		case LIST :
+		case LIST:
 			list();
 			break;
-		case UPDATE : 
+		case UPDATE:
 			delete();
 			break;
-		case DELETE :
+		case DELETE:
 			delete();
 			break;
-			default : break;
+		default:
+			break;
 		}
 		return null;
 	}
 
 	private Map<String, String> create() {
-		
-		final String SALESFORCE_CREATE_USER_URL = args.get("instance_url")+"/services/data/v25.0/sobjects/User/";
+
+		final String SALESFORCE_CREATE_USER_URL = args.get("instance_url")
+				+ "/services/data/v25.0/sobjects/User/";
 		System.out.println("Bfore call of timezone");
-		//Timezone tz=new Timezone();
+		// Timezone tz=new Timezone();
 		System.out.println("After call timezone");
 		System.out.println("IN CREATE USER METHOD");
-        Map<String,String> header=new HashMap<String,String>();
-        header.put("Authorization", "OAuth "+args.get("access_token"));
-        System.out.println("ACCESS TOKEN:"+args.get("access_token"));
-Locale locale=new Locale(args.get("language"),args.get("locale"));
-		
-					
+		Map<String, String> header = new HashMap<String, String>();
+		header.put("Authorization", "OAuth " + args.get("access_token"));
+		System.out.println("ACCESS TOKEN:" + args.get("access_token"));
+		Locale locale = new Locale(args.get("language"), args.get("locale"));
 
-				
-        List<NameValuePair> userAttrList = new ArrayList<NameValuePair>();
-        userAttrList.add(new BasicNameValuePair("Username", args.get("user_name")));
-        userAttrList.add(new BasicNameValuePair("FirstName", args.get("first_name")));
-        userAttrList.add(new BasicNameValuePair("Email", args.get("email")));
-        userAttrList.add(new BasicNameValuePair("Alias", args.get("alias")));
-        userAttrList.add(new BasicNameValuePair("ProfileId", args.get("profile")));
-        userAttrList.add(new BasicNameValuePair("LastName", args.get("last_name")));
-        userAttrList.add(new BasicNameValuePair("TimeZoneSidKey", args.get("time_zone")));
-        userAttrList.add(new BasicNameValuePair("LocaleSidKey", locale.toString()));
-        userAttrList.add(new BasicNameValuePair("EmailEncodingKey", args.get("charset_encoding")));
-        userAttrList.add(new BasicNameValuePair("LanguageLocaleKey", locale.toString()));
-        
-		TransportTools tst=new TransportTools(SALESFORCE_CREATE_USER_URL, userAttrList, header);
-		
-         String responseBody = null;
-        
-        TransportResponse response = null;
-        try {
-			response=TransportMachinery.post(tst);
-			responseBody=response.entityToString();
+		List<NameValuePair> userAttrList = new ArrayList<NameValuePair>();
+		userAttrList.add(new BasicNameValuePair("Username", args
+				.get("user_name")));
+		userAttrList.add(new BasicNameValuePair("FirstName", args
+				.get("first_name")));
+		userAttrList.add(new BasicNameValuePair("Email", args.get("email")));
+		userAttrList.add(new BasicNameValuePair("Alias", args.get("alias")));
+		userAttrList.add(new BasicNameValuePair("ProfileId", args
+				.get("profile")));
+		userAttrList.add(new BasicNameValuePair("LastName", args
+				.get("last_name")));
+		userAttrList.add(new BasicNameValuePair("TimeZoneSidKey", args
+				.get("time_zone")));
+		userAttrList.add(new BasicNameValuePair("LocaleSidKey", locale
+				.toString()));
+		userAttrList.add(new BasicNameValuePair("EmailEncodingKey", args
+				.get("charset_encoding")));
+		userAttrList.add(new BasicNameValuePair("LanguageLocaleKey", locale
+				.toString()));
+
+		TransportTools tst = new TransportTools(SALESFORCE_CREATE_USER_URL,
+				userAttrList, header);
+
+		String responseBody = null;
+
+		TransportResponse response = null;
+		try {
+			response = TransportMachinery.post(tst);
+			responseBody = response.entityToString();
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-      
-        Map<String, String> respMap = new HashMap<>();
-        
-        System.out.println("RESPONSE BPDY"+responseBody);
-        return respMap;
+
+		Map<String, String> respMap = new HashMap<>();
+
+		System.out.println("RESPONSE BPDY" + responseBody);
+		return respMap;
 	}
 
 	private Map<String, String> list() {
-		
+
 		final String SALESFORCE_LIST_USER_URL = args.get("instance_url")
 				+ "/services/data/v25.0/query/?q=SELECT+Username+FROM+User";
-		 Map<String,String> header=new HashMap<String,String>();
-	        header.put("Authorization", "OAuth "+args.get("access_token"));
-	        
-	        TransportTools tst=new TransportTools(SALESFORCE_LIST_USER_URL, null, header);
-	        String responseBody = null;
-	        
-	        TransportResponse response = null;
-	       
-					try {
-						response=TransportMachinery.get(tst);
-					} catch (ClientProtocolException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				 catch (URISyntaxException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				responseBody=response.entityToString();
-			
-	      
-	        Map<String, String> respMap = new HashMap<>();
-	        
-	        System.out.println("RESPONSE BPDY"+responseBody);
-	        return respMap;
+		Map<String, String> header = new HashMap<String, String>();
+		header.put("Authorization", "OAuth " + args.get("access_token"));
+
+		TransportTools tst = new TransportTools(SALESFORCE_LIST_USER_URL, null,
+				header);
+		String responseBody = null;
+
+		TransportResponse response = null;
+
+		try {
+			response = TransportMachinery.get(tst);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		responseBody = response.entityToString();
+
+		Map<String, String> respMap = new HashMap<>();
+
+		System.out.println("RESPONSE BPDY" + responseBody);
+		return respMap;
 
 	}
 
@@ -169,13 +175,5 @@ Locale locale=new Locale(args.get("language"),args.get("locale"));
 	public void update() {
 
 	}
-	
-	//private class Timezone{
-		
-		//private Timezone() {
-		//	System.out.println("IN TIME ZONE ");
-		//}
-		
-		
-	//}
+
 }
