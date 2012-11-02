@@ -21,21 +21,84 @@ import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 
 public class AccountImpl implements BusinessActivity {
 
+	private static final String CREATE="create";
+	private static final String LIST="list";
+	private static final String UPDATE="update";
+	private static final String DELETE="delete";
+	private static final String ACCESSTOKEN="access_token";
+	private static final String INSTANCEURL="instance_url";
+	
+	private Map<String, String> args;
+	private BusinessActivityInfo bizInfo;
+	
 	@Override
 	public void setArguments(BusinessActivityInfo tempBizInfo, Map<String, String> tempArgs) {
-		// TODO Auto-generated method stub
 		
+		this.args = tempArgs;
+		this.bizInfo = tempBizInfo;
 	}
 
 	@Override
 	public Map<String, String> run() {
-		// TODO Auto-generated method stub
+		
+		System.out.println("ACCOUNT IMPLEMENTATION METHOD RUN METHOD");
+		// TODO Write code using TransportMachinery/TransportTools by sending the correct content.
+		switch(bizInfo.getActivityFunction()) {
+		case CREATE : 
+			create();
+			break;
+		case LIST :
+			list();
+			break;
+		case UPDATE : 
+			update();
+			break;
+		case DELETE :
+			delete();
+			break;
+			default : break;
+		}
+		
+		return null;
+	}
+
+	/**
+	 * 
+	 */
+	private Map<String, String> update() {
+		
+		return null;
+	}
+
+	/**
+	 * 
+	 */
+	private Map<String, String> delete() {
+		
+		return null;
+	}
+
+	/**
+	 * 
+	 */
+	private Map<String, String> list() {
+		
+		return null;
+	}
+
+	/**
+	 * 
+	 */
+	private Map<String, String> create() {
+		
+		System.out.println("ACCOUNT CREATE");
+		final String SALESFORCE_CREATE_USER_URL = args.get(INSTANCEURL)+"/services/data/v25.0/sobjects/Account/";
 		return null;
 	}
 
 	@Override
 	public String name() {
-		return "user";
+		return "account";
 	}
 
 }

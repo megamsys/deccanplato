@@ -40,6 +40,20 @@ public class UserImpl implements BusinessActivity {
 	private static final String LIST="list";
 	private static final String UPDATE="update";
 	private static final String DELETE="delete";
+	private static final String Username="user_name";
+	private static final String FirstName="first_name";
+	private static final String Email="email";
+	private static final String Alias="alias";
+	private static final String ProfileId="profile";
+	private static final String LastName="last_name";
+	private static final String TimeZoneSidKey="time_zone";
+	private static final String LocaleSidKey="locale";
+	private static final String EmailEncodingKey="charset_encoding";
+	private static final String LanguageLocaleKey="language";
+	private static final String ACCESSTOKEN="access_token";
+	private static final String INSTANCEURL="instance_url";
+	
+	
 	
 	private Map<String, String> args;
 	private BusinessActivityInfo bizInfo;
@@ -82,29 +96,27 @@ public class UserImpl implements BusinessActivity {
 
 	private Map<String, String> create() {
 		
-		final String SALESFORCE_CREATE_USER_URL = args.get("instance_url")+"/services/data/v25.0/sobjects/User/";
+		final String SALESFORCE_CREATE_USER_URL = args.get(INSTANCEURL)+"/services/data/v25.0/sobjects/User/";
 		System.out.println("Bfore call of timezone");
 		//Timezone tz=new Timezone();
 		System.out.println("After call timezone");
 		System.out.println("IN CREATE USER METHOD");
         Map<String,String> header=new HashMap<String,String>();
-        header.put("Authorization", "OAuth "+args.get("access_token"));
+        header.put("Authorization", "OAuth "+args.get(ACCESSTOKEN));
         System.out.println("ACCESS TOKEN:"+args.get("access_token"));
-Locale locale=new Locale(args.get("language"),args.get("locale"));
-		
-					
+        Locale locale=new Locale(args.get("language"),args.get(LocaleSidKey));					
 
 				
         List<NameValuePair> userAttrList = new ArrayList<NameValuePair>();
-        userAttrList.add(new BasicNameValuePair("Username", args.get("user_name")));
-        userAttrList.add(new BasicNameValuePair("FirstName", args.get("first_name")));
-        userAttrList.add(new BasicNameValuePair("Email", args.get("email")));
-        userAttrList.add(new BasicNameValuePair("Alias", args.get("alias")));
-        userAttrList.add(new BasicNameValuePair("ProfileId", args.get("profile")));
-        userAttrList.add(new BasicNameValuePair("LastName", args.get("last_name")));
-        userAttrList.add(new BasicNameValuePair("TimeZoneSidKey", args.get("time_zone")));
+        userAttrList.add(new BasicNameValuePair("Username", args.get(Username)));
+        userAttrList.add(new BasicNameValuePair("FirstName", args.get(FirstName)));
+        userAttrList.add(new BasicNameValuePair("Email", args.get(Email)));
+        userAttrList.add(new BasicNameValuePair("Alias", args.get(Alias)));
+        userAttrList.add(new BasicNameValuePair("ProfileId", args.get(ProfileId)));
+        userAttrList.add(new BasicNameValuePair("LastName", args.get(LastName)));
+        userAttrList.add(new BasicNameValuePair("TimeZoneSidKey", args.get(TimeZoneSidKey)));
         userAttrList.add(new BasicNameValuePair("LocaleSidKey", locale.toString()));
-        userAttrList.add(new BasicNameValuePair("EmailEncodingKey", args.get("charset_encoding")));
+        userAttrList.add(new BasicNameValuePair("EmailEncodingKey", args.get(EmailEncodingKey)));
         userAttrList.add(new BasicNameValuePair("LanguageLocaleKey", locale.toString()));
         
 		TransportTools tst=new TransportTools(SALESFORCE_CREATE_USER_URL, userAttrList, header);
