@@ -53,7 +53,7 @@ public class CoreTest {
 				"applicationContext.xml"));
 		ctx.refresh();
 		ProviderRegistry myBean = (ProviderRegistry) ctx
-				.getBean("providerRegistry");
+				.getBean("registry");
 		System.out.println("Provider Registry" + myBean.toString());
 	}
 }
