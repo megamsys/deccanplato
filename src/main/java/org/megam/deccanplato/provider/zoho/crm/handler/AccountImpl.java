@@ -21,16 +21,78 @@ import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 
 public class AccountImpl implements BusinessActivity {
 
+	private static final String CREATE="create";
+	private static final String LIST="list";
+	private static final String UPDATE="update";
+	private static final String DELETE="delete";
+	private static final String AUTHTOKEN="OAuth_token";
+	private static final String SCOPE="crmapi";
+	private static final String TYPE="AllUsers";
+	
+	private Map<String, String> args;
+	private BusinessActivityInfo bizInfo;
+	
 	@Override
 	public void setArguments(BusinessActivityInfo tempBizInfo, Map<String, String> tempArgs) {
-		// TODO Auto-generated method stub
+		
+		this.args = tempArgs;
+		this.bizInfo = tempBizInfo;
 		
 	}
 
 	@Override
 	public Map<String, String> run() {
-		// TODO Auto-generated method stub
+		
+		System.out.println("USER IMPLEMENTATION METHOD RUN METHOD");
+		switch (bizInfo.getActivityFunction()) {
+		case CREATE:
+			create();
+			break;
+		case LIST:
+			list();
+			break;
+		case UPDATE:
+			update();
+			break;
+		case DELETE:
+			delete();
+			break;
+		default:
+			break;
+		}
 		return null;
+	}
+
+	/**
+	 * 
+	 */
+	private void create() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * 
+	 */
+	private void list() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * 
+	 */
+	private void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * 
+	 */
+	private void delete() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
