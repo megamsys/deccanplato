@@ -80,6 +80,10 @@ public class ProviderRegistry {
 				
 				   return searchedActivity;
 			}
+			if(searchedActivity.name().equalsIgnoreCase("default")) {
+				return searchedActivity;
+			}
+			
 		}
 		return null;
 	}

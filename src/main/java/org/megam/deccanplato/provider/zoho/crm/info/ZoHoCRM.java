@@ -18,7 +18,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.StringTokenizer;
-
+/**
+ * 
+ * @author pandiyaraja
+ *
+ *this class returns zoho token, it calls from ZohoAdapterAccess class 
+ *it gets the text from ZohoAdapterAccess and parse that by using StringTokenizer 
+ *and returns only Token value. 
+ */
 public class ZoHoCRM {
 	private static final String AUTHTOKEN="AUTHTOKEN";
 	private String auth_token="";

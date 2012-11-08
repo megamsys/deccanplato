@@ -10,12 +10,18 @@ import org.apache.wink.client.RestClient;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.megam.deccanplato.provider.ProviderRegistry;
 import org.megam.deccanplato.provider.core.AdapterAccessException;
+import org.megam.deccanplato.provider.core.CloudMediatorException;
 import org.megam.deccanplato.provider.core.DataMap;
+import org.megam.deccanplato.provider.core.DefaultCloudProviderMediator;
 import org.megam.deccanplato.provider.core.RequestData;
 import org.megam.deccanplato.provider.core.RequestDataBuilder;
 import org.megam.deccanplato.provider.sugarcrm.SugarCRMAdapterAccess;
 import org.megam.deccanplato.provider.zoho.crm.ZohoAdapterAccess;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
@@ -49,9 +55,16 @@ public class SugarAdapterTest {
 		reqData=rdb.data();
 		System.out.println(rdb.data().toString());	    	
 		
+		GenericApplicationContext ctx = new GenericApplicationContext();
+		XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(ctx);
+		xmlReader.loadBeanDefinitions(new ClassPathResource(
+				"applicationContext.xml"));
+		ctx.refresh();		
+		ProviderRegistry registry = (ProviderRegistry) ctx
+				.getBean("registry");
 	}
 	 @Test
-		public void testZohoAdapterAccess() throws AdapterAccessException{
+		public void testSugarAdapterAccess() throws AdapterAccessException{
 			
 			SugarCRMAdapterAccess zaa=new SugarCRMAdapterAccess();
 			DataMap dmap=zaa.authenticate(reqData.getGeneral());
@@ -59,7 +72,11 @@ public class SugarAdapterTest {
 			//System.out.println(dmap.map().get("access_token"));
 			//System.out.println("DMAP"+dmap.toString());
 		}
-	
+	 @Test
+	   public void testCreateUser() throws CloudMediatorException{
+	       DefaultCloudProviderMediator dcm=new DefaultCloudProviderMediator(reqData);
+	       System.out.println("Final Result"+dcm.handleRequest());
+	   }
 	/*@BeforeClass
 	public static void setUp(){
 		System.out.println("setUp SUGAR");

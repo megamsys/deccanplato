@@ -25,22 +25,23 @@ import org.megam.deccanplato.http.TransportMachinery;
 import org.megam.deccanplato.http.TransportResponse;
 import org.megam.deccanplato.http.TransportTools;
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.Constants;
 import org.megam.deccanplato.provider.core.BusinessActivityInfo;
+import static org.megam.deccanplato.provider.salesforce.Constants.*;
+import static org.megam.deccanplato.provider.Constants.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
+/**
+ * This class implements the business activity of Salesforcecrm account method.
+ * this class has four methods, to implement business functions, like create, update(not implemented now),
+ * lisd and delete. 
+ * 
+ * @author pandiyaraja
+ *
+ */
 public class AccountImpl implements BusinessActivity {
 
-	private static final String CREATE="create";
-	private static final String LIST="list";
-	private static final String UPDATE="update";
-	private static final String DELETE="delete";
-	private static final String ACCESSTOKEN="access_token";
-	private static final String INSTANCEURL="instance_url";
-	private static final String NAME="first_name";
-	private static final String ID="id";
-	
 	private Map<String, String> args;
 	private BusinessActivityInfo bizInfo;
 	
@@ -53,45 +54,75 @@ public class AccountImpl implements BusinessActivity {
 
 	@Override
 	public Map<String, String> run() {
-		
+		Map<String, String> outMap=new HashMap<>();
 		System.out.println("ACCOUNT IMPLEMENTATION METHOD RUN METHOD");
 		// TODO Write code using TransportMachinery/TransportTools by sending the correct content.
 		switch(bizInfo.getActivityFunction()) {
-		case CREATE : 
-			create();
+		case Constants.CREATE : 
+			outMap=create(outMap);
 			break;
-		case LIST :
-			list();
+		case Constants.LIST :
+			outMap=list(outMap);
 			break;
-		case UPDATE : 
-			update();
+		case Constants.UPDATE : 
+			outMap=update(outMap);
 			break;
-		case DELETE :
-			delete();
+		case Constants.DELETE :
+			outMap=delete(outMap);
 			break;
 			default : break;
 		}
 		
-		return null;
+		return outMap;
+	}
+	/**
+	 * This method updates an account in salesforce.com and returns a success message with updated account id.
+	 * This method gets input from a MAP(contains json data) and returns a MAp.
+	 * @param outMap 
+	 */
+	private Map<String, String> update(Map<String, String> outMap) {
+		
+		System.out.println("ACCOUNT CREATE");
+		final String SALESFORCE_UPDATE_ACCOUNT_URL = args.get(INSTANCE_URL)+"/services/data/v25.0/sobjects/Account/"+args.get(ID);
+		Map<String,String> header=new HashMap<String,String>();
+        header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
+        Map<String, Object> accountAttrMap = new HashMap<String, Object>();
+        accountAttrMap.put("Name", args.get(NAME));
+        
+        TransportTools tst=new TransportTools(SALESFORCE_UPDATE_ACCOUNT_URL, null, header);
+        Gson obj = new GsonBuilder().setPrettyPrinting().create();
+        tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(accountAttrMap));
+        System.out.println(tst.toString());
+        String responseBody = null;
+        
+        TransportResponse response = null;
+        try {
+			response=TransportMachinery.patch(tst);
+			responseBody=response.entityToString();	
+		
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+        outMap.put(OUTPUT, responseBody);
+
+		System.out.println("RESPONSE BPDY" + responseBody);
+		return outMap;		
 	}
 
 	/**
-	 * 
+	 * this method deletes an account in salesforce.com and returns a success message with deleted account id.
+	 * This method gets input from a MAP(contains json data) and returns a MAp.
+	 * @param outMap 
 	 */
-	private Map<String, String> update() {
+	private Map<String, String> delete(Map<String, String> outMap) {
 		
-		return null;
-	}
-
-	/**
-	 * 
-	 */
-	private Map<String, String> delete() {
-		
-		final String SALESFORCE_DELETE_ACCOUNT_URL = args.get(INSTANCEURL)
+		final String SALESFORCE_DELETE_ACCOUNT_URL = args.get(INSTANCE_URL)
 				+ "/services/data/v25.0/sobjects/Account/"+args.get(ID);
 		Map<String, String> header = new HashMap<String, String>();
-		header.put("Authorization", "OAuth " + args.get(ACCESSTOKEN));
+		header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
 
 		TransportTools tst = new TransportTools(SALESFORCE_DELETE_ACCOUNT_URL, null,
 				header);
@@ -110,22 +141,24 @@ public class AccountImpl implements BusinessActivity {
 		}
 		responseBody = response.entityToString();
 
-		Map<String, String> respMap = new HashMap<>();
+		outMap.put(OUTPUT, responseBody);
 
 		System.out.println("RESPONSE BPDY" + responseBody);
-		return respMap;
+		return outMap;
 		
 	}
 
 	/**
-	 * 
+	 * this method lists all account in salesforce.com and returns a list of all account details.
+	 * This method gets input from a MAP(contains json data) and returns a MAp.
+	 * @param outMap 
 	 */
-	private Map<String, String> list() {
+	private Map<String, String> list(Map<String, String> outMap) {
 		
-		final String SALESFORCE_LIST_ACCOUNT_URL = args.get(INSTANCEURL)
+		final String SALESFORCE_LIST_ACCOUNT_URL = args.get(INSTANCE_URL)
 				+ "/services/data/v25.0/query/?q=SELECT+Name,Id+FROM+Account";
 		Map<String, String> header = new HashMap<String, String>();
-		header.put("Authorization", "OAuth " + args.get(ACCESSTOKEN));
+		header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
 
 		TransportTools tst = new TransportTools(SALESFORCE_LIST_ACCOUNT_URL, null,
 				header);
@@ -147,26 +180,28 @@ public class AccountImpl implements BusinessActivity {
 		}
 		responseBody = response.entityToString();
 
-		Map<String, String> respMap = new HashMap<>();
+		outMap.put(OUTPUT, responseBody);
 
 		System.out.println("RESPONSE BPDY" + responseBody);
-		return respMap;
+		return outMap;
 		
 	}
 
 	/**
-	 * 
+	 * this method creates an account in salesforce.com and returns that account id.
+	 * This method gets input from a MAP(contains json data) and returns a MAp.
+	 * @param outMap 
 	 */
-	private Map<String, String> create() {
+	private Map<String, String> create(Map<String, String> outMap) {
 		
 		System.out.println("ACCOUNT CREATE");
-		final String SALESFORCE_CREATE_USER_URL = args.get(INSTANCEURL)+"/services/data/v25.0/sobjects/Account/";
+		final String SALESFORCE_CREATE_ACCOUNT_URL = args.get(INSTANCE_URL)+"/services/data/v25.0/sobjects/Account/";
 		Map<String,String> header=new HashMap<String,String>();
-        header.put("Authorization", "OAuth "+args.get(ACCESSTOKEN));
+        header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
         Map<String, Object> accountAttrMap = new HashMap<String, Object>();
         accountAttrMap.put("Name", args.get(NAME));
         
-        TransportTools tst=new TransportTools(SALESFORCE_CREATE_USER_URL, null, header);
+        TransportTools tst=new TransportTools(SALESFORCE_CREATE_ACCOUNT_URL, null, header);
         Gson obj = new GsonBuilder().setPrettyPrinting().create();
         tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(accountAttrMap));
         System.out.println(tst.toString());
@@ -183,12 +218,14 @@ public class AccountImpl implements BusinessActivity {
 			e.printStackTrace();
 		}
 
-		Map<String, String> respMap = new HashMap<>();
+        outMap.put(OUTPUT, responseBody);
 
 		System.out.println("RESPONSE BPDY" + responseBody);
-		return respMap;		
+		return outMap;		
 	}
-
+    /**
+     * this method returns business method name to perform action in that Salesforce Module 
+     */
 	@Override
 	public String name() {
 		return "account";

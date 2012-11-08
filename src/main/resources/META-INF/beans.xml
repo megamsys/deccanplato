@@ -74,13 +74,13 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 				</entry>
 				<entry key="sugarcrm">
 					<set>
-						<bean class="org.megam.deccanplato.provider.sugarcrm.handler.UserImpl"/>
-						<bean class="org.megam.deccanplato.provider.sugarcrm.handler.AccountImpl"/>
+						<bean class="org.megam.deccanplato.provider.sugarcrm.handler.BusinessActivityImpl"/>									
 					</set>
 				</entry>
 				<entry key="googleapp">
 					<set>
 						<bean class="org.megam.deccanplato.provider.googleapp.handler.UserImpl"/>
+						<bean class="org.megam.deccanplato.provider.googleapp.handler.ContactImpl"/>
 					</set>
 				</entry>
 				<entry key="xero">

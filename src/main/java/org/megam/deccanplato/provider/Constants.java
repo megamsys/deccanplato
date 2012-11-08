@@ -14,6 +14,9 @@
  **/
 package org.megam.deccanplato.provider;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A global constants which relate to the request and response json.
  * @author ram
@@ -31,8 +34,14 @@ public class Constants {
 	/**
 	 * The key that are passed over in the provider section of the request Json.
 	 */
+	public static final String CREATE="create";
+	public static final String LIST="list";
+	public static final String UPDATE="update";
+	public static final String DELETE="delete";
+	
 	
 	/**
 	 * The key that are passed over in the output section of the request Json. 
 	 */
+	public static final String OUTPUT="output";
 }

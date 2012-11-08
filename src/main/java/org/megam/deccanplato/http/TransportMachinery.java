@@ -23,7 +23,9 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
@@ -62,7 +64,71 @@ public class TransportMachinery {
 		return transportResp;
 
 	}
+	
+	public static TransportResponse put(TransportTools nuts)
+			throws ClientProtocolException, IOException {
 
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPut httpput = new HttpPut(nuts.urlString());
+
+		if (nuts.headers() != null) {
+			for (Map.Entry<String, String> headerEntry : nuts.headers().entrySet()) {
+				httpput.addHeader(headerEntry.getKey(), headerEntry.getValue());
+			}
+		}
+		
+		if (nuts.pairs() != null && (nuts.contentType() ==null)) {
+			httpput.setEntity(new UrlEncodedFormEntity(nuts.pairs()));
+		}
+		
+		if (nuts.contentType() !=null) {
+			httpput.setEntity(new StringEntity(nuts.contentString(),nuts.contentType()));
+		}
+
+		TransportResponse transportResp = null;
+		try {
+			HttpResponse httpResp  = httpclient.execute(httpput);
+			transportResp = new TransportResponse(httpResp.getStatusLine(),
+					httpResp.getEntity(), httpResp.getLocale());
+		} finally {
+			httpput.releaseConnection();
+		}
+		return transportResp;
+
+	}
+
+	public static TransportResponse patch(TransportTools nuts)
+			throws ClientProtocolException, IOException {
+
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPatch httppatch = new HttpPatch(nuts.urlString());
+
+		if (nuts.headers() != null) {
+			for (Map.Entry<String, String> headerEntry : nuts.headers().entrySet()) {
+				httppatch.addHeader(headerEntry.getKey(), headerEntry.getValue());
+			}
+		}
+		
+		if (nuts.pairs() != null && (nuts.contentType() ==null)) {
+			httppatch.setEntity(new UrlEncodedFormEntity(nuts.pairs()));
+		}
+		
+		if (nuts.contentType() !=null) {
+			httppatch.setEntity(new StringEntity(nuts.contentString(),nuts.contentType()));
+		}
+
+		TransportResponse transportResp = null;
+		try {
+			HttpResponse httpResp  = httpclient.execute(httppatch);
+			transportResp = new TransportResponse(httpResp.getStatusLine(),
+					httpResp.getEntity(), httpResp.getLocale());
+		} finally {
+			httppatch.releaseConnection();
+		}
+		return transportResp;
+
+	}
+	
 	public static TransportResponse get(TransportTools nuts) throws URISyntaxException, ClientProtocolException, IOException {
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();

@@ -29,16 +29,18 @@ import org.megam.deccanplato.provider.core.AdapterAccess;
 import org.megam.deccanplato.provider.core.AdapterAccessException;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.DefaultDataMap;
-import org.megam.deccanplato.provider.sugarcrm.info.SugarUser;
-
+import org.megam.deccanplato.provider.sugarcrm.info.SugarLogin;
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
 import com.google.gson.Gson;
+import static org.megam.deccanplato.provider.sugarcrm.Constants.*;
 
 public class SugarCRMAdapterAccess implements AdapterAccess {
 	
 	private boolean success = false;
-	private static final String SUGARCRM_SESSION_URL = "http://localhost/sugarcrm/service/v4/rest.php";
+	
+	private static final String MODULE="login";
+
     
 	@Override
 	public boolean isSuccessful() {
@@ -49,17 +51,17 @@ public class SugarCRMAdapterAccess implements AdapterAccess {
 	public<T extends Object> DataMap<T> authenticate(DataMap<T> access) throws AdapterAccessException {
 		Map<String,T> accessMap = access.map();
 		
-		SugarUser su=new SugarUser(access);
+		SugarLogin sl=new SugarLogin(accessMap);
 		Gson gson=new Gson();
-		String json=gson.toJson(su);
+		String json=gson.toJson(sl);
 		
 		List<NameValuePair> list=new ArrayList<NameValuePair>();
-		list.add(new BasicNameValuePair("method", "login"));
-        list.add(new BasicNameValuePair("input_type", "JSON"));
-        list.add(new BasicNameValuePair("response_type", "JSON"));
-        list.add(new BasicNameValuePair("rest_data", json));
+		list.add(new BasicNameValuePair(METHOD, MODULE));
+        list.add(new BasicNameValuePair(INPUT_TYPE, TYPE));
+        list.add(new BasicNameValuePair(RESPONSE_TYPE, TYPE));
+        list.add(new BasicNameValuePair(DATA, json));
                 
-        TransportTools tools=new TransportTools(SUGARCRM_SESSION_URL, list);
+        TransportTools tools=new TransportTools(SUGAR_URL, list);
         String responseBody = null;
         
         TransportResponse response = null;
@@ -84,7 +86,8 @@ public class SugarCRMAdapterAccess implements AdapterAccess {
 		JSONObject json;
 		try {
 			    json=new JSONObject(response); 
-			    map.map().put("id", (T) json.get("id"));			    
+			    map.map().put("session_id", (T) json.get("id"));
+			    success=true;
 			} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

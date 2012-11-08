@@ -17,6 +17,12 @@ package org.megam.deccanplato.provider.zoho.crm.info;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
 
+/**
+ * 
+ * @author pandiyaraja
+ *
+ *this class used to set coloum value in the xml population data
+ */
 public class SingleFieldEntryType {
 
 

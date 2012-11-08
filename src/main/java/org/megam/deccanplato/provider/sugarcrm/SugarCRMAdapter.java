@@ -18,8 +18,11 @@ import java.util.Map;
 
 import org.megam.deccanplato.provider.AbstractProviderAdapter;
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.ProviderRegistry;
+import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.MultiDataMap;
+import org.megam.deccanplato.provider.sugarcrm.handler.BusinessActivityImpl;
 
 public class SugarCRMAdapter extends AbstractProviderAdapter {
 
@@ -33,7 +36,11 @@ public class SugarCRMAdapter extends AbstractProviderAdapter {
 
 	public void configure() {
 		/* using the user#create key */
-		//activity = registry.getBusinessActivity(cloud_app, business_function);
+		
+		activity = ProviderRegistry.instance().getBusinessActivity(bizInfo.getName(),
+				bizInfo.getActivityName());
+		System.out.println("CONFIGURATION"+bizInfo.getActivityName());
+		((BusinessActivityImpl)activity).setName(bizInfo.getActivityName());
 	}
 
 	public boolean build() {

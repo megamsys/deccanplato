@@ -1,0 +1,56 @@
+{
+ "system":{
+   "access":{
+	"project_id":"3c78f781-fc28-4c69-8fad-0ca66f2c5dbc",
+	"api_token":"oVj29MbD2LcXzsRzNFx9vw==",
+	"access_email":"alrin@megam.com",
+	"access_org_id":1,
+	"access_account_name":"MegamSyste"}},
+ "provider":{
+   "access":{
+	"email_id":"raja.pandiya@megam.co.in",
+	"password":"team4megam",
+	"access_username":"pontiyaraja@gmail.com",
+	"access_password":"team4megamE1mlHRMlL7deN0zCN4oDAZlJq",
+	"provider":"zohocrm",
+	"category":"CRM",
+	"description":"My first Connector Project",
+	"user_email":"alrin@megam.com",
+	"org_name":"Megam Systems"},
+   "business_activity":{
+	"biz_function":"lead#delete",
+	"alias":"vaalu",
+	"email":"thomasalrin@gmail.com",
+	"charset_encoding":"UTF-8",
+	"language":"English",
+	"last_name":"Alrin",
+	"locale":"IN",
+	"profile":"Force.com",
+	"id":"660777000000074001",
+    "company":"megam",
+    "first_name":"pontiya",
+    "designation":"developer",
+    "phone":"phone",
+    "fax":"2145458",
+    "mobile":"9587456565",
+    "website":"megam.co",
+    "lead_source":"Leadsrc",
+    "lead_status":"LeadStats",
+    "industry":"IT",
+    "no_of_employes":"3",
+    "annusl_revenue":"1000000",
+    "email_out_put":"megam@megam.co",
+    "skype_id":"pontiyaraja",
+    "salutation":"Salution",
+    "street":"2nd cross street",
+    "city":"chennai",
+    "state":"tamilnadu",
+    "zip_code":"600100",
+    "country":"India",
+    "description":"nothing",
+	"time_zone":"Chennai"}},
+ "execution":{
+   "output":{
+	"type":"default",
+	"location":"default"}}
+}

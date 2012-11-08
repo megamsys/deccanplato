@@ -31,37 +31,33 @@ import org.megam.deccanplato.http.TransportMachinery;
 import org.megam.deccanplato.http.TransportResponse;
 import org.megam.deccanplato.http.TransportTools;
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.Constants;
 import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.DefaultDataMap;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import static org.megam.deccanplato.provider.salesforce.Constants.*;
+import static org.megam.deccanplato.provider.Constants.*;
 
+/**
+ * 
+ * @author pandiyaraja
+ *
+ **This class implements the business activity of Salesforcecrm user method.
+ * this class has four methods, to implement business functions, like create, update(not implemented now),
+ * lisd and delete(not implemented now).
+ */
 public class UserImpl implements BusinessActivity {
 
     
-	private static final String CREATE="create";
-	private static final String LIST="list";
-	private static final String UPDATE="update";
-	private static final String DELETE="delete";
-	private static final String USERNAME="user_name";
-	private static final String FIRSTNAME="first_name";
-	private static final String EMAIL="email";
-	private static final String ALIAS="alias";
-	private static final String PROFILEID="profile";
-	private static final String LASTNAME="last_name";
-	private static final String TIMEZONESIDKEY="time_zone";
-	private static final String LOCALESIDKEY="locale";
-	private static final String EMAILENCODINGKEY="charset_encoding";
-	private static final String LANGUAGELOCALEKEY="language";
-	private static final String ACCESSTOKEN="access_token";
-	private static final String INSTANCEURL="instance_url";
-	
-	
 	private Map<String, String> args;
 	private BusinessActivityInfo bizInfo;
-
+ 
+	/**
+     * this method returns business method name to perform action in that Salesforce Module 
+     */
 	@Override
 	public String name() {
 		System.out.println("USER IMPL :NAME" + bizInfo);
@@ -78,39 +74,42 @@ public class UserImpl implements BusinessActivity {
 
 	@Override
 	public Map<String, String> run() {
+		Map<String, String> outMap=new HashMap<>();
 		System.out.println("USER IMPLEMENTATION METHOD RUN METHOD");
 		switch (bizInfo.getActivityFunction()) {
-		case CREATE:
-			create();
+		case Constants.CREATE:
+			outMap=create(outMap);
 			break;
-		case LIST:
-			list();
+		case Constants.LIST:
+			outMap=list(outMap);
 			break;
-		case UPDATE:
-			delete();
+		case Constants.UPDATE:
+			outMap=delete(outMap);
 			break;
-		case DELETE:
-			delete();
+		case Constants.DELETE:
+			outMap=update(outMap);
 			break;
 		default:
 			break;
 		}
-		return null;
+		return outMap;
 	}
-
-	private Map<String, String> create() {
+	/**
+	 * this method creates a user in salesforce.com and returns that user id.
+	 * This method gets input from a MAP(contains json data) and returns a MAp.
+	 * @param outMap 
+	 */
+	private Map<String, String> create(Map<String, String> outMap) {
 		
-		final String SALESFORCE_CREATE_USER_URL = args.get(INSTANCEURL)+"/services/data/v25.0/sobjects/User/";
+		final String SALESFORCE_CREATE_USER_URL = args.get(INSTANCE_URL)+"/services/data/v25.0/sobjects/User/";
 
 		System.out.println("Bfore call of timezone");
-		// Timezone tz=new Timezone();
 		System.out.println("After call timezone");
 		System.out.println("IN CREATE USER METHOD");
 
         Map<String,String> header=new HashMap<String,String>();
-        header.put("Authorization", "OAuth "+args.get(ACCESSTOKEN));
-        System.out.println("ACCESS TOKEN:"+args.get("access_token"));
-        //Locale locale=new Locale(args.get("language"),args.get(LocaleSidKey));					
+        header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
+        		
 
 				
         Map<String, Object> userAttrMap = new HashMap<String, Object>();
@@ -142,18 +141,22 @@ public class UserImpl implements BusinessActivity {
 			e.printStackTrace();
 		}
 
-		Map<String, String> respMap = new HashMap<>();
-
+        outMap.put(OUTPUT, responseBody);;
+        
 		System.out.println("RESPONSE BPDY" + responseBody);
-		return respMap;
+		return outMap;
 	}
+	/**
+	 * this method lists all user in salesforce.com and returns a list of all user details.
+	 * This method gets input from a MAP(contains json data) and returns a MAp.
+	 * @param outMap 
+	 */
+	private Map<String, String> list(Map<String, String> outMap) {
 
-	private Map<String, String> list() {
-
-		final String SALESFORCE_LIST_USER_URL = args.get(INSTANCEURL)
+		final String SALESFORCE_LIST_USER_URL = args.get(INSTANCE_URL)
 				+ "/services/data/v25.0/query/?q=SELECT+Username+FROM+User";
 		Map<String, String> header = new HashMap<String, String>();
-		header.put("Authorization", "OAuth " + args.get(ACCESSTOKEN));
+		header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
 
 		TransportTools tst = new TransportTools(SALESFORCE_LIST_USER_URL, null,
 				header);
@@ -174,19 +177,69 @@ public class UserImpl implements BusinessActivity {
 			e.printStackTrace();
 		}
 		responseBody = response.entityToString();
-
-		Map<String, String> respMap = new HashMap<>();
+       
+       
+		outMap.put(OUTPUT, responseBody);
 
 		System.out.println("RESPONSE BPDY" + responseBody);
-		return respMap;
+		return outMap;
 
 	}
-
-	private void delete() {
+	/**
+	 * This method delete a user in salesforce.com and returns a success message with deleted user id.
+	 * This method gets input from a MAP(contains json data) and returns a MAp.
+	 * @param outMap 
+	 */
+	private Map<String, String> delete(Map<String, String> outMap) {
+		return null;
 
 	}
+	/**
+	 * This method updates a user in salesforce.com and returns a success message with updated user id.
+	 * This method gets input from a MAP(contains json data) and returns a MAp.
+	 * @param outMap 
+	 * @param outMap 
+	 */ 
+	public Map<String, String> update(Map<String, String> outMap) {
+		
+		final String SALESFORCE_UPDATE_USER_URL = args.get(INSTANCE_URL)+"/services/data/v25.0/sobjects/User/"+args.get(ID);
 
-	public void update() {
+		Map<String,String> header=new HashMap<String,String>();
+        header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));    		
+				
+        Map<String, Object> userAttrMap = new HashMap<String, Object>();
+        userAttrMap.put("Username", args.get(USERNAME));
+        userAttrMap.put("FirstName", args.get(FIRSTNAME));
+        userAttrMap.put("Email", args.get(EMAIL));
+        userAttrMap.put("Alias", args.get(ALIAS));
+        userAttrMap.put("ProfileId", args.get(PROFILEID));
+        userAttrMap.put("LastName", args.get(LASTNAME));
+        userAttrMap.put("TimeZoneSidKey", args.get(TIMEZONESIDKEY));
+        userAttrMap.put("LocaleSidKey", args.get(LOCALESIDKEY));
+        userAttrMap.put("EmailEncodingKey", args.get(EMAILENCODINGKEY));
+        userAttrMap.put("LanguageLocaleKey", args.get(LANGUAGELOCALEKEY));
+        
+        TransportTools tst=new TransportTools(SALESFORCE_UPDATE_USER_URL, null, header);
+        Gson obj = new GsonBuilder().setPrettyPrinting().create();
+        tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(userAttrMap));
+        System.out.println(tst.toString());
+        String responseBody = null;
+        
+        TransportResponse response = null;
+        try {
+			response=TransportMachinery.patch(tst);
+			responseBody=response.entityToString();	
+		
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+        outMap.put(OUTPUT, responseBody);;
+        
+		System.out.println("RESPONSE BPDY" + responseBody);
+		return outMap;
 
 	}
 
