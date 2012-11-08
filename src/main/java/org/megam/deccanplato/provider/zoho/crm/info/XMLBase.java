@@ -22,7 +22,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.megam.core.util.XMLUtils;
-
+/**
+ * 
+ * @author pandiyaraja
+ *This class sets row value and also sets the value for that row.
+ *it converts string to xmlstring
+ */
 public class XMLBase {
 
 	private List<XMLFieldRows> rows = new ArrayList<XMLFieldRows>();

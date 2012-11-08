@@ -27,6 +27,7 @@ public class BusinessActivityInfo {
 	private BusinessActivityNameSpliter bans;
 	
 	public BusinessActivityInfo(String tempName, String tempActivity) {
+		System.out.println("Business Activity Info tempname:"+tempName+"::::::"+tempActivity);
 		bans=new BusinessActivityNameSpliter(tempActivity);
 		this.name = tempName;
 		this.activity = tempActivity;

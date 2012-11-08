@@ -28,18 +28,20 @@ import org.megam.deccanplato.http.TransportMachinery;
 import org.megam.deccanplato.http.TransportResponse;
 import org.megam.deccanplato.http.TransportTools;
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.Constants;
 import org.megam.deccanplato.provider.core.BusinessActivityInfo;
-
+import static org.megam.deccanplato.provider.zoho.crm.Constants.*;
+import static org.megam.deccanplato.provider.Constants.*;
+/**
+ * 
+ * @author pandiyaraja
+ * 
+ *This class is used to perform Users business activity for ZOHO business activities
+ * create(not implemented now), list, update(not implemented now) and delete(delete is not implemented now).
+ */
 public class UserImpl implements BusinessActivity {
 
-	private static final String CREATE="create";
-	private static final String LIST="list";
-	private static final String UPDATE="update";
-	private static final String DELETE="delete";
-	private static final String AUTHTOKEN="OAuth_token";
-	private static final String SCOPE="crmapi";
-	private static final String TYPE="AllUsers";
-	
+		
 	private Map<String, String> args;
 	private BusinessActivityInfo bizInfo;
 	
@@ -52,47 +54,51 @@ public class UserImpl implements BusinessActivity {
 
 	@Override
 	public Map<String, String> run() {
-		
+		Map<String, String> outMap=new HashMap<>();
 		System.out.println("USER IMPLEMENTATION METHOD RUN METHOD");
 		switch (bizInfo.getActivityFunction()) {
-		case CREATE:
-			create();
+		case Constants.CREATE:
+			outMap=create(outMap);
 			break;
-		case LIST:
-			list();
+		case Constants.LIST:
+			outMap=list(outMap);
 			break;
-		case UPDATE:
-			update();
+		case Constants.UPDATE:
+			outMap=update(outMap);
 			break;
-		case DELETE:
-			delete();
+		case Constants.DELETE:
+			outMap=delete(outMap);
 			break;
 		default:
 			break;
 		}
-		return null;
+		return outMap;
 	}
 
 	/**
-	 * 
+	 * this method creates a user in zoho.com and returns that user's id.
+	 * This method takes input as a MAP(contains json dada) and returns a MAP.
+	 * @param outMap 
 	 */
-	private Map<String, String> create() {
+	private Map<String, String> create(Map<String, String> outMap) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	/**
-	 * 
+	 * This method lists all users in zoho.com and returns a list of users details.
+	 * This method takes input as a MAP(contains json dada) and returns a MAP.
+	 * @param outMap 
 	 */
-	private Map<String, String> list() {
+	private Map<String, String> list(Map<String, String> outMap) {
 		
 		final String ZOHO_USER_URL = "https://crm.zoho.com/crm/private/json/Users/getUsers?";
 		
 		System.out.println("AOUTH TOKEN=::::::::::"+args.get(AUTHTOKEN));
 		List<NameValuePair> userAttrList=new ArrayList<NameValuePair>();
-        userAttrList.add(new BasicNameValuePair("authtoken", args.get(AUTHTOKEN)));
-        userAttrList.add(new BasicNameValuePair("scope", SCOPE));
-        userAttrList.add(new BasicNameValuePair("type", TYPE));
+        userAttrList.add(new BasicNameValuePair(OAUTH_TOKEN, args.get(AUTHTOKEN)));
+        userAttrList.add(new BasicNameValuePair(ZOHO_SCOPE, SCOPE));
+        userAttrList.add(new BasicNameValuePair(ZOHO_TYPE, TYPE));
        
         TransportTools tst = new TransportTools(ZOHO_USER_URL, userAttrList, null, true, "UTF-8");
 		String responseBody = null;
@@ -113,29 +119,36 @@ public class UserImpl implements BusinessActivity {
 		}
 		responseBody = response.entityToString();
 
-		Map<String, String> respMap = new HashMap<>();
+		outMap.put(OUTPUT, responseBody);
 
 		System.out.println("RESPONSE BPDY" + responseBody);
-		return respMap;
+		return outMap;
 		
 	}
 
 	/**
-	 * 
+	 * This method updates a particular user in zoho.com and returns a success message with updated user id.
+	 * This method takes input as a MAP(contains json dada) and returns a MAP.
+	 * @param outMap 
 	 */
-	private Map<String, String> update() {
+	private Map<String, String> update(Map<String, String> outMap) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	/**
-	 * 
+	 * This method deletes a particular user in zoho.com and returns a success message with deleted user id.
+	 * This method takes input as a MAP(contains json dada) and returns a MAP.
+	 * @param outMap 
 	 */
-	private Map<String, String> delete() {
+	private Map<String, String> delete(Map<String, String> outMap) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+     * this method returns business method name to perform action in that Salesforce Module 
+     */
 	@Override
 	public String name() {
 		return "user";

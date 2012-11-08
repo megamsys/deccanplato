@@ -18,10 +18,11 @@ import java.util.Map;
 
 import org.megam.deccanplato.provider.AbstractProviderAdapter;
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.ProviderRegistry;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.MultiDataMap;
 
-public class GoogleAppAdapter extends AbstractProviderAdapter {
+public class GoogleAppAdapter<T extends Object> extends AbstractProviderAdapter<T> {
 
 	private BusinessActivity activity;
 	
@@ -34,6 +35,8 @@ public class GoogleAppAdapter extends AbstractProviderAdapter {
 	public void configure() {
 		/* using the user#create key */
 		//activity = registry.getBusinessActivity(cloud_app, business_function);
+		activity = ProviderRegistry.instance().getBusinessActivity(bizInfo.getName(),
+				bizInfo.getActivityName());
 	}
 
 	public boolean build() {
@@ -42,8 +45,8 @@ public class GoogleAppAdapter extends AbstractProviderAdapter {
 		return true;
 	}
 	
-	public Map<String,String> handle() {
-		return activity.run();
+	public T handle() {
+		return (T) activity.run();
 	}
 
 	

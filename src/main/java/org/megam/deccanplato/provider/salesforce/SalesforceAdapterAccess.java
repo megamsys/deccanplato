@@ -33,15 +33,14 @@ import org.megam.deccanplato.provider.core.DefaultDataMap;
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
 import com.google.gson.Gson;
+import static org.megam.deccanplato.provider.salesforce.Constants.*;
 
 public class SalesforceAdapterAccess implements AdapterAccess {
 
 	private boolean success = false;
 
 	private static final String SALESFORCE_OAUTH2_URL = "https://login.salesforce.com/services/oauth2/token";
-	private static final String ACCESS_TOKEN = "access_token";
-	private static final String INSTANCE_URL = "instance_url";
-
+	
 	public SalesforceAdapterAccess() {
 		super();
 	}
@@ -55,15 +54,15 @@ public class SalesforceAdapterAccess implements AdapterAccess {
 		Map<String, T> accessMap = access.map();
 
 		List<NameValuePair> list = new ArrayList<NameValuePair>();
-		list.add(new BasicNameValuePair("grant_type", "password"));
-		list.add(new BasicNameValuePair("client_id", (String) accessMap
-				.get("consumer_key")));
-		list.add(new BasicNameValuePair("client_secret", (String) accessMap
-				.get("consumer_secret")));
-		list.add(new BasicNameValuePair("username", (String) accessMap
-				.get("access_username")));
-		list.add(new BasicNameValuePair("password", (String) accessMap
-				.get("access_password")));
+		list.add(new BasicNameValuePair(S_GRANT_TYPE, S_PASSWORD));
+		list.add(new BasicNameValuePair(S_CLIENT_ID, (String) accessMap
+				.get(CLIENT_ID)));
+		list.add(new BasicNameValuePair(S_CLIENT_SECRET, (String) accessMap
+				.get(CLIENT_SECRET)));
+		list.add(new BasicNameValuePair(S_USERNAME, (String) accessMap
+				.get(ACCESS_USER_NAME)));
+		list.add(new BasicNameValuePair(S_PASSWORD, (String) accessMap
+				.get(ACCESS_PASSWORD)));
 
 		TransportTools tools = new TransportTools(SALESFORCE_OAUTH2_URL, list);
 		String responseBody = null;

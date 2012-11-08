@@ -45,7 +45,7 @@ public class TimezoneTest {
 		System.out.println("TimeZONE" + SimpleTimeZone.getTimeZone(time));
 	}
 
-	@Test
+	//@Test
 	public void timeObjMapper() throws JsonGenerationException, JsonMappingException, IOException {
 		ObjectMapper obj = new ObjectMapper();
 		List<NameValuePair> userAttrList = new ArrayList<NameValuePair>();
@@ -56,7 +56,7 @@ public class TimezoneTest {
 
 	}
 	
-	@Test
+	//@Test
 	public void timeUsingGsonMap()  {
 		Gson obj = new GsonBuilder().setPrettyPrinting().create();
 		List<NameValuePair> userAttrList = new ArrayList<NameValuePair>();
@@ -64,5 +64,21 @@ public class TimezoneTest {
 		userAttrList.add(new BasicNameValuePair("FirstName", "first"));
 		System.out.println(obj.toJson(userAttrList));
 
+	}
+	@Test
+	public void chartest() {
+		String module="user";
+		StringBuffer modul=new StringBuffer(module);
+		char[] mod=new char[10];
+		mod=module.toCharArray();
+		char c=Character.toUpperCase(mod[0]);
+		//String C=new String(c);
+		Character C=new Character(c);
+		//C.toString();
+		modul.replace(0, 1, C.toString());
+		modul.append("s");
+		System.out.println(modul.toString());
+	
+		
 	}
 }

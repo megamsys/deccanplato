@@ -15,12 +15,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package org.megam.deccanplato.provider.zoho.crm.info;
 
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * 
+ * @author pandiyaraja
+ *
+ *This class populates an XML data to send as input to zoho lead create.
+ *it calls from lead business function method, and it takes in put from that same method.
+ */
 @XmlRootElement (name = "Leads")
 public class Leads extends XMLBase {
 	
-	private static final String SMOWNERID = "SMOWNERID";
-	private static final String LEAD_OWNER = "Lead Owner";
+	//private static final String SMOWNERID = "SMOWNERID";
+	//private static final String LEAD_OWNER = "Lead Owner";
 	private static final String COMPANY = "Company";
 	private static final String FIRST_NAME = "First Name";
 	private static final String LAST_NAME = "Last Name";
@@ -50,14 +56,14 @@ public class Leads extends XMLBase {
 		createRow();		
 	}
 	
-	public void setOwnerId(String val) {
+	/*public void setOwnerId(String val) {
 		//Add the key,value to the currentRow .
 		super.setValueAtCurrentRow(SMOWNERID, val);
 	}
 	public void setLeadOwner(String val) {
 		//Add the key,value to the currentRow .
 		super.setValueAtCurrentRow(LEAD_OWNER, val);
-	}
+	}*/
 	public void setCompany(String val) {
 		//Add the key,value to the currentRow .
 		super.setValueAtCurrentRow(COMPANY, val);

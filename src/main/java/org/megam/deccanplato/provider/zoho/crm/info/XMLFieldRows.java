@@ -20,7 +20,12 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlList;
-
+/**
+ * 
+ * @author pandiyaraja
+ *
+ *This class sets field values in the row
+ */
 
 
 public class XMLFieldRows {

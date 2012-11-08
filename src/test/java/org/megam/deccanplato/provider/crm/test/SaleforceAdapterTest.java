@@ -68,8 +68,8 @@ public class SaleforceAdapterTest {
 		System.out.println("Provider Registry" + registry.toString());
 		//System.out.println("Provider Registry" + registry.getAdapter("salesforce"));	
 	}
-   // @Test
-	public void testSalesforceAdapterAccess() throws AdapterAccessException{
+   @Test
+	public void testAdapterAccess() throws AdapterAccessException{
 		
 		SalesforceAdapterAccess saa=new SalesforceAdapterAccess();
 		DataMap dmap=saa.authenticate(reqData.getGeneral());

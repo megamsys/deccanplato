@@ -9,16 +9,19 @@
  "provider":{
    "access":{
 	"EMAIL_ID":"raja.pandiya@megam.co.in",
-	"PASSWORD":"team4megam",
+	"password":"3ec4036a9c2e75778a63011ca1d47079",
 	"access_username":"admin",
+	"user_name":"admin",
+	"version":"1",
 	"access_password":"3ec4036a9c2e75778a63011ca1d47079",
-	"provider":"Salesforce",
+	"provider":"sugarcrm",
 	"category":"CRM",
 	"description":"My first Connector Project",
 	"user_email":"alrin@megam.com",
 	"org_name":"Megam Systems"},
    "business_activity":{
-	"biz_function":"user#create",
+	"biz_function":"account#list",
+	"first_name":"Pontiya",
 	"alias":"vaalu",
 	"email":"thomasalrin@gmail.com",
 	"charset_encoding":"UTF-8",
@@ -26,6 +29,7 @@
 	"last_name":"Alrin",
 	"locale":"IN",
 	"profile":"Force.com",
+	"name":"name",
 	"time_zone":"Chennai"}},
  "execution":{
    "output":{

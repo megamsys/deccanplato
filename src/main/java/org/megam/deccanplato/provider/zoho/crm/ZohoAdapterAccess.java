@@ -29,8 +29,7 @@ import org.megam.deccanplato.provider.core.AdapterAccess;
 import org.megam.deccanplato.provider.core.AdapterAccessException;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.DefaultDataMap;
-
-import com.amazonaws.util.json.JSONException;
+import static org.megam.deccanplato.provider.zoho.crm.Constants.*;
 
 public class ZohoAdapterAccess implements AdapterAccess {
 
@@ -79,7 +78,7 @@ public class ZohoAdapterAccess implements AdapterAccess {
 		DataMap<T> respMap = new DefaultDataMap<T>();
 		try {
 			AccessParser ap = new AccessParser(response);
-			respMap.map().put("OAuth_token", (T) ap.getAuthtoken());
+			respMap.map().put(AUTHTOKEN, (T) ap.getAuthtoken());
 			success=true;
 		} catch (IOException e) {
 			throw new AdapterAccessException(
