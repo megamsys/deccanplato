@@ -14,16 +14,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package org.megam.deccanplato.provider.googleapp.handler;
 
-import static org.megam.deccanplato.provider.Constants.CREATE;
-import static org.megam.deccanplato.provider.Constants.DELETE;
-import static org.megam.deccanplato.provider.Constants.LIST;
-import static org.megam.deccanplato.provider.Constants.UPDATE;
+import static org.megam.deccanplato.provider.Constants.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.http.NameValuePair;
 import org.megam.deccanplato.provider.BusinessActivity;
 import org.megam.deccanplato.provider.core.BusinessActivityInfo;
+import org.megam.deccanplato.provider.googleapp.info.AppsForYourDomainClient;
+
+import com.google.gdata.data.ParseSource;
+import com.google.gdata.data.appsforyourdomain.provisioning.UserEntry;
+import com.google.gdata.data.appsforyourdomain.provisioning.UserFeed;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 
 public class UserImpl implements BusinessActivity {
 
@@ -67,7 +75,17 @@ public class UserImpl implements BusinessActivity {
 	 * @return
 	 */
 	private Map<String, String> create(Map<String, String> outMap) {
-		// TODO Auto-generated method stub
+		
+		AppsForYourDomainClient apclient;
+		try {
+			apclient = new AppsForYourDomainClient(args.get("email"),
+					args.get("password"), args.get("domain"));
+			apclient.createUser(args.get("user_name"), args.get("given_name"), args.get("family_name"), args.get("user_password"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 
@@ -76,8 +94,34 @@ public class UserImpl implements BusinessActivity {
 	 * @return
 	 */
 	private Map<String, String> list(Map<String, String> outMap) {
-		// TODO Auto-generated method stub
-		return null;
+		Gson obj = new GsonBuilder().setPrettyPrinting().create();
+		Map<String, String> outMap1 =new HashMap<>();
+		UserFeed userFeed = null;
+		AppsForYourDomainClient apclient;
+		try {
+			apclient = new AppsForYourDomainClient(args.get("email"),
+					args.get("password"), args.get("domain"));
+			userFeed = apclient.retrieveAllUsers();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if (userFeed != null) {
+			for (UserEntry userEntry : userFeed.getEntries()) {
+				
+				outMap.put("user_name", userEntry.getLogin().getUserName());
+				outMap.put("user_name", userEntry.getLogin().getPassword());
+				//outMap.put("user_name", userEntry.getLogin().getAdmin());
+				outMap.put("user_name", userEntry.getName().getFamilyName());
+				outMap.put("user_name", userEntry.getName().getGivenName());
+				outMap1.putAll(outMap);
+			}
+               outMap.put(OUTPUT,obj.toJson(outMap1));
+		}
+         System.out.println("RESULT"+obj.toJson(outMap));
+		
+		return outMap;
 	}
 
 	/**
@@ -85,7 +129,21 @@ public class UserImpl implements BusinessActivity {
 	 * @return
 	 */
 	private Map<String, String> update(Map<String, String> outMap) {
-		// TODO Auto-generated method stub
+		
+		AppsForYourDomainClient apclient;
+		try {
+			apclient = new AppsForYourDomainClient(args.get("email"),
+					args.get("password"), args.get("domain"));
+			List<String> list=new ArrayList<>();
+			list.add(args.get("user"));
+			list.add(args.get("password"));
+			UserEntry value=(UserEntry) UserEntry.readEntry((ParseSource) list);
+			apclient.updateUser(args.get("user_name"), value);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
@@ -94,7 +152,17 @@ public class UserImpl implements BusinessActivity {
 	 * @return
 	 */
 	private Map<String, String> delete(Map<String, String> outMap) {
-		// TODO Auto-generated method stub
+		AppsForYourDomainClient apclient;
+		try {
+			apclient = new AppsForYourDomainClient(args.get("email"),
+					args.get("password"), args.get("domain"));
+			apclient.deleteUser(args.get("user_name"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
 		return null;
 	}
 
