@@ -28,7 +28,6 @@ public class AccessToken {
 	}
 	
 	public String getToken() {
-		System.out.println(token);
 		return token;
 	}
 	

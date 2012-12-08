@@ -27,7 +27,6 @@ public class BusinessActivityInfo {
 	private BusinessActivityNameSpliter bans;
 	
 	public BusinessActivityInfo(String tempName, String tempActivity) {
-		System.out.println("Business Activity Info tempname:"+tempName+"::::::"+tempActivity);
 		bans=new BusinessActivityNameSpliter(tempActivity);
 		this.name = tempName;
 		this.activity = tempActivity;
@@ -44,7 +43,6 @@ public class BusinessActivityInfo {
 		return bans.getActivityName();
 	}
 	public String getActivityFunction() {
-		System.out.println("BUSINESS ACTIVITY FUNCTION"+bans.getActivityFunction());
 		return bans.getActivityFunction();
 	}
 

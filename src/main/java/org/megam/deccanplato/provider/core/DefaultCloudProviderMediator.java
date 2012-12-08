@@ -26,18 +26,13 @@ public class DefaultCloudProviderMediator extends AbstractCloudProviderMediator 
 	private LinkedList<CloudOperation> orderedOps = new LinkedList<>();
 
 	public DefaultCloudProviderMediator(RequestData reqData) {
-		//System.out.println(reqData);
 		addOperation(new AccessControlOperation(reqData.getAccess().token(), this));
-		System.out.println("Access Controller Token"+reqData.getAccess().token());
 		addOperation(new ProviderOperation(reqData.getGeneral(), this));
 		addOperation(new OutputOperation(reqData.getOutput(), this));
-		System.out.println(reqData.getAccess().token());
-		
 	}
 
 	protected void addOperation(CloudOperation ops) {
 		orderedOps.add(ops);
-		System.out.println(ops);
 	}
 
 	@Override
@@ -48,9 +43,7 @@ public class DefaultCloudProviderMediator extends AbstractCloudProviderMediator 
 		try {
 			for (Iterator<CloudOperation> iter = orderedOps.iterator(); (iter
 					.hasNext() && shouldProceed);) {
-				System.out.println("DFPM OrderedOps:"+iter.next());
 				CloudOperation singleOps = iter.next();
-				System.out.println("SINGLEOPS>>>>>>>>>>>>>>"+singleOps);
 				CloudOperationOutput<T> opsOut = singleOps.handle();
 				opsOutSet.add(opsOut);
 				shouldProceed = singleOps.canProceed();				
@@ -62,10 +55,10 @@ public class DefaultCloudProviderMediator extends AbstractCloudProviderMediator 
 		 * grab all the responses from the RequestMediaOperation and stick stuff
 		 * into the response data builder
 		 ***/
-		ResponseData<T> respData = (new ResponseDataBuilder(opsOutSet))
-				.getResponseData();
-		System.out.println("RESPONSE DATA"+respData);
-		return respData;
+		
+		ResponseDataBuilder<T> respData = (new ResponseDataBuilder(opsOutSet));
+				
+		return respData.getResponseData();
 	}
 
 	public void setSaveableToUse() {

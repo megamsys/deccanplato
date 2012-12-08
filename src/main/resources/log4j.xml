@@ -14,7 +14,7 @@
 	<logger name="org.megam.deccanplato">
 		<level value="debug" />
 	</logger>
-	
+
 	<logger name="org.megam.core">
 		<level value="info" />
 	</logger>

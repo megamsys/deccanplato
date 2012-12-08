@@ -1,0 +1,39 @@
+{
+ "system":{
+   "access":{
+	"project_id":"3c78f781-fc28-4c69-8fad-0ca66f2c5dbc",
+	"api_token":"oVj29MbD2LcXzsRzNFx9vw==",
+	"access_email":"alrin@megam.com",
+	"access_org_id":1,
+	"access_account_name":"MegamSyste"}},
+ "provider":{
+   "access":{
+	"email_id":"raja.pandiya@megam.co.in",
+	"password":"team4megam",
+	"apikey":"8214906d247956636d07f084b1c6595b",
+	"provider":"zohoinvoice",
+	"category":"CRM",
+	"description":"My first Connector Project",
+	"user_email":"alrin@megam.com",
+	"org_name":"Megam Systems"},
+   "business_activity":{
+	"biz_function":"invoice#update",
+	"invoice_date":"2012-12-24",
+	"po_number":"155",
+	"authorize_net":"true",
+	"exchange_rate":"100",
+	"custom_body":"hu hdskhjhs kljsis niosho kalio",
+	"custom_subject":"thamashkara",
+	"product_id":"335352000000021018",
+	"terms":"TERMS-term",
+	"to_email":"raja.pandiya@megam.co.in",
+	"cc_email":"raja.pandiya@yahoo.com",
+	"notes":"NOTES-NT",
+	"delete_invoice":"false",
+	"customer_id":"335352000000024005",
+	"id":"335352000000024005"}},
+ "execution":{
+   "output":{
+	"type":"default",
+	"location":"default"}}
+}

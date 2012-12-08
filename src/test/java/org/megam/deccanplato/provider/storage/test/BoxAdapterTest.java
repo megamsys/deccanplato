@@ -43,7 +43,7 @@ public class BoxAdapterTest {
 	
 	@BeforeClass
 	public static void setUp() throws IOException {
-		System.out.println("setUp");
+		
 		BufferedReader br = null;
 		String inputJsonPath = new File(".").getCanonicalPath()
 				+ java.io.File.separator + "src" + java.io.File.separator
@@ -60,7 +60,7 @@ public class BoxAdapterTest {
 		}
 		RequestDataBuilder rdb = new RequestDataBuilder(strb.toString());
 		reqData=rdb.data();
-		System.out.println(rdb.data().toString());
+		
 	    
 		GenericApplicationContext ctx = new GenericApplicationContext();
 		XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(ctx);
@@ -69,18 +69,14 @@ public class BoxAdapterTest {
 		ctx.refresh();		
 		ProviderRegistry registry = (ProviderRegistry) ctx
 				.getBean("registry");
-		System.out.println("Provider Registry" + registry.toString());
-		//System.out.println("Provider Registry" + registry.getAdapter("box"));	
+			
 	}
 	 @Test
 		public void testBoxAdapterAccess() throws AdapterAccessException{
 			
 			BoxAdapterAccess baa=new BoxAdapterAccess();
 			DataMap dmap=baa.authenticate(reqData.getOutput());
-			//System.out.println(dmap.map().get("instance_url"));
-			System.out.println(dmap.map().get("location"));
-			System.out.println(dmap.map().get("api_key"));
-			System.out.println("DMAP"+dmap.toString());
+			
 		}
 
 }

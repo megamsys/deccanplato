@@ -38,10 +38,21 @@ public class Constants {
 	public static final String LIST="list";
 	public static final String UPDATE="update";
 	public static final String DELETE="delete";
+	public static final String MARK="mark";
+	public static final String SEND="send";
+	public static final String PDF="pdf";
+	public static final String CONVERT="convert";
+	public static final String REMIND="remind";
+	public static final String VIEW="view";
+	public static final String MIGRATE="migrate";
 	
 	
 	/**
 	 * The key that are passed over in the output section of the request Json. 
 	 */
 	public static final String OUTPUT="output";
+	public static final String CREATE_STRING="Created successfully";
+	public static final String UPDATE_STRING="Updated successfully";
+	public static final String DELETE_STRING="Deleted successfully";
+	public static final String MIGRATE_STRING="Email migrated successfully";
 }

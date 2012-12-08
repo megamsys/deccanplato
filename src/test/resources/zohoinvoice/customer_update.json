@@ -1,0 +1,53 @@
+{
+ "system":{
+   "access":{
+	"project_id":"3c78f781-fc28-4c69-8fad-0ca66f2c5dbc",
+	"api_token":"oVj29MbD2LcXzsRzNFx9vw==",
+	"access_email":"alrin@megam.com",
+	"access_org_id":1,
+	"access_account_name":"MegamSyste"}},
+ "provider":{
+   "access":{
+	"email_id":"raja.pandiya@megam.co.in",
+	"password":"team4megam",
+	"apikey":"8214906d247956636d07f084b1c6595b",
+	"access_username":"pontiyaraja@gmail.com",
+	"access_password":"team4megamE1mlHRMlL7deN0zCN4oDAZlJq",
+	"provider":"zohoinvoice",
+	"category":"CRM",
+	"description":"My first Connector Project",
+	"user_email":"alrin@megam.com",
+	"org_name":"Megam Systems"},
+   "business_activity":{
+	"biz_function":"customer#update",
+	"name":"PontiyaRaja",
+	"payments_due":"454895",
+	"currency_code":"INR",
+	"billing_address":"Address-CHENNAI",
+	"billing_city":"QUENSLAND",
+	"billing_zip":"53465985",
+	"billing_country":"NEW ZELAND",
+	"billing_fax":"54621553",
+	"shipping_address":"SHIPPING_ADD",
+	"shipping_city":"SHIPPING-city",
+	"shipping_state":"SH-State",
+	"shipping_zip":"45423235",
+	"shipping_country":"SHIP-Country",
+	"shipping_fax":"4526369",
+	"mobile":"9587458963",
+	"salutation":"Mr.",
+	"label1":"VAT ID",
+	"value1":"45785",
+	"label2":"REG>NO",
+	"value2":"45897632",
+	"label3":"WEB SITE",
+	"value3":"www.megam.co.in",
+	"notes":"NOTES",
+	"delete_contact":"false",
+	"contact_id":"33530245895885",
+	"id":"335352000000024005"}},
+ "execution":{
+   "output":{
+	"type":"default",
+	"location":"default"}}
+}

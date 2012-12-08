@@ -14,6 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package org.megam.deccanplato.provider.salesforce.handler;
 
+import static org.megam.deccanplato.provider.Constants.*;
+import static org.megam.deccanplato.provider.salesforce.Constants.*;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -25,16 +28,13 @@ import org.megam.deccanplato.http.TransportMachinery;
 import org.megam.deccanplato.http.TransportResponse;
 import org.megam.deccanplato.http.TransportTools;
 import org.megam.deccanplato.provider.BusinessActivity;
-import org.megam.deccanplato.provider.Constants;
 import org.megam.deccanplato.provider.core.BusinessActivityInfo;
-import static org.megam.deccanplato.provider.salesforce.Constants.*;
-import static org.megam.deccanplato.provider.Constants.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 /**
  * This class implements the business activity of Salesforcecrm account method.
- * this class has four methods, to implement business functions, like create, update(not implemented now),
+ * this class has four methods, to implement business functions, like create, update,
  * lisd and delete. 
  * 
  * @author pandiyaraja
@@ -42,6 +42,7 @@ import com.google.gson.GsonBuilder;
  */
 public class AccountImpl implements BusinessActivity {
 
+	private static final String SALESFORCE_ACCOUNT_URL="/services/data/v25.0/sobjects/Account/";
 	private Map<String, String> args;
 	private BusinessActivityInfo bizInfo;
 	
@@ -55,19 +56,17 @@ public class AccountImpl implements BusinessActivity {
 	@Override
 	public Map<String, String> run() {
 		Map<String, String> outMap=new HashMap<>();
-		System.out.println("ACCOUNT IMPLEMENTATION METHOD RUN METHOD");
-		// TODO Write code using TransportMachinery/TransportTools by sending the correct content.
 		switch(bizInfo.getActivityFunction()) {
-		case Constants.CREATE : 
+		case CREATE : 
 			outMap=create(outMap);
 			break;
-		case Constants.LIST :
+		case LIST :
 			outMap=list(outMap);
 			break;
-		case Constants.UPDATE : 
+		case UPDATE : 
 			outMap=update(outMap);
 			break;
-		case Constants.DELETE :
+		case DELETE :
 			outMap=delete(outMap);
 			break;
 			default : break;
@@ -82,8 +81,7 @@ public class AccountImpl implements BusinessActivity {
 	 */
 	private Map<String, String> update(Map<String, String> outMap) {
 		
-		System.out.println("ACCOUNT CREATE");
-		final String SALESFORCE_UPDATE_ACCOUNT_URL = args.get(INSTANCE_URL)+"/services/data/v25.0/sobjects/Account/"+args.get(ID);
+		final String SALESFORCE_UPDATE_ACCOUNT_URL = args.get(INSTANCE_URL)+SALESFORCE_ACCOUNT_URL+args.get(ID);
 		Map<String,String> header=new HashMap<String,String>();
         header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
         Map<String, Object> accountAttrMap = new HashMap<String, Object>();
@@ -92,13 +90,12 @@ public class AccountImpl implements BusinessActivity {
         TransportTools tst=new TransportTools(SALESFORCE_UPDATE_ACCOUNT_URL, null, header);
         Gson obj = new GsonBuilder().setPrettyPrinting().create();
         tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(accountAttrMap));
-        System.out.println(tst.toString());
-        String responseBody = null;
         
-        TransportResponse response = null;
+        String responseBody = null;       
+        
         try {
-			response=TransportMachinery.patch(tst);
-			responseBody=response.entityToString();	
+			  TransportMachinery.patch(tst);
+			  responseBody = UPDATE_STRING+args.get(ID);	
 		
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -107,8 +104,6 @@ public class AccountImpl implements BusinessActivity {
 		}
 
         outMap.put(OUTPUT, responseBody);
-
-		System.out.println("RESPONSE BPDY" + responseBody);
 		return outMap;		
 	}
 
@@ -120,18 +115,17 @@ public class AccountImpl implements BusinessActivity {
 	private Map<String, String> delete(Map<String, String> outMap) {
 		
 		final String SALESFORCE_DELETE_ACCOUNT_URL = args.get(INSTANCE_URL)
-				+ "/services/data/v25.0/sobjects/Account/"+args.get(ID);
+				+SALESFORCE_ACCOUNT_URL+args.get(ID);
 		Map<String, String> header = new HashMap<String, String>();
 		header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
 
 		TransportTools tst = new TransportTools(SALESFORCE_DELETE_ACCOUNT_URL, null,
 				header);
-		String responseBody = null;
-
-		TransportResponse response = null;
+		String responseBody = null;		
 
 		try {
-			response = TransportMachinery.delete(tst);
+			TransportMachinery.delete(tst);
+			responseBody = DELETE_STRING+args.get(ID);
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -139,11 +133,8 @@ public class AccountImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-
+		
 		outMap.put(OUTPUT, responseBody);
-
-		System.out.println("RESPONSE BPDY" + responseBody);
 		return outMap;
 		
 	}
@@ -181,8 +172,6 @@ public class AccountImpl implements BusinessActivity {
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-
-		System.out.println("RESPONSE BPDY" + responseBody);
 		return outMap;
 		
 	}
@@ -194,8 +183,7 @@ public class AccountImpl implements BusinessActivity {
 	 */
 	private Map<String, String> create(Map<String, String> outMap) {
 		
-		System.out.println("ACCOUNT CREATE");
-		final String SALESFORCE_CREATE_ACCOUNT_URL = args.get(INSTANCE_URL)+"/services/data/v25.0/sobjects/Account/";
+		final String SALESFORCE_CREATE_ACCOUNT_URL = args.get(INSTANCE_URL)+SALESFORCE_ACCOUNT_URL;
 		Map<String,String> header=new HashMap<String,String>();
         header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
         Map<String, Object> accountAttrMap = new HashMap<String, Object>();
@@ -204,7 +192,6 @@ public class AccountImpl implements BusinessActivity {
         TransportTools tst=new TransportTools(SALESFORCE_CREATE_ACCOUNT_URL, null, header);
         Gson obj = new GsonBuilder().setPrettyPrinting().create();
         tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(accountAttrMap));
-        System.out.println(tst.toString());
         String responseBody = null;
         
         TransportResponse response = null;
@@ -219,8 +206,6 @@ public class AccountImpl implements BusinessActivity {
 		}
 
         outMap.put(OUTPUT, responseBody);
-
-		System.out.println("RESPONSE BPDY" + responseBody);
 		return outMap;		
 	}
     /**

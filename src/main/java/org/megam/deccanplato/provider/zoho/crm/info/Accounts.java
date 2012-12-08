@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author pandiyaraja
  *
  *This class populates an XML data to send as input to zoho account create.
- *it calls from account business function method, and it takes in put from that same method.
+ *it calls from account business function method, and it takes input from that same method.
  */
 @XmlRootElement (name = "Accounts")
 public class Accounts extends XMLBase{

@@ -119,9 +119,8 @@ public class TransportMachinery {
 
 		TransportResponse transportResp = null;
 		try {
-			HttpResponse httpResp  = httpclient.execute(httppatch);
-			transportResp = new TransportResponse(httpResp.getStatusLine(),
-					httpResp.getEntity(), httpResp.getLocale());
+			  httpclient.execute(httppatch);
+			//transportResp = new TransportResponse(httpResp.getStatusLine(), httpResp.getEntity(), httpResp.getLocale());
 		} finally {
 			httppatch.releaseConnection();
 		}
@@ -171,9 +170,8 @@ public class TransportMachinery {
 		
 		TransportResponse transportResp = null;
 		try {
-			HttpResponse httpResp  = httpclient.execute(httpdel);
-			transportResp = new TransportResponse(httpResp.getStatusLine(),
-					httpResp.getEntity(), httpResp.getLocale());
+			  httpclient.execute(httpdel);
+			//transportResp = new TransportResponse(httpResp.getStatusLine(), httpResp.getEntity(), httpResp.getLocale());
 		} finally {
 			httpdel.releaseConnection();
 		}

@@ -24,7 +24,7 @@ import org.megam.deccanplato.provider.core.MultiDataMap;
 
 /**
  * @author ram
- *
+ * 
  * @param <T>
  */
 public class SalesforceAdapter<T extends Object> extends
@@ -38,17 +38,13 @@ public class SalesforceAdapter<T extends Object> extends
 
 	/* using the user#create key */
 	public void configure() {
-		System.out.println("BUSINESS INFO"+bizInfo.toString());
-		activity = ProviderRegistry.instance().getBusinessActivity(bizInfo.getName(),
-				bizInfo.getActivityName());
-		
-		System.out.println("BUSINESS INFO"+activity);
+		activity = ProviderRegistry.instance().getBusinessActivity(
+				bizInfo.getName(), bizInfo.getActivityName());
 	}
 
 	/** get the handle responsible for the call and stick stuff into it **/
 	public boolean build() {
-		System.out.println("SALESFORCE ADAPTER BUILD");
-		activity.setArguments(bizInfo,args);
+		activity.setArguments(bizInfo, args);
 		return true;
 	}
 
@@ -56,5 +52,4 @@ public class SalesforceAdapter<T extends Object> extends
 		return (T) activity.run();
 	}
 
-	
 }

@@ -76,7 +76,7 @@ public class SalesforceAdapterAccess implements AdapterAccess {
 		} catch (IOException ioe) {
 			throw new AdapterAccessException("An error occurred during post operation.", ioe);
 		}
-
+	
 		return parseOutput(responseBody);
 	}
 

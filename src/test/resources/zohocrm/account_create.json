@@ -1,0 +1,43 @@
+{
+ "system":{
+   "access":{
+	"project_id":"3c78f781-fc28-4c69-8fad-0ca66f2c5dbc",
+	"api_token":"oVj29MbD2LcXzsRzNFx9vw==",
+	"access_email":"alrin@megam.com",
+	"access_org_id":1,
+	"access_account_name":"MegamSyste"}},
+ "provider":{
+   "access":{
+	"email_id":"raja.pandiya@megam.co.in",
+	"password":"team4megam",
+	"access_username":"pontiyaraja@gmail.com",
+	"access_password":"team4megamE1mlHRMlL7deN0zCN4oDAZlJq",
+	"provider":"zohocrm",
+	"category":"CRM",
+	"description":"My first Connector Project",
+	"user_email":"alrin@megam.com",
+	"org_name":"Megam Systems"},
+   "business_activity":{
+	"biz_function":"account#create",
+	"alias":"vaalu",
+	"charset_encoding":"UTF-8",
+	"language":"English",
+	"last_name":"Alrin",
+	"locale":"IN",
+	"profile":"Force.com",
+	"account_name":"Pontiya",
+	"employees":"5",
+	"annul_revenue":"50000",
+	"phone":"4589545668",
+	"fax":"4545754",
+	"account_owner":"raja.pandiya",
+	"id":"660777000000073001",
+        "company":"megam",
+        "designation":"designation",
+        "email":"email",
+	"time_zone":"Chennai"}},
+ "execution":{
+   "output":{
+	"type":"default",
+	"location":"default"}}
+}

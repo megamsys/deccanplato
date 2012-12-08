@@ -22,6 +22,7 @@ public class Constants {
 	
 	/**
 	 * The constants that are used in Salesforce  side.
+	 * Salesforce input constants
 	 */
 	public static final String S_PASSWORD="password";
 	public static final String S_GRANT_TYPE="grant_type";
@@ -33,6 +34,7 @@ public class Constants {
 	
 	/**
 	 * The constants that are needed for common function.
+	 * Json Input constants
 	 */
 	public static final String CLIENT_ID="consumer_key";
 	public static final String CLIENT_SECRET="consumer_secret";
@@ -43,6 +45,7 @@ public class Constants {
 	
 	/**
 	 * The constants that are needed for User business function.
+	 * Json Input constants
 	 */
 	
 	public static final String USERNAME="user_name";
@@ -59,12 +62,56 @@ public class Constants {
 	
 	/**
 	 * The constants that are needed for Account business function.
+	 * Json Input constants
 	 */
-	public static final String NAME="first_name";
+	public static final String NAME="name";
 	public static final String ID="id";
 	
 	/**
 	 * The constants that are needed for Leads business function.
+	 * Json Input constants
 	 */
 	public static final String COMPANY="company";
+	/**
+	 * Case
+	 * Json Input constants
+	 */
+	public static final String SUBJECT="subject";
+	public static final String CONTACT_ID="contact_id";
+	public static final String ACCOUNT_ID="account_id";
+	/**
+	 * Contract
+	 * Json Input constants
+	 */
+	public static final String CONTRACT_TERM="contract_term";
+	public static final String BILLING_CITY="billing_city";
+	/**
+	 * Event
+	 * Json Input constants
+	 */
+	public static final String START_DATE="start_date";
+	public static final String END_DATE="end_date";
+	/**
+	 * Opportunity
+	 * Json Input constants
+	 */
+	public static final String STAGE_NAME="stage_name";
+	public static final String CLOSE_DATE="close_date";
+	/**
+	 * Product
+	 * Json Input constants
+	 */
+	public static final String PRODUCT_CODE="product_code";
+	public static final String DESCRIPTION="description";
+	/**
+	 * Solution
+	 * Json Input constants
+	 */
+	public static final String SOLUTION_NAME="solution_name";
+	public static final String STATUS="status";
+	/**
+	 * Task
+	 * Json Input constants
+	 */
+	public static final String PRIORITY="priority";
 }

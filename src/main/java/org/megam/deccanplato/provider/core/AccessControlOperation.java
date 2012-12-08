@@ -25,7 +25,7 @@ public class AccessControlOperation extends  AbstractCloudOperation {
 	
 	public AccessControlOperation(AccessToken tempToken, CloudMediator tempParent) {
 		super(tempParent);
-		System.out.println("ACCESS CONTROL OPERATION::::"+tempParent.toString());
+		
 		getParent().registerCloudBridgeListener(this);
 		this.token=tempToken;
 	}
@@ -39,15 +39,15 @@ public class AccessControlOperation extends  AbstractCloudOperation {
 		// Setup the call to the cache, if its not available then perform the
 		// call. The cache thingly will get handled in Security Validator
 		validator = new SecurityValidator();
-		System.out.println(validator.toString());
+		
 	}
 
 	public <T> CloudOperationOutput<T> handle() {
 		if (isFitToRun()) {
 			preOperation();
-              System.out.println(token);
+              
 			if (token != null && validator!=null) {
-				System.out.println("Token"+token+":"+"validator"+validator);
+				
 				/**
 				 * This performs the API check of the token to ensure that the
 				 * requesting application can access it This is a dynamo DB call

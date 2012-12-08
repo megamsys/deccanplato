@@ -23,8 +23,7 @@ public class ResponseDataBuilder<T extends Object>  {
 	public ResponseDataBuilder(Set<CloudOperationOutput<T>> tempOpsSet) {
 		resp = new ResponseData<T>();
 		for(CloudOperationOutput<T> op : tempOpsSet) {
-			System.out.println("oops"+op);
-			if(op.get()!=null) {
+			if(op!=null && op.get()!=null) {
 			resp.put(op.name(), op.get());
 			}
 		}

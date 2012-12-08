@@ -34,5 +34,8 @@ public class CloudOperationOutput<T extends Object> {
 	public String name() {
 		return name;
 	}
+	public String toString() {
+		return name+","+get().toString();
+	}
 
 }

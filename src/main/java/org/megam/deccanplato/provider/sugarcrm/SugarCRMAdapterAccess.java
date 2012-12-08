@@ -75,8 +75,6 @@ public class SugarCRMAdapterAccess implements AdapterAccess {
 		}
       
         DataMap<T> respMap = new DefaultDataMap<T>();
-        
-        System.out.println("RESPONSE BPDY"+responseBody);
         respMap=parsOutput(responseBody, respMap);
         return respMap;
 	}

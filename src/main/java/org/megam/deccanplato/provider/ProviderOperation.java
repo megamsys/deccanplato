@@ -64,20 +64,11 @@ public class ProviderOperation extends AbstractCloudOperation {
 	}
 
 	public <V extends Object> void preOperation() throws CloudOperationException {
-		System.out.println("REGISTRY IN PROVIDER OPERATION::::::::::::"+registry);
 		if(registry==null) {
-			System.out.println("REGISTER :>>>>>:"+registry.instance());
 			registry=ProviderRegistry.instance();
-			System.out.println("REGISTER :>>>>>:"+registry.toString());
 		}
-		System.out.println("REGISTER :>>>>>:"+registry.toString());
 		prov = registry.getAdapter(info.getProviderName());
-		System.out.println("PROVIDER :>>>>>:"+registry.getAdapter(info.getProviderName()));
 		DataMap<V> authMap = prov.getAccess().authenticate(info);
-		for (Entry<String, V> entry : authMap.map().entrySet()) {
-			System.out.println("KEY:"+entry.getKey()+":"+"Value"+":"+entry.getValue());
-		}
-		System.out.println("Provider OPERATION AUTHMAP"+authMap.toString());
 		MultiDataMap<V> multiMap = new MultiDataMap(false, info,authMap);
 		prov.getAdapter().setDataMap(multiMap);
 	}
@@ -92,6 +83,7 @@ public class ProviderOperation extends AbstractCloudOperation {
 		if (isFitToRun()) {
 			pityOut = new CloudOperationOutput<T>(info.getProviderName());
 			pityOut.set((T) prov.getAdapter().handle());
+			
 		}
 		postOperation();
 		return pityOut;

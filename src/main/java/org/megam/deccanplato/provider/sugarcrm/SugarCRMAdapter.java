@@ -39,7 +39,7 @@ public class SugarCRMAdapter extends AbstractProviderAdapter {
 		
 		activity = ProviderRegistry.instance().getBusinessActivity(bizInfo.getName(),
 				bizInfo.getActivityName());
-		System.out.println("CONFIGURATION"+bizInfo.getActivityName());
+		
 		((BusinessActivityImpl)activity).setName(bizInfo.getActivityName());
 	}
 

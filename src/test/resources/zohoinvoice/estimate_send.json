@@ -1,0 +1,33 @@
+{
+ "system":{
+   "access":{
+	"project_id":"3c78f781-fc28-4c69-8fad-0ca66f2c5dbc",
+	"api_token":"oVj29MbD2LcXzsRzNFx9vw==",
+	"access_email":"alrin@megam.com",
+	"access_org_id":1,
+	"access_account_name":"MegamSyste"}},
+ "provider":{
+   "access":{
+	"email_id":"raja.pandiya@megam.co.in",
+	"password":"team4megam",
+	"apikey":"8214906d247956636d07f084b1c6595b",
+	"access_username":"pontiyaraja@gmail.com",
+	"access_password":"team4megamE1mlHRMlL7deN0zCN4oDAZlJq",
+	"provider":"zohoinvoice",
+	"category":"CRM",
+	"description":"My first Connector Project",
+	"user_email":"alrin@megam.com",
+	"org_name":"Megam Systems"},
+   "business_activity":{
+	"biz_function":"estimate#send",
+	"custom_body":"hu hdskhjhs kljsis niosho kalio",
+	"custom_subject":"thamashkara",
+	"estimate_email":"raja.pandiya@megam.co.in",
+	"to_email":"raja.pandiya@megam.co.in",
+	"cc_email":"raja.pandiya@yahoo.com",
+	"id":"335352000000024005"}},
+ "execution":{
+   "output":{
+	"type":"default",
+	"location":"default"}}
+}

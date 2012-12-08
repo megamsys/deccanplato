@@ -97,7 +97,7 @@ public class CRM extends AdapterHelper {
 		String output = null;
 		try {
 			HttpResponse response = httpclient.execute(httpPost);
-			System.out.println(response.getStatusLine());
+			
 			output = EntityUtils.toString(response.getEntity());
 
 		} catch (ClientProtocolException e) {
@@ -178,8 +178,7 @@ public class CRM extends AdapterHelper {
 		String output = null;
 		try {
 			HttpResponse response = httpclient.execute(httpPost);
-			System.out.println(clz + "createUser : POST : RESPONSE\n"
-					+ response);
+			
 			output = EntityUtils.toString(response.getEntity());
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -218,7 +217,7 @@ public class CRM extends AdapterHelper {
 		String output = null;
 		try {
 			HttpResponse response = httpclient.execute(httpGet);
-			System.out.println(clz + "listUser : GET : RESPONSE\n" + response);
+			
 			output = EntityUtils.toString(response.getEntity());
 
 		} catch (ClientProtocolException e) {
@@ -311,8 +310,7 @@ public class CRM extends AdapterHelper {
 		String output = null;
 		try {
 			HttpResponse response = httpclient.execute(httpPost);
-			System.out.println(clz + "createAccount : POST : RESPONSE\n"
-					+ response);
+			
 			output = EntityUtils.toString(response.getEntity());
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -351,7 +349,7 @@ public class CRM extends AdapterHelper {
 		String output = null;
 		try {
 			HttpResponse response = httpclient.execute(httpGet);
-			System.out.println(clz + "listAccount : GET : RESPONSE\n" + response);
+			
 			output = EntityUtils.toString(response.getEntity());
 
 		} catch (ClientProtocolException e) {
@@ -396,7 +394,7 @@ public class CRM extends AdapterHelper {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        System.out.println("DELETED USER3:"+output);
+        
 		return output;
 
 	}
@@ -528,7 +526,7 @@ public class CRM extends AdapterHelper {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        System.out.println("DELETED USER3:"+output);
+        
 		return output;
 
 	}
@@ -569,8 +567,7 @@ public class CRM extends AdapterHelper {
 		String output = null;
 		try {
 			HttpResponse response = httpclient.execute(httpPost);
-			System.out.println(clz + "createAccount : POST : RESPONSE\n"
-					+ response);
+			
 			output = EntityUtils.toString(response.getEntity());
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
