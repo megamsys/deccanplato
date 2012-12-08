@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
-xmlns:security="http://www.springframework.org/schema/security"
-xmlns:context="http://www.springframework.org/schema/context"
-xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
@@ -11,44 +11,27 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 
 	<import resource="classpath:/META-INF/providers.xml" />
 
-	<!--AWS Property Configurer
-	<bean id="awsPropertyConfigurer"
-	class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-	<property name="locations">
-	<list>
-	<value>classpath:aws.properties</value>
-	</list>
-	</property>
-	</bean>
-
-	Use a Compute Cloud
-	<bean id="computeCloud" class="org.megam.mammoth.cloud.compute.DefaultComputeCloud" scope="singleton">
-	<property name="computeCloudSource" ref="computeCloudSource" />
-	</bean>
-
-	Wire a base cloud compute source
-	<bean id="baseCloudSource" abstract="true"
-	class="org.megam.mammoth.cloud.compute.info.ComputeCloudSource">
-	<property name="region" value="${ccls.region}"/>
-	<property name="secretkey" value="${ccls.secretkey}"/>
-	<property name="accesskey" value="${ccls.accesskey}"/>
-	<property name="computeEngineClassName" value="${ccls.computeEngineClassName}"/>
-	</bean>
-
-	Wire a cloud compute source - AMAZON EC2. stupid to inherit. cleanup later
-	<bean id="computeCloudSource" parent="baseCloudSource"
-	class="org.megam.mammoth.cloud.compute.info.BasicCloudComputeSource">
-	<property name="instanceType" value="${ccls.instance_type}"/>
-	<property name="imageId" value="${ccls.image_id}"/>
-	<property name="instanceId" value="${ccls.instance_id}"/>
-	</bean>
-
-	-->
-	<bean id="registry" class="org.megam.deccanplato.provider.ProviderRegistry" factory-method="newInstance" >
+	<!--AWS Property Configurer <bean id="awsPropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="locations"> <list> <value>classpath:aws.properties</value> 
+		</list> </property> </bean> Use a Compute Cloud <bean id="computeCloud" class="org.megam.mammoth.cloud.compute.DefaultComputeCloud" 
+		scope="singleton"> <property name="computeCloudSource" ref="computeCloudSource" 
+		/> </bean> Wire a base cloud compute source <bean id="baseCloudSource" abstract="true" 
+		class="org.megam.mammoth.cloud.compute.info.ComputeCloudSource"> <property 
+		name="region" value="${ccls.region}"/> <property name="secretkey" value="${ccls.secretkey}"/> 
+		<property name="accesskey" value="${ccls.accesskey}"/> <property name="computeEngineClassName" 
+		value="${ccls.computeEngineClassName}"/> </bean> Wire a cloud compute source 
+		- AMAZON EC2. stupid to inherit. cleanup later <bean id="computeCloudSource" 
+		parent="baseCloudSource" class="org.megam.mammoth.cloud.compute.info.BasicCloudComputeSource"> 
+		<property name="instanceType" value="${ccls.instance_type}"/> <property name="imageId" 
+		value="${ccls.image_id}"/> <property name="instanceId" value="${ccls.instance_id}"/> 
+		</bean> -->
+	<bean id="registry" class="org.megam.deccanplato.provider.ProviderRegistry"
+		factory-method="newInstance">
 		<property name="providersMap">
 			<map>
 				<entry key="salesforce" value-ref="salesforce" />
 				<entry key="zohocrm" value-ref="zoho" />
+				<entry key="zohoinvoice" value-ref="zohoinvoice"/>
 				<entry key="sugarcrm" value-ref="sugarcrm" />
 				<entry key="googleapp" value-ref="googleapp" />
 				<entry key="xero" value-ref="xero" />
@@ -60,42 +43,72 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 			<map>
 				<entry key="salesforce">
 					<set>
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.UserImpl"/>
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.AccountImpl"/>
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.LeadsImpl"/>
+						<bean class="org.megam.deccanplato.provider.salesforce.handler.UserImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.handler.AccountImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.handler.LeadsImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.handler.ContactImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.handler.OpportunitiesImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.handler.ContractImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.handler.CaseImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.handler.SolutionImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.handler.ProductImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.handler.CampaignImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.handler.EventImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.handler.TaskImpl" />
 					</set>
 				</entry>
 				<entry key="zohocrm">
 					<set>
-						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.UserImpl"/>
-						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.AccountImpl"/>
-						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.LeadsImpl"/>
+						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.UserImpl" />
+						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.AccountImpl" />
+						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.LeadsImpl" />
+						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.ContactImpl" />
+						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.PotentialImpl" />
+						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.CampaignImpl" />
+						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.CaseImpl" />
+						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.SolutionImpl" />
+						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.TaskImpl" />
+						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.EventImpl" />
+						<bean class="org.megam.deccanplato.provider.zoho.crm.handler.CallImpl" />
+					</set>
+				</entry>
+				<entry key="zohoinvoice">
+					<set>
+						<bean class="org.megam.deccanplato.provider.zoho.invoice.handler.CustomerImpl"/>
+						<bean class="org.megam.deccanplato.provider.zoho.invoice.handler.ItemImpl"/>
+						<bean class="org.megam.deccanplato.provider.zoho.invoice.handler.EstimateImpl"/>
+						<bean class="org.megam.deccanplato.provider.zoho.invoice.handler.InvoiceImpl"/>
+						<bean class="org.megam.deccanplato.provider.zoho.invoice.handler.ExpenseCategoryImpl"/>
+						<bean class="org.megam.deccanplato.provider.zoho.invoice.handler.ExpenseImpl"/>
+						<bean class="org.megam.deccanplato.provider.zoho.invoice.handler.PaymentImpl"/>
 					</set>
 				</entry>
 				<entry key="sugarcrm">
 					<set>
-						<bean class="org.megam.deccanplato.provider.sugarcrm.handler.BusinessActivityImpl"/>									
+						<bean
+							class="org.megam.deccanplato.provider.sugarcrm.handler.BusinessActivityImpl" />
 					</set>
 				</entry>
 				<entry key="googleapp">
 					<set>
 						<bean class="org.megam.deccanplato.provider.googleapp.handler.UserImpl"/>
 						<bean class="org.megam.deccanplato.provider.googleapp.handler.ContactImpl"/>
+						<bean class="org.megam.deccanplato.provider.googleapp.handler.EmailMigrationImpl"/>						
 					</set>
 				</entry>
 				<entry key="xero">
 					<set>
-						<bean class="org.megam.deccanplato.provider.xero.handler.AccountImpl"/>
+						<bean class="org.megam.deccanplato.provider.xero.handler.AccountImpl" />
 					</set>
 				</entry>
 				<entry key="box">
 					<set>
-						<bean class="org.megam.deccanplato.provider.box.handler.FileImpl"/>
+						<bean class="org.megam.deccanplato.provider.box.handler.FileImpl" />
 					</set>
 				</entry>
 				<entry key="dropbox">
 					<set>
-						<bean class="org.megam.deccanplato.provider.dropbox.handler.FileImpl"/>
+						<bean class="org.megam.deccanplato.provider.dropbox.handler.FileImpl" />
 					</set>
 				</entry>
 			</map>

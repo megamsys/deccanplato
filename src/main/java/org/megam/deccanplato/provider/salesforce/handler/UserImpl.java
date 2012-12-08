@@ -46,12 +46,12 @@ import static org.megam.deccanplato.provider.Constants.*;
  * @author pandiyaraja
  *
  **This class implements the business activity of Salesforcecrm user method.
- * this class has four methods, to implement business functions, like create, update(not implemented now),
+ * this class has four methods, to implement business functions, like create, update,
  * lisd and delete(not implemented now).
  */
 public class UserImpl implements BusinessActivity {
 
-    
+    private static final String SALESFORCE_USER_URL="/services/data/v25.0/sobjects/User/";
 	private Map<String, String> args;
 	private BusinessActivityInfo bizInfo;
  
@@ -60,7 +60,6 @@ public class UserImpl implements BusinessActivity {
      */
 	@Override
 	public String name() {
-		System.out.println("USER IMPL :NAME" + bizInfo);
 		return "user";
 	}
 
@@ -69,24 +68,22 @@ public class UserImpl implements BusinessActivity {
 			Map<String, String> tempArgs) {
 		this.args = tempArgs;
 		this.bizInfo = tempBizInfo;
-		System.out.println("USER IMPL :SET ARGUMENTS" + tempArgs);
 	}
 
 	@Override
 	public Map<String, String> run() {
 		Map<String, String> outMap=new HashMap<>();
-		System.out.println("USER IMPLEMENTATION METHOD RUN METHOD");
 		switch (bizInfo.getActivityFunction()) {
-		case Constants.CREATE:
+		case CREATE:
 			outMap=create(outMap);
 			break;
-		case Constants.LIST:
+		case LIST:
 			outMap=list(outMap);
 			break;
-		case Constants.UPDATE:
+		case UPDATE:
 			outMap=delete(outMap);
 			break;
-		case Constants.DELETE:
+		case DELETE:
 			outMap=update(outMap);
 			break;
 		default:
@@ -101,18 +98,11 @@ public class UserImpl implements BusinessActivity {
 	 */
 	private Map<String, String> create(Map<String, String> outMap) {
 		
-		final String SALESFORCE_CREATE_USER_URL = args.get(INSTANCE_URL)+"/services/data/v25.0/sobjects/User/";
-
-		System.out.println("Bfore call of timezone");
-		System.out.println("After call timezone");
-		System.out.println("IN CREATE USER METHOD");
-
+		final String SALESFORCE_CREATE_USER_URL = args.get(INSTANCE_URL)+SALESFORCE_USER_URL;		
         Map<String,String> header=new HashMap<String,String>();
-        header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
-        		
+        header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));    		
 
-				
-        Map<String, Object> userAttrMap = new HashMap<String, Object>();
+		Map<String, Object> userAttrMap = new HashMap<String, Object>();
         userAttrMap.put("Username", args.get(USERNAME));
         userAttrMap.put("FirstName", args.get(FIRSTNAME));
         userAttrMap.put("Email", args.get(EMAIL));
@@ -127,7 +117,6 @@ public class UserImpl implements BusinessActivity {
         TransportTools tst=new TransportTools(SALESFORCE_CREATE_USER_URL, null, header);
         Gson obj = new GsonBuilder().setPrettyPrinting().create();
         tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(userAttrMap));
-        System.out.println(tst.toString());
         String responseBody = null;
         
         TransportResponse response = null;
@@ -140,10 +129,8 @@ public class UserImpl implements BusinessActivity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-        outMap.put(OUTPUT, responseBody);;
         
-		System.out.println("RESPONSE BPDY" + responseBody);
+        outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 	/**
@@ -180,8 +167,6 @@ public class UserImpl implements BusinessActivity {
        
        
 		outMap.put(OUTPUT, responseBody);
-
-		System.out.println("RESPONSE BPDY" + responseBody);
 		return outMap;
 
 	}
@@ -202,7 +187,7 @@ public class UserImpl implements BusinessActivity {
 	 */ 
 	public Map<String, String> update(Map<String, String> outMap) {
 		
-		final String SALESFORCE_UPDATE_USER_URL = args.get(INSTANCE_URL)+"/services/data/v25.0/sobjects/User/"+args.get(ID);
+		final String SALESFORCE_UPDATE_USER_URL = args.get(INSTANCE_URL)+SALESFORCE_USER_URL+args.get(ID);
 
 		Map<String,String> header=new HashMap<String,String>();
         header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));    		
@@ -222,23 +207,17 @@ public class UserImpl implements BusinessActivity {
         TransportTools tst=new TransportTools(SALESFORCE_UPDATE_USER_URL, null, header);
         Gson obj = new GsonBuilder().setPrettyPrinting().create();
         tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(userAttrMap));
-        System.out.println(tst.toString());
         String responseBody = null;
-        
-        TransportResponse response = null;
         try {
-			response=TransportMachinery.patch(tst);
-			responseBody=response.entityToString();	
+			 TransportMachinery.patch(tst);
+			 responseBody = UPDATE_STRING+args.get(ID);
 		
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-        outMap.put(OUTPUT, responseBody);;
-        
-		System.out.println("RESPONSE BPDY" + responseBody);
+        outMap.put(OUTPUT, responseBody);
 		return outMap;
 
 	}

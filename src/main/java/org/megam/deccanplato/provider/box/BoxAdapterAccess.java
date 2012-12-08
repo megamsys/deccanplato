@@ -68,7 +68,7 @@ public class BoxAdapterAccess implements AdapterAccess {
 			throws AdapterAccessException {
 
 		Map<String, T> accessMap = access.map();
-		System.out.println("Access MAP " + accessMap.toString());
+		
 		BOX_OAUTH2_URL = BOX_OAUTH2_URL + accessMap.get("api_key");
 		TransportTools tools = new TransportTools(BOX_OAUTH2_URL, null);
 		String responseBody = null;
@@ -89,7 +89,7 @@ public class BoxAdapterAccess implements AdapterAccess {
 			throw new AdapterAccessException(
 					"An error occurred during post operation.", ioe);
 		}
-		System.out.println("Response Body" + responseBody + "Response End");
+		
 		DocumentBuilder db = null;
 		try {
 			db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -115,7 +115,7 @@ public class BoxAdapterAccess implements AdapterAccess {
 				Node ele = child.item(j);
 				if (ele.getNodeName().equals("ticket")) {
 					Ticket = ele.getTextContent();
-					System.out.println("Ticket " + Ticket);
+					
 				}
 
 			}
@@ -147,7 +147,7 @@ public class BoxAdapterAccess implements AdapterAccess {
 			throw new AdapterAccessException(
 					"An error occurred during post operation.", ioe);
 		}
-		System.out.println("Response Body II" + responseBody + "Response II End");
+		
 		
 	}
 

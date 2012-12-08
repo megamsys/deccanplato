@@ -21,12 +21,8 @@ package org.megam.deccanplato.provider.sugarcrm;
  */
 public class Constants {
 	/**
-	 * The constants that are needed Common purpose.
+	 * SUGARCRM input constants
 	 */
-	public static final String SUGAR_URL="http://localhost/sugarcrm/service/v4/rest.php";
-	public static final String APPLICATION="sugar";
-	public static final String PASSWORD="password";
-	public static final String VERSION="1";
 	public static final String METHOD="method";
 	public static final String INPUT_TYPE="input_type";
 	public static final String RESPONSE_TYPE="response_type";
@@ -34,11 +30,22 @@ public class Constants {
 	public static final String TYPE="JSON";
 	public static final String SET_METHOD="set_entry";
 	public static final String GET_LIST="get_entry_list";
+	
+	/**
+	 * The constants that are needed Common purpose.
+	 * Json Input constants
+	 * 
+	 */
+	public static final String SUGAR_URL="http://localhost/sugarcrm/service/v4/rest.php";
+	public static final String APPLICATION="sugar";
+	public static final String PASSWORD="password";
+	public static final String VERSION="1";		
 	public static final String ID="id";
 	public static final String NAME="name";
 	public static final String TITLE="title";
 	/**
 	 * The constants that are needed for User business function.
+	 * Json Input constants
 	 */	
 	public static final String USER_NAME="user_name";
 	public static final String FIRST_NAME="first_name";
@@ -48,10 +55,12 @@ public class Constants {
 	public static final String SESSIONID="session_id";
 	/**
 	 * The constants that are needed for Account business function.
+	 * Json Input constants
 	 */
 	
 	/**
 	 * The constants that are needed for Leads business function.
+	 * Json Input constants
 	 */
 
 }

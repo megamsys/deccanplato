@@ -169,21 +169,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<version>1.12.0-beta</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava-collections</artifactId>
-			<version>r03</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gdata</groupId>
-			<artifactId>gdata-client-1.0</artifactId>
-			<version>1.41.5</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gdata</groupId>
-			<artifactId>gdata-base-1.0</artifactId>
-			<version>1.41.5</version>
-		</dependency>
-		<dependency>
 			<groupId>com.google.gdata</groupId>
 			<artifactId>gdata-appsforyourdomain-1.0</artifactId>
 			<version>1.41.3</version>
@@ -197,11 +182,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<groupId>org.apache.wink</groupId>
 			<artifactId>wink-client</artifactId>
 			<version>1.2.0-incubating</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gdata</groupId>
-			<artifactId>gdata-contacts-3.0</artifactId>
-			<version>1.41.5</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.apis</groupId>
@@ -218,6 +198,22 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<artifactId>google-http-client-jackson</artifactId>
 			<version>1.11.0-beta</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.apis</groupId>
+			<artifactId>google-api-services-tasks</artifactId>
+			<version>v1-rev5-1.12.0-beta</version>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+
 	</dependencies>
 	<repositories>
 		<repository>

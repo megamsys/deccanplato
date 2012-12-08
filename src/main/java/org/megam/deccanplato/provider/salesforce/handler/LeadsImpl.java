@@ -41,7 +41,7 @@ import com.google.gson.GsonBuilder;
  * lisd and delete.
  */
 public class LeadsImpl implements BusinessActivity {
-     
+    private static final String SALESFORCE_LEAD_URL="/services/data/v25.0/sobjects/Lead/"; 
 	private Map<String, String> args;
 	private BusinessActivityInfo bizInfo;
 	
@@ -56,18 +56,17 @@ public class LeadsImpl implements BusinessActivity {
 	@Override
 	public Map<String, String> run() {
 		Map<String, String> outMap=new HashMap<>();
-		System.out.println("USER IMPLEMENTATION METHOD RUN METHOD");
 		switch (bizInfo.getActivityFunction()) {
-		case Constants.CREATE:
+		case CREATE:
 			outMap=create(outMap);
 			break;
-		case Constants.LIST:
+		case LIST:
 			outMap=list(outMap);
 			break;
-		case Constants.UPDATE:
+		case UPDATE:
 			outMap=update(outMap);
 			break;
-		case Constants.DELETE:
+		case DELETE:
 			outMap=delete(outMap);
 			break;
 		default:
@@ -84,14 +83,10 @@ public class LeadsImpl implements BusinessActivity {
 	 */
 	private Map<String, String> create(Map<String, String> outMap) {
 		
-		final String SALESFORCE_CREATE_LEAD_URL = args.get(INSTANCE_URL)+"/services/data/v25.0/sobjects/Lead/";
+		final String SALESFORCE_CREATE_LEAD_URL = args.get(INSTANCE_URL)+SALESFORCE_LEAD_URL;
 		
 		Map<String,String> header=new HashMap<String,String>();
         header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
-        System.out.println("ACCESS TOKEN:"+args.get("access_token"));
-        					
-
-				
         Map<String, Object> userAttrMap = new HashMap<String, Object>();
         userAttrMap.put("Company", args.get(COMPANY));
         userAttrMap.put("LastName", args.get(LASTNAME));
@@ -99,7 +94,6 @@ public class LeadsImpl implements BusinessActivity {
         TransportTools tst=new TransportTools(SALESFORCE_CREATE_LEAD_URL, null, header);
         Gson obj = new GsonBuilder().setPrettyPrinting().create();
         tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(userAttrMap));
-        System.out.println(tst.toString());
         String responseBody = null;
         
         TransportResponse response = null;
@@ -114,8 +108,6 @@ public class LeadsImpl implements BusinessActivity {
 		}
         
         outMap.put(OUTPUT, responseBody);
-
-		System.out.println("RESPONSE BPDY" + responseBody);
 		return outMap;
 		
 	}
@@ -153,8 +145,6 @@ public class LeadsImpl implements BusinessActivity {
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-
-		System.out.println("RESPONSE BPDY" + responseBody);
 		return outMap;
 	}
 
@@ -165,14 +155,10 @@ public class LeadsImpl implements BusinessActivity {
 	 */
 	private Map<String, String> update(Map<String, String> outMap) {
 		
-final String SALESFORCE_UPDATE_LEAD_URL = args.get(INSTANCE_URL)+"/services/data/v25.0/sobjects/Lead/"+args.get(ID);
+final String SALESFORCE_UPDATE_LEAD_URL = args.get(INSTANCE_URL)+SALESFORCE_LEAD_URL+args.get(ID);
 		
 		Map<String,String> header=new HashMap<String,String>();
         header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
-        System.out.println("ACCESS TOKEN:"+args.get("access_token"));
-        					
-
-				
         Map<String, Object> userAttrMap = new HashMap<String, Object>();
         userAttrMap.put("Company", args.get(COMPANY));
         userAttrMap.put("LastName", args.get(LASTNAME));
@@ -180,13 +166,10 @@ final String SALESFORCE_UPDATE_LEAD_URL = args.get(INSTANCE_URL)+"/services/data
         TransportTools tst=new TransportTools(SALESFORCE_UPDATE_LEAD_URL, null, header);
         Gson obj = new GsonBuilder().setPrettyPrinting().create();
         tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(userAttrMap));
-        System.out.println(tst.toString());
         String responseBody = null;
-        
-        TransportResponse response = null;
         try {
-			response=TransportMachinery.patch(tst);
-			responseBody=response.entityToString();	
+			 TransportMachinery.patch(tst);
+			 responseBody = UPDATE_STRING+args.get(ID);
 		
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -195,8 +178,6 @@ final String SALESFORCE_UPDATE_LEAD_URL = args.get(INSTANCE_URL)+"/services/data
 		}
         
         outMap.put(OUTPUT, responseBody);
-
-		System.out.println("RESPONSE BPDY" + responseBody);
 		return outMap;
 		
 	}
@@ -209,7 +190,7 @@ final String SALESFORCE_UPDATE_LEAD_URL = args.get(INSTANCE_URL)+"/services/data
 	private Map<String, String> delete(Map<String, String> outMap) {
 		
 		final String SALESFORCE_DELETE_LEAD_URL = args.get(INSTANCE_URL)
-				+ "/services/data/v25.0/sobjects/Lead/"+args.get(ID);
+				+SALESFORCE_LEAD_URL+args.get(ID);
 		Map<String, String> header = new HashMap<String, String>();
 		header.put(S_AUTHORIZATION, S_OAUTH+ args.get(ACCESS_TOKEN));
 
@@ -217,10 +198,9 @@ final String SALESFORCE_UPDATE_LEAD_URL = args.get(INSTANCE_URL)+"/services/data
 				header);
 		String responseBody = null;
 
-		TransportResponse response = null;
-
 		try {
-			response = TransportMachinery.delete(tst);
+			 TransportMachinery.delete(tst);
+			 responseBody = DELETE_STRING+args.get(ID);
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -228,11 +208,7 @@ final String SALESFORCE_UPDATE_LEAD_URL = args.get(INSTANCE_URL)+"/services/data
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-
 		outMap.put(OUTPUT, responseBody);
-
-		System.out.println("RESPONSE BPDY" + responseBody);
 		return outMap;
 	}
 	/**

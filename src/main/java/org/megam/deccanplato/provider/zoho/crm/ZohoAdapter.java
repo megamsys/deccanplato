@@ -35,21 +35,17 @@ private BusinessActivity activity;
 	public void configure() {
 		/* using the user#create key */
 		//activity = registry.getBusinessActivity(cloud_app, business_function);
-		System.out.println("BUSINESS INFO"+bizInfo.toString());
 		activity = ProviderRegistry.instance().getBusinessActivity(bizInfo.getName(),
 				bizInfo.getActivityName());
 	}
 
 	public boolean build() {
 		/** get the handle responsible for the call and stick stuff into it **/
-		System.out.println("BUILD"+activity);
-		System.out.println(bizInfo);
 		activity.setArguments(bizInfo,args);
 		return true;
 	}
 	
 	public T handle() {
-		System.out.println("RUN METHOD");
 		return (T) activity.run();
 	}
 

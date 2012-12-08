@@ -49,13 +49,13 @@ public class ZohoAdapterAccess implements AdapterAccess {
 	public <T extends Object> DataMap<T> authenticate(DataMap<T> access)
 			throws AdapterAccessException {
 		Map<String, T> accessMap = access.map();
-
 		List<NameValuePair> list = new ArrayList<NameValuePair>();
 		list.add(new BasicNameValuePair("SCOPE", "ZohoCRM/crmapi"));
 		list.add(new BasicNameValuePair("EMAIL_ID", (String) accessMap
 				.get(EMAIL_ID)));
 		list.add(new BasicNameValuePair("PASSWORD", (String) accessMap
 				.get(PASSWORD)));
+		
 
 		TransportTools tools = new TransportTools(ZOHO_AUTH_URL, list);
 		String responseBody = null;
@@ -69,7 +69,6 @@ public class ZohoAdapterAccess implements AdapterAccess {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-         System.out.println("RESPONSE BODY"+responseBody);
 		return parseOutput(responseBody);
 	}
 

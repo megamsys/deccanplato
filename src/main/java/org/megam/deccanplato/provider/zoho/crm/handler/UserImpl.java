@@ -41,13 +41,14 @@ import static org.megam.deccanplato.provider.Constants.*;
  */
 public class UserImpl implements BusinessActivity {
 
-		
+	private static final String ZOHO_CRM_USER_XML_URL="https://crm.zoho.com/crm/private/xml/Users/";
+	private static final String ZOHO_CRM_USER_JSON_URL="https://crm.zoho.com/crm/private/json/Users/";	
 	private Map<String, String> args;
 	private BusinessActivityInfo bizInfo;
 	
 	@Override
 	public void setArguments(BusinessActivityInfo tempBizInfo, Map<String, String> tempArgs) {
-		System.out.println("SET ARGS IN USER IMPL"+tempBizInfo+":"+tempArgs.toString());
+		
 		this.args = tempArgs;
 		this.bizInfo = tempBizInfo;
 	}
@@ -55,18 +56,17 @@ public class UserImpl implements BusinessActivity {
 	@Override
 	public Map<String, String> run() {
 		Map<String, String> outMap=new HashMap<>();
-		System.out.println("USER IMPLEMENTATION METHOD RUN METHOD");
 		switch (bizInfo.getActivityFunction()) {
-		case Constants.CREATE:
+		case CREATE:
 			outMap=create(outMap);
 			break;
-		case Constants.LIST:
+		case LIST:
 			outMap=list(outMap);
 			break;
-		case Constants.UPDATE:
+		case UPDATE:
 			outMap=update(outMap);
 			break;
-		case Constants.DELETE:
+		case DELETE:
 			outMap=delete(outMap);
 			break;
 		default:
@@ -92,15 +92,12 @@ public class UserImpl implements BusinessActivity {
 	 */
 	private Map<String, String> list(Map<String, String> outMap) {
 		
-		final String ZOHO_USER_URL = "https://crm.zoho.com/crm/private/json/Users/getUsers?";
-		
-		System.out.println("AOUTH TOKEN=::::::::::"+args.get(AUTHTOKEN));
 		List<NameValuePair> userAttrList=new ArrayList<NameValuePair>();
         userAttrList.add(new BasicNameValuePair(OAUTH_TOKEN, args.get(AUTHTOKEN)));
         userAttrList.add(new BasicNameValuePair(ZOHO_SCOPE, SCOPE));
         userAttrList.add(new BasicNameValuePair(ZOHO_TYPE, TYPE));
        
-        TransportTools tst = new TransportTools(ZOHO_USER_URL, userAttrList, null, true, "UTF-8");
+        TransportTools tst = new TransportTools(ZOHO_CRM_USER_JSON_URL+GET_RECORDS, userAttrList, null, true, "UTF-8");
 		String responseBody = null;
 
 		TransportResponse response = null;
@@ -120,8 +117,6 @@ public class UserImpl implements BusinessActivity {
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-
-		System.out.println("RESPONSE BPDY" + responseBody);
 		return outMap;
 		
 	}
@@ -147,7 +142,7 @@ public class UserImpl implements BusinessActivity {
 	}
 
 	/**
-     * this method returns business method name to perform action in that Salesforce Module 
+     * this method returns business method name to perform action in that zoho crm Module 
      */
 	@Override
 	public String name() {

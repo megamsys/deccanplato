@@ -42,7 +42,7 @@ public class CoreTest {
 		}
 		//
 		RequestDataBuilder rdb = new RequestDataBuilder(strb.toString());
-		System.out.println(rdb.data().toString());
+		
 	}
 
 	@Test
@@ -54,6 +54,6 @@ public class CoreTest {
 		ctx.refresh();
 		ProviderRegistry myBean = (ProviderRegistry) ctx
 				.getBean("registry");
-		System.out.println("Provider Registry" + myBean.toString());
+		
 	}
 }

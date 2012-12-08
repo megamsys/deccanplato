@@ -1,0 +1,52 @@
+{
+ "system":{
+   "access":{
+	"project_id":"3c78f781-fc28-4c69-8fad-0ca66f2c5dbc",
+	"api_token":"oVj29MbD2LcXzsRzNFx9vw==",
+	"access_email":"alrin@megam.com",
+	"access_org_id":1,
+	"access_account_name":"MegamSyste"}},
+ "provider":{
+   "access":{
+   "admin_email":"admin@megam.co.in",
+   "admin_name":"admin",
+   "admin_password":"don#1ald",
+   "domain":"megam.co.in",
+   "api_key":"AIzaSyAcu8J9gB0sO7jC4AVryWgp8TvN_Y1D7rc",
+   "application_name":"megam-RESTAPI-3",
+   "upload_path":"/home/pandiyaraja/code/megam/development/deccanplato/src/test/resources/document",
+   "download_path":"/home/pandiyaraja/code/megam/development/deccanplato/src/test/resources/document",
+   "file_type":"text/plain",
+	"EMAIL_ID":"raja.pandiya@megam.co.in",
+	"password":"9787812535",
+	"provider":"googleapp",
+	"category":"CRM",
+	"description":"My first Connector Project",
+	"user_email":"alrin@megam.com",
+	"org_name":"Megam Systems"},
+   "business_activity":{
+	"biz_function":"emailmigration#migrate",
+	"rfcTxt_path":"/home/pandiyaraja/Desktop/samples/messages/m0001.txt",
+	"dest_user":"alrin",	
+	"full_name":"Thomas",
+	"family_name":"Alrin",
+	"given_name":"alfonsa",
+	"prime_email":"Queensland@gmail.com",
+	"display_name":"Thomas",
+	"second_email":"thom@google.com",
+	"prime_phone":"5454545648754",
+	"second_phone":"654548765656",
+	"im_address":"liz@goomail.com",
+	"street":"hillari street",
+	"city":"Queensland",
+	"region":"NZ",
+	"id":"a4c0aee0f458258",
+	"zip_code":"65465845",
+	"country":"INDIA",
+	"address":"1600 Amphitheatre Pkwy Mountain View",
+	"time_zone":"Chennai"}},
+ "execution":{
+   "output":{
+	"type":"default",
+	"location":"default"}}
+}

@@ -1,0 +1,27 @@
+{
+ "system":{
+   "access":{
+	"project_id":"3c78f781-fc28-4c69-8fad-0ca66f2c5dbc",
+	"api_token":"oVj29MbD2LcXzsRzNFx9vw==",
+	"access_email":"alrin@megam.com",
+	"access_org_id":1,
+	"access_account_name":"MegamSyste"}},
+ "provider":{
+   "access":{
+   "admin_email":"admin@megam.co.in",
+   "admin_name":"admin",
+   "admin_password":"********",
+   "domain":"megam.co.in",
+   "application_name":"megam-RESTAPI-3",
+	"provider":"googleapp",
+	"category":"CRM",
+	"description":"My first Connector Project"},
+   "business_activity":{
+	"biz_function":"emailmigration#migrate",
+	"rfcTxt_path":"/home/pandiyaraja/Desktop/samples/messages/m0001.txt",
+	"dest_user":"alrin"}},
+ "execution":{
+   "output":{
+	"type":"default",
+	"location":"default"}}
+}

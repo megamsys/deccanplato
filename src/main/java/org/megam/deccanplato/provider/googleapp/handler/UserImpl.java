@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package org.megam.deccanplato.provider.googleapp.handler;
 
 import static org.megam.deccanplato.provider.Constants.*;
+import static org.megam.deccanplato.provider.googleapp.Constants.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.megam.deccanplato.provider.BusinessActivity;
 import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 import org.megam.deccanplato.provider.googleapp.info.AppsForYourDomainClient;
@@ -29,27 +31,44 @@ import org.megam.deccanplato.provider.googleapp.info.AppsForYourDomainClient;
 import com.google.gdata.data.ParseSource;
 import com.google.gdata.data.appsforyourdomain.provisioning.UserEntry;
 import com.google.gdata.data.appsforyourdomain.provisioning.UserFeed;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
+/**
+ * 
+ * @author pandiyaraja
+ * 
+ * This class implements the business activity of GoogleApp user method.
+ * this class is implemented by using google-gdata-client library, and this class needs 
+ * admin user name and password to get authenticate 
+ * this class has four methods, to implement business functions, like create, update,
+ * lisd and delete(delete method, delete a user from admin account).
+ */
 
 public class UserImpl implements BusinessActivity {
-
-	BusinessActivityInfo bizInfo;
-	Map<String, String> args = new HashMap<String, String>();
-	
+    
+	private AppsForYourDomainClient apclient;
+	private BusinessActivityInfo bizInfo;
+	private Map<String, String> args = new HashMap<String, String>();
+	/**
+	 * this method initialize the operations to perform (like create, list, update, delete)
+	 * client credential set in this method by calling AppsForYourDomainClient class constructor
+	 */
 	@Override
 	public void setArguments(BusinessActivityInfo tempBizInfo, Map<String, String> tempArgs) {
 		
 		this.bizInfo=tempBizInfo;
 		this.args=tempArgs;
+		try {
+			apclient = new AppsForYourDomainClient(args.get(ADMIN_EMAIL),
+					args.get(ADMIN_PASSWORD), args.get(DOMAIN));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public Map<String, String> run() {
 		
 		Map<String, String> outMap = new HashMap<String, String>();
-		System.out.println("USER IMPLEMENTATION METHOD RUN METHOD");
 		switch (bizInfo.getActivityFunction()) {
 		case CREATE:
 			outMap = create(outMap);
@@ -71,36 +90,38 @@ public class UserImpl implements BusinessActivity {
 	}
 
 	/**
+	 * this method creates a user in a domain.
+	 * args map has all the value to create a user in a domain,
+	 * user account create by calling AppsForYourDomainClient class createUser method 
+	 * with client credential apclient
 	 * @param outMap
-	 * @return
+	 * @return outMap has the output
 	 */
 	private Map<String, String> create(Map<String, String> outMap) {
 		
-		AppsForYourDomainClient apclient;
-		try {
-			apclient = new AppsForYourDomainClient(args.get("email"),
-					args.get("password"), args.get("domain"));
-			apclient.createUser(args.get("user_name"), args.get("given_name"), args.get("family_name"), args.get("user_password"));
+		
+		try {			
+			apclient.createUser(args.get(USER_NAME), args.get(GIVEN_NAME), args.get(FAMILY_NAME), args.get(USER_PASSWORD));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return null;
+       outMap.put(OUTPUT, CREATE_STRING);
+		return outMap;
 	}
 
 	/**
+	 * this method lists all user in a domain.
+	 * users list by calling AppsForYourDomainClient class retrieveAllUsers method 
+	 * with client credential apclient
 	 * @param outMap
-	 * @return
+	 * @return outMap has the list of users.
 	 */
 	private Map<String, String> list(Map<String, String> outMap) {
-		Gson obj = new GsonBuilder().setPrettyPrinting().create();
-		Map<String, String> outMap1 =new HashMap<>();
+		List<String> list=new ArrayList<String>();
 		UserFeed userFeed = null;
-		AppsForYourDomainClient apclient;
+		
 		try {
-			apclient = new AppsForYourDomainClient(args.get("email"),
-					args.get("password"), args.get("domain"));
 			userFeed = apclient.retrieveAllUsers();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -110,60 +131,65 @@ public class UserImpl implements BusinessActivity {
 		if (userFeed != null) {
 			for (UserEntry userEntry : userFeed.getEntries()) {
 				
-				outMap.put("user_name", userEntry.getLogin().getUserName());
-				outMap.put("user_name", userEntry.getLogin().getPassword());
+				List<NameValuePair> userlist=new ArrayList<NameValuePair>();
+				userlist.add(new BasicNameValuePair(USER_NAME, userEntry.getLogin().getUserName()));
+				userlist.add(new BasicNameValuePair(USER_PASSWORD, userEntry.getLogin().getPassword()));
 				//outMap.put("user_name", userEntry.getLogin().getAdmin());
-				outMap.put("user_name", userEntry.getName().getFamilyName());
-				outMap.put("user_name", userEntry.getName().getGivenName());
-				outMap1.putAll(outMap);
+				userlist.add(new BasicNameValuePair(FAMILY_NAME, userEntry.getName().getFamilyName()));
+				userlist.add(new BasicNameValuePair(GIVEN_NAME, userEntry.getName().getGivenName()));
+				list.add(userlist.toString());
+				outMap.put(OUTPUT,list.toString());
 			}
-               outMap.put(OUTPUT,obj.toJson(outMap1));
+               
 		}
-         System.out.println("RESULT"+obj.toJson(outMap));
-		
 		return outMap;
 	}
 
 	/**
+	 * this method updates a user in a domain.
+	 * args map has all the value to update a user in a domain,
+	 * user account updated by calling AppsForYourDomainClient class updateUser method 
+	 * with client credential apclient
 	 * @param outMap
-	 * @return
+	 * @return outMap
 	 */
 	private Map<String, String> update(Map<String, String> outMap) {
 		
-		AppsForYourDomainClient apclient;
 		try {
-			apclient = new AppsForYourDomainClient(args.get("email"),
-					args.get("password"), args.get("domain"));
 			List<String> list=new ArrayList<>();
-			list.add(args.get("user"));
-			list.add(args.get("password"));
+			list.add(args.get(USER));
+			list.add(args.get(PASSWORD));
 			UserEntry value=(UserEntry) UserEntry.readEntry((ParseSource) list);
-			apclient.updateUser(args.get("user_name"), value);
+			apclient.updateUser(args.get(USER_NAME), value);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return null;
+		outMap.put(OUTPUT, UPDATE_STRING+args.get("user_name"));
+		return outMap;
 	}
 
 	/**
+	 * this method deletes a user in a domain.
+	 * args map has all the value to delete a user in a domain,
+	 * user account create by calling AppsForYourDomainClient class deleteUser method 
+	 * with client credential apclient
 	 * @param outMap
-	 * @return
+	 * @return outMap
 	 */
 	private Map<String, String> delete(Map<String, String> outMap) {
-		AppsForYourDomainClient apclient;
+		
 		try {
-			apclient = new AppsForYourDomainClient(args.get("email"),
-					args.get("password"), args.get("domain"));
-			apclient.deleteUser(args.get("user_name"));
+			apclient.deleteUser(args.get(USER_NAME));
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-
-		return null;
+        outMap.put(OUTPUT, DELETE_STRING+args.get(USER_NAME));
+		return outMap;
 	}
 
 	@Override

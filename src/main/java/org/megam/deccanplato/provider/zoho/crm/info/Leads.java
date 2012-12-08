@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author pandiyaraja
  *
  *This class populates an XML data to send as input to zoho lead create.
- *it calls from lead business function method, and it takes in put from that same method.
+ *it calls from lead business function method, and it takes input from that same method.
  */
 @XmlRootElement (name = "Leads")
 public class Leads extends XMLBase {

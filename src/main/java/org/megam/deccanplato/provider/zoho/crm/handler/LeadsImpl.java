@@ -46,7 +46,8 @@ import static org.megam.deccanplato.provider.Constants.*;
  */
 public class LeadsImpl implements BusinessActivity {
 	
-	
+	private static final String ZOHO_CRM_LEAD_XML_URL="https://crm.zoho.com/crm/private/xml/Leads/";
+	private static final String ZOHO_CRM_LEAD_JSON_URL="https://crm.zoho.com/crm/private/json/Leads/";
 	private Map<String, String> args;
 	private BusinessActivityInfo bizInfo;
 	
@@ -61,18 +62,17 @@ public class LeadsImpl implements BusinessActivity {
 	public Map<String, String> run() {
 		
 		Map<String, String> outMap=new HashMap<>();
-		System.out.println("USER IMPLEMENTATION METHOD RUN METHOD");
 		switch (bizInfo.getActivityFunction()) {
-		case Constants.CREATE:
+		case CREATE:
 			outMap=create(outMap);
 			break;
-		case Constants.LIST:
+		case LIST:
 			outMap=list(outMap);
 			break;
-		case Constants.UPDATE:
+		case UPDATE:
 			outMap=update(outMap);
 			break;
-		case Constants.DELETE:
+		case DELETE:
 			outMap=delete(outMap);
 			break;
 		default:
@@ -88,8 +88,6 @@ public class LeadsImpl implements BusinessActivity {
 	 * @param outMap 
 	 */
 	private Map<String, String> create(Map<String, String> outMap) {
-		
-        final String ZOHO_LEADS_CREATE_URL = "https://crm.zoho.com/crm/private/xml/Leads/insertRecords?";
 		
 		Leads leads=new Leads();
 		leads.setAnualRevenue(args.get(ANNUALREVENUE));
@@ -122,13 +120,12 @@ public class LeadsImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("XML STRING VALUE"+xmlout);
 		List<NameValuePair> accountAttrList=new ArrayList<NameValuePair>();
 		accountAttrList.add(new BasicNameValuePair(OAUTH_TOKEN, args.get(AUTHTOKEN)));
 		accountAttrList.add(new BasicNameValuePair(ZOHO_SCOPE, SCOPE));
 		accountAttrList.add(new BasicNameValuePair(ZOHO_XMLDATA, xmlout));
 		
-        TransportTools tst = new TransportTools(ZOHO_LEADS_CREATE_URL, accountAttrList);
+        TransportTools tst = new TransportTools(ZOHO_CRM_LEAD_XML_URL+INSERT_RECORDS, accountAttrList);
 		String responseBody = null;
 
 		TransportResponse response = null;
@@ -145,8 +142,6 @@ public class LeadsImpl implements BusinessActivity {
 		responseBody = response.statusLineToString();
 
 		outMap.put(OUTPUT, responseBody);
-
-		System.out.println("RESPONSE BPDY" + responseBody);
 		return outMap;
 	}
 
@@ -155,17 +150,14 @@ public class LeadsImpl implements BusinessActivity {
 	 * This method takes input as a MAP(contains json dada) and returns a MAP.
 	 * @param outMap 
 	 */
-	private Map<String, String> list(Map<String, String> outMap) {
-		
-       final String ZOHO_LEAD_LIST_URL = "https://crm.zoho.com/crm/private/json/Leads/getRecords";
-		
+	private Map<String, String> list(Map<String, String> outMap) {		
 		
 		List<NameValuePair> accountAttrList=new ArrayList<NameValuePair>();
 		accountAttrList.add(new BasicNameValuePair(OAUTH_TOKEN, args.get(AUTHTOKEN)));
 		accountAttrList.add(new BasicNameValuePair(ZOHO_SCOPE, SCOPE));
         
        
-        TransportTools tst = new TransportTools(ZOHO_LEAD_LIST_URL, accountAttrList, null, true, "UTF-8");
+        TransportTools tst = new TransportTools(ZOHO_CRM_LEAD_JSON_URL+GET_RECORDS, accountAttrList, null, true, "UTF-8");
 		String responseBody = null;
 
 		TransportResponse response = null;
@@ -185,8 +177,6 @@ public class LeadsImpl implements BusinessActivity {
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-
-		System.out.println("RESPONSE BPDY LIST" + responseBody);
 		return outMap;	
 	}
 
@@ -196,8 +186,62 @@ public class LeadsImpl implements BusinessActivity {
 	 * @param outMap 
 	 */
 	private Map<String, String> update(Map<String, String> outMap) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Leads leads=new Leads();
+		leads.setAnualRevenue(args.get(ANNUALREVENUE));
+		leads.setCity(args.get(CITY));
+		leads.setCompany(args.get(COMPANY));
+		leads.setCountry(args.get(COUNTRY));
+		leads.setDescription(args.get(DESCRIPTION));
+		leads.setDesignation(args.get(DESIGNATION));
+		leads.setEmail(args.get(EMAIL));
+		leads.setEmailOptOut(args.get(EMAIL_OPT_OUT));
+		leads.setFax(args.get(FAX));
+		leads.setFirstname(args.get(FIRSTNAME));
+		leads.setIndustry(args.get(INDUSTRY));
+		leads.setLastname(args.get(LASTNAME));
+		leads.setLeadSource(args.get(LEAD_SOURCE));
+		leads.setLeadStatus(args.get(LEAD_STATUS));
+		leads.setMobile(args.get(MOBILE));
+		leads.setNoOfEmployees(args.get(EMPLOYEES));
+		leads.setPhone(args.get(PHONE));
+		leads.setSalutation(args.get(SALUTATION));
+		leads.setSkypeId(args.get(SKYPE_ID));
+		leads.setState(args.get(STATE));
+		leads.setStreet(args.get(STREET));
+		leads.setWebsite(args.get(WEBSITE));
+		leads.setZipCode(args.get(ZIP_CODE));
+		String xmlout = null;
+		try {
+			xmlout=leads.toXMLString();
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<NameValuePair> accountAttrList=new ArrayList<NameValuePair>();
+		accountAttrList.add(new BasicNameValuePair(OAUTH_TOKEN, args.get(AUTHTOKEN)));
+		accountAttrList.add(new BasicNameValuePair(ZOHO_SCOPE, SCOPE));
+		accountAttrList.add(new BasicNameValuePair(ID, args.get(ID)));
+		accountAttrList.add(new BasicNameValuePair(ZOHO_XMLDATA, xmlout));
+		
+        TransportTools tst = new TransportTools(ZOHO_CRM_LEAD_XML_URL+UPDATE_RECORDS, accountAttrList);
+		String responseBody = null;
+
+		TransportResponse response = null;
+
+		try {
+			response = TransportMachinery.post(tst);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		responseBody = response.statusLineToString();
+
+		outMap.put(OUTPUT, responseBody);
+		return outMap;
 	}
 
 	/**
@@ -207,14 +251,12 @@ public class LeadsImpl implements BusinessActivity {
 	 */
 	private Map<String, String> delete(Map<String, String> outMap) {
 		
-final String ZOHO_LEAD_DELETE_URL="https://crm.zoho.com/crm/private/json/Leads/deleteRecords";
-		
 		List<NameValuePair> accountAttrList=new ArrayList<NameValuePair>();
 		accountAttrList.add(new BasicNameValuePair(OAUTH_TOKEN, args.get(AUTHTOKEN)));
 		accountAttrList.add(new BasicNameValuePair(ZOHO_SCOPE, SCOPE));
 		accountAttrList.add(new BasicNameValuePair(ID, args.get(ID)));
 		
-		TransportTools tst = new TransportTools(ZOHO_LEAD_DELETE_URL, accountAttrList);
+		TransportTools tst = new TransportTools(ZOHO_CRM_LEAD_JSON_URL+DELETE_RECORDS, accountAttrList);
 		String responseBody = null;
 
 		TransportResponse response = null;
@@ -231,13 +273,11 @@ final String ZOHO_LEAD_DELETE_URL="https://crm.zoho.com/crm/private/json/Leads/d
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-
-		System.out.println("RESPONSE BPDY LIST" + responseBody);
 		return outMap;
 	}
 
 	/**
-     * this method returns business method name to perform action in that Salesforce Module 
+     * this method returns business method name to perform action in that zoho crm Module 
      */
 	@Override
 	public String name() {

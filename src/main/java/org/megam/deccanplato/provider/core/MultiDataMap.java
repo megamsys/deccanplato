@@ -55,8 +55,6 @@ public class MultiDataMap<T extends Object> implements DataMap<T> {
 			newmap.putAll(entry.getValue().map());
 			
 		}
-		System.out.println("MULTIMAP"+newmap.toString());
-		
 		
 		return newmap;
 	}

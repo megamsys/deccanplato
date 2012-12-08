@@ -72,10 +72,8 @@ public class ProviderRegistry {
 
 	public BusinessActivity getBusinessActivity(String providerName,
 			String activityName) {
-		System.out.println("PROVIDER AND ACTIVITY"+providerName+""+activityName);
 		Set<BusinessActivity> activitySet = bizActivityMap.get(providerName);
 		for (BusinessActivity searchedActivity : activitySet) {
-			System.out.println("ProviderRegistry"+searchedActivity.name()+":::"+activityName);
 			if (searchedActivity.name().equalsIgnoreCase(activityName)) {
 				
 				   return searchedActivity;

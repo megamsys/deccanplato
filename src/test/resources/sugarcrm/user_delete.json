@@ -1,0 +1,35 @@
+{
+	"system": {
+		"access": {
+			"project_id": "3c78f781-fc28-4c69-8fad-0ca66f2c5dbc",
+			"api_token": "oVj29MbD2LcXzsRzNFx9vw==",
+			"access_email": "alrin@megam.com",
+			"access_org_id": 1,
+			"access_account_name": "MegamSyste"
+		}
+	},
+	"provider": {
+		"access": {
+			"user_name":"admin",
+	                "password":"3ec4036a9c2e75778a63011ca1d47079",
+                        "version":"1",
+			"provider": "sugarcrm",
+			"category": "CRM",
+			"description": "My first Connector Project",
+			"user_email": "alrin@megam.com",
+			"org_name": "Megam Systems"
+		},
+		"business_activity": {
+			"biz_function": "user#delete",
+			"user_name":"raja.pandiya",
+	        "last_name":"Alrin",
+	        "id":"00Q9000000CoBZmEAN"
+		}
+	},
+	"execution": {
+		"output": {
+			"type": "default",
+			"location": "default"
+		}
+	}
+}

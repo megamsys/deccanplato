@@ -10,10 +10,10 @@
 	},
 	"provider": {
 		"access": {
-			"access_username": "pontiyaraja@gmail.com",
-			"access_password": "team4megamE1mlHRMlL7deN0zCN4oDAZlJq",
+			"user_name":"admin",
+	                "password":"3ec4036a9c2e75778a63011ca1d47079",
                         "version":"1",
-			"provider": "salesforce",
+			"provider": "sugarcrm",
 			"category": "CRM",
 			"description": "My first Connector Project",
 			"user_email": "alrin@megam.com",

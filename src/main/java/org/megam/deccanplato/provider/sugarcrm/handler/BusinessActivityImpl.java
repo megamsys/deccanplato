@@ -66,7 +66,6 @@ public class BusinessActivityImpl implements BusinessActivity {
 	@Override
 	public Map<String, String> run() {
 		Map<String, String> outMap = new HashMap<String, String>();
-		System.out.println("USER IMPLEMENTATION METHOD RUN METHOD");
 		switch (bizInfo.getActivityFunction()) {
 		case CREATE:
 			outMap = create(outMap);
@@ -99,7 +98,6 @@ public class BusinessActivityImpl implements BusinessActivity {
 		MutableSugar scu = new MutableSugar(name(),args);
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String json = gson.toJson(scu);
-		System.out.println("USERIMPL JSON VALUE" + json);
 
 		List<NameValuePair> userAttr = new ArrayList<NameValuePair>();
 		userAttr.add(new BasicNameValuePair(METHOD, SET_METHOD));
@@ -122,9 +120,6 @@ public class BusinessActivityImpl implements BusinessActivity {
 		}
 
 		outMap.put(OUTPUT, responseBody);
-		;
-
-		System.out.println("RESPONSE BPDY" + responseBody);
 		return outMap;
 	}
 
@@ -140,7 +135,6 @@ public class BusinessActivityImpl implements BusinessActivity {
 		ImmutableSugar scu = new ImmutableSugar(name(), args);
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String json = gson.toJson(scu);
-		System.out.println("USERIMPL JSON VALUE" + json);
 		List<NameValuePair> userAttr = new ArrayList<NameValuePair>();
 		userAttr.add(new BasicNameValuePair(METHOD, GET_LIST));
 		userAttr.add(new BasicNameValuePair(INPUT_TYPE, TYPE));
@@ -167,9 +161,6 @@ public class BusinessActivityImpl implements BusinessActivity {
 		}
         responseBody=response.entityToString(); 
 		outMap.put(OUTPUT, responseBody);
-		
-
-		System.out.println("RESPONSE BPDY" + responseBody);
 		return outMap;
 	}
 
@@ -207,9 +198,6 @@ public class BusinessActivityImpl implements BusinessActivity {
 		}
 
 		outMap.put(OUTPUT, responseBody);
-		;
-
-		System.out.println("RESPONSE BPDY" + responseBody);
 		return outMap;
 		
 	}
