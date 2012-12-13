@@ -65,16 +65,16 @@ public class CallImpl implements BusinessActivity{
 	public Map<String, String> run() {
 		Map<String, String> outMap=new HashMap<>();
 		switch (bizInfo.getActivityFunction()) {
-		CALL CREATE:
+		case CREATE:
 			outMap=create(outMap);
 			break;
-		CALL LIST:
+		case LIST:
 			outMap=list(outMap);
 			break;
-		CALL UPDATE:
+		case UPDATE:
 			outMap=update(outMap);
 			break;
-		CALL DELETE:
+		case DELETE:
 			outMap=delete(outMap);
 			break;
 		default:

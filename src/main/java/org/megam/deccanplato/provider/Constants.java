@@ -45,6 +45,18 @@ public class Constants {
 	public static final String REMIND="remind";
 	public static final String VIEW="view";
 	public static final String MIGRATE="migrate";
+	public static final String FEED="feed";
+	public static final String COMMENT="comment";
+	public static final String LIKE="like";
+	public static final String MEMBERSHIP="membership";
+	public static final String FILE="file";
+	public static final String MEMBER="member";
+	public static final String CONVERSATION="conversation";
+	public static final String CONVERSATIONVIEW="conversationview";
+	public static final String MESSAGE="message";
+	public static final String MESSAGEVIEW="messageview";
+	public static final String POSTCOMMENT="postcomment";
+	
 	
 	
 	/**

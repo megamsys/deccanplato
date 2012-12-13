@@ -27,7 +27,7 @@ import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.DefaultCloudProviderMediator;
 import org.megam.deccanplato.provider.core.RequestData;
 import org.megam.deccanplato.provider.core.RequestDataBuilder;
-import org.megam.deccanplato.provider.salesforce.SalesforceAdapterAccess;
+import org.megam.deccanplato.provider.salesforce.crm.SalesforceCRMAdapterAccess;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.io.ClassPathResource;

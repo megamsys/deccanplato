@@ -20,22 +20,25 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.junit.Test;
 import org.megam.deccanplato.provider.core.AdapterAccessException;
 import org.megam.deccanplato.provider.core.CloudMediatorException;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.DefaultCloudProviderMediator;
 import org.megam.deccanplato.provider.core.RequestData;
 import org.megam.deccanplato.provider.core.RequestDataBuilder;
-import org.megam.deccanplato.provider.salesforce.SalesforceAdapterAccess;
+import org.megam.deccanplato.provider.salesforce.crm.SalesforceCRMAdapterAccess;
 import org.megam.deccanplato.provider.sugarcrm.SugarCRMAdapterAccess;
-import org.megam.deccanplato.provider.zoho.crm.ZohoAdapterAccess;
+import org.megam.deccanplato.provider.zoho.crm.ZohoCRMAdapterAccess;
+
+import com.google.gson.Gson;
 
 /**
  * @author pandiyaraja
  *
  */
 public class CommonTest {
-	private static RequestData reqData;
+	/*private static RequestData reqData;
 	RequestDataBuilder rdb;
 
 	public void testCommonTest(String provider, String activity)
@@ -80,7 +83,7 @@ public class CommonTest {
 	}
 	private void testSalesforceAdapterAccess() {
 
-		SalesforceAdapterAccess saa = new SalesforceAdapterAccess();
+		SalesforceCRMAdapterAccess saa = new SalesforceCRMAdapterAccess();
 		DataMap dmap;
 		try {
 			dmap = saa.authenticate(reqData.getGeneral());
@@ -92,7 +95,7 @@ public class CommonTest {
 	}	
 	private void testZohoAdapterAccess() {
 		
-		ZohoAdapterAccess zaa=new ZohoAdapterAccess();		
+		ZohoCRMAdapterAccess zaa=new ZohoCRMAdapterAccess();		
 		DataMap dmap;
 		try {
 			dmap = zaa.authenticate(reqData.getGeneral());
@@ -118,7 +121,11 @@ public class CommonTest {
 	private void testCase() throws CloudMediatorException {
 		DefaultCloudProviderMediator dcm = new DefaultCloudProviderMediator(
 				reqData);
+	}*/
+	@Test
+	public void test() {
+	body B=new body();
+	Gson gson=new Gson();
+	System.out.println(gson.toJson(B));
 	}
-
-
 }

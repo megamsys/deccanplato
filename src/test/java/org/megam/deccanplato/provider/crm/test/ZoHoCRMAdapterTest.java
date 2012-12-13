@@ -9,7 +9,7 @@ import org.megam.deccanplato.provider.core.AdapterAccessException;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.RequestData;
 import org.megam.deccanplato.provider.crm.test.common.CommonTest;
-import org.megam.deccanplato.provider.zoho.crm.ZohoAdapterAccess;
+import org.megam.deccanplato.provider.zoho.crm.ZohoCRMAdapterAccess;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.io.ClassPathResource;
@@ -62,7 +62,7 @@ public class ZoHoCRMAdapterTest {
 
 	public void testAdapterAccess(RequestData reqData) {
 
-		ZohoAdapterAccess saa = new ZohoAdapterAccess();
+		ZohoCRMAdapterAccess saa = new ZohoCRMAdapterAccess();
 		try {
 			DataMap dmap = saa.authenticate(reqData.getGeneral());
 		} catch (AdapterAccessException e) {
