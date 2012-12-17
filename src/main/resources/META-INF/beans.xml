@@ -38,6 +38,7 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 				<entry key="xero" value-ref="xero" />
 				<entry key="box" value-ref="box" />
 				<entry key="dropbox" value-ref="dropbox" />
+				<entry key="twilio" value-ref="twilio" />
 			</map>
 		</property>
 		<property name="bizActivityMap">
@@ -125,6 +126,18 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 				<entry key="dropbox">
 					<set>
 						<bean class="org.megam.deccanplato.provider.dropbox.handler.FileImpl" />
+					</set>
+				</entry>
+				<entry key="twilio">
+					<set>
+						<bean class="org.megam.deccanplato.provider.twilio.handler.AccountImpl" />
+						<bean class="org.megam.deccanplato.provider.twilio.handler.SearchPhoneNumbersImpl"/>
+						<bean class="org.megam.deccanplato.provider.twilio.handler.OutgoingCallerIdImpl" />
+						<bean class="org.megam.deccanplato.provider.twilio.handler.IncomingNumbersImpl" />
+						<bean class="org.megam.deccanplato.provider.twilio.handler.SmsImpl" />
+						<bean class="org.megam.deccanplato.provider.twilio.handler.CallsImpl" />
+						<bean class="org.megam.deccanplato.provider.twilio.handler.ApplicationImpl" />
+						<bean class="org.megam.deccanplato.provider.twilio.handler.RecordingsImpl" />
 					</set>
 				</entry>
 			</map>

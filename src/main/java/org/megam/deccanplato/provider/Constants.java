@@ -38,13 +38,19 @@ public class Constants {
 	public static final String LIST="list";
 	public static final String UPDATE="update";
 	public static final String DELETE="delete";
+	public static final String VIEW="view";
+	/**
+	 * ZOHO INVOICE
+	 */
 	public static final String MARK="mark";
 	public static final String SEND="send";
 	public static final String PDF="pdf";
 	public static final String CONVERT="convert";
-	public static final String REMIND="remind";
-	public static final String VIEW="view";
+	public static final String REMIND="remind";	
 	public static final String MIGRATE="migrate";
+	/**
+	 * SALESFORCE CHATTER
+	 */
 	public static final String FEED="feed";
 	public static final String COMMENT="comment";
 	public static final String LIKE="like";
@@ -56,9 +62,25 @@ public class Constants {
 	public static final String MESSAGE="message";
 	public static final String MESSAGEVIEW="messageview";
 	public static final String POSTCOMMENT="postcomment";
-	
-	
-	
+	/**
+	 * TWILIO
+	 */
+	public static final String SUSPEND="suspend";
+	public static final String ACTIVE="active";
+	public static final String CLOSE="close";
+	public static final String LISTACTIVE="listactive";
+	public static final String LOCALLIST="locallist";
+	public static final String STARTSWITH="startswith";
+	public static final String STORM="storm";
+	public static final String INREGION="region";
+	public static final String WITHINDISTANCE="withindistance";
+	public static final String TOLLFREELIST="tollfreelist";
+	public static final String TOLLFREESTORM="tollfreestorm";
+	public static final String TOLLFREEPATTERN="tollfreepattern";
+	public static final String RECORDINGLIST="recordinglist";
+	public static final String NOTIFICATIONS="notifications";
+	public static final String MAKECALL="makecall";
+	public static final String MODIFYLIVECALL="modifylivecall";
 	/**
 	 * The key that are passed over in the output section of the request Json. 
 	 */

@@ -94,8 +94,9 @@ private Map<String, String> create(Map<String, String> outMap) {
 	
 final String SALESFORCE_CREATE_CAMPAIGN_URL = args.get(INSTANCE_URL)+SALESFORCE_CAMPAIGN_URL;
 	
-	Map<String,String> header=new HashMap<String,String>();
+	Map<String,String> header=new HashMap<String,String>();	
     header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
+    
     Map<String, Object> userAttrMap = new HashMap<String, Object>();
     userAttrMap.put("Name", args.get(NAME));
             

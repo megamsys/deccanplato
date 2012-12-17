@@ -19,6 +19,8 @@ import java.net.URISyntaxException;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
@@ -41,7 +43,15 @@ public class TransportMachinery {
 
 		if (nuts.headers() != null) {
 			for (Map.Entry<String, String> headerEntry : nuts.headers().entrySet()) {
-				httppost.addHeader(headerEntry.getKey(), headerEntry.getValue());
+				
+				//this if condition is set for twilio Rest API to add credentials to DefaultHTTPClient, conditions met twilio work.
+				if(headerEntry.getKey().equalsIgnoreCase("provider") & headerEntry.getValue().equalsIgnoreCase(nuts.headers().get("provider"))) {
+					httpclient.getCredentialsProvider().setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), new UsernamePasswordCredentials(nuts.headers().get("account_sid"), nuts.headers().get("oauth_token")));
+				}
+				//this else part statements for other providers
+				else {
+				    httppost.addHeader(headerEntry.getKey(), headerEntry.getValue());
+				}
 			}
 		}
 		
@@ -52,7 +62,7 @@ public class TransportMachinery {
 		if (nuts.contentType() !=null) {
 			httppost.setEntity(new StringEntity(nuts.contentString(),nuts.contentType()));
 		}
-
+         
 		TransportResponse transportResp = null;
 		try {
 			HttpResponse httpResp  = httpclient.execute(httppost);
@@ -135,7 +145,15 @@ public class TransportMachinery {
 
 		if (nuts.headers() != null) {
 			for (Map.Entry<String, String> headerEntry : nuts.headers().entrySet()) {
-				httpget.addHeader(headerEntry.getKey(), headerEntry.getValue());
+				
+				//this if condition is set for twilio Rest API to add credentials to DefaultHTTPClient, conditions met twilio work.
+				if(headerEntry.getKey().equalsIgnoreCase("provider") & headerEntry.getValue().equalsIgnoreCase(nuts.headers().get("provider"))) {
+					httpclient.getCredentialsProvider().setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), new UsernamePasswordCredentials(nuts.headers().get("account_sid"), nuts.headers().get("oauth_token")));
+				}
+				//this else part statements for other providers
+				else {
+				    httpget.addHeader(headerEntry.getKey(), headerEntry.getValue());
+				}
 			}
 		}
 		
@@ -164,7 +182,15 @@ public class TransportMachinery {
 
 		if (nuts.headers() != null) {
 			for (Map.Entry<String, String> headerEntry : nuts.headers().entrySet()) {
-				httpdel.addHeader(headerEntry.getKey(), headerEntry.getValue());
+
+				//this if condition is set for twilio Rest API to add credentials to DefaultHTTPClient, conditions met twilio work.
+				if(headerEntry.getKey().equalsIgnoreCase("provider") & headerEntry.getValue().equalsIgnoreCase(nuts.headers().get("provider"))) {
+					httpclient.getCredentialsProvider().setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), new UsernamePasswordCredentials(nuts.headers().get("account_sid"), nuts.headers().get("oauth_token")));
+				}
+				//this else part statements for other providers
+				else {
+				    httpdel.addHeader(headerEntry.getKey(), headerEntry.getValue());
+				}
 			}
 		}
 		

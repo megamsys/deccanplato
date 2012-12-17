@@ -111,4 +111,16 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 			parent="providerAdapter" />
 		</property>
 	</bean>
+	<bean id="twilio" class="org.megam.deccanplato.provider.Provider">
+		<property name="name" value="twilio" />
+		<property name="description" value="Twilio App." />
+		<property name="adapter">
+			<bean class="org.megam.deccanplato.provider.twilio.TwilioAdapter"
+			parent="providerAdapter" />
+		</property>
+		<property name="access">
+			<bean class="org.megam.deccanplato.provider.twilio.TwilioAdapterAccess"
+			parent="adapterAccess" />
+		</property>
+	</bean>
 </beans>

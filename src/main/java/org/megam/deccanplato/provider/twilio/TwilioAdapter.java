@@ -56,10 +56,8 @@ public class TwilioAdapter extends AbstractProviderAdapter{
 	@Override
 	public void configure() {
 		
-		activity = ProviderRegistry.instance().getBusinessActivity(bizInfo.getName(),
-				bizInfo.getActivityName());
-		
-		((BusinessActivityImpl)activity).setName(bizInfo.getActivityName());
+		activity = ProviderRegistry.instance().getBusinessActivity(
+				bizInfo.getName(), bizInfo.getActivityName());
 		
 	}
 
