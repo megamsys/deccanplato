@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.megam.deccanplato</groupId>
 	<artifactId>deccanplato</artifactId>
@@ -9,7 +9,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.7</java-version>
-		<org.springframework-version>3.1.2.RELEASE</org.springframework-version>
+		<org.springframework-version>3.2.0.RELEASE</org.springframework-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.aspectj-version>1.7.0</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
@@ -29,13 +29,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<version>2.2</version>
 			<scope>provided</scope>
 		</dependency>
-
 		<!-- Spring -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${org.springframework-version}</version>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -47,6 +41,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -129,6 +128,21 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Apache http common -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+		<!-- Apache REST client. Used for unit testing. currently used by SugarCRM 
+			adapter tests -->
+		<dependency>
+			<groupId>org.apache.wink</groupId>
+			<artifactId>wink-client</artifactId>
+			<version>1.2.1-incubating</version>
+		</dependency>
+
 		<!-- JSR 303 with Hibernate Validator -->
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -145,9 +159,35 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk</artifactId>
-			<version>1.3.20</version>
+			<version>1.3.26</version>
 		</dependency>
 
+		<!-- Joda Time API -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.1</version>
+		</dependency>
+
+		<!-- Jackson: JSON processor -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+
+		<!--- Google common -->
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>14.0-rc1</version>
+		</dependency>
 		<!-- Gson: Java to Json conversion -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -155,34 +195,20 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<version>2.2.2</version>
 			<scope>compile</scope>
 		</dependency>
-
-		<!-- Jackson: JSON processor -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>2.0.6</version>
-		</dependency>
-		<!--- Google Api -->
+		<!-- The google-jackson is used by Drive API (or) Google API service. We 
+			need to move them to google-jackson2 -->
 		<dependency>
 			<groupId>com.google.http-client</groupId>
-			<artifactId>google-http-client</artifactId>
+			<artifactId>google-http-client-jackson</artifactId>
 			<version>1.12.0-beta</version>
 		</dependency>
+		<!--- Google API -->
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.2.1</version>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>1.12.0-beta</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.wink</groupId>
-			<artifactId>wink-client</artifactId>
-			<version>1.2.0-incubating</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.apis</groupId>
-			<artifactId>google-api-services-drive</artifactId>
-			<version>v2-rev22-1.12.0-beta</version>
-		</dependency>
+		<!-- The above Google API client depends on google-oauth-client and google.http-client -->
 		<dependency>
 			<groupId>com.google.oauth-client</groupId>
 			<artifactId>google-oauth-client</artifactId>
@@ -190,29 +216,22 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		</dependency>
 		<dependency>
 			<groupId>com.google.http-client</groupId>
-			<artifactId>google-http-client-jackson</artifactId>
-			<version>1.11.0-beta</version>
+			<artifactId>google-http-client</artifactId>
+			<version>1.12.0-beta</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.apis</groupId>
+			<artifactId>google-api-services-drive</artifactId>
+			<version>v2-rev22-1.12.0-beta</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.apis</groupId>
 			<artifactId>google-api-services-tasks</artifactId>
 			<version>v1-rev5-1.12.0-beta</version>
 		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-xml</artifactId>
-			<version>2.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openengsb.wrapped</groupId>
-			<artifactId>com.google.gdata</artifactId>
-			<version>1.41.5.w1</version>
-		</dependency>
+		<!--- Google gdata ? why is this needed, when we have the lib/gdata-core 
+			? -->
+
 		<dependency>
 			<groupId>com.google.gdata</groupId>
 			<artifactId>core</artifactId>
@@ -220,9 +239,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		</dependency>
 	</dependencies>
 	<repositories>
+		<!-- Central maven repos. This is available inside maven by default We 
+			add it here so mvn, does a first search in this repos. -->
 		<repository>
-			<id>webjars</id>
-			<url>http://webjars.github.com/m2</url>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>http://repo.maven.apache.org/maven2</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
 		<!-- For Hibernate Validator -->
 		<repository>
@@ -233,41 +259,36 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-		<!-- Apache maven tomcat 7 plugin -->
+		<!-- For downloading Spring 3.2 directly from spring repos, as it ain't 
+			available in mvn repos. -->
 		<repository>
-			<id>people.apache.snapshots</id>
-			<url>http://repository.apache.org/content/groups/snapshots-group/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
+			<id>springsource-repo</id>
+			<name>SpringSource Repository</name>
+			<url>http://repo.springsource.org/release</url>
 		</repository>
-		<!--Google repository -->		
-		<repository>
-			<id>sonatype-oss</id>
-			<url>https://oss.sonatype.org/content/groups/public</url>
-		</repository>
+		<!-- For downloading Google Drive API., as it ain't available in mvn repos. -->
 		<repository>
 			<id>google-api-services</id>
 			<url>http://google-api-client-libraries.appspot.com/mavenrepo</url>
 		</repository>
-
 	</repositories>
+	<!-- Central maven repos. This is available inside maven by default We add 
+		it here so mvn, does a first search in this repos. -->
 	<pluginRepositories>
 		<pluginRepository>
-			<id>apache.snapshots</id>
-			<name>Apache Snapshots</name>
-			<url>http://repository.apache.org/content/groups/snapshots-group/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>http://repo.maven.apache.org/maven2</url>
+			<layout>default</layout>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 			</snapshots>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
 		</pluginRepository>
 	</pluginRepositories>
+
 	<build>
 		<plugins>
 			<!-- Maven Tomcat Plugin -->
@@ -276,7 +297,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.0</version>
 				<configuration>
-					<url>http://localhost:8080/manager/html</url>
+					<url>http://localhost:8080/manager/text</url>
 					<update>true</update>
 					<server>mytomcat</server>
 				</configuration>
