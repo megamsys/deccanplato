@@ -86,7 +86,7 @@ public class ProvidersTest {
 
 		List<String> migratelist = new ArrayList<String>();
 		migratelist.add("migration.json");
-
+/*
 		for (String provid : providerlist) {
 			for (String user : userlist) {
 				ct.testCommonTest(provid, user);
@@ -106,7 +106,7 @@ public class ProvidersTest {
 			}
 			for(String migrate: migratelist) {
 				ct.testCommonTest("googleapps", migrate);
-			}		
+			}	*/	
 	}
 
 }

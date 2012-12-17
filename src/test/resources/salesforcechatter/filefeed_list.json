@@ -1,0 +1,34 @@
+{
+	"system": {
+		"access": {
+			"project_id": "3c78f781-fc28-4c69-8fad-0ca66f2c5dbc",
+			"api_token": "oVj29MbD2LcXzsRzNFx9vw==",
+			"access_email": "alrin@megam.com",
+			"access_org_id": "1",
+			"access_account_name": "MegamSyste"
+		}
+	},
+	"provider": {
+		"access": {
+			"consumer_key": "3MVG9Y6d_Btp4xp51yG_eZBS13SJirRv1uk0ITwiM5eRcfsC1qg4UinY_FbU3G0niSsUyI0zkEFkhzO89.TmV",
+			"consumer_secret": "6832915771039819665",
+			"access_username": "pontiyaraja@gmail.com",
+			"access_password": "pandiya1988hKIZMcZwbLX0vSRHY9ddjuYHQ",
+			"provider": "salesforcechatter",
+			"category": "CRM",
+			"description": "My first Connector Project",
+			"user_email": "alrin@megam.com",
+			"org_name": "Megam Systems"
+		},
+		"business_activity": {
+			"biz_function": "filefeed#list",
+			"id":"0059000000103ohAAA"
+		}
+	},
+	"execution": {
+		"output": {
+			"type": "default",
+			"location": "default"
+		}
+	}
+}

@@ -29,7 +29,8 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 		factory-method="newInstance">
 		<property name="providersMap">
 			<map>
-				<entry key="salesforce" value-ref="salesforce" />
+				<entry key="salesforcecrm" value-ref="salesforcecrm" />
+				<entry key="salesforcechatter" value-ref="salesforcechatter"/>
 				<entry key="zohocrm" value-ref="zoho" />
 				<entry key="zohoinvoice" value-ref="zohoinvoice"/>
 				<entry key="sugarcrm" value-ref="sugarcrm" />
@@ -41,20 +42,35 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 		</property>
 		<property name="bizActivityMap">
 			<map>
-				<entry key="salesforce">
+				<entry key="salesforcecrm">
 					<set>
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.UserImpl" />
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.AccountImpl" />
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.LeadsImpl" />
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.ContactImpl" />
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.OpportunitiesImpl" />
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.ContractImpl" />
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.CaseImpl" />
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.SolutionImpl" />
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.ProductImpl" />
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.CampaignImpl" />
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.EventImpl" />
-						<bean class="org.megam.deccanplato.provider.salesforce.handler.TaskImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.crm.handler.UserImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.crm.handler.AccountImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.crm.handler.LeadsImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.crm.handler.ContactImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.crm.handler.OpportunitiesImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.crm.handler.ContractImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.crm.handler.CaseImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.crm.handler.SolutionImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.crm.handler.ProductImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.crm.handler.CampaignImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.crm.handler.EventImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.crm.handler.TaskImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.crm.handler.PriceBookImpl" />
+						<bean class="org.megam.deccanplato.provider.salesforce.crm.handler.PartnerImpl" />
+					</set>
+				</entry>
+				<entry key="salesforcechatter">
+					<set>
+						<bean class="org.megam.deccanplato.provider.salesforce.chatter.handler.FeedImpl"/>
+						<bean class="org.megam.deccanplato.provider.salesforce.chatter.handler.FileFeedImpl"/>
+						<bean class="org.megam.deccanplato.provider.salesforce.chatter.handler.InfluenceThresholdsImpl"/>
+						<bean class="org.megam.deccanplato.provider.salesforce.chatter.handler.GroupFeedImpl"/>
+						<bean class="org.megam.deccanplato.provider.salesforce.chatter.handler.LikesImpl"/>
+						<bean class="org.megam.deccanplato.provider.salesforce.chatter.handler.NewsFeedImpl"/>
+						<bean class="org.megam.deccanplato.provider.salesforce.chatter.handler.PeopleFeedImpl"/>
+						<bean class="org.megam.deccanplato.provider.salesforce.chatter.handler.RecordFeedImpl"/>
+						<bean class="org.megam.deccanplato.provider.salesforce.chatter.handler.UserResourcesImpl"/>
 					</set>
 				</entry>
 				<entry key="zohocrm">
