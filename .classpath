@@ -22,7 +22,6 @@
 	<classpathentry kind="lib" path="lib/gdata-contacts-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/gdata-contacts-meta-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/gdata-media-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/guava-11.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/jsr305.jar"/>
 	<classpathentry kind="lib" path="lib/mail.jar"/>
 	<classpathentry kind="lib" path="lib/mailapi.jar"/>

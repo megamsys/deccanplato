@@ -39,6 +39,7 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 				<entry key="box" value-ref="box" />
 				<entry key="dropbox" value-ref="dropbox" />
 				<entry key="twilio" value-ref="twilio" />
+				<entry key="maluuba" value-ref="maluuba" />
 			</map>
 		</property>
 		<property name="bizActivityMap">
@@ -138,6 +139,12 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 						<bean class="org.megam.deccanplato.provider.twilio.handler.CallsImpl" />
 						<bean class="org.megam.deccanplato.provider.twilio.handler.ApplicationImpl" />
 						<bean class="org.megam.deccanplato.provider.twilio.handler.RecordingsImpl" />
+					</set>
+				</entry>
+				<entry key="maluuba">
+					<set>
+						<bean class="org.megam.deccanplato.provider.maluuba.handler.NormalizeEndpointImpl" />
+						<bean class="org.megam.deccanplato.provider.maluuba.handler.InterpretEndpointImpl" />
 					</set>
 				</entry>
 			</map>

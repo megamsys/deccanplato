@@ -81,6 +81,7 @@ public class Constants {
 	public static final String NOTIFICATIONS="notifications";
 	public static final String MAKECALL="makecall";
 	public static final String MODIFYLIVECALL="modifylivecall";
+	public static final String TRANSCRIPTIONS="transcriptions";
 	/**
 	 * The key that are passed over in the output section of the request Json. 
 	 */

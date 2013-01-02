@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.megam.deccanplato.provider.AbstractProviderAdapter;
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.ProviderRegistry;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.MultiDataMap;
 
@@ -28,12 +29,11 @@ public class XeroAdapter extends AbstractProviderAdapter {
 	public XeroAdapter() {
 		super();
 	}
-	
-	
-
 	public void configure() {
 		/* using the user#create key */
 		//activity = registry.getBusinessActivity(cloud_app, business_function);
+		activity = ProviderRegistry.instance().getBusinessActivity(
+				bizInfo.getName(), bizInfo.getActivityName());
 	}
 
 	public boolean build() {
@@ -49,10 +49,6 @@ public class XeroAdapter extends AbstractProviderAdapter {
 	/* (non-Javadoc)
 	 * @see org.megam.deccanplato.provider.ProviderAdapter#setDataMap(org.megam.deccanplato.provider.core.MultiDataMap)
 	 */
-	@Override
-	public void setDataMap(DataMap multiMap) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	 
 }

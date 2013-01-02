@@ -54,6 +54,10 @@ public class TwilioTestAdapterTest {
         final String sms="sms";
         final String calls="calls";
         final String application="application";
+        final String recording="recording";
+        
+        List<String> recordList=new ArrayList<>();
+        recordList.add("list");
         
         List<String> appsList=new ArrayList<String>();
         //appsList.add("create");
@@ -167,13 +171,23 @@ public class TwilioTestAdapterTest {
 				testAdapterAccess(reqData);
 			}
 			ctest.testBusinessImpl();
-		}*/
+		}
         for (String activity : appsList) {
 			CommonTest ctest = new CommonTest();
 			RequestData reqData;
 			reqData = ctest.commonTest(application, activity, TWILIO);
 			if (application.equalsIgnoreCase("application")
 					&& activity.equalsIgnoreCase("create")) {
+				testAdapterAccess(reqData);
+			}
+			ctest.testBusinessImpl();
+		}*/
+        for (String activity : recordList) {
+			CommonTest ctest = new CommonTest();
+			RequestData reqData;
+			reqData = ctest.commonTest(recording, activity, TWILIO);
+			if (recording.equalsIgnoreCase("recording")
+					&& activity.equalsIgnoreCase("list")) {
 				testAdapterAccess(reqData);
 			}
 			ctest.testBusinessImpl();

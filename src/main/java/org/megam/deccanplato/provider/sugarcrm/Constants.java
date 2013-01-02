@@ -38,6 +38,7 @@ public class Constants {
 	 */
 	public static final String SUGAR_URL="http://localhost/sugarcrm/service/v4/rest.php";
 	public static final String APPLICATION="sugar";
+	public static final String ADMIN_USER_NAME="admin_user_name";
 	public static final String PASSWORD="password";
 	public static final String VERSION="1";		
 	public static final String ID="id";
@@ -62,5 +63,59 @@ public class Constants {
 	 * The constants that are needed for Leads business function.
 	 * Json Input constants
 	 */
-
+   /**
+    * Constants that are need for Contacts business function
+    * Json Input constants
+    */
+	public static final String MOBILE="mobile";
+	/**
+	 * Constants that are need for Opportunities business function
+	 * Json Input constants
+	 */
+	public static final String AMOUNT="amount";
+	public static final String SALES_STAGE="sales_stage";
+	public static final String ACCOUNT_ID="account_id";
+	public static final String CLOSE_DATE="date_closed";
+	/**
+	 * Constants that are need for Campaigns business function
+	 * Json Input
+	 */
+	public static final String END_DATE="end_date";
+	public static final String STATUS="status";
+	public static final String CAMP_TYPE="campaign_type";
+	public static final String START_DATE="start_date";
+	/**
+	 * Constants that are need for Task business function
+	 */
+	public static final String SUBJECT="name";
+	public static final String PRIORITY="priority";
+	public static final String DUE_DATE="date_due";
+	public static final String DATE_START="date_start";
+	public static final String CONTACT_ID="contact_id";
+	public static final String CONTACT_NAME="contact_name";
+	public static final String RELATED_TYPE="parent_type";
+	public static final String RELATED_ID="parent_id";
+	/**
+	 * Constants that are need for Case business function
+	 */
+	public static final String CASE_TYPE="case_type";
+	/**
+	 * Constants that are need for call business function
+	 */
+	public static final String DURATION_HOURS="duration_hours";
+	public static final String DURATION_MINS="duration_minutes";
+	public static final String REMINDER_CHECKED="reminder_checked";
+	public static final String REMINDER_TIME="reminder_time";
+	/**
+	 * Constants that are need for Meeting business function
+	 */
+	public static final String DATE_END="date_end";
+	public static final String LOCATION="location";
+	/**
+	 * Constants that are need for Note business function
+	 */
+	public static final String DESCRIPTION="description";
+	public static final String CONTACT_EMAIL="contact_email";
+	public static final String PARENT_OPTION="parent_type_options";
+	
 }

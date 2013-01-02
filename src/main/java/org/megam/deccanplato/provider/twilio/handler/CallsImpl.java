@@ -37,6 +37,9 @@ import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 /**
  * @author pandiyaraja
  * 
+ * This class implements calls business functionalities of twilio
+ * calls business methods. this class deals with make call, list call,
+ * list recording call list and lists notifications.  
  */
 public class CallsImpl implements BusinessActivity {
 
@@ -90,6 +93,8 @@ public class CallsImpl implements BusinessActivity {
 	}
 
 	/**
+	 * This method use to modify the live call and update that call by using 
+	 * CALL_SID.
 	 * @param outMap
 	 * @return
 	 */
@@ -98,7 +103,7 @@ public class CallsImpl implements BusinessActivity {
 				+ args.get(ACCOUNT_SID) + "/Calls/"+args.get(CALL_SID)+".json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -120,12 +125,13 @@ public class CallsImpl implements BusinessActivity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method use to make call to a user or any number, that number must be a verified 
+	 * number if a user using trail version.
 	 * @param outMap
 	 * @return
 	 */
@@ -156,12 +162,12 @@ public class CallsImpl implements BusinessActivity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * Notification method notifies notification of a user by using call SID.
 	 * @param outMap
 	 * @return
 	 */
@@ -170,7 +176,7 @@ public class CallsImpl implements BusinessActivity {
 				+ args.get(ACCOUNT_SID) + "/Calls/"+args.get(CALL_SID)+"/Notifications.json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -192,12 +198,13 @@ public class CallsImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * Recording List lists all recording calls and returns all by using user's
+	 * call SID.
 	 * @param outMap
 	 * @return
 	 */
@@ -206,7 +213,7 @@ public class CallsImpl implements BusinessActivity {
 				+ args.get(ACCOUNT_SID) + "/Calls/"+args.get(CALL_SID)+"/Recordings.json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -228,12 +235,12 @@ public class CallsImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method returns a particular CALL SID details.
 	 * @param outMap
 	 * @return
 	 */
@@ -242,7 +249,7 @@ public class CallsImpl implements BusinessActivity {
 				+ args.get(ACCOUNT_SID) + "/Calls/"+args.get(CALL_SID)+".json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -264,12 +271,12 @@ public class CallsImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method lists all SID of a user account.
 	 * @param outMap
 	 * @return
 	 */
@@ -278,7 +285,7 @@ public class CallsImpl implements BusinessActivity {
 				+ args.get(ACCOUNT_SID) + "/Calls.json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -300,7 +307,6 @@ public class CallsImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}

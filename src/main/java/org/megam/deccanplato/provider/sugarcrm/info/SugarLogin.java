@@ -33,7 +33,7 @@ public class SugarLogin {
       private String[]  name_value_list = new String[0];
       public <T extends Object> SugarLogin(Map<String, T> accessMap){
     	  
-          user_auth.put("user_name", (String)accessMap.get(USER_NAME));
+          user_auth.put("user_name", (String)accessMap.get(ADMIN_USER_NAME));
           user_auth.put("password", (String)accessMap.get(PASSWORD));
           user_auth.put("version", (String)accessMap.get(VERSION));  
       }

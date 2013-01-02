@@ -37,6 +37,8 @@ import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 /**
  * @author pandiyaraja
  * 
+ * This class implements search phone numbers business functions in twilio accont
+ * this class deals with 2 type of phone numbers that are local number and tollfree numbers. 
  */
 public class SearchPhoneNumbersImpl implements BusinessActivity {
 
@@ -96,6 +98,7 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 	}
 
 	/**
+	 * This method returns available toll free number with pattern by selecting area code
 	 * @param outMap
 	 * @return
 	 */
@@ -106,7 +109,7 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 				+ args.get(COUNTRY_CODE) + "/TollFree.json?AreaCode="+args.get(AREA_CODE)+"&Contains="+args.get(CONTAINS);
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -126,12 +129,12 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method returns toll free numbers that contains storm.
 	 * @param outMap
 	 * @return
 	 */
@@ -142,7 +145,7 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 				+ args.get(COUNTRY_CODE) + "/TollFree.json?Contains="+args.get(CONTAINS);
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -162,12 +165,13 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method returns all toll free numbers in a country. by using
+	 * country code.
 	 * @param outMap
 	 * @return
 	 */
@@ -177,7 +181,7 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 				+ args.get(COUNTRY_CODE) + "/TollFree.json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -197,12 +201,12 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method returns available phone numbers within a particular distance and in a region.
 	 * @param outMap
 	 * @return
 	 */
@@ -222,7 +226,7 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 				.get(NEARLATLONG)));
 		phoneList.add(new BasicNameValuePair("Distance", args.get(DISTANCE)));
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -243,12 +247,12 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * this method returns all available phone numbers from a country in a particular region.
 	 * @param outMap
 	 * @return
 	 */
@@ -259,7 +263,7 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 				+ args.get(REGION);
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -279,12 +283,12 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method returns available phone numbers in a country in that contains storm.
 	 * @param outMap
 	 * @return
 	 */
@@ -295,7 +299,7 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 				+ args.get(CONTAINS);
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -315,12 +319,12 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method returns available phone numbers in a country that starts with some key.
 	 * @param outMap
 	 * @return
 	 */
@@ -332,7 +336,7 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 				+ args.get(CONTAINS);
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -352,12 +356,12 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method returns all local available phone numbers in a from a country in a particular region.
 	 * @param outMap
 	 * @return
 	 */
@@ -369,7 +373,7 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 				+ args.get(AREA_CODE);
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -389,7 +393,6 @@ public class SearchPhoneNumbersImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}

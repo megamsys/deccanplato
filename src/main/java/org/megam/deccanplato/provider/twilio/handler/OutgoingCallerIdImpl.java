@@ -37,6 +37,8 @@ import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 /**
  * @author pandiyaraja
  *
+ *This Class implements Outgoing caller id business activities like
+ *create caller id, list, update and delete caller in twilio.
  */
 public class OutgoingCallerIdImpl implements BusinessActivity{
 
@@ -80,6 +82,8 @@ public class OutgoingCallerIdImpl implements BusinessActivity{
 	}
 
 	/**
+	 * This method delete a particular OutgoingCallerIds by using Outgoing
+	 * Caller id SID.
 	 * @param outMap
 	 * @return
 	 */
@@ -106,12 +110,13 @@ public class OutgoingCallerIdImpl implements BusinessActivity{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * this method updates a particula outgoing number by using  
+	 * outgoing caller SID.
 	 * @param outMap
 	 * @return
 	 */
@@ -120,7 +125,7 @@ public class OutgoingCallerIdImpl implements BusinessActivity{
 				+ args.get(ACCOUNT_SID) + "/OutgoingCallerIds/"+args.get(OUTGOING_CALLER_SID)+".json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -138,12 +143,14 @@ public class OutgoingCallerIdImpl implements BusinessActivity{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * 
+	 * This method returns a particular outgoing number details by using
+	 * outgoing caller SID.
 	 * @param outMap
 	 * @return
 	 */
@@ -152,7 +159,7 @@ public class OutgoingCallerIdImpl implements BusinessActivity{
 				+ args.get(ACCOUNT_SID) + "/OutgoingCallerIds/"+args.get(OUTGOING_CALLER_SID)+".json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -172,12 +179,14 @@ public class OutgoingCallerIdImpl implements BusinessActivity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * Create method creates a outgoing caller ID by using a phone number,
+	 * user have to verify after created the outgoing callerid by entering a 5to 6
+	 * digit number which is get from return statement of thid method.
 	 * @param outMap
 	 * @return
 	 */
@@ -186,7 +195,7 @@ public class OutgoingCallerIdImpl implements BusinessActivity{
 				+ args.get(ACCOUNT_SID) + "/OutgoingCallerIds.json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -208,12 +217,13 @@ public class OutgoingCallerIdImpl implements BusinessActivity{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method lists all outgoing caller id phone numbers
+	 * from twilio account.
 	 * @param outMap
 	 * @return
 	 */
@@ -242,7 +252,6 @@ public class OutgoingCallerIdImpl implements BusinessActivity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}

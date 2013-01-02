@@ -59,8 +59,56 @@ public class MutableSugar {
 		  /**
 		  * Fields used during creation of Leads
 		 */
-		  
-				
+		  /**
+		   *Fields used during creation and update of Contacts 
+		  */
+		  setValue(MOBILE, MOBILE, args);
+		 /**
+		  * Fields used during creation and update of Opportunities 
+		  */
+		 setValue(NAME, NAME, args);
+		 setValue(AMOUNT, AMOUNT, args);
+		 setValue(SALES_STAGE, SALES_STAGE, args);
+		 setValue(ACCOUNT_ID, ACCOUNT_ID, args);
+		 setValue(CLOSE_DATE, CLOSE_DATE, args);
+		 /**
+		  * Felds used during create and update of Campaigns
+		  */
+		 setValue(NAME, NAME, args);
+		 setValue(START_DATE, START_DATE, args);
+		 setValue(END_DATE, END_DATE, args);
+		 setValue(STATUS, STATUS, args);
+		 setValue(CAMP_TYPE, CAMP_TYPE, args);
+		 /**
+		  * Fields used during create and update of Tasks
+		  */
+		 setValue(SUBJECT, SUBJECT, args);
+		 setValue(DUE_DATE, DUE_DATE, args);
+		 setValue(PRIORITY, PRIORITY, args);
+		 setValue(CONTACT_ID, CONTACT_ID, args);
+		 setValue(CONTACT_NAME, CONTACT_NAME, args);
+		 setValue(RELATED_TYPE, RELATED_TYPE, args);
+		 setValue(RELATED_ID, RELATED_ID, args);
+		 setValue(CASE_TYPE, CASE_TYPE, args);
+		 setValue(DATE_START, DATE_START, args);
+		 /**
+		  * Fields used during create and update of Call
+		  */
+		 setValue(DURATION_HOURS, DURATION_HOURS, args);
+		 setValue(DURATION_MINS, DURATION_MINS, args);
+		 setValue(REMINDER_CHECKED, REMINDER_CHECKED, args);
+		 setValue(REMINDER_TIME, REMINDER_TIME, args);
+		 /**
+		  * Fields used during create and update of Meeting
+		  */
+		 setValue(DATE_END, DATE_END, args);
+		 setValue(LOCATION, LOCATION, args);
+		 /**
+		  * Fields used during create and update of Note
+		  */
+		 setValue(DESCRIPTION, DESCRIPTION, args);
+		 setValue(CONTACT_EMAIL, CONTACT_EMAIL, args);
+		 setValue(PARENT_OPTION, PARENT_OPTION, args);
 	}
 	private void setValue(String jsonKey, String sugarcrmKey, Map<String, String> args) {
 		

@@ -37,6 +37,8 @@ import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 /**
  * @author pandiyaraja
  * 
+ * This class deals with sms implementation of twilio account.
+ * this class contains business activities send sms, list sms and view sms.
  */
 public class SmsImpl implements BusinessActivity {
 
@@ -81,6 +83,8 @@ public class SmsImpl implements BusinessActivity {
 	}
 
 	/**
+	 * View method use to view a particular sms details by using sms sid,
+	 * From twilio.
 	 * @param outMap
 	 * @return
 	 */
@@ -89,7 +93,7 @@ public class SmsImpl implements BusinessActivity {
 				+ args.get(ACCOUNT_SID) + "/SMS/Messages/"+args.get(SMS_SID)+".json?";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -109,12 +113,13 @@ public class SmsImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method use to send a sms to other numbers.
+	 * form and to addresses are important to send sms as well as body text.
 	 * @param outMap
 	 * @return
 	 */
@@ -123,7 +128,7 @@ public class SmsImpl implements BusinessActivity {
 				+ args.get(ACCOUNT_SID) + "/SMS/Messages.json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 		
@@ -145,12 +150,13 @@ public class SmsImpl implements BusinessActivity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method returns all Sms. and also advance search like by from,
+	 * to and date sent fields.
 	 * @param outMap
 	 * @return
 	 */
@@ -162,7 +168,7 @@ public class SmsImpl implements BusinessActivity {
 				+ "&Page=" + args.get(PAGE);
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -182,7 +188,6 @@ public class SmsImpl implements BusinessActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}

@@ -37,6 +37,8 @@ import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 /**
  * @author pandiyaraja
  *
+ *This class implements all incoming number details and its functionalities
+ *this class deals with create, list, update and delete incoming number.
  */
 public class IncomingNumbersImpl implements BusinessActivity{
 
@@ -80,6 +82,7 @@ public class IncomingNumbersImpl implements BusinessActivity{
 	}
 
 	/**
+	 * This delete method deletes a incoming number by using incoming phone sid.
 	 * @param outMap
 	 * @return
 	 */
@@ -88,7 +91,7 @@ public class IncomingNumbersImpl implements BusinessActivity{
 				+ args.get(ACCOUNT_SID) + "/IncomingPhoneNumbers/"+args.get(INCOMING_PHONE_SID)+".json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -105,21 +108,22 @@ public class IncomingNumbersImpl implements BusinessActivity{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method updates a particular incoming phone numbers 
+	 * by using a  particular incoming phone SID.
 	 * @param outMap
 	 * @return
 	 */
 	private Map<String, String> update(Map<String, String> outMap) {
 		final String account_view_url = TWILIO_URL + "Accounts/"
-				+ args.get(ACCOUNT_SID) + "/IncomingPhoneNumbers.json";
+				+ args.get(ACCOUNT_SID) + "/IncomingPhoneNumbers/"+args.get(INCOMING_PHONE_SID)+".json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -155,12 +159,13 @@ public class IncomingNumbersImpl implements BusinessActivity{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method use to view a particular incoming phone number
+	 * details by using incoming phone number SID.
 	 * @param outMap
 	 * @return
 	 */
@@ -169,7 +174,7 @@ public class IncomingNumbersImpl implements BusinessActivity{
 				+ args.get(ACCOUNT_SID) + "/IncomingPhoneNumbers/"+args.get(INCOMING_PHONE_SID)+".json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -189,12 +194,13 @@ public class IncomingNumbersImpl implements BusinessActivity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * Create method creates a incoming phone numbers by using 
+	 * phone numbers, area code and friendly name
 	 * @param outMap
 	 * @return
 	 */
@@ -203,7 +209,7 @@ public class IncomingNumbersImpl implements BusinessActivity{
 				+ args.get(ACCOUNT_SID) + "/IncomingPhoneNumbers.json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PHONENO, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -239,12 +245,12 @@ public class IncomingNumbersImpl implements BusinessActivity{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * List method lists all incoming phone numbers details and phone sid.
 	 * @param outMap
 	 * @return
 	 */
@@ -253,7 +259,7 @@ public class IncomingNumbersImpl implements BusinessActivity{
 				+ args.get(ACCOUNT_SID) + "/IncomingPhoneNumbers.json";
 
 		Map<String, String> header = new HashMap<>();
-		header.put("provider", args.get(PROVIDER));
+		header.put(PROVIDER, args.get(PROVIDER));
 		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 
@@ -273,7 +279,6 @@ public class IncomingNumbersImpl implements BusinessActivity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}

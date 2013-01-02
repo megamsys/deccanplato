@@ -94,6 +94,10 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 			<bean class="org.megam.deccanplato.provider.xero.XeroAdapter"
 			parent="providerAdapter" />
 		</property>
+		<property name="access">
+			<bean class="org.megam.deccanplato.provider.xero.XeroAdapterAccess"
+			parent="adapterAccess" />			
+		</property>
 	</bean>
 	<bean id="box" class="org.megam.deccanplato.provider.Provider">
 		<property name="name" value="box" />
@@ -120,6 +124,18 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 		</property>
 		<property name="access">
 			<bean class="org.megam.deccanplato.provider.twilio.TwilioAdapterAccess"
+			parent="adapterAccess" />
+		</property>
+	</bean>
+	<bean id="maluuba" class="org.megam.deccanplato.provider.Provider">
+		<property name="name" value="maluuba" />
+		<property name="description" value="Maluuba App." />
+		<property name="adapter">
+			<bean class="org.megam.deccanplato.provider.maluuba.MaluubaAdapter"
+			parent="providerAdapter" />
+		</property>
+		<property name="access">
+			<bean class="org.megam.deccanplato.provider.maluuba.MaluubaAdapterAccess"
 			parent="adapterAccess" />
 		</property>
 	</bean>

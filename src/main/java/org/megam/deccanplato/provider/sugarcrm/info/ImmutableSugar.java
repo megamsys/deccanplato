@@ -40,7 +40,7 @@ public class ImmutableSugar {
 		select_fields.add(ID);
 		select_fields.add(NAME);
 		select_fields.add(TITLE);
-		
+		select_fields.add("date_start");		
 	}
 	private String[]  link_name_to_fields_array = new String[0];
 	private String max_results="2";

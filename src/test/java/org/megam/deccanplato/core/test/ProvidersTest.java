@@ -26,7 +26,6 @@ import org.megam.deccanplato.provider.core.RequestDataBuilder;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.io.ClassPathResource;
-import org.megam.deccanplato.provider.crm.test.*;
 
 /**
  * @author pandiyaraja
@@ -35,8 +34,7 @@ import org.megam.deccanplato.provider.crm.test.*;
 public class ProvidersTest {
 
 	private static RequestData reqData;
-	CommonTest ct=new CommonTest();
-	RequestDataBuilder rdb;
+	private RequestDataBuilder rdb;
 
 	/*
 	 * LinkedList<String> salesforcelink=new LinkedList<>(); LinkedList<String>

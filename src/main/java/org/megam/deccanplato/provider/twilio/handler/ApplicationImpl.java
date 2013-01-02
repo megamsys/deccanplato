@@ -35,6 +35,9 @@ import org.megam.deccanplato.provider.BusinessActivity;
 import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 
 /**
+ * This class deals with the Application business functionalities,
+ * such as create, list, update and delete applications.
+ * Application contains application SID, this id use to make calls. 
  * @author pandiyaraja
  *
  */
@@ -80,8 +83,9 @@ public class ApplicationImpl implements BusinessActivity{
 	}
 
 	/**
+	 * Delete method deletes an application by based on application SID value
 	 * @param outMap
-	 * @return
+	 * @return 
 	 */
 	private Map<String, String> delete(Map<String, String> outMap) {
 		final String account_view_url = TWILIO_URL + "Accounts/"
@@ -105,11 +109,12 @@ public class ApplicationImpl implements BusinessActivity{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;	}
 
 	/**
+	 * update method updates a particular application details by using application
+	 * SID, we can change application name and api version.
 	 * @param outMap
 	 * @return
 	 */
@@ -139,12 +144,12 @@ public class ApplicationImpl implements BusinessActivity{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method returns a particular application details by using application SID.
 	 * @param outMap
 	 * @return
 	 */
@@ -173,12 +178,12 @@ public class ApplicationImpl implements BusinessActivity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method lists all applications created by a user by using account SID
 	 * @param outMap
 	 * @return
 	 */
@@ -207,12 +212,13 @@ public class ApplicationImpl implements BusinessActivity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method creates an application in twilio by using two 
+	 * arguments are FriendlyName and ApiVersion.
 	 * @param outMap
 	 * @return
 	 */
@@ -242,7 +248,6 @@ public class ApplicationImpl implements BusinessActivity{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}

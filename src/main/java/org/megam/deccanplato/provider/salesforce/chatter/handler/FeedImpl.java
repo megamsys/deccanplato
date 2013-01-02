@@ -105,7 +105,6 @@ public class FeedImpl implements BusinessActivity {
         header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
         Gson gson=new Gson();        
         Map<String, Object> accountAttrMap = new HashMap<String, Object>();
-        System.out.println(gson.toJson(new Post(args.get(TYPE), args.get(TEXT))));
         
         accountAttrMap.put("text", gson.toJson(new Post(args.get(TYPE), args.get(TEXT))));
         
@@ -161,7 +160,6 @@ public class FeedImpl implements BusinessActivity {
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 
@@ -199,7 +197,6 @@ public class FeedImpl implements BusinessActivity {
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 
@@ -237,7 +234,6 @@ public class FeedImpl implements BusinessActivity {
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 
@@ -272,7 +268,6 @@ public class FeedImpl implements BusinessActivity {
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 
@@ -309,7 +304,6 @@ public class FeedImpl implements BusinessActivity {
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 

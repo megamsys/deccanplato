@@ -107,7 +107,6 @@ public class RecordFeedImpl implements BusinessActivity{
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;		
 	}
 
@@ -145,7 +144,6 @@ public class RecordFeedImpl implements BusinessActivity{
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 

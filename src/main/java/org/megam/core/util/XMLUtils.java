@@ -32,7 +32,7 @@ public class XMLUtils {
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 		marshaller.marshal(marshalObj, System.out);
-		System.out.println("XML Utils done.");
+		
 	}
 
 	public static <T extends Object> String marshalAsString(Class clz,

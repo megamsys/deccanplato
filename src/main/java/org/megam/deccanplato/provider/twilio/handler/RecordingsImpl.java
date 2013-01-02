@@ -33,6 +33,8 @@ import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 /**
  * @author pandiyaraja
  *
+ *This class deals with recording business activity of twilio.
+ *this class inplements list recordings, Transcriptions, view Recordings and delete recordings.
  */
 public class RecordingsImpl implements BusinessActivity{
 
@@ -59,11 +61,122 @@ public class RecordingsImpl implements BusinessActivity{
 		case LIST:
 			outMap=list(outMap);
 			break;
+		case TRANSCRIPTIONS:
+			outMap=transcriptions(outMap);
+			break;
+		case VIEW:
+			outMap=view(outMap);
+			break;
+		case DELETE:
+			outMap=delete(outMap);
+			break;
 		}
-		return null;
+		return outMap;
 	}
 
 	/**
+	 * This method deletes a record by using RECORD SID. 
+	 * @param outMap
+	 * @return
+	 */
+	private Map<String, String> delete(Map<String, String> outMap) {
+		final String account_view_url = TWILIO_URL + "Accounts/"
+				+ args.get(ACCOUNT_SID) + "/Recordings/"+args.get(RECORDING_SID)+".json";
+
+		Map<String, String> header = new HashMap<>();
+		header.put(PROVIDER, args.get(PROVIDER));
+		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
+		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
+
+		TransportTools tst = new TransportTools(account_view_url, null, header);
+		String responseBody = null;
+
+		TransportResponse response = null;
+		try {
+			response = TransportMachinery.delete(tst);
+			responseBody = response.entityToString();
+
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		outMap.put(OUTPUT, responseBody);
+		return outMap;
+	}
+
+	/**
+	 * this method returns a particular recording by using 
+	 * recording sid.
+	 * @param outMap
+	 * @return
+	 */
+	private Map<String, String> view(Map<String, String> outMap) {
+		final String account_view_url = TWILIO_URL + "Accounts/"
+				+ args.get(ACCOUNT_SID) + "/Recordings/"+args.get(RECORDING_SID)+".json";
+
+		Map<String, String> header = new HashMap<>();
+		header.put(PROVIDER, args.get(PROVIDER));
+		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
+		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
+
+		TransportTools tst = new TransportTools(account_view_url, null, header);
+		String responseBody = null;
+
+		TransportResponse response = null;
+		try {
+			response = TransportMachinery.get(tst);
+			responseBody = response.entityToString();
+
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		outMap.put(OUTPUT, responseBody);
+		return outMap;
+	}
+
+	/**
+	 * Transcription method use to return transcription recordings.
+	 * by using recording sid. 
+	 * @param outMap
+	 * @return
+	 */
+	private Map<String, String> transcriptions(Map<String, String> outMap) {
+		final String account_view_url = TWILIO_URL + "Accounts/"
+				+ args.get(ACCOUNT_SID) + "/Recordings/"+args.get(RECORDING_SID)+"/Transcriptions.json";
+
+		Map<String, String> header = new HashMap<>();
+		header.put(PROVIDER, args.get(PROVIDER));
+		header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
+		header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
+
+		TransportTools tst = new TransportTools(account_view_url, null, header);
+		String responseBody = null;
+
+		TransportResponse response = null;
+		try {
+			response = TransportMachinery.get(tst);
+			responseBody = response.entityToString();
+
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		outMap.put(OUTPUT, responseBody);
+		return outMap;
+	}
+
+	/**
+	 * this method lists all recording of a accounts in twilio account and its details.
 	 * @param outMap
 	 * @return
 	 */
@@ -92,7 +205,6 @@ public class RecordingsImpl implements BusinessActivity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}

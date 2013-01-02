@@ -110,7 +110,6 @@ public class LikesImpl implements BusinessActivity{
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 
@@ -181,7 +180,6 @@ public class LikesImpl implements BusinessActivity{
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 

@@ -1,0 +1,31 @@
+{
+	"system": {
+		"access": {
+			"project_id": "3c78f781-fc28-4c69-8fad-0ca66f2c5dbc",
+			"api_token": "oVj29MbD2LcXzsRzNFx9vw==",
+			"access_email": "alrin@megam.com",
+			"access_org_id": 1,
+			"access_account_name": "MegamSyste"
+		}
+	},
+	"provider": {
+		"access": {
+			"account_sid": "AC84c8daf7dea53e5a08fa051a9d9bc0ab",
+			"oauth_token":"25779881db357e30aec7a0262ce71236",
+			"provider": "twilio",
+			"category": "CRM",
+			"description": "My first Connector Project",
+			"user_email": "alrin@megam.com",
+			"org_name": "Megam Systems"
+		},
+		"business_activity": {
+			"biz_function": "recording#list"
+		}
+	},
+	"execution": {
+		"output": {
+			"type": "default",
+			"location": "default"
+		}
+	}
+}

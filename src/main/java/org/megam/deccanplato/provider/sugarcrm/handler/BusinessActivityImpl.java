@@ -118,7 +118,6 @@ public class BusinessActivityImpl implements BusinessActivity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}

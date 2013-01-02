@@ -1,0 +1,34 @@
+{
+	"system": {
+		"access": {
+			"project_id": "3c78f781-fc28-4c69-8fad-0ca66f2c5dbc",
+			"api_token": "oVj29MbD2LcXzsRzNFx9vw==",
+			"access_email": "alrin@megam.com",
+			"access_org_id": 1,
+			"access_account_name": "MegamSyste"
+		}
+	},
+	"provider": {
+		"access": {
+			"consumer_key": "R2J6PI2GHOZAQQ1ZZVAWQOC6H2UAKL",
+			"consumer_secret": "TG77XPLAGLSGA7LAQIAW5SVA9RQGDT",
+			"access_username": "pontiyaraja@gmail.com",
+			"access_password": "pandiya1988hKIZMcZwbLX0vSRHY9ddjuYHQ",
+			"xero_id":"95c5af2a-0cc2-4000-a23b-acce456645c2",
+			"provider": "xero",
+			"category": "CRM",
+			"description": "My first Connector Project",
+			"user_email": "alrin@megam.com",
+			"org_name": "Megam Systems"
+		},
+		"business_activity": {
+			"biz_function": "account#list"
+		}
+	},
+	"execution": {
+		"output": {
+			"type": "default",
+			"location": "default"
+		}
+	}
+}

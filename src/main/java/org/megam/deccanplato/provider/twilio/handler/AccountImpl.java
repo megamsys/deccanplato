@@ -40,6 +40,9 @@ import org.mortbay.jetty.HttpURI;
 /**
  * @author pandiyaraja
  *
+ *Twilio account class implements with user account functionalities such as
+ *create a sub account, suspent, activ, close, list, view and list all active
+ *accounts like that.
  */
 public class AccountImpl implements BusinessActivity{
 
@@ -89,15 +92,17 @@ public class AccountImpl implements BusinessActivity{
 	}
 
 	/**
-	 * @param outMap
-	 * @return
+	 * This method lists all active sub-accounts from twilio main account.
+	 * 
+	 * @param outMap Status of the sub account
+	 * @return list of active sub accounts.
 	 */
 	private Map<String, String> listactive(Map<String, String> outMap) {
 
 		final String account_view_url=TWILIO_URL+"Accounts.json?";
 		
         Map<String, String> header=new HashMap<>();
-        header.put("provider", args.get(PROVIDER));
+        header.put(PROVIDER, args.get(PROVIDER));
         header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
         header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
         
@@ -120,21 +125,22 @@ public class AccountImpl implements BusinessActivity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method closed a sub account permanently from a twilio main account
+	 * we can't activate an account after that account closed.
 	 * @param outMap
-	 * @return
+	 * @return returns nothing
 	 */
 	private Map<String, String> close(Map<String, String> outMap) {
         
 		final String account_view_url=TWILIO_URL+"Accounts/"+args.get(SUB_ACCOUND_SID)+".json";
 		
         Map<String, String> header=new HashMap<>();
-        header.put("provider", args.get(PROVIDER));
+        header.put(PROVIDER, args.get(PROVIDER));
         header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
         header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
         
@@ -154,12 +160,13 @@ public class AccountImpl implements BusinessActivity{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method activates temporarily suspended sub accounts,
+	 * by sets status as active of a suspended sub account.
 	 * @param outMap
 	 * @return
 	 */
@@ -168,7 +175,7 @@ public class AccountImpl implements BusinessActivity{
         final String account_view_url=TWILIO_URL+"Accounts/"+args.get(SUB_ACCOUND_SID)+".json";
 		
         Map<String, String> header=new HashMap<>();
-        header.put("provider", args.get(PROVIDER));
+        header.put(PROVIDER, args.get(PROVIDER));
         header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
         header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
         
@@ -188,12 +195,13 @@ public class AccountImpl implements BusinessActivity{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method suspend a sub account temporarily by sets the status of an
+	 * sub account as suspend. we can activate a suspended account. 
 	 * @param outMap
 	 * @return
 	 */
@@ -202,7 +210,7 @@ public class AccountImpl implements BusinessActivity{
         final String account_view_url=TWILIO_URL+"Accounts/"+args.get(SUB_ACCOUND_SID)+".json";
 		
         Map<String, String> header=new HashMap<>();
-        header.put("provider", args.get(PROVIDER));
+        header.put(PROVIDER, args.get(PROVIDER));
         header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
         header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
         
@@ -222,12 +230,13 @@ public class AccountImpl implements BusinessActivity{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method lists all the sub accounts with out and condition.
+	 * It shows all accounts including closed accounts.
 	 * @param outMap
 	 * @return
 	 */
@@ -236,7 +245,7 @@ public class AccountImpl implements BusinessActivity{
 		final String account_view_url=TWILIO_URL+"Accounts.json";
 	       
 		 Map<String, String> header=new HashMap<>();
-	        header.put("provider", args.get(PROVIDER));
+	        header.put(PROVIDER, args.get(PROVIDER));
 	        header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 	        header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 	        
@@ -257,12 +266,13 @@ public class AccountImpl implements BusinessActivity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-       System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method creates a sub account by only using FriendlyName data.
+	 * 
 	 * @param outMap
 	 * @return
 	 */
@@ -271,7 +281,7 @@ public class AccountImpl implements BusinessActivity{
         final String account_view_url=TWILIO_URL+"Accounts/.json";
 		
         Map<String, String> header=new HashMap<>();
-        header.put("provider", args.get(PROVIDER));
+        header.put(PROVIDER, args.get(PROVIDER));
         header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
         header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
         
@@ -291,12 +301,13 @@ public class AccountImpl implements BusinessActivity{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        System.out.println(responseBody);
-		outMap.put(OUTPUT, responseBody);
+        outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
 	/**
+	 * This method returns a particular account details, by based on
+	 * ACCOUNT_SID key.
 	 * @param outMap
 	 * @return
 	 */
@@ -304,8 +315,8 @@ public class AccountImpl implements BusinessActivity{
 		
 		final String account_view_url=TWILIO_URL+"Accounts/"+args.get(ACCOUNT_SID)+".json";
 	       
-		 Map<String, String> header=new HashMap<>();
-	        header.put("provider", args.get(PROVIDER));
+		 Map<String, String> header=new HashMap<String, String>();
+	        header.put(PROVIDER, args.get(PROVIDER));
 	        header.put(ACCOUNT_SID, args.get(ACCOUNT_SID));
 	        header.put(OAUTH_TOKEN, args.get(OAUTH_TOKEN));
 	        
@@ -326,7 +337,6 @@ public class AccountImpl implements BusinessActivity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        System.out.println(responseBody);
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}

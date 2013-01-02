@@ -127,7 +127,6 @@ public class UserResourcesImpl implements BusinessActivity{
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 
@@ -164,7 +163,6 @@ public class UserResourcesImpl implements BusinessActivity{
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 
@@ -200,7 +198,6 @@ public class UserResourcesImpl implements BusinessActivity{
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 
@@ -236,7 +233,6 @@ public class UserResourcesImpl implements BusinessActivity{
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 
@@ -272,7 +268,6 @@ public class UserResourcesImpl implements BusinessActivity{
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 
@@ -308,7 +303,6 @@ public class UserResourcesImpl implements BusinessActivity{
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 
@@ -344,7 +338,6 @@ public class UserResourcesImpl implements BusinessActivity{
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 
@@ -380,7 +373,6 @@ public class UserResourcesImpl implements BusinessActivity{
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 

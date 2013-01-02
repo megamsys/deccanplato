@@ -104,7 +104,6 @@ public class PriceBookImpl implements BusinessActivity{
 		}
 
         outMap.put(OUTPUT, responseBody);
-        System.out.println(responseBody);
 		return outMap;		
 	}
 
@@ -136,7 +135,6 @@ public class PriceBookImpl implements BusinessActivity{
 		}
 		
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 		
 	}
@@ -174,7 +172,6 @@ public class PriceBookImpl implements BusinessActivity{
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 		
 	}
@@ -212,7 +209,6 @@ public class PriceBookImpl implements BusinessActivity{
 		}
 
         outMap.put(OUTPUT, responseBody);
-        System.out.println(responseBody);
 		return outMap;		
 	}
     /**

@@ -44,20 +44,28 @@ public class SugarAdapterTest {
 	
 
 	List<String> busiMethod =new ArrayList<String>();
-	busiMethod.add("user");
-	busiMethod.add("account");
-	busiMethod.add("lead");
+	//busiMethod.add("user");
+	//busiMethod.add("account");
+	//busiMethod.add("lead");
+	//busiMethod.add("contact");
+	//busiMethod.add("opportunitie");
+	//busiMethod.add("campaign");
+	//busiMethod.add("task");
+	//busiMethod.add("case");
+	busiMethod.add("call");
+	//busiMethod.add("meeting");
+	//busiMethod.add("note");
 	List<String> busiActivity = new ArrayList<String>();
-	busiActivity.add("create");
-	busiActivity.add("list");
+	//busiActivity.add("create");
+	//busiActivity.add("list");
 	busiActivity.add("update");
-	busiActivity.add("delete");
+	//busiActivity.add("delete");	
 	for(String function: busiMethod) {
 		for(String activity: busiActivity) {
 			CommonTest ctest=new CommonTest();
 			RequestData reqData;
 			reqData=ctest.commonTest(function, activity, SUGARCRM);
-			if(function.equalsIgnoreCase("user") && activity.equalsIgnoreCase("create")) {
+			if(function.equalsIgnoreCase("user")&activity.equalsIgnoreCase("create")) {
 			testAdapterAccess(reqData);
 			}
 			ctest.testBusinessImpl();
