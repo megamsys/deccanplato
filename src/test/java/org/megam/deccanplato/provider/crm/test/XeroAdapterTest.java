@@ -45,17 +45,20 @@ public class XeroAdapterTest {
     	ctx.refresh();
     	ProviderRegistry registry = (ProviderRegistry) ctx.getBean("registry");
     	
-    	final String oauth="account";
+    	final String oauth="invoice";
     	
     	List<String> oauthList=new ArrayList<String>();
-    	oauthList.add("list");
+    	//oauthList.add("list");
+    	oauthList.add("view");
+    	//oauthList.add("create");
+    	//oauthList.add("update");
     	
     	for(String function: oauthList) {
 			
 				CommonTest ctest=new CommonTest();
 				RequestData reqData;
 				reqData=ctest.commonTest(oauth, function, XERO);
-				if(function.equalsIgnoreCase("list") && oauth.equalsIgnoreCase("account")) {
+				if(function.equalsIgnoreCase("list") && oauth.equalsIgnoreCase("invoice")) {
 				testAdapterAccess(reqData);
 				}
 				ctest.testBusinessImpl();		

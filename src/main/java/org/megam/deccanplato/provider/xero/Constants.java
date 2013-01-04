@@ -20,14 +20,28 @@ package org.megam.deccanplato.provider.xero;
  *
  */
 public class Constants {
-	public static final String CONSUMER_KEY="consumer_key";
-	public static final String CONSUMER_SECRET="consumer_secret";
-	public static final String TOKEN_URL="https://api.xero.com/oauth/RequestToken";
-	public static final String XERO_URL="https://api.xero.com/api.xro/2.0/";
-	public static final String TOKEN_ID="token_id";
-	public static final String XERO_ID="xero_id";
-    public static final String OAUTH_TOKEN="oauth_token";
-    public static final String REQUEST_TOKEN_URL="https://api.xero.com/oauth/RequestToken";
-    public static final String AUTHORIZATION_URL="https://api.xero.com/oauth/Authorize";
-    public static final String ACCESS_TOKEN_URL="https://api.xero.com/oauth/AccessToken";
+	/**
+	 * Constants are use in InvoiceImpl class
+	 */
+	public static final String NAME="name";
+	public static final String EMAIL_ID="email_id";
+	public static final String ACCOUNT_CODE="account_code";
+	public static final String QUANTITY="quantity";
+	public static final String AMOUNT="amount";
+	public static final String DESCRIPTION="description";
+    public static final String LINE_AMOUNT_TYPE="line_amount_type";
+    public static final String INVOICE_NUMBER="invoice_number";
+    public static final String CONTACT_ID="contact_id";
+    public static final String CONTACT_NUMBER="contact_number";
+    public static final String TO_NAME="to_name";
+    public static final String CITY="city";
+    public static final String COUNTRY="country";
+    public static final String POSTAL_CODE="postal_code";
+    public static final String REGION="region";
+    public static final String PHONE_NO="phone_no";
+    public static final String COUNTRY_CODE="country_code";
+    public static final String AREA_CODE="area_code";
+    public static final String ID="id";
+    public static final String BIZ_FUNCTION="biz_function";
+    public static final String TAX_TYPE="tax_type";
 }

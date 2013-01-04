@@ -116,7 +116,8 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 				</entry>
 				<entry key="xero">
 					<set>
-						<bean class="org.megam.deccanplato.provider.xero.handler.AccountImpl" />
+						<bean class="org.megam.deccanplato.provider.xero.handler.InvoiceImpl" />
+						<bean class="org.megam.deccanplato.provider.xero.handler.AccountImpl" />						
 					</set>
 				</entry>
 				<entry key="box">
