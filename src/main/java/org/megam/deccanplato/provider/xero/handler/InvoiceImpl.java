@@ -17,6 +17,7 @@ package org.megam.deccanplato.provider.xero.handler;
 import static org.megam.deccanplato.provider.Constants.*;
 import static org.megam.deccanplato.provider.xero.Constants.*;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -24,13 +25,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import net.oauth.OAuthMessage;
+
 import org.megam.deccanplato.provider.BusinessActivity;
 import org.megam.deccanplato.provider.core.BusinessActivityInfo;
 
-import com.google.api.gbase.client.Tax;
 import com.rossjourdain.util.xero.Address;
 import com.rossjourdain.util.xero.ArrayOfAddress;
-import com.rossjourdain.util.xero.ArrayOfContact;
 import com.rossjourdain.util.xero.ArrayOfInvoice;
 import com.rossjourdain.util.xero.ArrayOfLineItem;
 import com.rossjourdain.util.xero.ArrayOfPhone;
@@ -40,6 +41,7 @@ import com.rossjourdain.util.xero.InvoiceStatus;
 import com.rossjourdain.util.xero.InvoiceType;
 import com.rossjourdain.util.xero.LineItem;
 import com.rossjourdain.util.xero.Phone;
+import com.rossjourdain.util.xero.ResponseType;
 import com.rossjourdain.util.xero.XeroClientException;
 import com.rossjourdain.util.xero.XeroClientUnexpectedException;
 import com.rossjourdain.util.xero.XeroPublicClient;
@@ -92,16 +94,22 @@ public class InvoiceImpl implements BusinessActivity {
 	private Map<String, String> view(Map<String, String> outMap) {
 		String invoiceList = null;
 		ArrayOfInvoice arrayOfInvoices = null;
+		ResponseType responseType = null;
 		StringTokenizer stok=new StringTokenizer(args.get(BIZ_FUNCTION), "#");
 		try {
         	client=new XeroPublicClient(args);
-			arrayOfInvoices=client.getXero(args.get(ID), stok.nextToken());
+        	OAuthMessage response=client.getXero(args.get(ID), stok.nextToken());
+			responseType = XeroXmlManager.fromXml(response.getBodyAsStream());	
+			arrayOfInvoices = responseType.getInvoices();
 			invoiceList=XeroXmlManager.invoicesToXml(arrayOfInvoices);
 			System.out.println(XeroXmlManager.invoicesToXml(arrayOfInvoices));
 		} catch (XeroClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (XeroClientUnexpectedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -179,7 +187,8 @@ public class InvoiceImpl implements BusinessActivity {
             invoice.setStatus(InvoiceStatus.AUTHORISED);
             invoices.add(invoice);
 
-            client.postXero(arrayOfInvoice, stok.nextToken());
+            OAuthMessage msg=client.postXero(XeroXmlManager.invoicesToXml(arrayOfInvoice), stok.nextToken());
+            System.out.println(msg.toString());
         } catch (XeroClientException ex) {
             ex.printDetails();
         } catch (XeroClientUnexpectedException ex) {
@@ -259,7 +268,8 @@ public class InvoiceImpl implements BusinessActivity {
             invoice.setInvoiceID(args.get(ID));
             invoices.add(invoice);
             
-            client.postXero(arrayOfInvoice, stok.nextToken());
+            OAuthMessage msg=client.postXero(XeroXmlManager.invoicesToXml(arrayOfInvoice), stok.nextToken());
+            System.out.println(msg.toString());
         } catch (XeroClientException ex) {
             ex.printDetails();
         } catch (XeroClientUnexpectedException ex) {
@@ -277,17 +287,24 @@ public class InvoiceImpl implements BusinessActivity {
 	 */
 	private Map<String, String> list(Map<String, String> outMap) {
 		String invoiceList = null;
+		ResponseType responseType = null;
 		StringTokenizer stok=new StringTokenizer(args.get(BIZ_FUNCTION), "#");
 		ArrayOfInvoice arrayOfInvoices = null;
         try {
         	XeroPublicClient client=new XeroPublicClient(args);
-			arrayOfInvoices=client.getXeros(stok.nextToken());
+			OAuthMessage response=client.getXeros(stok.nextToken());
+			responseType = XeroXmlManager.fromXml(response.getBodyAsStream());	
+			System.out.println("OAuthMessage::::::"+response.toString());
+			arrayOfInvoices = responseType.getInvoices();
 			invoiceList=XeroXmlManager.invoicesToXml(arrayOfInvoices);
 			System.out.println(XeroXmlManager.invoicesToXml(arrayOfInvoices));
 		} catch (XeroClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (XeroClientUnexpectedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

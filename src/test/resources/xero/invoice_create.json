@@ -12,9 +12,9 @@
 		"access": {
 			"consumer_key": "R2J6PI2GHOZAQQ1ZZVAWQOC6H2UAKL",
 			"consumer_secret": "TG77XPLAGLSGA7LAQIAW5SVA9RQGDT",
-			"oauth_token":"EUVSH8BDCO3OJYGS5SONUVLA6SEITO",
-			"oauth_secret":"J3CLBMZPVWFAGSVSXDVVEF2BCO1WVK",
-			"oauth_verifier":"5803527",
+			"oauth_token":"TGK4EBC9CCBL7S5PIJXGJSJ1LIVE7P",
+			"oauth_secret":"4YTGRPBMGF0DDPTV3555QVYKELXF3H",
+			"oauth_verifier":"6552361",
 			"provider": "xero",
 			"category": "CRM",
 			"description": "My first Connector Project",
