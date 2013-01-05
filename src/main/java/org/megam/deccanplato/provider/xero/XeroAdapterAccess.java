@@ -17,6 +17,7 @@ package org.megam.deccanplato.provider.xero;
 
 import static org.megam.deccanplato.provider.xero.Constants.*;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -33,7 +34,6 @@ import net.oauth.OAuthMessage;
 import net.oauth.OAuthProblemException;
 import net.oauth.client.OAuthClient;
 import net.oauth.client.OAuthResponseMessage;
-import net.oauth.client.httpclient3.HttpClient3;
 
 import org.megam.core.api.secure.AccessToken;
 import org.megam.deccanplato.provider.core.AdapterAccess;
@@ -43,6 +43,8 @@ import org.megam.deccanplato.provider.core.DefaultDataMap;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.gdata.client.GoogleAuthTokenFactory.OAuth2Token;
+import com.rossjourdain.util.xero.XeroClient;
+import com.rossjourdain.util.xero.XeroClientProperties;
 
 /**
  * @author pandiyaraja
@@ -78,57 +80,10 @@ public class XeroAdapterAccess implements AdapterAccess {
 	@Override
 	public <T> DataMap<T> authenticate(DataMap<T> access)
 			throws AdapterAccessException {
-		/*
-		DataMap<T> respMap = new DefaultDataMap<T>();
-		Map<String, T> accessMap = access.map();
-		try {
-			 accessor = new OAuthAccessor(new OAuthConsumer(null,
-					(String) accessMap.get(CONSUMER_KEY),
-					(String) accessMap.get(CONSUMER_SECRET), null));
-			OAuthClient client = new OAuthClient(new HttpClient3());
-			response = client.invoke(accessor, OAuthMessage.GET,
-					TOKEN_URL, null);
-
-			respMap.map().put(TOKEN_ID, (T) response.getToken());
-			System.out.println("ADPTR ACCESS" + response.getToken());
-			OAuthClient client1 = new OAuthClient(new HttpClient3());
-
-			Properties paramProps = new Properties();
-            paramProps.setProperty("oauth_token",
-                    response.getToken());
-            //System.out.println(accessor.consumer.serviceProvider.userAuthorizationURL+":URL");
-			OAuthMessage response1 = sendRequest(paramProps, "https://api.xero.com/oauth/Authorize");
-			System.out.println(response1.URL);
-			
-			
-			Properties paramProps1 = new Properties();
-            paramProps1.setProperty("oauth_token", (String) accessMap.get(XERO_ID));
-            OAuthMessage response2 = sendRequest(paramProps, "https://api.xero.com/oauth/AccessToken");
-            System.out.println(response2.getToken());
-            success = true;
-		} catch (OAuthProblemException ex) {
-			ex.printStackTrace();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}*/
-		access.map().put("access_token", (T) "GV3R2IY8K7TPMUMB0NH9QNVN4NPFKF");
-		Map<String, T> accessMap = access.map();
+		XeroClient xeroClient;
 		success = true;
 		return access;
 	}
-	private OAuthMessage sendRequest(Map map, String url) throws IOException,
-    URISyntaxException, OAuthException
-    {
-		List<Map.Entry> params = new ArrayList<Map.Entry>();
-		Iterator it = map.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry p = (Map.Entry) it.next();
-			params.add(new OAuth.Parameter((String)p.getKey(),
-            (String)p.getValue()));
-		}
-		accessor.tokenSecret = "TG77XPLAGLSGA7LAQIAW5SVA9RQGDT";
-		OAuthClient client = new OAuthClient(new HttpClient3());
-		return client.invoke(accessor, "GET",  url, params);
-    }
+	
 
 }

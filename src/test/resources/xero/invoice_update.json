@@ -1,0 +1,53 @@
+{
+	"system": {
+		"access": {
+			"project_id": "3c78f781-fc28-4c69-8fad-0ca66f2c5dbc",
+			"api_token": "oVj29MbD2LcXzsRzNFx9vw==",
+			"access_email": "alrin@megam.com",
+			"access_org_id": 1,
+			"access_account_name": "MegamSyste"
+		}
+	},
+	"provider": {
+		"access": {
+			"consumer_key": "R2J6PI2GHOZAQQ1ZZVAWQOC6H2UAKL",
+			"consumer_secret": "TG77XPLAGLSGA7LAQIAW5SVA9RQGDT",
+			"oauth_token":"TUUBCYLDNUCKGY8GFEISI7UZJF2NKI",
+			"oauth_secret":"XNINJJDNDSMGSYEAF6YLWTLLR1XTOX",
+			"oauth_verifier":"5863473",
+			"provider": "xero",
+			"category": "CRM",
+			"description": "My first Connector Project",
+			"user_email": "alrin@megam.com",
+			"org_name": "Megam Systems"
+		},
+		"business_activity": {
+			"biz_function": "invoice#update",
+			"name":"Ariki Properties",
+			"email_id":"ponti@gmail.com",
+			"contact_number":"cont-012",
+			"account_code":"200",
+			"quantity":"2",
+			"amount":"200",
+			"description":"desc_ription",
+			"line_amount_type":"Inclusive",
+			"tax_type":"INPUT",
+			"invoice_number":"OIT:01065",
+			"to_name":"Simon G.",
+			"city":"New York",
+			"country":"USA",
+			"postal_code":"10112",
+			"region":"New York State",
+			"phone_no":"5996999",
+			"country_code":"0001",
+			"area_code":"877",
+			"id":"361a4980-7f53-4b68-820c-f6487f613284"
+		}
+	},
+	"execution": {
+		"output": {
+			"type": "default",
+			"location": "default"
+		}
+	}
+}

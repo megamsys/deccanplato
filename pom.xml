@@ -249,6 +249,12 @@
             <artifactId>oauth-httpclient3</artifactId>
             <version>20090617</version>
         </dependency>
+        <!-- OAuth HttpClient4 for xero oauth API -->
+        <dependency>
+            <groupId>net.oauth.core</groupId>
+            <artifactId>oauth-httpclient4</artifactId>
+            <version>20090913</version>
+        </dependency>
 	</dependencies>
 	<repositories>
 		<!-- Central maven repos. This is available inside maven by default We 
