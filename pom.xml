@@ -121,6 +121,14 @@
 			<version>1</version>
 		</dependency>
 
+		<!-- Java Mail API - required for Google Email Migration API -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.5</version>
+		</dependency>
+
+
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -182,7 +190,16 @@
 		</dependency>
 
 		<!--- Google common -->
+		<!-- JSR305 Annotations for Findbugs -->
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305</artifactId>
+			<version>2.0.1</version>
+		</dependency>
 
+		<!-- Guava is a suite of core and expanded libraries that include utility 
+			classes, google's collections, io classes,Guava depends on JSR-305 spec and 
+			javax.inject(JSR-330) -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -231,7 +248,6 @@
 		</dependency>
 		<!--- Google gdata ? why is this needed, when we have the lib/gdata-core 
 			? -->
-
 		<dependency>
 			<groupId>com.google.gdata</groupId>
 			<artifactId>core</artifactId>
@@ -239,24 +255,93 @@
 		</dependency>
 		<!-- OAuth Consumer for xero oauth API access. -->
 		<dependency>
-            <groupId>net.oauth.core</groupId>
-            <artifactId>oauth-consumer</artifactId>
-            <version>20100527</version>
-        </dependency>
-        <!-- OAuth HttpClient for xero oauth API access to invoke business actions. -->
-        <dependency>
-            <groupId>net.oauth.core</groupId>
-            <artifactId>oauth-httpclient3</artifactId>
-            <version>20090617</version>
-        </dependency>
-        <!-- OAuth HttpClient4 for xero oauth API -->
-        <dependency>
-            <groupId>net.oauth.core</groupId>
-            <artifactId>oauth-httpclient4</artifactId>
-            <version>20090913</version>
-        </dependency>
+			<groupId>net.oauth.core</groupId>
+			<artifactId>oauth-consumer</artifactId>
+			<version>20100527</version>
+		</dependency>
+		<!-- OAuth HttpClient for xero oauth API access to invoke business actions. -->
+		<dependency>
+			<groupId>net.oauth.core</groupId>
+			<artifactId>oauth-httpclient3</artifactId>
+			<version>20090617</version>
+		</dependency>
+		<!-- OAuth HttpClient4 for xero oauth API -->
+		<dependency>
+			<groupId>net.oauth.core</groupId>
+			<artifactId>oauth-httpclient4</artifactId>
+			<version>20090913</version>
+		</dependency>
+		<!-- These are the local library files as available inside the local repo 
+			directory The script mvnlocalrepo.py generated these -->
+		<dependency>
+			<groupId>gdata</groupId>
+			<artifactId>calendar</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>gdata</groupId>
+			<artifactId>contacts-meta</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.rossjourdain.xero</groupId>
+			<artifactId>xeroapi</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>gdata</groupId>
+			<artifactId>appsforyourdomain-meta</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>gdata</groupId>
+			<artifactId>client-meta</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>gdata</groupId>
+			<artifactId>contacts</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>gdata</groupId>
+			<artifactId>calendar-meta</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>gdata</groupId>
+			<artifactId>client</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>gdata</groupId>
+			<artifactId>base</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>gdata</groupId>
+			<artifactId>appsforyourdomain</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>gdata</groupId>
+			<artifactId>media</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 	<repositories>
+		<!-- Local project repo directory. -->
+		<repository>
+			<id>repo</id>
+			<releases>
+				<enabled>true</enabled>
+				<checksumPolicy>ignore</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<url>file://${project.basedir}/repo</url>
+		</repository>
 		<!-- Central maven repos. This is available inside maven by default We 
 			add it here so mvn, does a first search in this repos. -->
 		<repository>
@@ -291,11 +376,10 @@
 		</repository>
 		<!-- this repository for xero oauth access. -->
 		<repository>
-            <id>oauth</id>
-            <name>OAuth Repository</name>
-            <url>http://oauth.googlecode.com/svn/code/maven</url>
-        </repository>
-        
+			<id>oauth</id>
+			<name>OAuth Repository</name>
+			<url>http://oauth.googlecode.com/svn/code/maven</url>
+		</repository>
 	</repositories>
 	<!-- Central maven repos. This is available inside maven by default We add 
 		it here so mvn, does a first search in this repos. -->
