@@ -299,6 +299,7 @@ clean(){
 #
 clear
 find . -type f -name "*.*~" -exec rm -f {} \;
+rm -r lib
 mvn clean
 exitScript 0
 }

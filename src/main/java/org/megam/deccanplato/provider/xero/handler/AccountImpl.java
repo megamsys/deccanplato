@@ -80,7 +80,7 @@ public class AccountImpl implements BusinessActivity {
 	 * @return
 	 */
 	private Map<String, String> view(Map<String, String> outMap) {
-		String accountList = null;
+		/*String accountList = null;
 		ArrayOfAccount arrayOfAccount = null;
 		ResponseType responseType = null;
 		StringTokenizer stok=new StringTokenizer(args.get(BIZ_FUNCTION), "#");
@@ -103,6 +103,8 @@ public class AccountImpl implements BusinessActivity {
 		}
 		outMap.put(OUTPUT, accountList);
 		return outMap;
+		*/
+		return null;
 	}
 
 	/**
@@ -113,7 +115,7 @@ public class AccountImpl implements BusinessActivity {
 	 * @return
 	 */
 	private Map<String, String> list(Map<String, String> outMap) {
-		String invoiceList = null;
+		/*String invoiceList = null;
 		ResponseType responseType = null;
 		StringTokenizer stok=new StringTokenizer(args.get(BIZ_FUNCTION), "#");
 		ArrayOfAccount arrayOfAccount = null;
@@ -136,6 +138,8 @@ public class AccountImpl implements BusinessActivity {
 		}
 		outMap.put(OUTPUT, invoiceList);
 		return outMap;
+		*/
+		return null;
 	}
 
 	/* (non-Javadoc)

@@ -143,7 +143,7 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.2.1</version>
 		</dependency>
-		<!-- Apache REST client. Used for unit testing. currently used by SugarCRM 
+		<!-- Apache REST client. Used for unit testing. currently used by SugarCRM
 			adapter tests -->
 		<dependency>
 			<groupId>org.apache.wink</groupId>
@@ -197,8 +197,8 @@
 			<version>2.0.1</version>
 		</dependency>
 
-		<!-- Guava is a suite of core and expanded libraries that include utility 
-			classes, google's collections, io classes,Guava depends on JSR-305 spec and 
+		<!-- Guava is a suite of core and expanded libraries that include utility
+			classes, google's collections, io classes,Guava depends on JSR-305 spec and
 			javax.inject(JSR-330) -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -212,7 +212,7 @@
 			<version>2.2.2</version>
 			<scope>compile</scope>
 		</dependency>
-		<!-- The google-jackson is used by Drive API (or) Google API service. We 
+		<!-- The google-jackson is used by Drive API (or) Google API service. We
 			need to move them to google-jackson2 -->
 		<dependency>
 			<groupId>com.google.http-client</groupId>
@@ -246,7 +246,7 @@
 			<artifactId>google-api-services-tasks</artifactId>
 			<version>v1-rev5-1.12.0-beta</version>
 		</dependency>
-		<!--- Google gdata ? why is this needed, when we have the lib/gdata-core 
+		<!--- Google gdata ? why is this needed, when we have the lib/gdata-core
 			? -->
 		<dependency>
 			<groupId>com.google.gdata</groupId>
@@ -271,7 +271,7 @@
 			<artifactId>oauth-httpclient4</artifactId>
 			<version>20090913</version>
 		</dependency>
-		<!-- These are the local library files as available inside the local repo 
+		<!-- These are the local library files as available inside the local repo
 			directory The script mvnlocalrepo.py generated these -->
 		<dependency>
 			<groupId>gdata</groupId>
@@ -342,17 +342,6 @@
 			</snapshots>
 			<url>file://${project.basedir}/repo</url>
 		</repository>
-		<!-- Central maven repos. This is available inside maven by default We 
-			add it here so mvn, does a first search in this repos. -->
-		<repository>
-			<id>central</id>
-			<name>Central Repository</name>
-			<url>http://repo.maven.apache.org/maven2</url>
-			<layout>default</layout>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
 		<!-- For Hibernate Validator -->
 		<repository>
 			<id>org.jboss.repository.release</id>
@@ -362,7 +351,7 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-		<!-- For downloading Spring 3.2 directly from spring repos, as it ain't 
+		<!-- For downloading Spring 3.2 directly from spring repos, as it ain't
 			available in mvn repos. -->
 		<repository>
 			<id>springsource-repo</id>
@@ -381,7 +370,7 @@
 			<url>http://oauth.googlecode.com/svn/code/maven</url>
 		</repository>
 	</repositories>
-	<!-- Central maven repos. This is available inside maven by default We add 
+	<!-- Central maven repos. This is available inside maven by default We add
 		it here so mvn, does a first search in this repos. -->
 	<pluginRepositories>
 		<pluginRepository>
@@ -428,11 +417,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>3.0</version>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
-					<compilerArgument>-Xlint:all</compilerArgument>
+					<compilerArgument>-Xlint:-path</compilerArgument>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>
 				</configuration>
@@ -448,7 +437,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>2.6</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -471,7 +460,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.12.4</version>
+				<version>2.13</version>
 				<configuration>
 					<configuration>
 						<forkMode>never</forkMode>
