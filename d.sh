@@ -85,7 +85,7 @@ verify
             ;;
         *)
 echo "Unknown option : $item - refer help."
-            help	
+            help
             ;;
 esac
 index=$(($index+1))
@@ -107,7 +107,7 @@ help(){
     echo "--finish : does a push of anothers users master to origin"
     echo " (committer only)"
     echo "--clean  : cleans up the temp files."
-    
+
 exitScript 0
 }
 #
@@ -143,7 +143,7 @@ mkdir $JAVA_OUT_DIR
 for i in `find -type d | sed 's/\.//' | grep -v "^$"`; do mkdir $JAVA_OUT_DIR$i; done
 for i in `find -name "*.java"`; do cat $IDP_INSTALL_PATH/$LICENSE_FILE_NAME $i > $JAVA_OUT_DIR/$i ; done
 fi
-   
+
 exitScript 0
 }
 #--------------------------------------------------------------------------
@@ -298,6 +298,7 @@ clean(){
 #
 #
 clear
+find . -type f -name "*.*~" -exec rm -f {} \;
 mvn clean
 exitScript 0
 }
