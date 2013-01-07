@@ -101,6 +101,7 @@ public class InvoiceImpl implements BusinessActivity {
         	OAuthMessage response=client.getXero(args.get(ID), stok.nextToken());
 			responseType = XeroXmlManager.fromXml(response.getBodyAsStream());	
 			arrayOfInvoices = responseType.getInvoices();
+			
 			invoiceList=XeroXmlManager.invoicesToXml(arrayOfInvoices);
 			System.out.println(XeroXmlManager.invoicesToXml(arrayOfInvoices));
 		} catch (XeroClientException e) {
