@@ -14,19 +14,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry excluding="**/*.java" including="**/*.java" kind="src" path="src/main/resources"/>
-	<classpathentry kind="lib" path="lib/gdata-base-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/gdata-calendar-2.0.jar"/>
-	<classpathentry kind="lib" path="lib/gdata-calendar-meta-2.0.jar"/>
-	<classpathentry kind="lib" path="lib/gdata-client-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/gdata-client-meta-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/gdata-contacts-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/gdata-contacts-meta-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/gdata-media-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/jsr305.jar"/>
-	<classpathentry kind="lib" path="lib/mail.jar"/>
-	<classpathentry kind="lib" path="lib/mailapi.jar"/>
-	<classpathentry kind="lib" path="lib/gdata-appsforyourdomain-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/xero.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
