@@ -152,8 +152,8 @@ public class CustomerImpl implements BusinessActivity{
 		customer.setShippingState(args.get(SHIPPING_STATE));
 		customer.setShippingZip(args.get(SHIPPING_ZIP));
 		contact.setEmail(args.get(EMAIL));
-		contact.setFirstName(args.get(NAME));
-		contact.setLastName(args.get(NAME));
+		contact.setFirstName(args.get(FIRST_NAME));
+		contact.setLastName(args.get(LAST_NAME));
 		contact.setMobile(args.get(MOBILE));
 		contact.setPhone(args.get(PHONE));
 		contact.setSalutation(args.get(SALUTATION));

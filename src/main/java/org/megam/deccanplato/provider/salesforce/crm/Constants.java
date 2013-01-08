@@ -21,6 +21,11 @@ package org.megam.deccanplato.provider.salesforce.crm;
 public class Constants {
 
 	/**
+	 * ===================================
+	 * SALESFORCE CRM INPUT DATA
+	 * ===================================
+	 */
+	/**
 	 * The constants that are used in Salesforce side. Salesforce input
 	 * constants
 	 */
@@ -28,10 +33,85 @@ public class Constants {
 	public static final String S_GRANT_TYPE = "grant_type";
 	public static final String S_CLIENT_ID = "client_id";
 	public static final String S_CLIENT_SECRET = "client_secret";
-	public static final String S_USERNAME = "username";
+	public static final String S_USER_NAME = "username";
 	public static final String S_AUTHORIZATION = "Authorization";
 	public static final String S_OAUTH = "OAuth ";
-
+	/**
+	 * Salesforce Common fields
+	 */
+	public static final String S_NAME="Name";
+	public static final String S_SUBJECT="Subject";
+	public static final String S_CONTACTID="ContactId";
+	public static final String S_ACCOUNTID="AccountId";
+	public static final String S_STATUS="status";
+	public static final String S_COMPANY="Company";
+	public static final String S_DESCRIPTION="Description";
+	/**
+	 * Salesforce side user field data
+	 */
+	public static final String S_USERNAME="Username";
+	public static final String S_FIRSTNAME="FirstName";
+	public static final String S_EMAIL="Email";
+	public static final String S_ALIAS="Alias";
+	public static final String S_PROFILEID="ProfileId";
+	public static final String S_LASTNAME="LastName";
+	public static final String S_TIMEZONESIDKEY="TimeZoneSidKey";
+	public static final String S_LOCALESIDKEY="LocaleSidKey";
+	public static final String S_EMAILENCODINGKEY="EmailEncodingKey";
+	public static final String S_LANGUAGELOCALEYKEY="LanguageLocaleKey";
+	/**
+	 * Salesforce Account fields
+	 */
+	
+	/**
+	 * Salesforce Case fields
+	 */
+	
+	/**
+	 * Salesforce Contact Fields
+	 */
+	
+	/**
+	 * Salesforce Contact fields
+	 */
+	public static final String S_CONTRACTTERM="ContractTerm";
+	public static final String S_BILLINGCITY="BillingCity";
+	/**
+	 * Salesforce Event fields
+	 */
+	public static final String S_STARTDATETIME="StartDateTime";
+	public static final String S_ENDDATETIME="EndDateTime";
+	/**
+	 * Salesforce Lead fields
+	 */
+	public static final String S_STAGENAME="StageName";
+	public static final String S_CLOSEDATE="CloseDate";
+	/**
+	 * Salesforce Partner fields
+	 */
+	public static final String S_ACCOUNTFROMIDE="AccountFromId";
+	public static final String S_ACCOUNTTOID="AccountToId";
+	public static final String S_ISPRIMARY="IsPrimary";
+	public static final String S_OPPORTUNITYID="OpportunityId";
+	public static final String S_ROLE="Role";
+	/**
+	 * Salesforce PriceBook fields
+	 */
+	public static final String S_ISACTIVE="IsActive";
+	/**
+	 * Salesforce Solution fields
+	 */
+	public static final String S_SOLUTIONNAME="SolutionName";
+	/**
+	 * Salesforce Task fields
+	 */
+	public static final String S_PRIORITY="Priority";
+	/**
+	 * 
+	 * =====================================
+	 * JSON INPUT DATA
+	 * =====================================
+	 */
 	/**
 	 * The constants that are needed for common function. Json Input constants
 	 */

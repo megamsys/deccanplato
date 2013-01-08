@@ -43,7 +43,6 @@ public class AccountImpl implements BusinessActivity {
 
 	private Map<String, String> args = new HashMap<String, String>();
 	private BusinessActivityInfo bizInfo;
-	private XeroPublicClient client;
 	/* (non-Javadoc)
 	 * @see org.megam.deccanplato.provider.BusinessActivity#setArguments(org.megam.deccanplato.provider.core.BusinessActivityInfo, java.util.Map)
 	 */
@@ -60,18 +59,17 @@ public class AccountImpl implements BusinessActivity {
 	 */
 	@Override
 	public Map<String, String> run() {
-		Map<String, String> outMap=new HashMap<String, String>();
+		Map<String, String> outMap=null;
 		switch(bizInfo.getActivityFunction()) {
 		case LIST:
-			outMap=list(outMap);
+			outMap=listAll();
 			break;
 		case VIEW:
-			outMap=view(outMap);
+			outMap=list();
 			break;
 		}
-		return null;
+		return outMap;
 	}
-
 	/**
 	 * This method returns a particular account details by
 	 * account id. It converts response data to xml data by using 
@@ -79,30 +77,21 @@ public class AccountImpl implements BusinessActivity {
 	 * @param outMap
 	 * @return
 	 */
-	private Map<String, String> view(Map<String, String> outMap) {
-		String accountList = null;
-		ArrayOfAccount arrayOfAccount = null;
-		ResponseType responseType = null;
-		StringTokenizer stok=new StringTokenizer(args.get(BIZ_FUNCTION), "#");
+	private Map<String, String> list() {
+          Map<String,String> outMap = new HashMap<String,String>();	
+		
 		try {
-        	client=new XeroPublicClient(args);
-        	OAuthMessage response=client.getXero(args.get(ID), stok.nextToken());
-			responseType = XeroXmlManager.fromXml(response.getBodyAsStream());	
-			arrayOfAccount = responseType.getAccounts();
-			accountList=XeroXmlManager.accountsToXml(arrayOfAccount);
-			System.out.println(XeroXmlManager.accountsToXml(arrayOfAccount));
+			XeroPublicClient client=new XeroPublicClient(args);
+        	String responseString =client.list(args.get(ID), 
+        			new StringTokenizer(args.get(BIZ_FUNCTION), "#").nextToken());
+    		outMap.put(OUTPUT, responseString);
 		} catch (XeroClientException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (XeroClientUnexpectedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		outMap.put(OUTPUT, accountList);
-		return outMap;
+		} 
+		return outMap; 
+		
 	}
 
 	/**
@@ -112,30 +101,19 @@ public class AccountImpl implements BusinessActivity {
 	 * @param outMap
 	 * @return
 	 */
-	private Map<String, String> list(Map<String, String> outMap) {
-		String invoiceList = null;
-		ResponseType responseType = null;
-		StringTokenizer stok=new StringTokenizer(args.get(BIZ_FUNCTION), "#");
-		ArrayOfAccount arrayOfAccount = null;
-        try {
-        	XeroPublicClient client=new XeroPublicClient(args);
-			OAuthMessage response=client.getXeros(stok.nextToken());
-			responseType = XeroXmlManager.fromXml(response.getBodyAsStream());	
-			arrayOfAccount = responseType.getAccounts();
-			invoiceList=XeroXmlManager.accountsToXml(arrayOfAccount);
-			System.out.println(XeroXmlManager.accountsToXml(arrayOfAccount));
+	private Map<String, String> listAll() {
+      Map<String,String> outMap = new HashMap<String,String>();	
+		
+		try {
+			XeroPublicClient client=new XeroPublicClient(args);
+        	String responseString =client.listAll(new StringTokenizer(args.get(BIZ_FUNCTION), "#").nextToken());
+    		outMap.put(OUTPUT, responseString);
 		} catch (XeroClientException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (XeroClientUnexpectedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		outMap.put(OUTPUT, invoiceList);
-		return outMap;
+		} 
+		return outMap; 
 	}
 
 	/* (non-Javadoc)

@@ -21,6 +21,11 @@ package org.megam.deccanplato.provider.salesforce.chatter;
 public class Constants {
 
 	/**
+	 * ===========================
+	 * Salesforce Inputs
+	 * ===========================
+	 */
+	/**
 	 * The constants that are used in Salesforce side. Salesforce input
 	 * constants
 	 */
@@ -31,7 +36,16 @@ public class Constants {
 	public static final String S_USERNAME = "username";
 	public static final String S_AUTHORIZATION = "Authorization";
 	public static final String S_OAUTH = "OAuth ";
-
+	/**
+	 * Salesforce Feed fields
+	 */
+	public static final String S_TEXT="text";
+	
+    /**
+     * ===================================
+     * Salesforce Chatter Json inputs
+     * ===================================
+     */
 	/**
 	 * The constants that are needed for common function. Json Input constants
 	 */

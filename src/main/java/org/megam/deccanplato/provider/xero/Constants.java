@@ -44,4 +44,17 @@ public class Constants {
     public static final String ID="id";
     public static final String BIZ_FUNCTION="biz_function";
     public static final String TAX_TYPE="tax_type";
+    /**
+     * Payment Fields
+     */
+    public static final String ACCOUNT_ID="account_id";
+    public static final String INVOICE_ID="invoice_id";
+    /**
+     * Contact Fields
+     */
+    public static final String ADDRESS_LINE="address_line";
+    public static final String LAST_NAME="last_name";
+    public static final String BANK_DETAILS="bank_details";
+    public static final String FIRST_NAME="first_name";
+    public static final String STATUS="status";
 }

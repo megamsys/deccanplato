@@ -61,10 +61,10 @@ public class FileFeedImpl implements BusinessActivity {
 	 */
 	@Override
 	public Map<String, String> run() {
-		Map<String, String> outMap = new HashMap<String, String>();
+		Map<String, String> outMap = null;
 		switch (bizInfo.getActivityFunction()) {
 		case LIST:
-			outMap = list(outMap);
+			outMap = list();
 			break;
 		}
 		return outMap;
@@ -75,34 +75,25 @@ public class FileFeedImpl implements BusinessActivity {
 	 * @param outMap
 	 * @return a map
 	 */
-	private Map<String, String> list(Map<String, String> outMap) {
-
+	private Map<String, String> list() {
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCE_CHATTER_ACTIVITY_URL = "/services/data/v25.0/chatter/feeds/news/0059000000103ohAAA/feed-items";
 		Map<String, String> header = new HashMap<String, String>();
 		header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
 
 		TransportTools tst = new TransportTools(args.get(INSTANCE_URL)
 				+ SALESFORCE_CHATTER_ACTIVITY_URL, null, header);
-		String responseBody = null;
-
-		TransportResponse response = null;
 
 		try {
-			response = TransportMachinery.get(tst);
+			String response = TransportMachinery.get(tst).entityToString();
+			outMap.put(OUTPUT, response);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-
-		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 
@@ -113,7 +104,6 @@ public class FileFeedImpl implements BusinessActivity {
 	 */
 	@Override
 	public String name() {
-		// TODO Auto-generated method stub
 		return "filefeed";
 	}
 
