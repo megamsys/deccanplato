@@ -1,0 +1,51 @@
+{
+	"system": {
+		"access": {
+			"project_id": "3c78f781-fc28-4c69-8fad-0ca66f2c5dbc",
+			"api_token": "oVj29MbD2LcXzsRzNFx9vw==",
+			"access_email": "alrin@megam.com",
+			"access_org_id": 1,
+			"access_account_name": "MegamSyste"
+		}
+	},
+	"provider": {
+		"access": {
+			"consumer_key": "R2J6PI2GHOZAQQ1ZZVAWQOC6H2UAKL",
+			"consumer_secret": "TG77XPLAGLSGA7LAQIAW5SVA9RQGDT",
+			"oauth_token":"Q3FCEBUEIUTYR3SASUZ8QES9TTVQMX",
+			"oauth_secret":"WQJ7OPCMRCDGJBCZGBDIYXNWLLMLS4",
+			"oauth_verifier":"5044385",
+			"provider": "xero",
+			"category": "CRM",
+			"description": "My first Connector Project",
+			"user_email": "alrin@megam.com",
+			"org_name": "Megam Systems"
+		},
+		"business_activity": {
+			"biz_function": "contact#create",
+			"name":"Ariki Properties",
+			"email_id":"ponti@gmail.com",
+			"contact_number":"cont-012",
+			"to_name":"Simon G.",
+			"city":"New York",
+			"country":"USA",
+			"postal_code":"10112",
+			"region":"New York State",
+			"phone_no":"5996999",
+			"country_code":"1111",
+			"area_code":"877",
+			"address_line":"12th cross Street",
+			"last_name":"PONTIYA",
+			"bank_details":"HDFC-12542535794349875",
+			"first_name":"PUNTER",
+			"status":"ACTIVE",
+			"contact_id":"e9629d88-b2ea-44d9-83f1-cb5b12054f70"
+		}
+	},
+	"execution": {
+		"output": {
+			"type": "default",
+			"location": "default"
+		}
+	}
+}

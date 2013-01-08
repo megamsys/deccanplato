@@ -68,25 +68,25 @@ public class FeedImpl implements BusinessActivity {
 	 */
 	@Override
 	public Map<String, String> run() {
-		Map<String, String> outMap = new HashMap<String, String>();
+		Map<String, String> outMap = null;
 		switch (bizInfo.getActivityFunction()) {
 		case LIST:
-			outMap = list(outMap);
+			outMap = list();
 			break;
 		case DELETE:
-			outMap=delete(outMap);
+			outMap=delete();
 			break;
 		case COMMENT:
-			outMap=comment(outMap);
+			outMap=comment();
 			break;
 		case LIKE:
-			outMap=like(outMap);
+			outMap=like();
 			break;
 		case FEED:
-			outMap=feed(outMap);
+			outMap=feed();
 			break;
 		case POSTCOMMENT:
-			outMap=postcomment(outMap);
+			outMap=postcomment();
 			break;
 		}
 		return outMap;
@@ -97,34 +97,29 @@ public class FeedImpl implements BusinessActivity {
 	 * @param outMap
 	 * @return
 	 */
-	private Map<String, String> postcomment(Map<String, String> outMap) {
+	private Map<String, String> postcomment() {
 		
-		
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCE_CHATTER_URL = args.get(INSTANCE_URL)+"/services/data/v25.0/chatter/feed-items/"+args.get(ID)+"/comments?";
 		Map<String,String> header=new HashMap<String,String>();
         header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
         Gson gson=new Gson();        
         Map<String, Object> accountAttrMap = new HashMap<String, Object>();
         
-        accountAttrMap.put("text", gson.toJson(new Post(args.get(TYPE), args.get(TEXT))));
+        accountAttrMap.put(S_TEXT, gson.toJson(new Post(args.get(TYPE), args.get(TEXT))));
         
         TransportTools tst=new TransportTools(SALESFORCE_CHATTER_URL, null, header);
         Gson obj = new GsonBuilder().setPrettyPrinting().create();
         tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(accountAttrMap));
-        String responseBody = null;
-        
-        TransportResponse response = null;
         try {
-			response=TransportMachinery.post(tst);
-			responseBody=response.entityToString();	
+			String response=TransportMachinery.post(tst).entityToString();
+			outMap.put(OUTPUT, response);
 		
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-        outMap.put(OUTPUT, responseBody);
 		return outMap;	
 	}
 
@@ -133,33 +128,25 @@ public class FeedImpl implements BusinessActivity {
 	 * @param outMap
 	 * @return
 	 */
-	private Map<String, String> feed(Map<String, String> outMap) {
-		
+	private Map<String, String> feed() {
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCE_CHATTER_ANSWER_ACTIVITY_URL = "/services/data/v25.0/chatter/feeds/news/"+args.get(ID)+"/feed-items";
 		Map<String, String> header = new HashMap<String, String>();
 		header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
 
 		TransportTools tst = new TransportTools(args.get(INSTANCE_URL)
 				+ SALESFORCE_CHATTER_ANSWER_ACTIVITY_URL, null, header);
-		String responseBody = null;
-
-		TransportResponse response = null;
-
+		
 		try {
-			response = TransportMachinery.get(tst);
+			String response = TransportMachinery.get(tst).entityToString();
+			outMap.put(OUTPUT, response);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-
-		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
@@ -169,8 +156,8 @@ public class FeedImpl implements BusinessActivity {
 	 * @param outMap
 	 * @return
 	 */
-	private Map<String, String> like(Map<String, String> outMap) {
-		
+	private Map<String, String> like() {
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCE_CHATTER_ACTIVITY_URL = "/services/data/v25.0/chatter/feed-items/"+args.get(ID)+"/likes";
 
 		Map<String, String> header = new HashMap<String, String>();
@@ -178,25 +165,16 @@ public class FeedImpl implements BusinessActivity {
 
 		TransportTools tst = new TransportTools(args.get(INSTANCE_URL)+SALESFORCE_CHATTER_ACTIVITY_URL,
 				null, header);
-		String responseBody = null;
-
-		TransportResponse response = null;
-
 		try {
-			response = TransportMachinery.get(tst);
+			String response = TransportMachinery.get(tst).entityToString();
+			outMap.put(OUTPUT, response);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-
-		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
@@ -206,8 +184,8 @@ public class FeedImpl implements BusinessActivity {
 	 * @param outMap feed item id
 	 * @return
 	 */
-	private Map<String, String> comment(Map<String, String> outMap) {
-		
+	private Map<String, String> comment() {
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCE_CHATTER_ACTIVITY_URL = "/services/data/v25.0/chatter/feed-items/"+args.get(ID)+"/comments";
 
 		Map<String, String> header = new HashMap<String, String>();
@@ -215,25 +193,16 @@ public class FeedImpl implements BusinessActivity {
 
 		TransportTools tst = new TransportTools(args.get(INSTANCE_URL)+SALESFORCE_CHATTER_ACTIVITY_URL,
 				null, header);
-		String responseBody = null;
-
-		TransportResponse response = null;
-
 		try {
-			response = TransportMachinery.get(tst);
+			String response = TransportMachinery.get(tst).entityToString();
+			outMap.put(OUTPUT, response);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-
-		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
@@ -243,8 +212,8 @@ public class FeedImpl implements BusinessActivity {
 	 * @param outMap
 	 * @return
 	 */
-	private Map<String, String> delete(Map<String, String> outMap) {
-		
+	private Map<String, String> delete() {
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCE_CHATTER_ACTIVITY_URL = "/services/data/v25.0/chatter/feed-items/"+args.get(ID);
 
 		Map<String, String> header = new HashMap<String, String>();
@@ -252,22 +221,15 @@ public class FeedImpl implements BusinessActivity {
 
 		TransportTools tst = new TransportTools(args.get(INSTANCE_URL)+SALESFORCE_CHATTER_ACTIVITY_URL,
 				null, header);
-		String responseBody = null;
-
-		TransportResponse response = null;
 
 		try {
-			response = TransportMachinery.delete(tst);
+			String response = TransportMachinery.delete(tst).entityToString();
+			outMap.put(OUTPUT, response);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-
-		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
@@ -277,7 +239,8 @@ public class FeedImpl implements BusinessActivity {
 	 * @param outMap
 	 * @return list of user feeds.
 	 */
-	private Map<String, String> list(Map<String, String> outMap) {
+	private Map<String, String> list() {
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCE_CHATTER_ACTIVITY_URL = "/services/data/v25.0/chatter/feed-items/"+args.get(ID);
 
 		Map<String, String> header = new HashMap<String, String>();
@@ -285,25 +248,17 @@ public class FeedImpl implements BusinessActivity {
 
 		TransportTools tst = new TransportTools(args.get(INSTANCE_URL)+SALESFORCE_CHATTER_ACTIVITY_URL,
 				null, header);
-		String responseBody = null;
-
-		TransportResponse response = null;
-
+		
 		try {
-			response = TransportMachinery.get(tst);
+			String response = TransportMachinery.get(tst).entityToString();
+			outMap.put(OUTPUT, response);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-
-		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
@@ -314,7 +269,6 @@ public class FeedImpl implements BusinessActivity {
 	 */
 	@Override
 	public String name() {
-		// TODO Auto-generated method stub
 		return "feed";
 	}
 

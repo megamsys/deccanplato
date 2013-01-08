@@ -62,19 +62,19 @@ public class CaseImpl implements BusinessActivity{
 	 */
 	@Override
 	public Map<String, String> run() {
-		Map<String, String> outMap=new HashMap<>();
+		Map<String, String> outMap=null;
 		switch (bizInfo.getActivityFunction()) {
 		case CREATE:
-			outMap=create(outMap);
+			outMap=create();
 			break;
 		case LIST:
-			outMap=list(outMap);
+			outMap=list();
 			break;
 		case UPDATE:
-			outMap=update(outMap);
+			outMap=update();
 			break;
 		case DELETE:
-			outMap=delete(outMap);
+			outMap=delete();
 			break;
 		default:
 			break;
@@ -87,33 +87,29 @@ public class CaseImpl implements BusinessActivity{
 	 * This method gets input from a MAP(contains json data) and returns a MAp.
 	 * @param outMap 
 	 */
-	private Map<String, String> create(Map<String, String> outMap) {
+	private Map<String, String> create() {
 		final String SALESFORCE_CREATE_CASE_URL = args.get(INSTANCE_URL)+SALESFORCE_CASE_URL;
-		
+		Map<String, String> outMap=new HashMap<>();
 		Map<String,String> header=new HashMap<String,String>();
         header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
         Map<String, Object> userAttrMap = new HashMap<String, Object>();
-        userAttrMap.put("Subject", args.get(SUBJECT));
-        userAttrMap.put("ContactId", args.get(CONTACT_ID));
-        userAttrMap.put("AccountId", args.get(ACCOUNT_ID));
+        userAttrMap.put(S_SUBJECT, args.get(SUBJECT));
+        userAttrMap.put(S_CONTACTID, args.get(CONTACT_ID));
+        userAttrMap.put(S_ACCOUNTID, args.get(ACCOUNT_ID));
                       
         TransportTools tst=new TransportTools(SALESFORCE_CREATE_CASE_URL, null, header);
         Gson obj = new GsonBuilder().setPrettyPrinting().create();
         tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(userAttrMap));
-        String responseBody = null;
         
-        TransportResponse response = null;
         try {
-			response=TransportMachinery.post(tst);
-			responseBody=response.entityToString();	
+			String responseBody=TransportMachinery.post(tst).entityToString();
+			outMap.put(OUTPUT, responseBody);	
 		
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        
-        outMap.put(OUTPUT, responseBody);
 		return outMap;		
 	}
 
@@ -122,7 +118,8 @@ public class CaseImpl implements BusinessActivity{
 	 * This method gets input from a MAP(contains json data) and returns a MAp.
 	 * @param outMap 
 	 */
-	private Map<String, String> list(Map<String, String> outMap) {
+	private Map<String, String> list() {
+		Map<String, String> outMap =new HashMap<String, String>();
 		final String SALESFORCE_LIST_CASE_URL = args.get(INSTANCE_URL)
 				+ "/services/data/v25.0/query/?q=SELECT+Subject,Id+FROM+Case";
 		Map<String, String> header = new HashMap<String, String>();
@@ -130,25 +127,16 @@ public class CaseImpl implements BusinessActivity{
 
 		TransportTools tst = new TransportTools(SALESFORCE_LIST_CASE_URL, null,
 				header);
-		String responseBody = null;
-
-		TransportResponse response = null;
-
 		try {
-			response = TransportMachinery.get(tst);
+			String responseBody = TransportMachinery.get(tst).entityToString();
+			outMap.put(OUTPUT, responseBody);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-
-		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
@@ -157,29 +145,27 @@ public class CaseImpl implements BusinessActivity{
 	 * This method gets input from a MAP(contains json data) and returns a MAp.
 	 * @param outMap 
 	 */
-	private Map<String, String> update(Map<String, String> outMap) {
+	private Map<String, String> update() {
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCE_UPDATE_CASE_URL = args.get(INSTANCE_URL)+SALESFORCE_CASE_URL+args.get(ID);
 		Map<String,String> header=new HashMap<String,String>();
         header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
         Map<String, Object> userAttrMap = new HashMap<String, Object>();        
-        userAttrMap.put("Subject", args.get(SUBJECT));
+        userAttrMap.put(S_SUBJECT, args.get(SUBJECT));
                 
         TransportTools tst=new TransportTools(SALESFORCE_UPDATE_CASE_URL, null, header);
         Gson obj = new GsonBuilder().setPrettyPrinting().create();
         tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(userAttrMap));
-        
-        String responseBody = null;
+               
         try {
 			TransportMachinery.patch(tst);
-			responseBody = UPDATE_STRING+args.get(ID);
+			outMap.put(OUTPUT, UPDATE_STRING+args.get(ID));
 		
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        
-        outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
@@ -188,7 +174,8 @@ public class CaseImpl implements BusinessActivity{
 	 * This method gets input from a MAP(contains json data) and returns a MAp.
 	 * @param outMap 
 	 */
-	private Map<String, String> delete(Map<String, String> outMap) {
+	private Map<String, String> delete() {
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCE_DELETE_CASE_URL = args.get(INSTANCE_URL)
 				+SALESFORCE_CASE_URL+args.get(ID);
 		Map<String, String> header = new HashMap<String, String>();
@@ -196,18 +183,14 @@ public class CaseImpl implements BusinessActivity{
 
 		TransportTools tst = new TransportTools(SALESFORCE_DELETE_CASE_URL, null,
 				header);
-		String responseBody = null;
 		try {
 			TransportMachinery.delete(tst);
-			responseBody = DELETE_STRING+args.get(ID);
+			outMap.put(OUTPUT, DELETE_STRING+args.get(ID));
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
@@ -216,7 +199,6 @@ public class CaseImpl implements BusinessActivity{
 	 */
 	@Override
 	public String name() {
-		// TODO Auto-generated method stub
 		return "case";
 	}
 

@@ -17,15 +17,12 @@ package org.megam.deccanplato.provider.xero.handler;
 import static org.megam.deccanplato.provider.Constants.*;
 import static org.megam.deccanplato.provider.xero.Constants.*;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-
-import net.oauth.OAuthMessage;
 
 import org.megam.deccanplato.provider.BusinessActivity;
 import org.megam.deccanplato.provider.core.BusinessActivityInfo;
@@ -41,7 +38,6 @@ import com.rossjourdain.util.xero.InvoiceStatus;
 import com.rossjourdain.util.xero.InvoiceType;
 import com.rossjourdain.util.xero.LineItem;
 import com.rossjourdain.util.xero.Phone;
-import com.rossjourdain.util.xero.ResponseType;
 import com.rossjourdain.util.xero.XeroClientException;
 import com.rossjourdain.util.xero.XeroClientUnexpectedException;
 import com.rossjourdain.util.xero.XeroPublicClient;
@@ -80,9 +76,6 @@ public class InvoiceImpl implements BusinessActivity {
 			outMap=create();
 			break;
 		case UPDATE:
-			/**
-			 * RP-TODO : Will this work ? Why do we need two methods create() and update()
-			 */
 			outMap=create();
 			break;
 		}
@@ -135,10 +128,10 @@ public class InvoiceImpl implements BusinessActivity {
 
 	
 	/**
-	 * This method creates an invoices in xero,
+	 * This method performs both create and update invoices in xero,
 	 * It uses some sub classes like contact, invoice, address,
 	 * phone and line item then it convert to xml format data and 
-	 * send to xero public client to create an invoice account. 
+	 * send to xero public client to create/update an invoice account. 
 	 * @param outMap
 	 * @return
 	 */
@@ -197,16 +190,14 @@ public class InvoiceImpl implements BusinessActivity {
             Calendar due = Calendar.getInstance();
             due.set(due.get(Calendar.YEAR), due.get(Calendar.MONTH) + 1, 20);
             invoice.getLineAmountTypes().add(args.get(LINE_AMOUNT_TYPE));
+            if(args.containsKey(ID)) {
+            invoice.setInvoiceID(args.get(ID));
+            }
             invoice.setDueDate(due);
             invoice.setInvoiceNumber(args.get(INVOICE_NUMBER));
             invoice.setType(InvoiceType.ACCREC);
             invoice.setStatus(InvoiceStatus.AUTHORISED);
-            invoice.setInvoiceID(args.get(ID));
             invoices.add(invoice);
-            /**
-             * RP-TODO, does a post return anything ? If it doesn't then remove the 
-             * concat of CREATE_STRING
-             */
             String responseString = client.post(XeroXmlManager.invoicesToXml(arrayOfInvoice), 
             		new StringTokenizer(args.get(BIZ_FUNCTION), "#").nextToken());
             outMap.put(OUTPUT, CREATE_STRING +"/n" + responseString);
@@ -217,95 +208,6 @@ public class InvoiceImpl implements BusinessActivity {
         }
 		return outMap;		
 	}
-		
-
-	/**
-	 * RP-TODO, Why is this method needed  ?
-	 * 
-	 * This method updates an invoices in xero,
-	 * It uses some sub classes like contact, invoice, address,
-	 * phone and line item then it convert to xml format data and 
-	 * send to xero public client to create an invoice account. 
-	 * post and put both can use to update an invoice. 
-	 * @param outMap
-	 * @return
-	 
-	private Map<String, String> update() {
-		XeroPublicClient client=new XeroPublicClient(args);
-        try {
-		StringTokenizer stok=new StringTokenizer(args.get(BIZ_FUNCTION), "#");
-
-            ArrayOfInvoice arrayOfInvoice = new ArrayOfInvoice();
-            List<Invoice> invoices = arrayOfInvoice.getInvoice();
-            Invoice invoice = new Invoice();            
-            
-            Contact contact = new Contact();
-            //contact.setContactID(args.get(CONTACT_ID));
-            //contact.setContactNumber(args.get(CONTACT_NUMBER));
-            contact.setName(args.get(NAME));
-            contact.setEmailAddress(args.get(EMAIL_ID));            
-             
-            ArrayOfAddress arrayOfAddress=new ArrayOfAddress();
-            List<Address> addresses=arrayOfAddress.getAddress();
-            Address address=new Address();
-            address.setAttentionTo(args.get(TO_NAME));
-            address.setCity(args.get(CITY));
-            address.setCountry(args.get(COUNTRY));
-            address.setPostalCode(POSTAL_CODE);
-            address.setRegion(args.get(REGION));
-            addresses.add(address);
-            contact.setAddresses(arrayOfAddress);
-            
-            ArrayOfPhone arrayOfPhone=new ArrayOfPhone();
-            List<Phone> phones = arrayOfPhone.getPhone();
-            Phone phone=new Phone();
-            phone.setPhoneNumber(args.get(PHONE_NO));
-            phone.setPhoneCountryCode(args.get(COUNTRY_CODE));
-            phone.setPhoneAreaCode(args.get(AREA_CODE));
-            phones.add(phone);
-            contact.setPhones(arrayOfPhone);
-            invoice.setContact(contact);
-            
-            ArrayOfLineItem arrayOfLineItem = new ArrayOfLineItem();
-            List<LineItem> lineItems = arrayOfLineItem.getLineItem();
-            LineItem lineItem = new LineItem();
-            lineItem.setAccountCode(args.get(ACCOUNT_CODE));
-            BigDecimal qty = new BigDecimal(args.get(QUANTITY));
-            lineItem.setTaxType(args.get(TAX_TYPE));
-            lineItem.setQuantity(qty);
-            BigDecimal amnt = new BigDecimal(args.get(AMOUNT));
-            lineItem.setUnitAmount(amnt);
-            lineItem.setDescription(args.get(DESCRIPTION));
-            lineItem.setLineAmount(qty.multiply(amnt));
-            lineItems.add(lineItem);
-            invoice.setLineItems(arrayOfLineItem);
-
-            invoice.setDate(Calendar.getInstance());
-            Calendar due = Calendar.getInstance();
-            due.set(due.get(Calendar.YEAR), due.get(Calendar.MONTH) + 1, 20);
-            invoice.getLineAmountTypes().add(args.get(LINE_AMOUNT_TYPE));
-            invoice.setDueDate(due);
-            invoice.setInvoiceNumber(args.get(INVOICE_NUMBER));
-            invoice.setType(InvoiceType.ACCREC);
-            invoice.setStatus(InvoiceStatus.AUTHORISED);
-            invoices.add(invoice);
-
-            OAuthMessage msg=client.postXero(XeroXmlManager.invoicesToXml(arrayOfInvoice), stok.nextToken());
-            System.out.println(msg.toString());
-        } catch (XeroClientException ex) {
-            ex.printDetails();
-        } catch (XeroClientUnexpectedException ex) {
-            ex.printStackTrace();
-        }
-        outMap.put(OUTPUT, UPDATE_STRING);
-		return outMap;
-		
-	}
-*/
-	
-	
-	
-
 	@Override
 	public String name() {
 		return "invoice";

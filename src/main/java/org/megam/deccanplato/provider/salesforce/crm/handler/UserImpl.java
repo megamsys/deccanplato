@@ -73,19 +73,19 @@ public class UserImpl implements BusinessActivity {
 
 	@Override
 	public Map<String, String> run() {
-		Map<String, String> outMap=new HashMap<>();
+		Map<String, String> outMap=null;
 		switch (bizInfo.getActivityFunction()) {
 		case CREATE:
-			outMap=create(outMap);
+			outMap=create();
 			break;
 		case LIST:
-			outMap=list(outMap);
+			outMap=list();
 			break;
 		case UPDATE:
-			outMap=delete(outMap);
+			outMap=delete();
 			break;
 		case DELETE:
-			outMap=update(outMap);
+			outMap=update();
 			break;
 		default:
 			break;
@@ -97,41 +97,36 @@ public class UserImpl implements BusinessActivity {
 	 * This method gets input from a MAP(contains json data) and returns a MAp.
 	 * @param outMap 
 	 */
-	private Map<String, String> create(Map<String, String> outMap) {
-		
+	private Map<String, String> create() {
+		Map<String, String> outMap=new HashMap<String, String>();
 		final String SALESFORCE_CREATE_USER_URL = args.get(INSTANCE_URL)+SALESFORCE_USER_URL;		
         Map<String,String> header=new HashMap<String,String>();
         header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));    		
 
 		Map<String, Object> userAttrMap = new HashMap<String, Object>();
-        userAttrMap.put("Username", args.get(USERNAME));
-        userAttrMap.put("FirstName", args.get(FIRSTNAME));
-        userAttrMap.put("Email", args.get(EMAIL));
-        userAttrMap.put("Alias", args.get(ALIAS));
-        userAttrMap.put("ProfileId", args.get(PROFILEID));
-        userAttrMap.put("LastName", args.get(LASTNAME));
-        userAttrMap.put("TimeZoneSidKey", args.get(TIMEZONESIDKEY));
-        userAttrMap.put("LocaleSidKey", args.get(LOCALESIDKEY));
-        userAttrMap.put("EmailEncodingKey", args.get(EMAILENCODINGKEY));
-        userAttrMap.put("LanguageLocaleKey", args.get(LANGUAGELOCALEKEY));
+        userAttrMap.put(S_USERNAME, args.get(USERNAME));
+        userAttrMap.put(S_FIRSTNAME, args.get(FIRSTNAME));
+        userAttrMap.put(S_EMAIL, args.get(EMAIL));
+        userAttrMap.put(S_ALIAS, args.get(ALIAS));
+        userAttrMap.put(S_PROFILEID, args.get(PROFILEID));
+        userAttrMap.put(S_LASTNAME, args.get(LASTNAME));
+        userAttrMap.put(S_TIMEZONESIDKEY, args.get(TIMEZONESIDKEY));
+        userAttrMap.put(S_LOCALESIDKEY, args.get(LOCALESIDKEY));
+        userAttrMap.put(S_EMAILENCODINGKEY, args.get(EMAILENCODINGKEY));
+        userAttrMap.put(S_LANGUAGELOCALEYKEY, args.get(LANGUAGELOCALEKEY));
         
         TransportTools tst=new TransportTools(SALESFORCE_CREATE_USER_URL, null, header);
         Gson obj = new GsonBuilder().setPrettyPrinting().create();
         tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(userAttrMap));
-        String responseBody = null;
-        
-        TransportResponse response = null;
-        try {
-			response=TransportMachinery.post(tst);
-			responseBody=response.entityToString();	
-		
+         try {
+			String responseBody=TransportMachinery.post(tst).entityToString();
+				outMap.put(OUTPUT, responseBody);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}        
         
-        outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 	/**
@@ -139,36 +134,27 @@ public class UserImpl implements BusinessActivity {
 	 * This method gets input from a MAP(contains json data) and returns a MAp.
 	 * @param outMap 
 	 */
-	private Map<String, String> list(Map<String, String> outMap) {
+	private Map<String, String> list() {
 
+		Map<String, String> outMap=new HashMap<String, String>();
 		final String SALESFORCE_LIST_USER_URL = args.get(INSTANCE_URL)
 				+ "/services/data/v25.0/query/?q=SELECT+Username+FROM+User";
 		Map<String, String> header = new HashMap<String, String>();
 		header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
 
 		TransportTools tst = new TransportTools(SALESFORCE_LIST_USER_URL, null,
-				header);
-		String responseBody = null;
-
-		TransportResponse response = null;
-
+				header);		
 		try {
-			response = TransportMachinery.get(tst);
+			String responseBody = TransportMachinery.get(tst).entityToString();
+			outMap.put(OUTPUT, responseBody);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-       
-       
-		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
+		
 		return outMap;
 
 	}
@@ -177,7 +163,7 @@ public class UserImpl implements BusinessActivity {
 	 * This method gets input from a MAP(contains json data) and returns a MAp.
 	 * @param outMap 
 	 */
-	private Map<String, String> delete(Map<String, String> outMap) {
+	private Map<String, String> delete() {
 		return null;
 
 	}
@@ -187,39 +173,37 @@ public class UserImpl implements BusinessActivity {
 	 * @param outMap 
 	 * @param outMap 
 	 */ 
-	public Map<String, String> update(Map<String, String> outMap) {
+	public Map<String, String> update() {
 		
 		final String SALESFORCE_UPDATE_USER_URL = args.get(INSTANCE_URL)+SALESFORCE_USER_URL+args.get(ID);
-
+        Map<String, String> outMap =new HashMap<String, String>();
 		Map<String,String> header=new HashMap<String,String>();
         header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));    		
 				
         Map<String, Object> userAttrMap = new HashMap<String, Object>();
-        userAttrMap.put("Username", args.get(USERNAME));
-        userAttrMap.put("FirstName", args.get(FIRSTNAME));
-        userAttrMap.put("Email", args.get(EMAIL));
-        userAttrMap.put("Alias", args.get(ALIAS));
-        userAttrMap.put("ProfileId", args.get(PROFILEID));
-        userAttrMap.put("LastName", args.get(LASTNAME));
-        userAttrMap.put("TimeZoneSidKey", args.get(TIMEZONESIDKEY));
-        userAttrMap.put("LocaleSidKey", args.get(LOCALESIDKEY));
-        userAttrMap.put("EmailEncodingKey", args.get(EMAILENCODINGKEY));
-        userAttrMap.put("LanguageLocaleKey", args.get(LANGUAGELOCALEKEY));
+        userAttrMap.put(S_USERNAME, args.get(USERNAME));
+        userAttrMap.put(S_FIRSTNAME, args.get(FIRSTNAME));
+        userAttrMap.put(S_EMAIL, args.get(EMAIL));
+        userAttrMap.put(S_ALIAS, args.get(ALIAS));
+        userAttrMap.put(S_PROFILEID, args.get(PROFILEID));
+        userAttrMap.put(S_LASTNAME, args.get(LASTNAME));
+        userAttrMap.put(S_TIMEZONESIDKEY, args.get(TIMEZONESIDKEY));
+        userAttrMap.put(S_LOCALESIDKEY, args.get(LOCALESIDKEY));
+        userAttrMap.put(S_EMAILENCODINGKEY, args.get(EMAILENCODINGKEY));
+        userAttrMap.put(S_LANGUAGELOCALEYKEY, args.get(LANGUAGELOCALEKEY));
         
         TransportTools tst=new TransportTools(SALESFORCE_UPDATE_USER_URL, null, header);
         Gson obj = new GsonBuilder().setPrettyPrinting().create();
         tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(userAttrMap));
-        String responseBody = null;
         try {
-			 TransportMachinery.patch(tst);
-			 responseBody = UPDATE_STRING+args.get(ID);
+			  TransportMachinery.patch(tst);
+		      outMap.put(OUTPUT, UPDATE_STRING+args.get(ID));
 		
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        outMap.put(OUTPUT, responseBody);
 		return outMap;
 
 	}

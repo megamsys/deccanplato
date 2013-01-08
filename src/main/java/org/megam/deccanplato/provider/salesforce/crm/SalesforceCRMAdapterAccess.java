@@ -62,7 +62,7 @@ public class SalesforceCRMAdapterAccess implements AdapterAccess {
 				.get(CLIENT_ID)));
 		list.add(new BasicNameValuePair(S_CLIENT_SECRET, (String) accessMap
 				.get(CLIENT_SECRET)));
-		list.add(new BasicNameValuePair(S_USERNAME, (String) accessMap
+		list.add(new BasicNameValuePair(S_USER_NAME, (String) accessMap
 				.get(ACCESS_USER_NAME)));
 		list.add(new BasicNameValuePair(S_PASSWORD, (String) accessMap
 				.get(ACCESS_PASSWORD)));

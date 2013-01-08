@@ -53,19 +53,19 @@ public class PartnerImpl implements BusinessActivity{
 
 	@Override
 	public Map<String, String> run() {
-		Map<String, String> outMap=new HashMap<>();
+		Map<String, String> outMap=null;
 		switch(bizInfo.getActivityFunction()) {
 		case CREATE : 
-			outMap=create(outMap);
+			outMap=create();
 			break;
 		case LIST :
-			outMap=list(outMap);
+			outMap=list();
 			break;
 		case UPDATE : 
-			outMap=update(outMap);
+			outMap=update();
 			break;
 		case DELETE :
-			outMap=delete(outMap);
+			outMap=delete();
 			break;
 			default : break;
 		}
@@ -77,36 +77,31 @@ public class PartnerImpl implements BusinessActivity{
 	 * This method gets input from a MAP(contains json data) and returns a MAp.
 	 * @param outMap 
 	 */
-	private Map<String, String> update(Map<String, String> outMap) {
-		
+	private Map<String, String> update() {
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCE_UPDATE_PARTNER_URL = args.get(INSTANCE_URL)+SALESFORCE_PARTNER_URL+args.get(ID);
 		Map<String,String> header=new HashMap<String,String>();
         header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
         Map<String, Object> partnerAttrMap = new HashMap<String, Object>();
-        partnerAttrMap.put("AccountFromId", args.get(ACCOUNT_FROM_ID));
-        partnerAttrMap.put("AccountToId", args.get(ACCOUNT_TO_ID));
-        partnerAttrMap.put("IsPrimary", Boolean.parseBoolean(args.get(ISPRIMARY)));
-        partnerAttrMap.put("OpportunityId", args.get(OPPORTUNITY_ID));
-        partnerAttrMap.put("Role", args.get(ROLE));
+        partnerAttrMap.put(S_ACCOUNTFROMIDE, args.get(ACCOUNT_FROM_ID));
+        partnerAttrMap.put(S_ACCOUNTTOID, args.get(ACCOUNT_TO_ID));
+        partnerAttrMap.put(S_ISPRIMARY, Boolean.parseBoolean(args.get(ISPRIMARY)));
+        partnerAttrMap.put(S_OPPORTUNITYID, args.get(OPPORTUNITY_ID));
+        partnerAttrMap.put(S_ROLE, args.get(ROLE));
         
         TransportTools tst=new TransportTools(SALESFORCE_UPDATE_PARTNER_URL, null, header);
         Gson obj = new GsonBuilder().setPrettyPrinting().create();
         tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(partnerAttrMap));
-        
-        String responseBody = null;       
-        
         try {
 			  TransportMachinery.patch(tst);
-			  responseBody = UPDATE_STRING+args.get(ID);	
+			  outMap.put(OUTPUT, UPDATE_STRING+args.get(ID));	
 		
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-        outMap.put(OUTPUT, responseBody);
-		return outMap;		
+        return outMap;		
 	}
 
 	/**
@@ -114,8 +109,8 @@ public class PartnerImpl implements BusinessActivity{
 	 * This method gets input from a MAP(contains json data) and returns a MAp.
 	 * @param outMap 
 	 */
-	private Map<String, String> delete(Map<String, String> outMap) {
-		
+	private Map<String, String> delete() {
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCE_DELETE_PARTNER_URL = args.get(INSTANCE_URL)
 				+SALESFORCE_PARTNER_URL+args.get(ID);
 		Map<String, String> header = new HashMap<String, String>();
@@ -123,20 +118,14 @@ public class PartnerImpl implements BusinessActivity{
 
 		TransportTools tst = new TransportTools(SALESFORCE_DELETE_PARTNER_URL, null,
 				header);
-		String responseBody = null;		
-
 		try {
 			TransportMachinery.delete(tst);
-			responseBody = DELETE_STRING+args.get(ID);
+			outMap.put(OUTPUT, DELETE_STRING+args.get(ID));
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		outMap.put(OUTPUT, responseBody);
 		return outMap;
 		
 	}
@@ -146,8 +135,8 @@ public class PartnerImpl implements BusinessActivity{
 	 * This method gets input from a MAP(contains json data) and returns a MAp.
 	 * @param outMap 
 	 */
-	private Map<String, String> list(Map<String, String> outMap) {
-		
+	private Map<String, String> list() {
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCE_LIST_PARTNER_URL = args.get(INSTANCE_URL)
 				+ "/services/data/v25.0/query/?q=SELECT+Role,Id+FROM+Partner";
 		Map<String, String> header = new HashMap<String, String>();
@@ -155,25 +144,16 @@ public class PartnerImpl implements BusinessActivity{
 
 		TransportTools tst = new TransportTools(SALESFORCE_LIST_PARTNER_URL, null,
 				header);
-		String responseBody = null;
-
-		TransportResponse response = null;
-
 		try {
-			response = TransportMachinery.get(tst);
+			String responseBody = TransportMachinery.get(tst).entityToString();
+			outMap.put(OUTPUT, responseBody);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-
-		outMap.put(OUTPUT, responseBody);
 		return outMap;
 		
 	}
@@ -183,37 +163,31 @@ public class PartnerImpl implements BusinessActivity{
 	 * This method gets input from a MAP(contains json data) and returns a MAp.
 	 * @param outMap 
 	 */
-	private Map<String, String> create(Map<String, String> outMap) {
-		
+	private Map<String, String> create() {
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCE_CREATE_PARTNER_URL = args.get(INSTANCE_URL)+SALESFORCE_PARTNER_URL;
 		Map<String,String> header=new HashMap<String,String>();
         header.put(S_AUTHORIZATION, S_OAUTH+args.get(ACCESS_TOKEN));
         Map<String, Object> partnerAttrMap = new HashMap<String, Object>();
-        partnerAttrMap.put("AccountFromId", args.get(ACCOUNT_FROM_ID));
-        partnerAttrMap.put("AccountToId", args.get(ACCOUNT_TO_ID));
-        partnerAttrMap.put("IsPrimary", Boolean.parseBoolean(args.get(ISPRIMARY)));
-        partnerAttrMap.put("OpportunityId", args.get(OPPORTUNITY_ID));
-        partnerAttrMap.put("Role", args.get(ROLE));
-        
+        partnerAttrMap.put(S_ACCOUNTFROMIDE, args.get(ACCOUNT_FROM_ID));
+        partnerAttrMap.put(S_ACCOUNTTOID, args.get(ACCOUNT_TO_ID));
+        partnerAttrMap.put(S_ISPRIMARY, Boolean.parseBoolean(args.get(ISPRIMARY)));
+        partnerAttrMap.put(S_OPPORTUNITYID, args.get(OPPORTUNITY_ID));
+        partnerAttrMap.put(S_ROLE, args.get(ROLE));       
         
         TransportTools tst=new TransportTools(SALESFORCE_CREATE_PARTNER_URL, null, header);
         Gson obj = new GsonBuilder().setPrettyPrinting().create();
         tst.setContentType(ContentType.APPLICATION_JSON, obj.toJson(partnerAttrMap));
-        String responseBody = null;
-        
-        TransportResponse response = null;
         try {
-			response=TransportMachinery.post(tst);
-			responseBody=response.entityToString();	
+			String responseBody=TransportMachinery.post(tst).entityToString();
+			outMap.put(OUTPUT, responseBody);
 		
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-        outMap.put(OUTPUT, responseBody);
-		return outMap;		
+        return outMap;		
 	}
     /**
      * this method returns business method name to perform action in that Salesforce Module 

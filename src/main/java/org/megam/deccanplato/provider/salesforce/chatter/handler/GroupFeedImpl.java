@@ -65,25 +65,25 @@ public class GroupFeedImpl implements BusinessActivity {
 	 */
 	@Override
 	public Map<String, String> run() {
-		Map<String, String> outMap = new HashMap<String, String>();
+		Map<String, String> outMap = null;
 		switch (bizInfo.getActivityFunction()) {
 		case LIST:
-			outMap = list(outMap);
+			outMap = list();
 			break;
 		case MEMBERSHIP:
-			outMap=membership(outMap);
+			outMap=membership();
 			break;
 		case DELETE:
-			outMap = delete(outMap);
+			outMap = delete();
 			break;
 		case VIEW:
-			outMap=view(outMap);
+			outMap=view();
 			break;
 		case FILE:
-			outMap=file(outMap);
+			outMap=file();
 			break;
 		case MEMBER:
-			outMap=member(outMap);
+			outMap=member();
 			break;
 		}
 		return outMap;
@@ -95,33 +95,24 @@ public class GroupFeedImpl implements BusinessActivity {
 	 * @param outMap(group id)
 	 * @return list of members from that group
 	 */
-	private Map<String, String> member(Map<String, String> outMap) {
-		
+	private Map<String, String> member() {
+		Map<String, String> outMap = new HashMap<String, String>();
 		final String SALESFORCECRM_CHATTER_URL = "/services/data/v25.0/chatter/groups/"+args.get(ID)+"/members";
 		Map<String, String> header = new HashMap<String, String>();
 		header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
 
 		TransportTools tst = new TransportTools(args.get(INSTANCE_URL)
 				+ SALESFORCECRM_CHATTER_URL, null, header);
-		String responseBody = null;
-
-		TransportResponse response = null;
-
+		
 		try {
-			response = TransportMachinery.get(tst);
+			String response = TransportMachinery.get(tst).entityToString();
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-
-		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
@@ -131,32 +122,25 @@ public class GroupFeedImpl implements BusinessActivity {
 	 * @param outMap(user group id)
 	 * @return list of files from that group
 	 */
-	private Map<String, String> file(Map<String, String> outMap) {
+	private Map<String, String> file() {
+		Map<String, String> outMap = new HashMap<String, String>();
 		final String SALESFORCECRM_CHATTER_URL = "/services/data/v25.0/chatter/groups/"+args.get(ID)+"/files";
 		Map<String, String> header = new HashMap<String, String>();
 		header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
 
 		TransportTools tst = new TransportTools(args.get(INSTANCE_URL)
 				+ SALESFORCECRM_CHATTER_URL, null, header);
-		String responseBody = null;
-
-		TransportResponse response = null;
-
+		
 		try {
-			response = TransportMachinery.get(tst);
+			String response = TransportMachinery.get(tst).entityToString();
+			outMap.put(OUTPUT, response);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-
-		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
@@ -166,33 +150,24 @@ public class GroupFeedImpl implements BusinessActivity {
 	 * @param outMap(Group id)
 	 * @return details about a group
 	 */
-	private Map<String, String> view(Map<String, String> outMap) {  
+	private Map<String, String> view() {  
+		Map<String, String> outMap = new HashMap<String, String>();	
+		Map<String, String> header = new HashMap<String, String>();
+		header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
 		
-	Map<String, String> header = new HashMap<String, String>();
-	header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
-
-	TransportTools tst = new TransportTools(args.get(INSTANCE_URL)
-			+ SALESFORCECRM_CHATTER_MESSAGE_URL+args.get(ID), null, header);
-	String responseBody = null;
-
-	TransportResponse response = null;
-
-	try {
-		response = TransportMachinery.get(tst);
-	} catch (ClientProtocolException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (URISyntaxException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	responseBody = response.entityToString();
-
-	outMap.put(OUTPUT, responseBody);
-	return outMap;
+		TransportTools tst = new TransportTools(args.get(INSTANCE_URL)
+				+ SALESFORCECRM_CHATTER_MESSAGE_URL+args.get(ID), null, header);
+		
+		try {
+			String response = TransportMachinery.get(tst).entityToString();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return outMap;
 	
 	}
 
@@ -202,33 +177,24 @@ public class GroupFeedImpl implements BusinessActivity {
 	 * @param outMap
 	 * @return returns membership details
 	 */
-	private Map<String, String> membership(Map<String, String> outMap) {
-		
+	private Map<String, String> membership() {
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCECRM_CHATTER_URL = "/services/data/v25.0/chatter/group-memberships/"+args.get(ID);
 		Map<String, String> header = new HashMap<String, String>();
 		header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
 
 		TransportTools tst = new TransportTools(args.get(INSTANCE_URL)
 				+ SALESFORCECRM_CHATTER_URL, null, header);
-		String responseBody = null;
-
-		TransportResponse response = null;
-
 		try {
-			response = TransportMachinery.get(tst);
+			String response = TransportMachinery.get(tst).entityToString();
+			outMap.put(OUTPUT, response);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-
-		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
@@ -238,8 +204,8 @@ public class GroupFeedImpl implements BusinessActivity {
 	 * @param outMap membership id.
 	 * @return
 	 */
-	private Map<String, String> delete(Map<String, String> outMap) {
-
+	private Map<String, String> delete() {
+		Map<String, String> outMap=new HashMap<>();
 		final String SALESFORCECRM_CHATTER_URL = "/services/data/v25.0/chatter/group-memberships/"+args.get(ID);
 		Map<String, String> header = new HashMap<String, String>();
 		header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
@@ -247,20 +213,14 @@ public class GroupFeedImpl implements BusinessActivity {
 		TransportTools tst = new TransportTools(args.get(INSTANCE_URL)
 				+ SALESFORCECRM_CHATTER_URL, null,
 				header);
-		String responseBody = null;
-
 		try {
 			TransportMachinery.delete(tst);
-			responseBody = DELETE_STRING + args.get(ID);
+			outMap.put(OUTPUT, DELETE_STRING + args.get(ID));
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
@@ -269,32 +229,24 @@ public class GroupFeedImpl implements BusinessActivity {
 	 * @param outMap
 	 * @return returns group id and group details.
 	 */
-	private Map<String, String> list(Map<String, String> outMap) {
-		
+	private Map<String, String> list() {
+		Map<String, String> outMap=new HashMap<>();
 		Map<String, String> header = new HashMap<String, String>();
 		header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
 
 		TransportTools tst = new TransportTools(args.get(INSTANCE_URL)
 				+ SALESFORCECRM_CHATTER_MESSAGE_URL, null, header);
-		String responseBody = null;
-
-		TransportResponse response = null;
 
 		try {
-			response = TransportMachinery.get(tst);
+			String response = TransportMachinery.get(tst).entityToString();
+			outMap.put(OUTPUT, response);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		responseBody = response.entityToString();
-
-		outMap.put(OUTPUT, responseBody);
 		return outMap;
 	}
 
@@ -305,7 +257,6 @@ public class GroupFeedImpl implements BusinessActivity {
 	 */
 	@Override
 	public String name() {
-		// TODO Auto-generated method stub
 		return "groupfeed";
 	}
 }

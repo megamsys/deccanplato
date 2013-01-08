@@ -22,7 +22,10 @@
 			"org_name": "Megam Systems"
 		},
 		"business_activity": {
-			"biz_function": "invoice#list"
+			"biz_function": "payment#update",
+			"account_id":"cf19a8e8-4a67-4fa9-adf9-b07d9d944b51",
+			"invoice_id":"182f3704-fbe1-4cd5-a0c5-2a43ada3a51e",
+			"amount":"20.00"
 		}
 	},
 	"execution": {
