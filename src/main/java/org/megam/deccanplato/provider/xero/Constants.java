@@ -57,4 +57,25 @@ public class Constants {
     public static final String BANK_DETAILS="bank_details";
     public static final String FIRST_NAME="first_name";
     public static final String STATUS="status";
+    /**
+     * Item Fields
+     */
+    public static final String ITEM_ID="item_id";
+    public static final String ITEM_CODE="item_code";
+    public static final String SALES_UNIT_PRICE="sales_unit_price";
+    public static final String PURCHASE_UNIT_PRICE="purchase_unit_price";
+    /**
+     * Receipts Fields
+     */
+    public static final String USER_ID="user_id";
+    public static final String SUB_TOTAL="sub_total";
+    public static final String TOTAL="total";
+    public static final String TOTAL_TAX="total_tax";
+    public static final String RECEIPT_ID="receipt_id";
+    public static final String UNIT_AMOUNT="unit_amount";
+    /**
+     * Employees Fields
+     */
+    public static final String EXTERNAL_LINK="external_link";
+    public static final String EMPLOYEE_ID="employee_id";
 }

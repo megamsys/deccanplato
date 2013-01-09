@@ -120,6 +120,10 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 						<bean class="org.megam.deccanplato.provider.xero.handler.AccountImpl" />
 						<bean class="org.megam.deccanplato.provider.xero.handler.PaymentImpl" />
 						<bean class="org.megam.deccanplato.provider.xero.handler.ContactImpl" />						
+						<bean class="org.megam.deccanplato.provider.xero.handler.ItemImpl" />
+						<bean class="org.megam.deccanplato.provider.xero.handler.UserImpl" />
+						<bean class="org.megam.deccanplato.provider.xero.handler.ReceiptsImpl" />
+						<bean class="org.megam.deccanplato.provider.xero.handler.EmployeesImpl" />
 					</set>
 				</entry>
 				<entry key="box">
