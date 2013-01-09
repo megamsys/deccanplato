@@ -49,12 +49,16 @@ public class XeroAdapterTest {
     	//oauth.add("invoice");
     	//oauth.add("account");
     	//oauth.add("payment");
-    	oauth.add("contact");
+    	//oauth.add("contact");
+    	//oauth.add("item");
+    	//oauth.add("user");
+    	//oauth.add("receipt");
+    	oauth.add("employee");
     	List<String> oauthList=new ArrayList<String>();
     	//oauthList.add("list");
     	//oauthList.add("view");
-    	oauthList.add("create");
-    	//oauthList.add("update");
+    	//oauthList.add("create");
+    	oauthList.add("update");
     	for(String activity: oauth) {
     	    for(String function: oauthList) {
 			

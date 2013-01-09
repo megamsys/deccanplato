@@ -155,8 +155,6 @@ public class ContactImpl implements BusinessActivity {
 			XeroPublicClient client=new XeroPublicClient(args);
         	String responseString =client.list(args.get(ID), 
         			new StringTokenizer(args.get(BIZ_FUNCTION), "#").nextToken());
-        	System.out.println(responseString);
-        	System.out.println(args.get(BIZ_FUNCTION));
     		outMap.put(OUTPUT, responseString);
 		} catch (XeroClientException e) {
 			e.printStackTrace();
@@ -177,7 +175,6 @@ public class ContactImpl implements BusinessActivity {
 				XeroPublicClient client=new XeroPublicClient(args);
 	        	String response =client.listAll(new StringTokenizer(args.get(BIZ_FUNCTION), "#").nextToken());
 	    		outMap.put(OUTPUT, response);
-	    		System.out.println(response);
 			} catch (XeroClientException e) {
 				e.printStackTrace();
 			} catch (XeroClientUnexpectedException e) {

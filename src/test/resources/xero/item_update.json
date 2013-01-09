@@ -12,9 +12,9 @@
 		"access": {
 			"consumer_key": "R2J6PI2GHOZAQQ1ZZVAWQOC6H2UAKL",
 			"consumer_secret": "TG77XPLAGLSGA7LAQIAW5SVA9RQGDT",
-			"oauth_token":"IRRWCTVABVHI6W33RVLUICTGN0PN5B",
-			"oauth_secret":"1E5LDAIDB1FEJSHFSQB6XAGEVM0BPL",
-			"oauth_verifier":"1149917",
+			"oauth_token":"3SJCBY334GACHVMCNBNKW68H6ZG3LL",
+			"oauth_secret":"TDLTUYQUSG3YNPZQDBZG59VNPE2TBD",
+			"oauth_verifier":"7315544",
 			"provider": "xero",
 			"category": "CRM",
 			"description": "My first Connector Project",
@@ -22,7 +22,13 @@
 			"org_name": "Megam Systems"
 		},
 		"business_activity": {
-			"biz_function": "invoice#list"
+			"biz_function": "item#update",
+			"item_code":"007",
+			"account_code":"200",
+			"tax_type":"OUTPUT",
+			"sales_unit_price":"500.00",
+			"purchase_unit_price":"500.00",
+			"item_id":"a0b95c47-c352-428e-a643-41139f55f902"
 		}
 	},
 	"execution": {

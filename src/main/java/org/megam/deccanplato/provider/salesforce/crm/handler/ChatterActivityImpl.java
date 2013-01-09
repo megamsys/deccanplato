@@ -100,7 +100,6 @@ public class ChatterActivityImpl implements BusinessActivity {
 		responseBody = response.entityToString();
 
 		outMap.put(OUTPUT, responseBody);
-		System.out.println(responseBody);
 		return outMap;
 	}
 

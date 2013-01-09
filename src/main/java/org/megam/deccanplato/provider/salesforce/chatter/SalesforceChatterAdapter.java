@@ -39,8 +39,7 @@ public class SalesforceChatterAdapter<T extends Object> extends
 	/* using the user#create key */
 	public void configure() {
 		activity = ProviderRegistry.instance().getBusinessActivity(
-				bizInfo.getName(), bizInfo.getActivityName());
-		System.out.println(bizInfo.getName()+"&&&&&&&&&"+bizInfo.getActivityName());
+				bizInfo.getName(), bizInfo.getActivityName());		
 	}
 
 	/** get the handle responsible for the call and stick stuff into it **/
