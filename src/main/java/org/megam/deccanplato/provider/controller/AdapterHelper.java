@@ -21,7 +21,7 @@ import org.megam.deccanplato.provider.core.RequestData;
 
 public class AdapterHelper {
 
-	private boolean chained;
+	private boolean chained=false;
 
 	public AdapterHelper() {
 	}

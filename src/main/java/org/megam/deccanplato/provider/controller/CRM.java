@@ -38,6 +38,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.megam.deccanplato.provider.core.CloudMediator;
+import org.megam.deccanplato.provider.core.CloudMediatorException;
+import org.megam.deccanplato.provider.core.RequestData;
+import org.megam.deccanplato.provider.core.RequestDataBuilder;
+import org.megam.deccanplato.provider.core.SendBackResponse;
 import org.megam.deccanplato.provider.salesforce.crm.info.Account;
 import org.megam.deccanplato.provider.salesforce.crm.info.User;
 import org.megam.deccanplato.provider.zoho.crm.AccessParser;
@@ -121,78 +126,21 @@ public class CRM extends AdapterHelper {
 
 		logger.info(clz + "createUser : POST start.\n" + inputAsJson);
 		
-		/* This is how the new code will work. 
-		 * 
-		 * RequestDataBuilder rdb = new RequestDataBuilder(inputAsJson);
-		RequestData reqdat = rdb.data();
-		RequestMediator mediator = mediator(reqdat);
-		SendBackResponse respdat = mediator.handleRequest();
-		return respdat.toJson();
-		*/
 		
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		User salesforceCRM = gson.fromJson(inputAsJson, User.class);
-		logger.info(clz + "createUser :" + salesforceCRM.toString());
-
-		String salesforce_create_user_url = salesforceCRM.getInstance_url()
-
-		+ "/services/data/v25.0/sobjects/User/";
-
-		DefaultHttpClient httpclient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost(salesforce_create_user_url);
-
-		httpPost.addHeader("Authorization",
-				"OAuth " + salesforceCRM.getAccess_token());
-
-		Map<String, Object> userAttrMap = new HashMap<String, Object>();
-		userAttrMap.put("Username", salesforceCRM.getUsername());
-		userAttrMap.put("FirstName", salesforceCRM.getFirstName());
-		userAttrMap.put("Email", salesforceCRM.getEmail());
-		userAttrMap.put("Alias", salesforceCRM.getAlias());
-		userAttrMap.put("ProfileId", salesforceCRM.getProfileId());
-		userAttrMap.put("LastName", salesforceCRM.getLastName());
-		userAttrMap.put("TimeZoneSidKey", salesforceCRM.getTimeZoneSidKey());
-		userAttrMap.put("LocaleSidKey", salesforceCRM.getLocaleSidKey());
-		userAttrMap
-				.put("EmailEncodingKey", salesforceCRM.getEmailEncodingKey());
-		userAttrMap.put("LanguageLocaleKey",
-				salesforceCRM.getLanguageLocaleKey());
-
-		ObjectMapper objmap = new ObjectMapper();
-
+		//This is how the new code will work. 
+		 
+		RequestDataBuilder rdb = new RequestDataBuilder(inputAsJson);
+		RequestData reqdat = rdb.data();
+		CloudMediator mediator = mediator(reqdat);
+		SendBackResponse respdat = null;
 		try {
-			httpPost.setEntity(new StringEntity(objmap
-
-			.writeValueAsString(userAttrMap), "application/json", "UTF-8"));
-		} catch (JsonGenerationException e) {
+			respdat = mediator.handleRequest();
+		} catch (CloudMediatorException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return e.toString();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-			return e.toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return e.toString();
 		}
-
-		String output = null;
-		try {
-			HttpResponse response = httpclient.execute(httpPost);
-			
-			output = EntityUtils.toString(response.getEntity());
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-			return e.toString();
-		} catch (IOException e) {
-
-			e.printStackTrace();
-			return e.toString();
-		} finally {
-			httpPost.releaseConnection();
-		}
-
-		logger.info(clz + "CreateUser POST end." + output);
-		return output;
+		return respdat.toString();
+		
 	}
 
 	@RequestMapping(value = "provider/crm/list", method = RequestMethod.GET, produces = "application/json")
