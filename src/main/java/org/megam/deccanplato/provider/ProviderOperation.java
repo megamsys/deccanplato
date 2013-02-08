@@ -74,7 +74,7 @@ public class ProviderOperation extends AbstractCloudOperation {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.megam.deccanplato.provider.core.CloudOperation#handle()
+	 * @see org.megam.deccanplato.provider.core.ClouhandledOperation#handle()
 	 */
 	@Override
 	public <T extends Object> CloudOperationOutput<T> handle() throws CloudOperationException {

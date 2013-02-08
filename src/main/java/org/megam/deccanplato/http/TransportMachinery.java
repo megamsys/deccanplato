@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Map;
 
+import javax.mail.internet.ContentType;
+
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -33,6 +36,8 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.google.gdata.model.atom.Content;
+
 public class TransportMachinery {
 
 	public static TransportResponse post(TransportTools nuts)
@@ -40,7 +45,7 @@ public class TransportMachinery {
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(nuts.urlString());
-
+		System.out.println("NUTS"+nuts.toString());
 		if (nuts.headers() != null) {
 			for (Map.Entry<String, String> headerEntry : nuts.headers().entrySet()) {
 				
@@ -62,8 +67,9 @@ public class TransportMachinery {
 		if (nuts.contentType() !=null) {
 			httppost.setEntity(new StringEntity(nuts.contentString(),nuts.contentType()));
 		}
-         
+		
 		TransportResponse transportResp = null;
+		System.out.println(httppost.toString());
 		try {
 			HttpResponse httpResp  = httpclient.execute(httppost);
 			transportResp = new TransportResponse(httpResp.getStatusLine(),

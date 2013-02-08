@@ -16,15 +16,16 @@
 package org.megam.deccanplato.provider.box;
 
 import java.io.IOException;
-import java.io.StringReader;
-import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.message.BasicNameValuePair;
 import org.megam.deccanplato.http.TransportMachinery;
 import org.megam.deccanplato.http.TransportResponse;
 import org.megam.deccanplato.http.TransportTools;
@@ -32,15 +33,11 @@ import org.megam.deccanplato.provider.core.AdapterAccess;
 import org.megam.deccanplato.provider.core.AdapterAccessException;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.DefaultDataMap;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
-import com.amazonaws.util.json.JSONException;
-import com.amazonaws.util.json.JSONObject;
+import static org.megam.deccanplato.provider.box.Constants.*;
+import static org.megam.deccanplato.provider.Constants.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * @author alrin
@@ -51,7 +48,7 @@ public class BoxAdapterAccess implements AdapterAccess {
 
 	private boolean success = false;
 
-	private static String BOX_OAUTH2_URL = "https://www.box.com/api/1.0/rest?action=get_ticket&api_key=";
+	private static final String BOX_OAUTH2_URL = "https://api.box.com/2.0/tokens";
 	private String Ticket;
 
 	public BoxAdapterAccess() {
@@ -68,8 +65,39 @@ public class BoxAdapterAccess implements AdapterAccess {
 			throws AdapterAccessException {
 
 		Map<String, T> accessMap = access.map();
+		System.out.print("OAUTH MAP"+accessMap.toString());
+				
+		Map<String, String> headerMap =new HashMap<String, String>();
+		headerMap.put("Authorization", "BoxAuth api_key="+(String) accessMap.get(API_KEY));
 		
-		BOX_OAUTH2_URL = BOX_OAUTH2_URL + accessMap.get("api_key");
+		Map<String, String> boxList=new HashMap<String,String>();
+		boxList.put("email", (String) accessMap.get(EMAIL));
+		
+		TransportTools tools = new TransportTools(BOX_OAUTH2_URL, null, headerMap);
+		Gson obj=new GsonBuilder().setPrettyPrinting().create();
+		System.out.println(obj.toJson(boxList));
+		tools.setContentType(ContentType.APPLICATION_JSON, obj.toJson(boxList));
+		String responseBody = null;         
+		TransportResponse response = null;
+		try {
+			response = TransportMachinery.post(tools);
+			responseBody = response.entityToString();
+			success=true;
+			System.out.println("OUTPUT:"+responseBody);
+		} catch (ClientProtocolException ce) {
+			throw new AdapterAccessException(
+					"An error occurred during post operation.", ce);
+		} catch (IOException ioe) {
+			throw new AdapterAccessException(
+					"An error occurred during post operation.", ioe);
+		}		
+		DataMap<T> accessMap1=new DefaultDataMap<>();
+		accessMap1.map().put(OUTPUT, (T) accessMap.get(API_KEY));
+		return accessMap1;
+		/*
+		 * Old Box code written by Thomas Alrin
+		 */
+		/*BOX_OAUTH2_URL = BOX_OAUTH2_URL + accessMap.get("api_key");
 		TransportTools tools = new TransportTools(BOX_OAUTH2_URL, null);
 		String responseBody = null;
 
@@ -94,7 +122,6 @@ public class BoxAdapterAccess implements AdapterAccess {
 		try {
 			db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		InputSource is = new InputSource();
@@ -104,7 +131,6 @@ public class BoxAdapterAccess implements AdapterAccess {
 		try {
 			doc = (Document) db.parse(is);
 		} catch (SAXException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		NodeList nodes = ((Node) doc).getChildNodes();
@@ -146,7 +172,7 @@ public class BoxAdapterAccess implements AdapterAccess {
 		} catch (IOException ioe) {
 			throw new AdapterAccessException(
 					"An error occurred during post operation.", ioe);
-		}
+		}*/
 		
 		
 	}

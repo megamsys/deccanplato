@@ -106,6 +106,10 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 			<bean class="org.megam.deccanplato.provider.box.BoxAdapter"
 			parent="providerAdapter" />
 		</property>
+		<property name="access">
+			<bean class="org.megam.deccanplato.provider.box.BoxAdapterAccess"
+			parent="adapterAccess" />			
+		</property>
 	</bean>
 	<bean id="dropbox" class="org.megam.deccanplato.provider.Provider">
 		<property name="name" value="dropbox" />

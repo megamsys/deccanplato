@@ -129,6 +129,8 @@ http://www.springframework.org/schema/jdbc http://www.springframework.org/schema
 				<entry key="box">
 					<set>
 						<bean class="org.megam.deccanplato.provider.box.handler.FileImpl" />
+						<bean class="org.megam.deccanplato.provider.box.handler.FolderImpl" />
+						<bean class="org.megam.deccanplato.provider.box.handler.UserImpl" />
 					</set>
 				</entry>
 				<entry key="dropbox">

@@ -86,7 +86,10 @@ public class TransportTools {
 	public ContentType contentType() {
 		return contentType;
 	}
-
+	
+	public void setContType(ContentType tempContentType) {
+		this.contentType=tempContentType;
+	}
 	/**
 	 * @return
 	 */
