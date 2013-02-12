@@ -25,7 +25,6 @@ import org.megam.deccanplato.provider.core.AdapterAccessException;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.RequestData;
 import org.megam.deccanplato.provider.crm.test.common.CommonTest;
-import org.megam.deccanplato.provider.sugarcrm.SugarCRMAdapterAccess;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.io.ClassPathResource;
@@ -51,16 +50,19 @@ public class BoxAdapterTest {
 	final String user="user";
 	
 	List<String> busiActivity = new ArrayList<String>();
-	//busiActivity.add("upload");
+	busiActivity.add("upload");
 	//busiActivity.add("download");
 	//busiActivity.add("delete");
-	busiActivity.add("share");
+	//busiActivity.add("share");
+	//busiActivity.add("view");
 	
 	List<String> folderList=new ArrayList<>();
-	//folderList.add("retrive");
+	folderList.add("retrive");
 	
 	List<String> userList=new ArrayList<>();
-	userList.add("create");
+	//userList.add("create");
+	userList.add("list");
+	//userList.add("delete");
 	
 	for(String activity: busiActivity) {
 			CommonTest ctest=new CommonTest();
@@ -81,7 +83,7 @@ public class BoxAdapterTest {
 			  testAdapterAccess(reqData);			  
 		  }
 		  ctest.testBusinessImpl();
-		}*/
+		}
 	/*for(String activity: userList) {
 		  CommonTest ctest=new CommonTest();
 		  RequestData reqData;

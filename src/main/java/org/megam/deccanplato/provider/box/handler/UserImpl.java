@@ -16,6 +16,7 @@
 package org.megam.deccanplato.provider.box.handler;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,8 +66,68 @@ public class UserImpl implements BusinessActivity{
 		case CREATE:
 			outMap=create();
 			break;
+		case LIST:
+			outMap=list();
+			break;
+		case DELETE:
+			outMap=delete();
+			break;
 		}
 		return null;
+	}
+
+	/**
+	 * @return
+	 */
+	private Map<String, String> delete() {
+		Map<String, String> outMap = new HashMap<>();
+		final String BOX_UPLOAD="/users/"+args.get(USER_ID);
+		
+		Map<String, String> headerMap =new HashMap<String, String>();
+		headerMap.put("Authorization", "BoxAuth api_key="+args.get(API_KEY)+"&auth_token="+args.get(TOKEN));
+				
+		TransportTools tools = new TransportTools(BOX_URI+BOX_UPLOAD, null, headerMap);
+		String responseBody = null;         
+		TransportResponse response = null;
+		try {
+			response = TransportMachinery.delete(tools);
+			responseBody = response.entityToString();
+			System.out.println("OUTPUT:"+responseBody);
+		} catch (ClientProtocolException ce) {
+			ce.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}	
+		outMap.put(OUTPUT, responseBody);
+		return outMap;
+	}
+
+	/**
+	 * @return
+	 */
+	private Map<String, String> list() {
+		Map<String, String> outMap = new HashMap<>();
+		final String BOX_UPLOAD="/users";
+		
+		Map<String, String> headerMap =new HashMap<String, String>();
+		headerMap.put("Authorization", "BoxAuth api_key="+args.get(API_KEY)+"&auth_token="+args.get(TOKEN));
+				
+		TransportTools tools = new TransportTools(BOX_URI+BOX_UPLOAD, null, headerMap);
+		String responseBody = null;         
+		TransportResponse response = null;
+		try {
+			response = TransportMachinery.get(tools);
+			responseBody = response.entityToString();
+			System.out.println("OUTPUT:"+responseBody);
+		} catch (ClientProtocolException ce) {
+			ce.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}	
+		outMap.put(OUTPUT, responseBody);
+		return outMap;
 	}
 
 	/**

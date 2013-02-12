@@ -25,13 +25,21 @@ public class Constants {
 	public static final String API_KEY="api_key";
 	public static final String EMAIL="email";
 	public static final String TOKEN="token";
+	/**
+	 * File
+	 */
 	public static final String FOLDER_ID="folder_id";
 	public static final String FILE_NAME="filename";
 	public static final String FILE_ID="file_id";
 	public static final String LIMIT="limit";
 	public static final String OFFSET="offset";
+	public static final String ETAG="etag";
+	/**
+	 * User
+	 */
 	public static final String LOGIN_ID="login_id";
 	public static final String NAME="name";
 	public static final String ROLE="role";
 	public static final String STATUS="status";
+	public static final String USER_ID="user_id";
 }

@@ -16,6 +16,7 @@
 package org.megam.deccanplato.provider.box.handler;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -92,13 +93,15 @@ public class FolderImpl implements BusinessActivity{
 		String responseBody = "";         
 		TransportResponse response = null;
 		try {
-			response = TransportMachinery.put(tools);
+			response = TransportMachinery.get(tools);
 			responseBody = response.entityToString();
 			System.out.println("OUTPUT:"+responseBody);
 		} catch (ClientProtocolException ce) {
 			ce.printStackTrace();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
 		}	
 		outMap.put(OUTPUT, responseBody);
 		return outMap;
