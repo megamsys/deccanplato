@@ -59,7 +59,9 @@ public class TransportMachinery {
 				}
 			}
 		}
-		
+		if(nuts.fileEntity()!=null) {
+			httppost.setEntity(nuts.fileEntity());
+		}
 		if (nuts.pairs() != null && (nuts.contentType() ==null)) {
 			httppost.setEntity(new UrlEncodedFormEntity(nuts.pairs()));			
 		}

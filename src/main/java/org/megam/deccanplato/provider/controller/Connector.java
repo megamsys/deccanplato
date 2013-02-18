@@ -18,14 +18,24 @@ import org.megam.deccanplato.provider.core.CloudMediator;
 import org.megam.deccanplato.provider.core.DefaultCloudProviderMediator;
 import org.megam.deccanplato.provider.core.MultiCloudProviderMediator;
 import org.megam.deccanplato.provider.core.RequestData;
-
-public class AdapterHelper {
+/**
+ * Base Connector which provides the necessary helper methods.
+ * @author ram
+ *
+ */
+public class Connector {
 
 	private boolean chained=false;
 
-	public AdapterHelper() {
+	public Connector() {
 	}
 	
+	/**
+	 * Figures out the mediator for the json parsed  request data.
+	 * By default, it is considered as not multi chainded mediator. 
+	 * @param reqData
+	 * @return
+	 */
 	public CloudMediator mediator(RequestData reqData) {
 		CloudMediator mediator = null;
 		if(isChained()) {

@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntity;
 
 public class TransportTools {
 
@@ -32,8 +33,7 @@ public class TransportTools {
 	private String encoding = null;
 	private ContentType contentType =null;
 	private String contentString =null;
-	private Map<String, String> fileMap=null;
-	private ContentType contType=null;
+	private MultipartEntity entity;
 
 	public TransportTools(String urlstr, List<NameValuePair> pair) {
 		this(urlstr, pair, null);
@@ -94,6 +94,14 @@ public class TransportTools {
 	 */
 	public String contentString() {
 		return contentString;
+	}
+	
+	public void setFileEntity(MultipartEntity tempEntity) {
+		this.entity=tempEntity;
+	}
+	
+	public MultipartEntity fileEntity() {
+		return entity;
 	}
 	
 	public String toString() {

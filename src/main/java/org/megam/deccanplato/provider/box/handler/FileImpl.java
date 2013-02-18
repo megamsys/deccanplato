@@ -14,7 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package org.megam.deccanplato.provider.box.handler;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +26,9 @@ import java.util.Map;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.message.BasicNameValuePair;
 import org.joda.time.DateTime;
 import org.megam.deccanplato.http.TransportMachinery;
@@ -207,19 +212,19 @@ public class FileImpl implements BusinessActivity {
 		
 		Map<String, String> headerMap =new HashMap<String, String>();
 		headerMap.put("Authorization", "BoxAuth api_key="+args.get(API_KEY)+"&auth_token="+args.get(TOKEN));
-		
-		Map<String, String> boxList=new HashMap<>();
-		boxList.put("filename", "@"+args.get(FILE_NAME));
-		//boxList.put("parent_id", args.get(FOLDER_ID));
-		
-		//List<NameValuePair> boxList= new ArrayList<>();
-		//boxList.add(new BasicNameValuePair("filename", args.get(FILE_NAME)));
-		//boxList.add(new BasicNameValuePair("folder_id", args.get(FOLDER_ID)));
-		Gson obj=new GsonBuilder().setPrettyPrinting().create();
-		
+		MultipartEntity entity=new MultipartEntity();
+		FileBody filename=new FileBody(new File(args.get(FILE_NAME)));
+		FileBody filename1=new FileBody(new File("/home/pandiyaraja/Documents/AMIs"));
+		StringBody parent_id = null;
+		try {
+			parent_id=new StringBody(args.get(FOLDER_ID));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}	
+		entity.addPart("filename", filename);
+		entity.addPart("parent_id", parent_id);
 		TransportTools tools = new TransportTools(BOX_URI+BOX_UPLOAD, null, headerMap);
-		tools.setContentType(ContentType.MULTIPART_FORM_DATA, obj.toJson(boxList));
-		
+		tools.setFileEntity(entity);		
 		String responseBody = null;         
 		TransportResponse response = null;
 		try {
