@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.megam.deccanplato.provider.AbstractProviderAdapter;
 import org.megam.deccanplato.provider.BusinessActivity;
+import org.megam.deccanplato.provider.ProviderRegistry;
 import org.megam.deccanplato.provider.core.DataMap;
 import org.megam.deccanplato.provider.core.MultiDataMap;
 
@@ -34,6 +35,8 @@ public class BoxAdapter extends AbstractProviderAdapter {
 	public void configure() {
 		/* using the user#create key */
 		//activity = registry.getBusinessActivity(cloud_app, business_function);
+		activity = ProviderRegistry.instance().getBusinessActivity(bizInfo.getName(),
+				bizInfo.getActivityName());
 	}
 
 	public boolean build() {

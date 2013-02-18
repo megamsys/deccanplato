@@ -14,10 +14,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package org.megam.deccanplato.http;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Map;
 
+import org.apache.commons.httpclient.methods.multipart.FilePart;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -30,17 +33,19 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+
+import com.amazonaws.services.s3.model.PartETag;
 
 public class TransportMachinery {
 
 	public static TransportResponse post(TransportTools nuts)
 			throws ClientProtocolException, IOException {
-
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(nuts.urlString());
-
+		System.out.println("NUTS"+nuts.toString());
 		if (nuts.headers() != null) {
 			for (Map.Entry<String, String> headerEntry : nuts.headers().entrySet()) {
 				
@@ -50,24 +55,24 @@ public class TransportMachinery {
 				}
 				//this else part statements for other providers
 				else {
-				    httppost.addHeader(headerEntry.getKey(), headerEntry.getValue());
+				    httppost.addHeader(headerEntry.getKey(), headerEntry.getValue());				    
 				}
 			}
 		}
 		
 		if (nuts.pairs() != null && (nuts.contentType() ==null)) {
-			httppost.setEntity(new UrlEncodedFormEntity(nuts.pairs()));
+			httppost.setEntity(new UrlEncodedFormEntity(nuts.pairs()));			
 		}
 		
 		if (nuts.contentType() !=null) {
-			httppost.setEntity(new StringEntity(nuts.contentString(),nuts.contentType()));
+			httppost.setEntity(new StringEntity(nuts.contentString(),nuts.contentType()));			
 		}
-         
 		TransportResponse transportResp = null;
+		System.out.println(httppost.toString());
 		try {
 			HttpResponse httpResp  = httpclient.execute(httppost);
 			transportResp = new TransportResponse(httpResp.getStatusLine(),
-					httpResp.getEntity(), httpResp.getLocale());
+			httpResp.getEntity(), httpResp.getLocale());
 		} finally {
 			httppost.releaseConnection();
 		}
@@ -142,7 +147,6 @@ public class TransportMachinery {
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = new HttpGet(nuts.urlString());
-
 		if (nuts.headers() != null) {
 			for (Map.Entry<String, String> headerEntry : nuts.headers().entrySet()) {
 				

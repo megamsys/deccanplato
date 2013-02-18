@@ -57,8 +57,8 @@ public class SugarAdapterTest {
 	//busiMethod.add("note");
 	List<String> busiActivity = new ArrayList<String>();
 	//busiActivity.add("create");
-	//busiActivity.add("list");
-	busiActivity.add("update");
+	busiActivity.add("list");
+	//busiActivity.add("update");
 	//busiActivity.add("delete");	
 	for(String function: busiMethod) {
 		for(String activity: busiActivity) {

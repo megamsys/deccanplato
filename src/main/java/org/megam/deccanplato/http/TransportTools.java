@@ -32,6 +32,8 @@ public class TransportTools {
 	private String encoding = null;
 	private ContentType contentType =null;
 	private String contentString =null;
+	private Map<String, String> fileMap=null;
+	private ContentType contType=null;
 
 	public TransportTools(String urlstr, List<NameValuePair> pair) {
 		this(urlstr, pair, null);
@@ -86,14 +88,14 @@ public class TransportTools {
 	public ContentType contentType() {
 		return contentType;
 	}
-
+	
 	/**
 	 * @return
 	 */
 	public String contentString() {
 		return contentString;
 	}
-
+	
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);

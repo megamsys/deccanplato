@@ -83,6 +83,13 @@ public class Constants {
 	public static final String MODIFYLIVECALL="modifylivecall";
 	public static final String TRANSCRIPTIONS="transcriptions";
 	/**
+	 * BOX
+	 */
+	public static final String UPLOAD="upload";
+	public static final String DOWNLOAD="download";
+	public static final String SHARE="share";
+	public static final String RETRIVE="retrive";
+	/**
 	 * The key that are passed over in the output section of the request Json. 
 	 */
 	public static final String OUTPUT="output";
