@@ -1,0 +1,8 @@
+language: java
+script : mvn clean verify
+jdk:
+ - openjdk7
+notifications:
+  email:
+    recipients:
+      - nkishore@megam.co.in
