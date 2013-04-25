@@ -213,7 +213,7 @@ Open the app in your browser:
     $ heroku open
 
 
-#### Want to contribute ? 
+## Want to contribute ? 
 
 Go ahead and setup a development environment
 
@@ -223,27 +223,27 @@ OpenJDK 1.7, Tomcat 7, Maven - 3.0.5, Ubuntu 12.10 > preferred, Eclipse Juno >
 
 ### Dependency *optional 
 
-This step is `only needed` if you changed [xero public application](https://github.com/indykish/xero)
+> This step is `only needed` if you changed [xero public application](https://github.com/indykish/xero)
 
-The project has a dependency on [xero public application](https://github.com/indykish/xero.git). 
+> Has a dependency on [xero public application](https://github.com/indykish/xero.git). 
 
 The cloned copy contains a local maven repo(deccanplato/repo) with the required xero jar files. So this already taken care.
 
-#### Xero changed ? 
+### Xero changed ? 
 
 Clone the [xero](https://github.com/indykish/xero.git) project locally.
 
-Generating an updated xero*.jar.
+#### Generating an updated xero*.jar.
 
 From your xero project, run
 
-$ mvn package
+	$ mvn package
 
 After your run it,  a `new jar of xero`, will automatically land in your `deccanplato/lib` directory.
 
 We assume that both xero and deccanplato projects are in the same eclipse workspace. 
 
-Download this [python script](https://s3-ap-southeast-1.amazonaws.com/megam/public/mvnlocalrepo.py) and place it in your ~/bin directory. 
+	Download this [python script](https://s3-ap-southeast-1.amazonaws.com/megam/public/mvnlocalrepo.py) and place it in your ~/bin directory. 
 
 Add your `~/bin` into your `PATH` variable in `.bashrc` (If you are on Ubuntu)
 
@@ -270,9 +270,10 @@ A successful run will provide you the following.
 
 ```
 
-Compile deccanplato
+Compile deccanplato.
 
-mvn compile
+	mvn compile
+
 
 Getting Started : [Opensource cloud integration :][3] *launching shortly
 
