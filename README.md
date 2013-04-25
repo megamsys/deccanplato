@@ -243,7 +243,7 @@ After your run it,  a `new jar of xero`, will automatically land in your `deccan
 
 We assume that both xero and deccanplato projects are in the same eclipse workspace. 
 
-	Download this [python script](https://s3-ap-southeast-1.amazonaws.com/megam/public/mvnlocalrepo.py) and place it in your ~/bin directory. 
+> Download this [python script](https://s3-ap-southeast-1.amazonaws.com/megam/public/mvnlocalrepo.py) and place it in your ~/bin directory. 
 
 Add your `~/bin` into your `PATH` variable in `.bashrc` (If you are on Ubuntu)
 
