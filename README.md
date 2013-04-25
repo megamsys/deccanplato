@@ -19,11 +19,15 @@ used to bring `open source cloud integration` using a `cloud identity` making a 
 ...More to come.
 
 
-## live cloud  ? 
+# Live cloud  ? 
 
-When x happens in  cloud app, y gets a notification. 
+When `<x>` happens in  a cloud app, `<y>` gets a notification and does something `<z>`. This takes cloud integration to the next level.  
 
-## Usecase can be anything : 
+where `<x>`, `<y>` are cloud apps. `<z>` is an action to perform.
+
+## Usecase - Actionable Evented Cloud Apps : 
+
+The `system` mentioned below are cloud apps
 
 * When a product is shipped from an inventory system, 
 * Generate Invoice
@@ -31,60 +35,45 @@ When x happens in  cloud app, y gets a notification.
 * Send a voice notification to the customer saying that it was shipped 
 * Send out an email
 
-This uses Java 1.7, REST, Spring and the RESTful cloud app interfaces.
+This uses OpenJDK 1.7, Spring 3.2.2, REST, JSON and the RESTful cloud app interfaces.
 
 ## How will this happen
 
 Watch our [blog.megam.co][1] for updates
 Slideshare.net [slideshare.net/indykish][2] for updates
 
-We'll launch soon in `Q1 2013` 
+We'll launch soon in `Q2 2013` 
 
 Stay tuned : [Live cloud integration using Cloud identity][4]
+Blog : [Cloud Realtime Streaming - Part 1][5]
+Blog : [Cloud Realtime Streaming - Live Cloud][6]
 
 ### Requirements
 
-Java 1.7+
-Tomcat 7
-(or) [Hosted cloud integration/cloud identity for free][4]  
+OpenJDK 1.7+[Instruction](http://openjdk.java.net/install/)
 
-#### Local Repo
+Tomcat 7[Instruction](http://tomcat.apache.org/download-70.cgi)
 
-This is currently used by [xero][xero]
-As we need the CLI(command line interface) compile to work for deccanplato, 
-I am changing the way the deccanplato/lib directory is structured. The deccanplato/lib directory 
-is removed and a Local maven repo (deccanplato/repo) is available now.
+make sure the `conf\tomcat_users.xml' has an use:admin, pw:admin
 
-The Local maven repo(deccanplato/repo) contains the jar files.
+```xml
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<role rolename="manager"/>
+<role rolename="admin-gui"/>
+<role rolename="admin-script"/>
+<role rolename="admin"/>
+<user username="admin" password="admin" roles="manager-gui,admin-gui,manager,admin,manager-script,admin-script"/>
+```
+* Tested on Ubuntu 12.04 or above
+ 
+* optional[Hosted cloud integration/cloud identity for free][4] `launching soon`
 
-Place the script mvnlocalrepo.py in your ~/bin directory.
+## Running the application
 
-Generating a xero*.jar.
+Clone this project locally:
 
-From your xero project, run
-
-$ mvn package
-
-After your run,  a new jar of xero, will automatically land in your deccanplato/lib directory.
-
-Updating local repo (deccanplato/repo)
-
-*This step is only needed when you generate a new xero*.jar.
-
-ram@rammegam:~/code/megam/workspace/deccanplato$ mvnrepo.py -i
-
-Processing `lib/com.rossjourdain.xero.xeroapi_1.2.jar`
-Choose a correct artifactId for `com.rossjourdain.xero.xeroapi`:
-1) xeroapi
-2) xero.xeroapi
-3) rossjourdain.xero.xeroapi
-1
-
-Compile deccanplato
-
-mvn compile
-
-## Running the application locally
+    $ git clone https://github.com/indykish/deccanplato.git
 
 Build with:
 
@@ -94,18 +83,113 @@ Then run in tomcat7 with:
 
     $ mvn tomcat7:deploy
 
-## Running on your tomcat7
+## Testing your install
 
-Clone this project locally:
+### Let us create an account with salesforce.
 
-    $ git clone https://github.com/indykish/deccanplato.git
+In your src/test/resource/salesforcecrm, there exists a json named : account_create.json
+
+	system
+		access
+		Ignore the fields `project_id`	`access_org_id`		`access_account_name`. These are internal fields
+		that are used for tracking a project based on an id.
+				
+	provider
+		access : Feed the appropriate date inside
+	The import aspect to note here is the provider shall be `salesforcecrm` and `bizactivity` shall be `account#create`	
+
+For further details, read the documentation at [Opensource cloud integration :][3] * launching shortly
+
+```json
+{
+	"system": {
+		"access": {
+			"project_id": "3c78f781-fc28-4c69-8fad-0ca66f2c5dbc",
+			"api_token": "oVj29MbD2LcXzsRzNFx9vw==",
+			"access_email": "alrin@megam.com",
+			"access_org_id": 1,
+			"access_account_name": "MegamSyste"
+		}
+	},
+	"provider": {
+		"access": {
+			"consumer_key": "3MVG9Y6d_Btp4xp51yG_eZBS13fsAsN55a0mb4tjHy0V1jx4sOOo_7.HtHfu0dUNZ9qaIF8mqWpmUtWVbDfZo",
+			"consumer_secret": "2416933755273187085",
+			"access_username": "pontiyaraja@gmail.com",
+			"access_password": "pandiya1988hKIZMcZwbLX0vSRHY9ddjuYHQ",
+			"provider": "salesforcecrm",
+			"category": "CRM",
+			"description": "My first Connector Project",
+			"user_email": "alrin@megam.com",
+			"org_name": "Megam Systems"
+		},
+		"business_activity": {
+			"biz_function": "account#create",
+                        "name":"Raja"
+		}
+	},
+	"execution": {
+		"output": {
+			"type": "default",
+			"location": "default"
+		}
+	}
+}
+```
+
+Use the class available in src\test\java, to perform a JUnit test. 
+
+```java
+public class SaleforceCRMAdapterTest {
+
+	private static final String SALESFORCE="salesforcecrm";
+    @Test
+	public void salesforceTest() { 
+    	
+    	GenericApplicationContext ctx = new GenericApplicationContext();
+    	XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(ctx);
+    	xmlReader.loadBeanDefinitions(new ClassPathResource(
+    			"applicationContext.xml"));
+    	ctx.refresh();
+    	ProviderRegistry registry = (ProviderRegistry) ctx.getBean("registry");
+    	 
+		List<String> busiMethod =new ArrayList<String>();
+		busiMethod.add("account");		
+		List<String> busiActivity = new ArrayList<String>();
+		busiActivity.add("create");
+		
+		for(String function: busiMethod) {
+			for(String activity: busiActivity) {
+				CommonTest ctest=new CommonTest();
+				RequestData reqData;
+				reqData=ctest.commonTest(function, activity, SALESFORCE);
+				if(function.equalsIgnoreCase("user") && activity.equalsIgnoreCase("create")) {
+				testAdapterAccess(reqData);
+				}
+				ctest.testBusinessImpl();
+			}
+		}					
+	}
+    private void testAdapterAccess(RequestData reqData)  {
+
+		SalesforceCRMAdapterAccess saa = new SalesforceCRMAdapterAccess();
+		try {
+			DataMap dmap = saa.authenticate(reqData.getGeneral());
+		} catch (AdapterAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}   
+}
+```
+
     
-    $ mvn tomcat7:deploy
+    Post execution verify that an account indeed exists in salesforce.
     
 Getting Started : [Opensource cloud integration :][3]
 
 
-## Running on your tomcat7
+## Running on heroku
 
 Clone this project locally:
 
@@ -122,9 +206,77 @@ Open the app in your browser:
 
     $ heroku open
 
-Getting Started : [Opensource cloud integration :][3]
+
+#### Want to contribute ? 
+
+Go ahead and setup a development environment
+
+### Setup the prereqs (OpenJDK 1.7, Tomcat 7, Maven - 3.0.5, Ubuntu 12.10 > preferred, Eclipse Juno >)
+
+### Dependency *optional 
+This step is only needed if you changed [xero public application](https://github.com/indykish/xero)
+
+The project has a dependency on [xero public application](https://github.com/indykish/xero.git). 
+
+The cloned copy contains a local maven repo(deccanplato/repo) with the required xero jar files. So this already taken care.
+
+#### Xero changed ? 
+
+Clone the [xero](https://github.com/indykish/xero.git) locally:
+
+Generating a xero*.jar.
+
+From your xero project, run
+
+$ mvn package
+
+After your run,  a new jar of xero, will automatically land in your deccanplato/lib directory.
+
+We assume that both xero and deccanplato projects are in the same eclipse workspace. 
+
+eg: `/home/ram/code/megam/workspace/xero' & `/home/ram/code/megam/workspace/deccanplato`
+
+Compile deccanplato
+
+mvn compile
+
+Getting Started : [Opensource cloud integration :][3] *launching shortly
+
 [1]:http://blog.megam.co
 [2]:https://slideshare.net/indykish
 [3]:http://megam.co/getting_started.html
-[4]:http://megam.co
+[4]:http://www.megam.co
+[5]:http://blog.megam.co/archives/381
+[6]:http://blog.megam.co/archives/626
+[xerogit]:https://github.com/indykish/xero
 [xero]:http://blog.xero.com/developer/api-overview/
+
+#### TO - DO
+
+* Interface to [tap](https://github.com/indykish/tap.git)
+* Consume customers cloud identity 
+* Metrics
+	
+# License
+
+
+|                      |                                          |
+|:---------------------|:-----------------------------------------|
+| **Author:**          | KishorekumarNeelamegam (<nkishore@megam.co.in>)
+|					   | R Pandiyaraja (<raja.pandiya@yahoo.com>)	
+| **Copyright:**       | Copyright (c) 2012-2013 Megam Systems.
+| **License:**         | Apache License, Version 2.0
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
