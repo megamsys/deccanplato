@@ -21,7 +21,8 @@ used to bring `open source cloud integration` using a `cloud identity` making a 
 
 # Live cloud  ? 
 
-When `<x>` happens in  a cloud app, `<y>` gets a notification and does something `<z>`. This takes cloud integration to the next level.  
+When `<x>` happens in  a cloud app, `<y>` gets a notification and does something `<z>`. 
+This takes cloud integration to the next level.  
 
 where `<x>`, `<y>` are cloud apps. `<z>` is an action to perform.
 
@@ -50,11 +51,11 @@ Blog : [Cloud Realtime Streaming - Live Cloud][6]
 
 ### Requirements
 
-OpenJDK 1.7+[Instruction](http://openjdk.java.net/install/)
+OpenJDK 1.7+ [Install Instructions](http://openjdk.java.net/install/)
 
-Tomcat 7[Instruction](http://tomcat.apache.org/download-70.cgi)
+Tomcat 7 [Install Instructions](http://tomcat.apache.org/download-70.cgi)
 
-make sure the `conf\tomcat_users.xml' has an use:admin, pw:admin
+make sure the file `<tomcat_install_home>\conf\tomcat_users.xml` has an `user=admin, pw=admin`
 
 ```xml
 <role rolename="manager-gui"/>
@@ -67,7 +68,7 @@ make sure the `conf\tomcat_users.xml' has an use:admin, pw:admin
 ```
 * Tested on Ubuntu 12.04 or above
  
-* optional[Hosted cloud integration/cloud identity for free][4] `launching soon`
+* `optional`-[Hosted cloud integration/cloud identity for free][4] `launching soon`
 
 ## Running the application
 
@@ -77,7 +78,7 @@ Clone this project locally:
 
 Build with:
 
-    $ mvn clean install
+    $ mvn clean verify
 
 Then run in tomcat7 with:
 
@@ -85,18 +86,23 @@ Then run in tomcat7 with:
 
 ## Testing your install
 
+Start the tomcat7 container on port 8080 with:
+
+    $ ~/tomcat/bin/start.sh
+
 ### Let us create an account with salesforce.
 
 In your src/test/resource/salesforcecrm, there exists a json named : account_create.json
 
 	system
 		access
-		Ignore the fields `project_id`	`access_org_id`		`access_account_name`. These are internal fields
-		that are used for tracking a project based on an id.
+		Ignore the fields `project_id`	`access_org_id`		`access_account_name`. 
+		These are internal fields that are used for tracking a project based on an id.
 				
 	provider
-		access : Feed the appropriate date inside
-	The import aspect to note here is the provider shall be `salesforcecrm` and `bizactivity` shall be `account#create`	
+		access : Feed the appropriate data.
+	The import aspect to note here is the provider shall be `salesforcecrm` 
+	and `bizactivity` shall be `account#create`	
 
 For further details, read the documentation at [Opensource cloud integration :][3] * launching shortly
 
@@ -137,7 +143,7 @@ For further details, read the documentation at [Opensource cloud integration :][
 }
 ```
 
-Use the class available in src\test\java, to perform a JUnit test. 
+Use the class available in `src\test\java`, to perform a JUnit test. 
 
 ```java
 public class SaleforceCRMAdapterTest {
@@ -191,7 +197,7 @@ Getting Started : [Opensource cloud integration :][3]
 
 ## Running on heroku
 
-Clone this project locally:
+Clone this project locally.
 
 Create a new app on Heroku (make sure you have the [Heroku Toolbelt](http://toolbelt.heroku.com) installed):
 
@@ -211,10 +217,13 @@ Open the app in your browser:
 
 Go ahead and setup a development environment
 
-### Setup the prereqs (OpenJDK 1.7, Tomcat 7, Maven - 3.0.5, Ubuntu 12.10 > preferred, Eclipse Juno >)
+### Setup the prereqs 
+
+OpenJDK 1.7, Tomcat 7, Maven - 3.0.5, Ubuntu 12.10 > preferred, Eclipse Juno >
 
 ### Dependency *optional 
-This step is only needed if you changed [xero public application](https://github.com/indykish/xero)
+
+This step is `only needed` if you changed [xero public application](https://github.com/indykish/xero)
 
 The project has a dependency on [xero public application](https://github.com/indykish/xero.git). 
 
@@ -222,19 +231,44 @@ The cloned copy contains a local maven repo(deccanplato/repo) with the required 
 
 #### Xero changed ? 
 
-Clone the [xero](https://github.com/indykish/xero.git) locally:
+Clone the [xero](https://github.com/indykish/xero.git) project locally.
 
-Generating a xero*.jar.
+Generating an updated xero*.jar.
 
 From your xero project, run
 
 $ mvn package
 
-After your run,  a new jar of xero, will automatically land in your deccanplato/lib directory.
+After your run it,  a `new jar of xero`, will automatically land in your `deccanplato/lib` directory.
 
 We assume that both xero and deccanplato projects are in the same eclipse workspace. 
 
-eg: `/home/ram/code/megam/workspace/xero' & `/home/ram/code/megam/workspace/deccanplato`
+Download this [python script](https://s3-ap-southeast-1.amazonaws.com/megam/public/mvnlocalrepo.py) and place it in your ~/bin directory. 
+
+Add your `~/bin` into your `PATH` variable in `.bashrc` (If you are on Ubuntu)
+
+Run the following from deccanplato directory 
+
+``` 
+$ ~/deccanplato$ mvnlocalrepo.py -i
+-----
+Processing `lib/com.rossjourdain.xero.xeroapi_1.2.jar`
+Choose a correct artifactId for `com.rossjourdain.xero.xeroapi`:
+1) xeroapi
+2) xero.xeroapi
+3) rossjourdain.xero.xeroapi
+
+1
+
+A successful run will provide you the following.
+
+<dependency>
+  <groupId>com.rossjourdain.xero</groupId>
+  <artifactId>xeroapi</artifactId>
+  <version>1.2</version>
+</dependency>
+
+```
 
 Compile deccanplato
 
