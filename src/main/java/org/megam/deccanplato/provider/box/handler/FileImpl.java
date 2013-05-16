@@ -179,7 +179,7 @@ public class FileImpl implements BusinessActivity {
 		System.out.println("File Download");
 		Map<String, String> outMap = new HashMap<>();
 		
-		final String BOX_DOWNLOAD="/files/"+args.get(FILE_ID)+"/content";
+		final String BOX_DOWNLOAD="/files/"+args.get(FILE_ID)+"."+args.get(FILE_TYPE)+"/content";
 		
 		Map<String, String> headerMap =new HashMap<String, String>();
 		headerMap.put("Authorization", "BoxAuth api_key="+args.get(API_KEY)+"&auth_token="+args.get(TOKEN));
@@ -190,7 +190,7 @@ public class FileImpl implements BusinessActivity {
 		TransportResponse response = null;
 		try {
 			response = TransportMachinery.get(tools);
-			responseBody = response.entityToString();
+			responseBody = response.entityToString();			
 			System.out.println("OUTPUT:"+responseBody);
 		} catch (ClientProtocolException ce) {
 			ce.printStackTrace();
