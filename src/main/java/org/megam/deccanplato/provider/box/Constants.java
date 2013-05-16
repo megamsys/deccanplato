@@ -34,6 +34,7 @@ public class Constants {
 	public static final String LIMIT="limit";
 	public static final String OFFSET="offset";
 	public static final String ETAG="etag";
+	public static final String FILE_TYPE="file_type";
 	/**
 	 * User
 	 */
