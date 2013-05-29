@@ -21,7 +21,8 @@
 			"biz_function": "file#download",
 			"api_key":"bvn29jldy2nnr7l3q03v5k8aalb4utt4",
 			"token":"34kssk9sxjrv6pliusyf83m58h9ul3sb",
-			"file_id":"5979334871"
+			"file_id":"5979334871",
+                        "file_type":"txt"
 		}
 	},
 	"execution": {
