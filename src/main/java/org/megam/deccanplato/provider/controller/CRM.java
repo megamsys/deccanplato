@@ -73,14 +73,14 @@ public class CRM extends Connector {
 	String getOAuth() {
 		logger.info(clz + "getOAuth GET start.");
 
-		String clientId = "3MVG9Y6d_Btp4xp51yG_eZBS13SJirRv1uk0ITwiM5eRcfsC1qg4UinY_FbU3G0niSsUyI0zkEFkhzO89.TmV";
-		String clientSecret = "6832915771039819665";
+		String clientId = "3MVG9Y6d_Btp4xp5CN8BlosknyQC70A1RPpWFCaoFnzmQ3lXKFC42_a9_RCuQvjG_lYE9rcbjlA==";
+		String clientSecret = "1014708849139193850";
 
 		String salesforce_oauth_url = "https://login.salesforce.com/services/oauth2/token";
 		/** For session ID instead of OAuth 2.0, use "grant_type", "password" **/
 		String grant_type = "password";
-		String username = "pontiyaraja@gmail.com";
-		String password = "team4megamE1mlHRMlL7deN0zCN4oDAZlJq";
+		String username = "rrrajthilak@gmail.com";
+		String password = "thilakmca1989";
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(salesforce_oauth_url);
@@ -151,10 +151,10 @@ public class CRM extends Connector {
 		 * token/instance_url per request will be memcached
 		 * 
 		 */
-		String instance_url = "https://ap1.salesforce.com";
+        String instance_url = "https://ap1.salesforce.com";
 		String access_token = "00D90000000gFYH!AQoAQBXkWqnqoc6sh5sjQLCl0_AusCzzugyAPJ8l_uq1wICnmPH2zWFYWtsTekxKBY7jP.P.fQ.AgnyrGzh_Zd_AFlHuYsqc";
 		String salesforceListSingeUserURL = instance_url
-				+ "/services/data/v25.0/query/?q=SELECT+Username+FROM+User";
+				+ "/services/data/v28.0/query/?q=SELECT+Username+FROM+User";
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(salesforceListSingeUserURL);
@@ -191,7 +191,7 @@ public class CRM extends Connector {
 		logger.info(clz + "deleteUser :" + salesforceCRM.toString());
 
 		String salesforceDeleteSingeUserURL = salesforceCRM.getInstance_url()
-				+ "/services/data/v25.0/sobjects/Users/005900000010GuZ";
+				+ "/services/data/v28.0/sobjects/Users/005900000010GuZ";
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpDelete httpDelete = new HttpDelete(salesforceDeleteSingeUserURL);

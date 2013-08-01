@@ -68,12 +68,15 @@ public class SalesforceCRMAdapterAccess implements AdapterAccess {
 				.get(ACCESS_PASSWORD)));
 
 		TransportTools tools = new TransportTools(SALESFORCE_OAUTH2_URL, list);
+		System.out.println("Transport response list"+list);
 		String responseBody = null;
 
 		TransportResponse response = null;
 		try {
 			response = TransportMachinery.post(tools);
+			System.out.println("Transport response"+response);
 			responseBody = response.entityToString();
+			System.out.println("Transport response body"+responseBody);
 		} catch (ClientProtocolException ce) {
 			throw new AdapterAccessException(
 					"An error occurred during post operation.", ce);

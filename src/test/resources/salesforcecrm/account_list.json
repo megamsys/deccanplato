@@ -10,10 +10,10 @@
 	},
 	"provider": {
 		"access": {
-			"consumer_key": "3MVG9Y6d_Btp4xp51yG_eZBS13fsAsN55a0mb4tjHy0V1jx4sOOo_7.HtHfu0dUNZ9qaIF8mqWpmUtWVbDfZo",
-			"consumer_secret": "2416933755273187085",
-			"access_username": "pontiyaraja@gmail.com",
-			"access_password": "pandiya1988hKIZMcZwbLX0vSRHY9ddjuYHQ",
+			"consumer_key": "3MVG9Y6d_Btp4xp5CN8BlosknyQC70A1RPpWFCaoFnzmQ3lXKFC42_a9_RCuQvjG_lYE9rcbjlA==",
+			"consumer_secret": "1014708849139193850",
+			"access_username": "rrrajthilak@gmail.com",
+			"access_password": "thilakmca1989",
 			"provider": "salesforcecrm",
 			"category": "CRM",
 			"description": "My first Connector Project",

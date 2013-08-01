@@ -42,7 +42,7 @@ import com.google.gson.GsonBuilder;
  */
 public class AccountImpl implements BusinessActivity {
 
-	private static final String SALESFORCE_ACCOUNT_URL="/services/data/v25.0/sobjects/Account/";
+	private static final String SALESFORCE_ACCOUNT_URL="/services/data/v28.0/sobjects/Account/";
 	private Map<String, String> args;
 	private BusinessActivityInfo bizInfo;
 	
@@ -138,7 +138,7 @@ public class AccountImpl implements BusinessActivity {
 	private Map<String, String> list() {
 		Map<String, String> outMap=new HashMap<String, String>();
 		final String SALESFORCE_LIST_ACCOUNT_URL = args.get(INSTANCE_URL)
-				+ "/services/data/v25.0/query/?q=SELECT+Name,Id+FROM+Account";
+				+ "/services/data/v28.0/query/?q=SELECT+Name,Id+FROM+Account";
 		Map<String, String> header = new HashMap<String, String>();
 		header.put(S_AUTHORIZATION, S_OAUTH + args.get(ACCESS_TOKEN));
 
