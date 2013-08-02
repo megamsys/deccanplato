@@ -10,10 +10,10 @@
 	},
 	"provider": {
 		"access": {
-			"consumer_key": "3MVG9Y6d_Btp4xp5CN8BlosknyQC70A1RPpWFCaoFnzmQ3lXKFC42_a9_RCuQvjG_lYE9rcbjlA==",
-			"consumer_secret": "1014708849139193850",
-			"access_username": "rrrajthilak@gmail.com",
-			"access_password": "thilakmca1989",
+			"consumer_key": "3MVG9Y6d_Btp4xp4gO.riQJ_rIP8PjQqtO5Hcqdt4NJ99SPjKCd_cBuI_Y4P_WzlNrOvhOLpjEUjpzfskPZ3a",
+			"consumer_secret": "860088549162819056",
+			"access_username": "nkishore@megam.co.in",
+			"access_password": "walle#1bug74wt3djhr28kLBSKbspj1EOoT",
 			"provider": "salesforcecrm",
 			"category": "CRM",
 			"description": "My first Connector Project",

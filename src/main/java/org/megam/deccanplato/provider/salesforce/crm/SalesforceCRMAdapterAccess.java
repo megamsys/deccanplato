@@ -67,16 +67,13 @@ public class SalesforceCRMAdapterAccess implements AdapterAccess {
 		list.add(new BasicNameValuePair(S_PASSWORD, (String) accessMap
 				.get(ACCESS_PASSWORD)));
 
-		TransportTools tools = new TransportTools(SALESFORCE_OAUTH2_URL, list);
-		System.out.println("Transport response list"+list);
+		TransportTools tools = new TransportTools(SALESFORCE_OAUTH2_URL, list);		
 		String responseBody = null;
 
 		TransportResponse response = null;
 		try {
-			response = TransportMachinery.post(tools);
-			System.out.println("Transport response"+response);
-			responseBody = response.entityToString();
-			System.out.println("Transport response body"+responseBody);
+			response = TransportMachinery.post(tools);			
+			responseBody = response.entityToString();			
 		} catch (ClientProtocolException ce) {
 			throw new AdapterAccessException(
 					"An error occurred during post operation.", ce);
@@ -96,6 +93,8 @@ public class SalesforceCRMAdapterAccess implements AdapterAccess {
 			json = new JSONObject(response);
 			respMap.map().put(ACCESS_TOKEN, (T) json.get(ACCESS_TOKEN));
 			respMap.map().put(INSTANCE_URL, (T) json.get(INSTANCE_URL));
+			System.out.println("Access_token--"+json.get(ACCESS_TOKEN));
+			System.out.println("Access_token--"+json.get(INSTANCE_URL));
 			success = true;
 		} catch (JSONException e) {
 			throw new AdapterAccessException(

@@ -73,14 +73,14 @@ public class CRM extends Connector {
 	String getOAuth() {
 		logger.info(clz + "getOAuth GET start.");
 
-		String clientId = "3MVG9Y6d_Btp4xp5CN8BlosknyQC70A1RPpWFCaoFnzmQ3lXKFC42_a9_RCuQvjG_lYE9rcbjlA==";
-		String clientSecret = "1014708849139193850";
+		String clientId = "3MVG9Y6d_Btp4xp4gO.riQJ_rIP8PjQqtO5Hcqdt4NJ99SPjKCd_cBuI_Y4P_WzlNrOvhOLpjEUjpzfskPZ3a";
+		String clientSecret = "860088549162819056";
 
 		String salesforce_oauth_url = "https://login.salesforce.com/services/oauth2/token";
 		/** For session ID instead of OAuth 2.0, use "grant_type", "password" **/
 		String grant_type = "password";
-		String username = "rrrajthilak@gmail.com";
-		String password = "thilakmca1989";
+		String username = "nkishore@megam.co.in";
+		String password = "walle#1bug74wt3djhr28kLBSKbspj1EOoT";
 
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(salesforce_oauth_url);
@@ -120,10 +120,10 @@ public class CRM extends Connector {
 
 	@RequestMapping(value = "provider/crm", method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody
-	String createUser(@RequestBody String inputAsJson)
+	String create(@RequestBody String inputAsJson)
 			throws UnsupportedEncodingException {
 
-		logger.info(clz + "createUser : POST start.\n" + inputAsJson);
+		logger.info(clz + "create : POST start.\n" + inputAsJson);
 
 		// This is how the new code will work.
 
@@ -133,6 +133,7 @@ public class CRM extends Connector {
 		SendBackResponse respdat = null;
 		try {
 			respdat = mediator.handleRequest();
+			System.out.println("output json-->"+respdat);
 		} catch (CloudMediatorException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -143,52 +144,36 @@ public class CRM extends Connector {
 
 	@RequestMapping(value = "provider/crm/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	String listuser() {
-		logger.info(clz + "ListUser : GET start.");
+	String list(@RequestBody String inputAsJson)
+			throws UnsupportedEncodingException {
 
-		/**
-		 * To-do, when we build an adapter for the system, the access
-		 * token/instance_url per request will be memcached
-		 * 
-		 */
-        String instance_url = "https://ap1.salesforce.com";
-		String access_token = "00D90000000gFYH!AQoAQBXkWqnqoc6sh5sjQLCl0_AusCzzugyAPJ8l_uq1wICnmPH2zWFYWtsTekxKBY7jP.P.fQ.AgnyrGzh_Zd_AFlHuYsqc";
-		String salesforceListSingeUserURL = instance_url
-				+ "/services/data/v28.0/query/?q=SELECT+Username+FROM+User";
+		logger.info(clz + "List : POST start.\n" + inputAsJson);
 
-		DefaultHttpClient httpclient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(salesforceListSingeUserURL);
-		httpGet.addHeader("Authorization", "OAuth " + access_token);
+		// This is how the new code will work.
 
-		String output = null;
+		RequestDataBuilder rdb = new RequestDataBuilder(inputAsJson);
+		RequestData reqdat = rdb.data();
+		CloudMediator mediator = mediator(reqdat);
+		SendBackResponse respdat = null;
 		try {
-			HttpResponse response = httpclient.execute(httpGet);
-
-			output = EntityUtils.toString(response.getEntity());
-
-		} catch (ClientProtocolException e) {
+			respdat = mediator.handleRequest();
+			System.out.println("output json-->"+respdat);
+		} catch (CloudMediatorException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return e.toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return e.toString();
-
-		} finally {
-			httpGet.releaseConnection();
 		}
-
-		return output;
+		return respdat.toString();
 	}
-
+	
 	@RequestMapping(value = "provider/crm", method = RequestMethod.DELETE, consumes = "application/json")
 	public @ResponseBody
-	String deleteUser(@RequestBody String access_stuff) {
+	String delete(@RequestBody String access_stuff) {
 
-		logger.info(clz + "deleteUser : DELETE.");
+		logger.info(clz + "delete : DELETE.");
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		User salesforceCRM = gson.fromJson(access_stuff, User.class);
 
-		logger.info(clz + "deleteUser :" + salesforceCRM.toString());
+		logger.info(clz + "delete :" + salesforceCRM.toString());
 
 		String salesforceDeleteSingeUserURL = salesforceCRM.getInstance_url()
 				+ "/services/data/v28.0/sobjects/Users/005900000010GuZ";

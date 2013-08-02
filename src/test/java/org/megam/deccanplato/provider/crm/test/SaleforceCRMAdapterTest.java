@@ -29,8 +29,8 @@ public class SaleforceCRMAdapterTest {
     	 
 		List<String> busiMethod =new ArrayList<String>();
 		//busiMethod.add("user");
-		busiMethod.add("account");
-		//busiMethod.add("lead");
+		//busiMethod.add("account");
+		busiMethod.add("lead");
 		//busiMethod.add("campaign");
 		//busiMethod.add("case");
 	   // busiMethod.add("contact");
@@ -44,9 +44,9 @@ public class SaleforceCRMAdapterTest {
 		//busiMethod.add("partner");
 		List<String> busiActivity = new ArrayList<String>();
 		//busiActivity.add("create");
-		busiActivity.add("list");
+		//busiActivity.add("list");
 		//busiActivity.add("update");
-		//busiActivity.add("delete");
+		busiActivity.add("delete");
 		for(String function: busiMethod) {
 			for(String activity: busiActivity) {
 				System.out.println("common test entry");
