@@ -16,6 +16,8 @@ package org.megam.deccanplato.provider.core;
 
 import java.util.Set;
 
+import com.google.gson.Gson;
+
 public class ResponseDataBuilder<T extends Object>  {
 	
 	private ResponseData<T> resp;
@@ -31,11 +33,14 @@ public class ResponseDataBuilder<T extends Object>  {
 	}
 
 	public ResponseData getResponseData() {
+		System.out.println("------------->"+resp);
 		return resp;
 	}
 	
-	public String toJson() {
-		return null;
+	public String toJson(String respdata) {
+		Gson gson=new Gson();
+		String respJson = gson.toJson(respdata, ResponseData.class);	
+		return respJson;
 	}
 
 }
