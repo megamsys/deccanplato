@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -39,6 +40,7 @@ import org.megam.deccanplato.provider.core.CloudMediator;
 import org.megam.deccanplato.provider.core.CloudMediatorException;
 import org.megam.deccanplato.provider.core.RequestData;
 import org.megam.deccanplato.provider.core.RequestDataBuilder;
+import org.megam.deccanplato.provider.core.ResponseData;
 import org.megam.deccanplato.provider.core.SendBackResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,8 +49,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.megam.deccanplato.provider.salesforce.crm.info.User;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus; 
+import org.springframework.http.ResponseEntity;
 
+import com.amazonaws.util.json.JSONException;
+import com.amazonaws.util.json.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -64,11 +72,11 @@ public class CRM extends Connector {
 
 	
 
-	@RequestMapping(value = "provider/crm", method = RequestMethod.POST)
-	public @ResponseBody
-	String create(@RequestBody String inputAsJson)
-			throws UnsupportedEncodingException {
-		
+	/*@RequestMapping(value = "provider/crm", method = RequestMethod.POST)	
+	@ResponseStatus(HttpStatus.CREATED)	
+	public @ResponseBody String create(@RequestBody String inputAsJson)
+			throws CloudMediatorException, UnsupportedEncodingException {
+		logger.info("\n\n-->entry");
 		
          String decode_input = urlDecoder(inputAsJson);		
 		//String str = StringEscapeUtils.escapeHtml4(inputAsJson);
@@ -79,21 +87,40 @@ public class CRM extends Connector {
 
 		// This is how the new code will work.
 
-		RequestDataBuilder rdb = new RequestDataBuilder(decode_input);
-		RequestData reqdat = rdb.data();
-		CloudMediator mediator = mediator(reqdat);		
-		SendBackResponse respdat = null;
-		try {
-			respdat = mediator.handleRequest();
-			System.out.println("output json-->"+respdat);
-		} catch (CloudMediatorException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return respdat.toString();
+		    RequestDataBuilder rdb = new RequestDataBuilder(decode_input);
+	    	RequestData reqdat = rdb.data();
+	     	CloudMediator mediator = mediator(reqdat);				
+			SendBackResponse respdat = mediator.handleRequest();
+			System.out.println("output json-->"+respdat.toString());		
+	    	return "Hello";
+	  // throw new CloudMediatorException("testing", new Exception("error"));
+	}*/
 
+	@RequestMapping(value = "provider/crm", method = RequestMethod.POST)	
+	public @ResponseBody
+	String create(@RequestBody String inputAsJson)
+			throws CloudMediatorException, UnsupportedEncodingException, JSONException {
+		logger.info("\n\n-->entry");
+		 
+         //String decode_input = urlDecoder(inputAsJson);			
+		 //String decode_input = inputAsJson.replaceAll("\\", null);
+		 //String decode_input = StringEscapeUtils.escapeJava(inputAsJson);
+
+		logger.info(clz + "create : POST start.\n" + inputAsJson);
+
+		// This is how the new code will work.
+
+		    RequestDataBuilder rdb = new RequestDataBuilder(inputAsJson);
+	    	RequestData reqdat = rdb.data();
+	     	CloudMediator mediator = mediator(reqdat);				
+			SendBackResponse respdat = mediator.handleRequest();
+			System.out.println("output json-->"+respdat.toString());	
+			Gson gson=new Gson();
+			String output_json = gson.toJson(respdat, ResponseData.class);
+			System.out.println("output json-->"+output_json);
+	    	return output_json;
 	}
-
+	
 	@RequestMapping(value = "provider/crm/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	String list(@RequestBody String inputAsJson)
@@ -110,7 +137,7 @@ public class CRM extends Connector {
 		SendBackResponse respdat = null;
 		try {
 			respdat = mediator.handleRequest();
-			System.out.println("output json-->"+respdat);
+			System.out.println("output json-->"+respdat.toString());
 		} catch (CloudMediatorException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
