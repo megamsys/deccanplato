@@ -34,8 +34,8 @@ public class TransportResponse {
 	private String  locale;
 	
 	public TransportResponse(StatusLine tempStatus, HttpEntity tempEntity, Locale tempLocale)  throws ParseException, IOException  {
-		entity = EntityUtils.toString(tempEntity);
-		status = tempStatus.toString();
+		entity = EntityUtils.toString(tempEntity);		
+		status = tempStatus.toString();		
 		locale=tempLocale.getDisplayCountry() + ":" + tempLocale.getDisplayLanguage();
 	}
 	

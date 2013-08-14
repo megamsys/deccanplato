@@ -71,7 +71,7 @@ public class CommonTest {
 		DefaultCloudProviderMediator dcm = new DefaultCloudProviderMediator(
 				reqData);
 		try {
-			dcm.handleRequest();
+			System.out.println("---->"+dcm.handleRequest());
 		} catch (CloudMediatorException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

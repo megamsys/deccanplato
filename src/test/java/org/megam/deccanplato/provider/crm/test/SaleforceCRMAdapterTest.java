@@ -28,12 +28,12 @@ public class SaleforceCRMAdapterTest {
     	ProviderRegistry registry = (ProviderRegistry) ctx.getBean("registry");
     	 
 		List<String> busiMethod =new ArrayList<String>();
-		busiMethod.add("user");
+		//busiMethod.add("user");
 		//busiMethod.add("account");
-		//busiMethod.add("lead");
+		busiMethod.add("lead");
 		//busiMethod.add("campaign");
 		//busiMethod.add("case");
-		//busiMethod.add("contact");
+	   // busiMethod.add("contact");
 		//busiMethod.add("contract");
 		//busiMethod.add("event");
 		//busiMethod.add("opportunity");
@@ -44,16 +44,19 @@ public class SaleforceCRMAdapterTest {
 		//busiMethod.add("partner");
 		List<String> busiActivity = new ArrayList<String>();
 		//busiActivity.add("create");
-		busiActivity.add("list");
+		//busiActivity.add("list");
 		//busiActivity.add("update");
-		//busiActivity.add("delete");
+		busiActivity.add("delete");
 		for(String function: busiMethod) {
 			for(String activity: busiActivity) {
+				System.out.println("common test entry");
 				CommonTest ctest=new CommonTest();
 				RequestData reqData;
+			
 				reqData=ctest.commonTest(function, activity, SALESFORCE);
 				if(function.equalsIgnoreCase("user") && activity.equalsIgnoreCase("create")) {
-				testAdapterAccess(reqData);
+					System.out.println("test access entry");
+					testAdapterAccess(reqData);
 				}
 				ctest.testBusinessImpl();
 			}
@@ -63,6 +66,7 @@ public class SaleforceCRMAdapterTest {
 
 		SalesforceCRMAdapterAccess saa = new SalesforceCRMAdapterAccess();
 		try {
+			System.out.println("test access entry");
 			DataMap dmap = saa.authenticate(reqData.getGeneral());
 		} catch (AdapterAccessException e) {
 			// TODO Auto-generated catch block

@@ -14,6 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package org.megam.deccanplato.provider.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import org.megam.deccanplato.provider.core.CloudMediator;
 import org.megam.deccanplato.provider.core.DefaultCloudProviderMediator;
 import org.megam.deccanplato.provider.core.MultiCloudProviderMediator;
@@ -52,6 +55,11 @@ public class Connector {
 
 	public void setChained(boolean tempChained) {
 		this.chained = tempChained;
+	}
+	
+	public String urlDecoder(String json) throws UnsupportedEncodingException {
+		String result = URLDecoder.decode(json, "UTF-8");
+		return result;
 	}
 
 }

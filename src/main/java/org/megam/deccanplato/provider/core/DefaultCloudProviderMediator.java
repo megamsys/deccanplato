@@ -44,7 +44,9 @@ public class DefaultCloudProviderMediator extends AbstractCloudProviderMediator 
 			for (Iterator<CloudOperation> iter = orderedOps.iterator(); (iter
 					.hasNext() && shouldProceed);) {
 				CloudOperation singleOps = iter.next();
+				//System.out.println("---->"+singleOps);
 				CloudOperationOutput<T> opsOut = singleOps.handle();
+				//System.out.println("---->"+opsOut);
 				opsOutSet.add(opsOut);
 				shouldProceed = singleOps.canProceed();				
 			}
