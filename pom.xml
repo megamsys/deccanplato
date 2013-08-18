@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.megam.deccanplato</groupId>
 	<artifactId>deccanplato</artifactId>
 	<name>deccanplato</name>
 	<packaging>war</packaging>
-	<version>1.0.0-BUILD-SNAPSHOT</version>
+	<version>0.1</version>
 	<properties>
 		<java-version>1.7</java-version>
-		<org.springframework-version>3.2.3.RELEASE</org.springframework-version>
+		<org.springframework-version>3.2.4.RELEASE</org.springframework-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.aspectj-version>1.7.2</org.aspectj-version>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
+			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -125,9 +125,8 @@
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
-			<version>1.4.5</version>
+			<version>1.4.7</version>
 		</dependency>
-
 
 		<!-- Test -->
 		<dependency>
@@ -141,16 +140,16 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.2.3</version>
+			<version>4.2.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpmime</artifactId>
-			<version>4.2.3</version>
+			<version>4.2.5</version>
 		</dependency>
 
-		<!-- Apache REST client. Used for unit testing. currently used by SugarCRM 
-			adapter tests -->
+		<!-- Apache REST client. Used for unit testing. currently used by SugarCRM
+		adapter tests -->
 		<dependency>
 			<groupId>org.apache.wink</groupId>
 			<artifactId>wink-client</artifactId>
@@ -168,19 +167,19 @@
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			<version>1.0.0.GA</version>
-		</dependency>
+			<version>1.1.0.Final</version>
+		</dependency>		
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>4.1.0.Final</version>
+			<version>5.0.1.Final</version>
 		</dependency>
 
 		<!-- Amazon sdk -->
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk</artifactId>
-			<version>1.4.1</version>
+			<version>1.5.4</version>
 		</dependency>
 
 		<!-- Joda Time API -->
@@ -194,12 +193,12 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>2.1.4</version>
+			<version>2.2.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
-			<version>2.1.4</version>
+			<version>2.2.2</version>
 		</dependency>
 
 		<!--- Google common -->
@@ -210,9 +209,9 @@
 			<version>2.0.1</version>
 		</dependency>
 
-		<!-- Guava is a suite of core and expanded libraries that include utility 
-			classes, google's collections, io classes,Guava depends on JSR-305 spec and 
-			javax.inject(JSR-330) -->
+		<!-- Guava is a suite of core and expanded libraries that include utility
+		classes, google's collections, io classes,Guava depends on JSR-305 spec and
+		javax.inject(JSR-330) -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -222,45 +221,45 @@
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>2.2.2</version>
+			<version>2.2.4</version>
 			<scope>compile</scope>
 		</dependency>
-		<!-- The google-jackson is used by Drive API (or) Google API service. We 
-			need to move them to google-jackson2 -->
+		<!-- The google-jackson is used by Drive API (or) Google API service. We
+		need to move them to google-jackson2 -->
 		<dependency>
 			<groupId>com.google.http-client</groupId>
 			<artifactId>google-http-client-jackson</artifactId>
-			<version>1.12.0-beta</version>
+			<version>1.16.0-rc</version>
 		</dependency>
 		<!--- Google API -->
 		<dependency>
 			<groupId>com.google.api-client</groupId>
 			<artifactId>google-api-client</artifactId>
-			<version>1.12.0-beta</version>
+			<version>1.16.0-rc</version>
 		</dependency>
 		<!-- The above Google API client depends on google-oauth-client and google.http-client -->
 		<dependency>
 			<groupId>com.google.oauth-client</groupId>
 			<artifactId>google-oauth-client</artifactId>
-			<version>1.12.0-beta</version>
+			<version>1.16.0-rc</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.http-client</groupId>
 			<artifactId>google-http-client</artifactId>
-			<version>1.12.0-beta</version>
+			<version>1.16.0-rc</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.apis</groupId>
 			<artifactId>google-api-services-drive</artifactId>
-			<version>v2-rev22-1.12.0-beta</version>
+			<version>v2-rev93-1.16.0-rc</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.apis</groupId>
 			<artifactId>google-api-services-tasks</artifactId>
-			<version>v1-rev5-1.12.0-beta</version>
+			<version>v1-rev18-1.16.0-rc</version>
 		</dependency>
-		<!--- Google gdata ? why is this needed, when we have the lib/gdata-core 
-			? -->
+		<!--- Google gdata ? why is this needed, when we have the lib/gdata-core
+		? -->
 		<dependency>
 			<groupId>com.google.gdata</groupId>
 			<artifactId>core</artifactId>
@@ -284,8 +283,8 @@
 			<artifactId>oauth-httpclient4</artifactId>
 			<version>20090913</version>
 		</dependency>
-		<!-- These are the local library files as available inside the local repo 
-			directory The script mvnlocalrepo.py generated these -->
+		<!-- These are the local library files as available inside the local repo
+		directory The script mvnlocalrepo.py generated these -->
 		<dependency>
 			<groupId>gdata</groupId>
 			<artifactId>calendar</artifactId>
@@ -364,8 +363,8 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-		<!-- For downloading Spring 3.2 directly from spring repos, as it ain't 
-			available in mvn repos. -->
+		<!-- For downloading Spring 3.2 directly from spring repos, as it ain't
+		available in mvn repos. -->
 		<repository>
 			<id>springsource-repo</id>
 			<name>SpringSource Repository</name>
@@ -383,8 +382,8 @@
 			<url>http://oauth.googlecode.com/svn/code/maven</url>
 		</repository>
 	</repositories>
-	<!-- Central maven repos. This is available inside maven by default We add 
-		it here so mvn, does a first search in this repos. -->
+	<!-- Central maven repos. This is available inside maven by default We add
+	it here so mvn, does a first search in this repos. -->
 	<pluginRepositories>
 		<pluginRepository>
 			<id>central</id>
@@ -399,7 +398,6 @@
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
-
 	<build>
 		<plugins>
 			<!-- Maven Tomcat Plugin -->
