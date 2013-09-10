@@ -408,7 +408,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 				<configuration>
 					<url>http://localhost:8080/manager/text</url>
 					<update>true</update>
-					<server>mytomcat</server>
+					<username>admin</username>
+					<password>admin</password>
 				</configuration>
 			</plugin>
 			<plugin>
